@@ -1,4 +1,4 @@
-### Pre_Owned React-Native App Project
+### Pre-Owned React-Native App Project
 React Native group project - Spring 2022 - Metropolia University Of Applied Sciences
 
 ## IDEA
