@@ -4,11 +4,11 @@
     "slug": "PreOwned",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/brand/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/brand/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F8F5F1"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,12 +21,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/brand/adaptive-icon.png",
+        "backgroundColor": "#F8F5F1"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/brand/favicon.png"
     }
   }
 }
