@@ -1,0 +1,33 @@
+import React from 'react';
+import {ImageBackground, StyleSheet} from 'react-native';
+import {Image, Layout, Text, Button} from '@ui-kitten/components';
+
+// Import colors
+import colors from '../utils/colors';
+function WelcomeScreen(props) {
+  return (
+    <ImageBackground
+      style={styles.background}
+      source={require('../assets/backgrounds/OnBoarding.png')}
+    >
+      <Button style={styles.button}>Log In</Button>
+      <Button style={styles.button}>Create an account</Button>
+    </ImageBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  button: {
+    width: '80%',
+    height: 60,
+    bottom: 50,
+    margin: 10,
+  },
+});
+
+export default WelcomeScreen;
