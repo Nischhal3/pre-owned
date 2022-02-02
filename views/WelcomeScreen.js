@@ -1,9 +1,7 @@
 import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
-import {Image, Layout, Text, Button} from '@ui-kitten/components';
+import {Button} from '@ui-kitten/components';
 
-// Import colors
-import colors from '../utils/colors';
 function WelcomeScreen(props) {
   return (
     <ImageBackground
