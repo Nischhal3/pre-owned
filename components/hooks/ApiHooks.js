@@ -1,5 +1,5 @@
 import {baseUrl} from '../../variables/url';
-
+// Common function to fetch data from server
 const fetcData = async (url, options) => {
   try {
     const response = await fetch(url, options);
@@ -19,6 +19,7 @@ const fetcData = async (url, options) => {
   }
 };
 
+// Fucntion for user registration
 export const signUp = async (data) => {
   const options = {
     method: 'POST',
