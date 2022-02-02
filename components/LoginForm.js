@@ -6,18 +6,14 @@ import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
 import {primary} from '../utils/colors';
 
-const SignupForm = () => {
-
-  const [checked, setChecked] = React.useState(false);
+const LoginForm = () => {
 
   return (
     <Layout style={styles.layout}>
       <Input style={styles.input} accessoryLeft={<Icon name="person-outline"/>} placeholder="Username" />
-      <Input style={styles.input} accessoryLeft={<Icon name="email-outline"/>} placeholder='Email' />
       <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Password' />
-      <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Confirm password' />
-      <CheckBox style={styles.input} checked={checked} onChange={nextChecked => setChecked(nextChecked)}> {`I accept all the Terms & Conditions`} </CheckBox>
-      <Button style={styles.button} title="Submit">Sign Up</Button>
+      <Text style={styles.password}>Forgot password?</Text>
+      <Button style={styles.button} title="Submit">Login</Button>
     </Layout>
   );
 };
@@ -32,14 +28,18 @@ const styles = StyleSheet.create({
   input: {
     // margin: 10,
   },
+  password: {
+    marginBottom: 100,
+    alignSelf: 'flex-end',
+  },
   button: {
     width: '50%',
     alignSelf: 'center',
   }
 });
 
-SignupForm.propTypes = {
+LoginForm.propTypes = {
   setFormToggle: PropTypes.func,
 };
 
-export default SignupForm;
+export default LoginForm;

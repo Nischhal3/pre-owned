@@ -10,7 +10,7 @@ function WelcomeScreen({navigation}) {
       style={styles.background}
       source={require('../assets/backgrounds/OnBoarding.png')}
     >
-      <Button style={styles.button} >Log In</Button>
+      <Button style={styles.button} onPress={() => {navigation.navigate('Login')}}>Log In</Button>
       <Button style={styles.button} onPress={() => {navigation.navigate('Login')}}>Create an account</Button>
     </ImageBackground>
   );
