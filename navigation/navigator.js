@@ -1,11 +1,11 @@
-
 import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import Welcome from '../views/WelcomeScreen'
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
+import SignUp from '../views/SignUp';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,7 +38,7 @@ const Stack = createNativeStackNavigator();
 // };
 
 const StackScreen = () => {
-//   const {isLoggedIn} = useContext(MainContext);
+  //   const {isLoggedIn} = useContext(MainContext);
 
   return (
     <Stack.Navigator>
@@ -55,8 +55,21 @@ const StackScreen = () => {
           options={{headerShown: false}}
         ></Stack.Screen>
       } */}
-      <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}} />
-      <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
+      <Stack.Screen
+        name="Welcome"
+        component={Welcome}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Register"
+        component={SignUp}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
@@ -70,4 +83,3 @@ const navigator = () => {
 };
 
 export default navigator;
-
