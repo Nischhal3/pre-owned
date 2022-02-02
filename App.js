@@ -11,8 +11,10 @@ import WelcomeScreen from './views/WelcomeScreen';
 import Navigator from './navigation/navigator';
 
 // Import from UI Kitten Library
-import {ApplicationProvider, Layout, Text} from '@ui-kitten/components';
+import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
+import {EvaIconsPack} from '@ui-kitten/eva-icons';
+
 
 const App = () => {
   return (
@@ -25,7 +27,10 @@ const App = () => {
 };
 
 export default () => (
-  <ApplicationProvider {...eva} theme={eva.light}>
-    <App />
-  </ApplicationProvider>
+  <>
+    <IconRegistry icons={[EvaIconsPack]} />
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <App />
+    </ApplicationProvider>
+  </>
 );
