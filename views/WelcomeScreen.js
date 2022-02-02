@@ -2,18 +2,21 @@ import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Button} from '@ui-kitten/components';
 
-
-function WelcomeScreen(props) {
+const WelcomeScreen = () => {
   return (
     <ImageBackground
       style={styles.background}
       source={require('../assets/backgrounds/OnBoarding.png')}
     >
-      <Button style={styles.button}>Log In</Button>
-      <Button style={styles.button}>Create an account</Button>
+      <Button style={styles.button} size="giant">
+        Log In
+      </Button>
+      <Button style={styles.button} size="giant">
+        Create an account
+      </Button>
     </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   background: {
@@ -28,5 +31,4 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
-
 export default WelcomeScreen;
