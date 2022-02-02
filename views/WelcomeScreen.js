@@ -2,14 +2,14 @@ import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Button} from '@ui-kitten/components';
 
-function WelcomeScreen(props) {
+function WelcomeScreen({navigation}) {
   return (
     <ImageBackground
       style={styles.background}
       source={require('../assets/backgrounds/OnBoarding.png')}
     >
       <Button style={styles.button}>Log In</Button>
-      <Button style={styles.button}>Create an account</Button>
+      <Button style={styles.button} onPress={() => {navigation.navigate('Login')}}>Create an account</Button>
     </ImageBackground>
   );
 }
