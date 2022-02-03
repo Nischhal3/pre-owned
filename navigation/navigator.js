@@ -5,7 +5,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
-import SignUp from '../views/SignUp';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
