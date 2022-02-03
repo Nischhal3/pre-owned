@@ -75,7 +75,7 @@ const useLogin = () => {
       },
       body: JSON.stringify(userCredentials),
     };
-    return await doFetch(baseUrl + 'login', options);
+    return await fetchData(baseUrl + 'login', options);
   };
   return {postLogin};
 };
@@ -86,7 +86,7 @@ const useUser = () => {
       method: 'GET',
       headers: {'x-access-token': token},
     };
-    return await doFetch(baseUrl + 'users/user', options);
+    return await fetchData(baseUrl + 'users/user', options);
   };
 
   const postUser = async (data) => {
