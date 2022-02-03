@@ -23,7 +23,7 @@ const App = () => {
         <Navigator />
       </MainProvider>
     </>
-  )
+  );
 };
 
 export default () => (
