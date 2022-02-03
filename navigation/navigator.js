@@ -2,8 +2,8 @@
 import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import Welcome from '../views/WelcomeScreen'
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
 
