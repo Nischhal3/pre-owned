@@ -14,14 +14,16 @@ import Navigator from './navigation/navigator';
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
+import ProductDetail from './views/ProductDetail';
 
 
 const App = () => {
   return (
     <>
-      <MainProvider>
+    <ProductDetail />
+      {/* <MainProvider>
         <Navigator />
-      </MainProvider>
+      </MainProvider> */}
     </>
   );
 };
