@@ -1,6 +1,8 @@
 import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Button} from '@ui-kitten/components';
+import PropTypes from 'prop-types';
+import {btnBackground} from '../utils/colors';
 
 function WelcomeScreen({navigation}) {
   return (
@@ -8,22 +10,8 @@ function WelcomeScreen({navigation}) {
       style={styles.background}
       source={require('../assets/backgrounds/OnBoarding.png')}
     >
-      <Button
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('Login');
-        }}
-      >
-        Log In
-      </Button>
-      <Button
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('Register');
-        }}
-      >
-        Create an account
-      </Button>
+      <Button style={styles.button} onPress={() => {navigation.navigate('Login')}}>Log In</Button>
+      <Button style={styles.button} onPress={() => {navigation.navigate('Login')}}>Create an account</Button>
     </ImageBackground>
   );
 }
@@ -39,7 +27,14 @@ const styles = StyleSheet.create({
     height: 60,
     bottom: 50,
     margin: 10,
+    backgroundColor: btnBackground,
+    borderColor: btnBackground,
   },
 });
+
+WelcomeScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
 
 export default WelcomeScreen;
