@@ -4,9 +4,35 @@ import {Card, Layout, ButtonGroup, Button, Text} from '@ui-kitten/components';
 import {primary, btnBackground, text_dark} from '../utils/colors'
 import SignupForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
+import {useUser} from '../hooks/ApiHooks';
 
 const Login = () => {
   const [formToggle, setFormToggle] = useState(true);
+  const {setIsLoggedIn, setUser} = useContext(MainContext);
+  const {getUserByToken} = useUser();
+
+  const checkToken = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    console.log('token value in async storage', userToken);
+    if (!userToken) {
+      return;
+    }
+    try {
+      const userData = await getUserByToken(userToken);
+      console.log('chekToken', userData);
+      console.log('token', userToken);
+      setUser(userData);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   return (
     <TouchableOpacity

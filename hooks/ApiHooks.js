@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
-import {baseUrl} from '../utils/variables';
+import {baseUrl} from '../utils/url';
 
 const fetchData = async (url, options = {}) => {
   try {
@@ -66,7 +66,7 @@ const fetchData = async (url, options = {}) => {
 // };
 
 const useLogin = () => {
-  const postLogin = async (userCredentials) => {
+  const login = async (userCredentials) => {
     // user credentials format: {username: 'someUsername', password: 'somePassword'}
     const options = {
       method: 'POST',
@@ -77,7 +77,7 @@ const useLogin = () => {
     };
     return await fetchData(baseUrl + 'login', options);
   };
-  return {postLogin};
+  return {login};
 };
 
 const useUser = () => {
@@ -89,7 +89,7 @@ const useUser = () => {
     return await fetchData(baseUrl + 'users/user', options);
   };
 
-  const postUser = async (data) => {
+  const signupUser = async (data) => {
     const options = {
       method: 'POST',
       headers: {
@@ -117,7 +117,7 @@ const useUser = () => {
     return result.available;
   };
 
-  return {getUserByToken, postUser, putUser, checkUsername};
+  return {getUserByToken, signupUser, putUser, checkUsername};
 };
 
 // const useTag = () => {
