@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Alert} from 'react-native';
 import {Input, Button, Text, Layout, Icon, CheckBox} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
-import {useUser} from '../hooks/ApiHooks';
+// import {useUser} from '../hooks/ApiHooks';
+import { signUp } from '../hooks/ApiHooks';
 import {PropTypes} from 'prop-types';
 import {primary} from '../utils/colors';
 
@@ -11,7 +12,7 @@ const SignupForm = ({setFormToggle}) => {
   const [checked, setChecked] = React.useState(false);
 
   //Api
-  const {signupUser, checkUsername} = useUser();
+  // const {signupUser, checkUsername} = useUser();
 
   const {
     control,
@@ -31,7 +32,7 @@ const SignupForm = ({setFormToggle}) => {
   const onSubmit = async (data) => {
     try {
       delete data.confirmPassword;
-      const userData = await signupUser(data);
+      const userData = await signUp(data);
       if (userData) {
         Alert.alert('Success', 'User created successfully.');
         setFormToggle(true);
@@ -51,18 +52,18 @@ const SignupForm = ({setFormToggle}) => {
             value: 3,
             message: 'Username has to be at least 3 characters.',
           },
-          validate: async(value) => {
-            try {
-              const available = await checkUsername(value);
-            if (available) {
-              return true;
-            } else {
-              return 'Username is already taken.';
-            }
-            } catch(error) {
-              console.error(error);
-            }
-          }
+          // validate: async(value) => {
+          //   try {
+          //     const available = await checkUsername(value);
+          //   if (available) {
+          //     return true;
+          //   } else {
+          //     return 'Username is already taken.';
+          //   }
+          //   } catch(error) {
+          //     console.error(error);
+          //   }
+          // }
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
