@@ -5,14 +5,30 @@ import {MainProvider} from './contexts/MainContext';
 // Import Views
 import WelcomeScreen from './views/WelcomeScreen';
 
-// Import from UI Kitten Library
-import {ApplicationProvider, Layout, Text} from '@ui-kitten/components';
-import * as eva from '@eva-design/eva';
+// Import Navigation
+import Navigator from './navigation/navigator';
 
-const App = () => <WelcomeScreen />;
+// Import from UI Kitten Library
+import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
+import {EvaIconsPack} from '@ui-kitten/eva-icons';
+
+
+const App = () => {
+  return (
+    <>
+      <MainProvider>
+        <Navigator />
+      </MainProvider>
+    </>
+  );
+};
 
 export default () => (
-  <ApplicationProvider {...eva} theme={eva.light}>
-    <App />
-  </ApplicationProvider>
+  <>
+    <IconRegistry icons={[EvaIconsPack]} />
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <App />
+    </ApplicationProvider>
+  </>
 );
