@@ -54,7 +54,7 @@ function WelcomeScreen({navigation}) {
       </Button>
     </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   background: {
