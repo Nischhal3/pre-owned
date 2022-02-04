@@ -1,17 +1,23 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Keyboard, Platform} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
+} from 'react-native';
 import {Card, Layout, ButtonGroup, Button, Text} from '@ui-kitten/components';
-import {primary, btnBackground, text_dark} from '../utils/colors'
+import {primary, btnBackground, text_dark} from '../utils/colors';
 import SignupForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
-import {useUser} from '../hooks/ApiHooks';
+import {getUserByToken} from '../hooks/ApiHooks';
 
 const Login = () => {
   const [formToggle, setFormToggle] = useState(true);
   const {setIsLoggedIn, setUser} = useContext(MainContext);
-  const {getUserByToken} = useUser();
 
   const checkToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -50,23 +56,38 @@ const Login = () => {
             source={require('../assets/backgrounds/LoginBG.png')}
           />
           <Card style={styles.cardContainer}>
-              <ButtonGroup
-                style={styles.toggleGroup}
-                selectedIndex={formToggle ? 0 : 1}>
-                <Button style={formToggle ? styles.toggle2 : styles.toggle1} onPress={() => setFormToggle(true)}>Log In</Button>
-                <Button style={formToggle ? styles.toggle1 : styles.toggle2} onPress={() => setFormToggle(false)}>Sign Up</Button>
-              </ButtonGroup>
-              {formToggle ? (
-                <Card style={styles.card}>
-                  <Text category="h4" style={styles.header}>Log In</Text>
-                  <LoginForm setFormToggle={setFormToggle} />
-                </Card>
-              ) : (
-                <Card style={styles.card}>
-                  <Text category="h4" style={styles.header}>Sign Up</Text>
-                  <SignupForm setFormToggle={setFormToggle} />
-                </Card>
-              )}
+            <ButtonGroup
+              style={styles.toggleGroup}
+              selectedIndex={formToggle ? 0 : 1}
+            >
+              <Button
+                style={formToggle ? styles.toggle2 : styles.toggle1}
+                onPress={() => setFormToggle(true)}
+              >
+                Log In
+              </Button>
+              <Button
+                style={formToggle ? styles.toggle1 : styles.toggle2}
+                onPress={() => setFormToggle(false)}
+              >
+                Sign Up
+              </Button>
+            </ButtonGroup>
+            {formToggle ? (
+              <Card style={styles.card}>
+                <Text category="h4" style={styles.header}>
+                  Log In
+                </Text>
+                <LoginForm setFormToggle={setFormToggle} />
+              </Card>
+            ) : (
+              <Card style={styles.card}>
+                <Text category="h4" style={styles.header}>
+                  Sign Up
+                </Text>
+                <SignupForm setFormToggle={setFormToggle} />
+              </Card>
+            )}
           </Card>
         </Layout>
       </KeyboardAvoidingView>
@@ -105,13 +126,13 @@ const styles = StyleSheet.create({
   },
   toggle2: {
     width: 100,
-    backgroundColor: "#60715B",
-    borderColor: "#60715B",
+    backgroundColor: '#60715B',
+    borderColor: '#60715B',
     color: text_dark,
   },
   header: {
     textAlign: 'center',
-  }
+  },
 });
 
 export default Login;

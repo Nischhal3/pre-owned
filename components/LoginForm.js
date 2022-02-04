@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {StyleSheet} from 'react-native';
 import {Text, Layout} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
-import {useLogin} from '../hooks/ApiHooks';
+import {login} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PropTypes} from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -12,7 +12,6 @@ import FormButton from './formComponents/FormButton';
 
 const LoginForm = () => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
-  const {login} = useLogin();
   const {
     control,
     handleSubmit,
