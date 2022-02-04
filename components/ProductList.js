@@ -37,6 +37,7 @@ const products = [
 
 const image = {uri: "http://placekitten.com/2048/1920"};
 
+console.log(products.title);
 
 const ItemGallery = () => {
   return (
