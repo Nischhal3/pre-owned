@@ -3,7 +3,7 @@ import {StyleSheet, Alert} from 'react-native';
 import {Text, Layout, CheckBox} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 // import {useUser} from '../hooks/ApiHooks';
-import {signUp} from '../hooks/ApiHooks';
+import {checkUserName, signUp} from '../hooks/ApiHooks';
 import {PropTypes} from 'prop-types';
 import {primary} from '../utils/colors';
 import FormInput from './formComponents/FormInput';
@@ -12,7 +12,6 @@ import FormButton from './formComponents/FormButton';
 const SignupForm = ({setFormToggle}) => {
   //for checkbox
   const [checked, setChecked] = React.useState(false);
-
   //Api
   // const {signupUser, checkUsername} = useUser();
 
@@ -54,18 +53,18 @@ const SignupForm = ({setFormToggle}) => {
             value: 3,
             message: 'Username has to be at least 3 characters.',
           },
-          // validate: async(value) => {
-          //   try {
-          //     const available = await checkUsername(value);
-          //   if (available) {
-          //     return true;
-          //   } else {
-          //     return 'Username is already taken.';
-          //   }
-          //   } catch(error) {
-          //     console.error(error);
-          //   }
-          // }
+          validate: async (value) => {
+            try {
+              const available = await checkUserName(value);
+              if (available) {
+                return true;
+              } else {
+                return 'Username is already taken.';
+              }
+            } catch (error) {
+              console.error(error);
+            }
+          },
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <FormInput
@@ -81,7 +80,7 @@ const SignupForm = ({setFormToggle}) => {
         name="username"
       />
 
-      {errors.password && (
+      {errors.username && (
         <Text>{errors.username && errors.username.message} </Text>
       )}
 
@@ -110,15 +109,20 @@ const SignupForm = ({setFormToggle}) => {
         name="email"
       />
 
-      {errors.password && <Text>{errors.email && errors.email.message} </Text>}
+      {errors.email && <Text>{errors.email && errors.email.message} </Text>}
 
       <Controller
         control={control}
         rules={{
           required: {value: true, message: 'This is required'},
           pattern: {
-            value: /(?=.*[\p{Lu}])(?=.*[0-9]).{8,}/,
-            message: 'Min 8, Uppercase, Number',
+            /**
+             *  Password criteria
+             *  Minimum length 8 , atlease 1 digit
+             *  Atleast 1 upper case of lower case character
+             */
+            value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+            message: 'Min 8, Uppercase & Number',
           },
         }}
         render={({field: {onChange, onBlur, value}}) => (
@@ -135,7 +139,9 @@ const SignupForm = ({setFormToggle}) => {
         name="password"
       />
 
-      {errors.password && <Text>{errors.password && errors.message} </Text>}
+      {errors.password && (
+        <Text>{errors.password && errors.password.message} </Text>
+      )}
 
       <Controller
         control={control}
@@ -165,7 +171,7 @@ const SignupForm = ({setFormToggle}) => {
       />
 
       {errors.confirmPassword && (
-        <Text>{errors.confirmPassword && errors.message} </Text>
+        <Text>{errors.confirmPassword && errors.confirmPassword.message} </Text>
       )}
 
       {/* <Input style={styles.input} accessoryLeft={<Icon name="person-outline"/>} placeholder="Username" /> */}

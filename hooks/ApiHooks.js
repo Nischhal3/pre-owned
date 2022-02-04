@@ -177,3 +177,9 @@ export const signUp = async (data) => {
 
   return await fetchData(`${baseUrl}users`, options);
 };
+
+export const checkUserName = async (username) => {
+  // return await doFetch(`${baseUrl}users/username/${username}`);
+  const result = await fetchData(baseUrl + 'users/username/' + username);
+  return result.available;
+};
