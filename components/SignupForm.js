@@ -1,11 +1,20 @@
 import React from 'react';
 import {StyleSheet, Alert} from 'react-native';
-import {Input, Button, Text, Layout, Icon, CheckBox} from '@ui-kitten/components';
+import {
+  Input,
+  Button,
+  Text,
+  Layout,
+  Icon,
+  CheckBox,
+} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 // import {useUser} from '../hooks/ApiHooks';
-import { signUp } from '../hooks/ApiHooks';
+import {signUp} from '../hooks/ApiHooks';
 import {PropTypes} from 'prop-types';
 import {primary} from '../utils/colors';
+import FormInput from './formComponents/FormInput';
+import FormButton from './formComponents/FormButton';
 
 const SignupForm = ({setFormToggle}) => {
   //for checkbox
@@ -66,19 +75,22 @@ const SignupForm = ({setFormToggle}) => {
           // }
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <Input
+          <FormInput
             style={styles.input}
-            accessoryLeft={<Icon name="person-outline"/>}
-            placeholder="Username"
+            iconName="person-outline"
+            name="Username"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChange={onChange}
             value={value}
-            autoCapitalize="none"
-            errorMessage={errors.username && errors.username.message}
-            />
+            textEntry={false}
+          />
         )}
         name="username"
       />
+
+      {errors.password && (
+        <Text>{errors.username && errors.username.message} </Text>
+      )}
 
       <Controller
         control={control}
@@ -87,22 +99,25 @@ const SignupForm = ({setFormToggle}) => {
           pattern: {
             value: /\S+@\S+\.\S+$/,
             message: 'Has to be valid email.',
-          }
+          },
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <Input
+          <FormInput
             style={styles.input}
-            accessoryLeft={<Icon name="email-outline"/>}
-            placeholder='Email'
+            iconName="email-outline"
+            name="Email"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChange={onChange}
             value={value}
-            autoCapitalize="none"
-            errorMessage={errors.email && errors.email.message}
-            />
+            textEntry={false}
+            // Error message not working ?
+            // errorMessage={errors.email && errors.email.message}
+          />
         )}
         name="email"
       />
+
+      {errors.password && <Text>{errors.email && errors.email.message} </Text>}
 
       <Controller
         control={control}
@@ -110,25 +125,26 @@ const SignupForm = ({setFormToggle}) => {
           required: {value: true, message: 'This is required'},
           minLength: {
             value: /(?=.*[\p{Lu}])(?=.*[0-9]).{8,}/,
-            message: 'Minimum length of 8 with at least 1-Uppercase, 1-Lowercase and 1-Number'
-          }
+            message:
+              'Minimum length of 8 with at least 1-Uppercase, 1-Lowercase and 1-Number',
+          },
           // pattern: {value: /(?=.*[\p{Lu}])(?=.*[0-9]).{8,}/u, message: 'Min 8, Uppercase, Number'}
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <Input
+          <FormInput
             style={styles.input}
-            accessoryLeft={<Icon name="lock-outline"/>}
-            placeholder='Password'
+            iconName="lock-outline"
+            name="Password"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChange={onChange}
             value={value}
-            autoCapitalize="none"
-            secureTextEntry={true}
-            errorMessage={errors.password && errors.password.message}
-            />
+            textEntry={true}
+          />
         )}
         name="password"
       />
+
+      {errors.password && <Text>{errors.password && errors.message} </Text>}
 
       <Controller
         control={control}
@@ -144,28 +160,41 @@ const SignupForm = ({setFormToggle}) => {
           },
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <Input
+          <FormInput
             style={styles.input}
-            accessoryLeft={<Icon name="lock-outline"/>}
-            placeholder='Confirm password'
+            iconName="lock-outline"
+            name="Confirm password"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChange={onChange}
             value={value}
-            autoCapitalize="none"
-            secureTextEntry={true}
-            errorMessage={errors.confirmPassword && errors.confirmPassword.message}
-            />
+            textEntry={true}
+          />
         )}
         name="confirmPassword"
       />
 
+      {errors.confirmPassword && (
+        <Text>{errors.confirmPassword && errors.message} </Text>
+      )}
 
       {/* <Input style={styles.input} accessoryLeft={<Icon name="person-outline"/>} placeholder="Username" /> */}
       {/* <Input style={styles.input} accessoryLeft={<Icon name="email-outline"/>} placeholder='Email' /> */}
       {/* <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Password' /> */}
       {/* <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Confirm password' /> */}
-      <CheckBox style={styles.input} checked={checked} onChange={nextChecked => setChecked(nextChecked)}> {`I accept all the Terms & Conditions`} </CheckBox>
-      <Button style={styles.button} onPress={handleSubmit(onSubmit)}>Sign Up</Button>
+      <CheckBox
+        style={styles.input}
+        checked={checked}
+        onChange={(nextChecked) => setChecked(nextChecked)}
+      >
+        {' '}
+        {`I accept all the Terms & Conditions`}{' '}
+      </CheckBox>
+      <FormButton
+        btnStyle={styles.button}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        text="Sign Up"
+      />
     </Layout>
   );
 };
@@ -183,7 +212,7 @@ const styles = StyleSheet.create({
   button: {
     width: '50%',
     alignSelf: 'center',
-  }
+  },
 });
 
 SignupForm.propTypes = {

@@ -1,12 +1,21 @@
 import React, {useContext} from 'react';
-import { StyleSheet } from 'react-native';
-import {Input, Button, Text, Layout, Icon, CheckBox} from '@ui-kitten/components';
+import {StyleSheet} from 'react-native';
+import {
+  Input,
+  Button,
+  Text,
+  Layout,
+  Icon,
+  CheckBox,
+} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 import {useLogin} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PropTypes} from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import {primary} from '../utils/colors';
+import FormInput from './formComponents/FormInput';
+import FormButton from './formComponents/FormButton';
 
 const LoginForm = () => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -41,15 +50,15 @@ const LoginForm = () => {
           required: {value: true, message: 'Username cannot be empty.'},
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <Input
+          <FormInput
             style={styles.input}
-            accessoryLeft={<Icon name="person-outline"/>}
-            placeholder="Username"
+            iconName="person-outline"
+            name="Username"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChange={onChange}
             value={value}
-            autoCapitalize="none"
-            />
+            textEntry={false}
+          />
         )}
         name="username"
       />
@@ -61,27 +70,29 @@ const LoginForm = () => {
           required: {value: true, message: 'Password cannot be empty.'},
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <Input
+          <FormInput
             style={styles.input}
-            accessoryLeft={<Icon name="lock-outline"/>}
-            placeholder='Password'
+            iconName="lock-outline"
+            name="Password"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChange={onChange}
             value={value}
-            autoCapitalize="none"
-            secureTextEntry={true}
-            />
+            textEntry={true}
+          />
         )}
         name="password"
       />
       {errors.password && <Text>This is required.</Text>}
 
-
-
       {/* <Input style={styles.input} accessoryLeft={<Icon name="person-outline"/>} placeholder="Username" /> */}
       {/* <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Password' /> */}
       <Text style={styles.password}>Forgot password?</Text>
-      <Button style={styles.button} onPress={handleSubmit(onSubmit)}>Login</Button>
+      <FormButton
+        btnStyle={styles.button}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        text="Login"
+      />
     </Layout>
   );
 };
@@ -103,7 +114,7 @@ const styles = StyleSheet.create({
   button: {
     width: '50%',
     alignSelf: 'center',
-  }
+  },
 });
 
 LoginForm.propTypes = {
