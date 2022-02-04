@@ -25,9 +25,9 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      // const userData = await login(data);
-      // await AsyncStorage.setItem('userToken', userData.token);
-      // setUser(userData.user);
+      const userData = await login(data);
+      await AsyncStorage.setItem('userToken', userData.token);
+      setUser(userData.user);
       setIsLoggedIn(true);
     } catch (error) {
       console.error(error);
@@ -39,7 +39,7 @@ const LoginForm = () => {
       <Controller
         control={control}
         rules={{
-          // required: {value: true, message: 'Username cannot be empty.'},
+          required: true,
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <FormInput
@@ -54,12 +54,13 @@ const LoginForm = () => {
         )}
         name="username"
       />
-      {errors.username && <Text>This is required.</Text>}
+      {errors.username && <Text status="danger">This is required.</Text>}
 
       <Controller
         control={control}
         rules={{
-          // required: {value: true, message: 'Password cannot be empty.'},
+          required: true,
+          maxLength: 100,
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <FormInput
@@ -74,8 +75,8 @@ const LoginForm = () => {
         )}
         name="password"
       />
-      {errors.password && <Text>This is required.</Text>}
-       
+      {errors.password && <Text status="danger">This is required.</Text>}
+
       <Text style={styles.password}>Forgot password?</Text>
       <FormButton
         btnStyle={styles.button}

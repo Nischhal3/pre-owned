@@ -81,7 +81,9 @@ const SignupForm = ({setFormToggle}) => {
       />
 
       {errors.username && (
-        <Text>{errors.username && errors.username.message} </Text>
+        <Text status="danger">
+          {errors.username && errors.username.message}{' '}
+        </Text>
       )}
 
       <Controller
@@ -109,7 +111,9 @@ const SignupForm = ({setFormToggle}) => {
         name="email"
       />
 
-      {errors.email && <Text>{errors.email && errors.email.message} </Text>}
+      {errors.email && (
+        <Text status="danger">{errors.email && errors.email.message} </Text>
+      )}
 
       <Controller
         control={control}
@@ -140,7 +144,9 @@ const SignupForm = ({setFormToggle}) => {
       />
 
       {errors.password && (
-        <Text>{errors.password && errors.password.message} </Text>
+        <Text status="danger">
+          {errors.password && errors.password.message}{' '}
+        </Text>
       )}
 
       <Controller
@@ -171,7 +177,9 @@ const SignupForm = ({setFormToggle}) => {
       />
 
       {errors.confirmPassword && (
-        <Text>{errors.confirmPassword && errors.confirmPassword.message} </Text>
+        <Text status="danger">
+          {errors.confirmPassword && errors.confirmPassword.message}{' '}
+        </Text>
       )}
 
       {/* <Input style={styles.input} accessoryLeft={<Icon name="person-outline"/>} placeholder="Username" /> */}

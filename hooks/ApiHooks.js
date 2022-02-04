@@ -35,8 +35,6 @@ const signUp = async (data) => {
 
 // Function for use login
 const login = async (userCredentials) => {
-  console.log('Clicked');
-
   // user credentials format: {username: 'someUsername', password: 'somePassword'}
   const options = {
     method: 'POST',
