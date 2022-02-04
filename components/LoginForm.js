@@ -1,13 +1,6 @@
 import React, {useContext} from 'react';
 import {StyleSheet} from 'react-native';
-import {
-  Input,
-  Button,
-  Text,
-  Layout,
-  Icon,
-  CheckBox,
-} from '@ui-kitten/components';
+import {Text, Layout} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 import {useLogin} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';

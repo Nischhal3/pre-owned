@@ -1,13 +1,6 @@
 import React from 'react';
 import {StyleSheet, Alert} from 'react-native';
-import {
-  Input,
-  Button,
-  Text,
-  Layout,
-  Icon,
-  CheckBox,
-} from '@ui-kitten/components';
+import {Text, Layout, CheckBox} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 // import {useUser} from '../hooks/ApiHooks';
 import {signUp} from '../hooks/ApiHooks';
@@ -123,12 +116,10 @@ const SignupForm = ({setFormToggle}) => {
         control={control}
         rules={{
           required: {value: true, message: 'This is required'},
-          minLength: {
+          pattern: {
             value: /(?=.*[\p{Lu}])(?=.*[0-9]).{8,}/,
-            message:
-              'Minimum length of 8 with at least 1-Uppercase, 1-Lowercase and 1-Number',
+            message: 'Min 8, Uppercase, Number',
           },
-          // pattern: {value: /(?=.*[\p{Lu}])(?=.*[0-9]).{8,}/u, message: 'Min 8, Uppercase, Number'}
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <FormInput
