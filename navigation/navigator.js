@@ -1,74 +1,62 @@
 import React, {useContext} from 'react';
+import {BottomNavigation, BottomNavigationTab, Layout, Text, Icon} from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
+import Explore from '../views/Explore';
+import Message from '../views/Message';
+import AddListing from '../views/AddListing';
+import Favourite from '../views/Favourite';
+import Account from '../views/Account';
 import {MainContext} from '../contexts/MainContext';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// const TabScreen = () => {
-//   return (
-//     <Tab.Navigator
-//       screenOptions={({route}) => ({
-//         tabBarIcon: ({focused, color, size}) => {
-//           let iconName;
-//           switch (route.name) {
-//             case 'Home':
-//               iconName = 'home';
-//               break;
-//             case 'Upload':
-//               iconName = 'cloud-upload';
-//               break;
-//             case 'Profile':
-//               iconName = 'account-box';
-//               break;
-//           }
-//           return <Icon name={iconName} size={size} color={color} />;
-//         },
-//       })}
-//     >
-//       <Tab.Screen name="Home" component={Home}></Tab.Screen>
-//       <Tab.Screen name='Profile' component={Profile}></Tab.Screen>
-//     </Tab.Navigator>
-//   );
-// };
+const BottomTabBar = ({navigation, state}) => (
+  <BottomNavigation
+    selectedIndex={state.index}
+    onSelect={index => navigation.navigate(state.routeNames[index])}>
+    <BottomNavigationTab title='Explore' icon={<Icon name="search-outline"/>}/>
+    <BottomNavigationTab title='Message' icon={<Icon name="message-circle-outline"/>}/>
+    <BottomNavigationTab title='Add Listing' icon={<Icon name="plus-circle-outline"/>}/>
+    <BottomNavigationTab title='Favourite' icon={<Icon name="heart-outline"/>}/>
+    <BottomNavigationTab title='Account' icon={<Icon name="person-outline"/>}/>
+</BottomNavigation>
+)
+
+const TabScreen = () => {
+  return (
+    <Tab.Navigator tabBar={props => <BottomTabBar {...props} />}>
+    <Tab.Screen name="Explore" component={Explore} options={{headerTitleAlign: "center"}}></Tab.Screen>
+    <Tab.Screen name='Message' component={Message} options={{headerTitleAlign: "center"}}></Tab.Screen>
+    <Tab.Screen name='Add Listing' component={AddListing} options={{headerTitleAlign: "center"}}></Tab.Screen>
+    <Tab.Screen name='Favourite' component={Favourite} options={{headerTitleAlign: "center"}}></Tab.Screen>
+    <Tab.Screen name='Account' component={Account} options={{headerTitleAlign: "center"}}></Tab.Screen>
+  </Tab.Navigator>
+  );
+};
 
 const StackScreen = () => {
-  //   const {isLoggedIn} = useContext(MainContext);
+    const {isLoggedIn} = useContext(MainContext);
 
   return (
     <Stack.Navigator>
-      {/* {isLoggedIn ?
+      {isLoggedIn ?
       <>
         <Stack.Screen options={{headerShown: false}} name='Main' component={TabScreen}></Stack.Screen>
-        <Stack.Screen name='Single' component={Single}></Stack.Screen>
-        <Stack.Screen name="Modify user" component={ModifyUser}></Stack.Screen>
       </>
       :
-      <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{headerShown: false}}
-        ></Stack.Screen>
-      } */}
-      <Stack.Screen
-        name="Welcome"
-        component={Welcome}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{headerShown: false}}
-      />
-      {/* <Stack.Screen
-        name="Register"
-        component={SignUp}
-        options={{headerShown: false}}
-      /> */}
+      <>
+        <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}}></Stack.Screen>
+        <Stack.Screen name="Login" component={Login} options={{headerShown: false}}></Stack.Screen>
+      </>
+      }
+      {/* <Stack.Screen options={{headerShown: false}} name='Main' component={TabScreen}></Stack.Screen>
+      <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen name="Login" component={Login} options={{headerShown: false}}></Stack.Screen> */}
     </Stack.Navigator>
   );
 };
