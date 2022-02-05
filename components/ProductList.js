@@ -1,68 +1,71 @@
+import { List } from '@ui-kitten/components';
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, Image} from 'react-native';
-
+import { StyleSheet } from 'react-native';
+import { SecondhandItemVertical, SecondhandItemHorizontal } from './ListItem';
 
 
 const products = [
   {
       'key': '0',
       'title': 'Pink t-shirt',
-      'description': 'Very neat and great fabric',
+      'price': '2e',
       'thumbnails': {
-          w160: 'http://placekitten.com/160/164',
+          w160: 'http://placekitten.com/2048/1919',
       },
       'filename': 'http://placekitten.com/2048/1920',
   },
   {
       'key': '1',
-      'title': 'Pink t-shirt',
-      'description': 'Very neat and great fabric',
+      'title': 'Kittens',
+      'price': '9e',
       'thumbnails': {
-          w160: 'http://placekitten.com/160/164',
+          w160: 'http://placekitten.com/2048/1920',
       },
-      'filename': 'http://placekitten.com/2048/1920',
+      'filename': 'http://placekitten.com/2041/1922',
   },
   {
       'key': '2',
-      'title': 'Pink t-shirt',
-      'description': 'Very neat and great fabric',
+      'title': 'Annoying cat',
+      'price': '5e',
       'thumbnails': {
-          w160: 'http://placekitten.com/160/164',
+          w160: 'http://placekitten.com/2048/1921',
       },
-      'filename': 'http://placekitten.com/2048/1920',
+      'filename': 'http://placekitten.com/2039/1920',
   },
 ];
 
 
-
-const image = {uri: "http://placekitten.com/2048/1920"};
-
-console.log(products.title);
-
 const ItemGallery = () => {
   return (
-    <ScrollView horizontal={true}>
-      <TouchableOpacity>
-      <Image source={image} style={styles.image} />
-      </TouchableOpacity>
-      <TouchableOpacity>
-      <Image source={image} style={styles.image} />
-      </TouchableOpacity>
-    </ScrollView>
+    <>
+    <List
+    data={products}
+    contentContainerStyle={styles.containerHorizontal}
+    horizontal= {true}
+    showsHorizontalScrollIndicator={false}
+    renderItem={({item}) =>
+    <SecondhandItemHorizontal singleItem={item} />}
+    ></List>
+    <List
+    data={products}
+    contentContainerStyle={styles.containerVertical}
+    horizontal= {false}
+    showsHorizontalScrollIndicator={false}
+    renderItem={({item}) =>
+    <SecondhandItemVertical singleItem={item} />}
+    ></List>
+  </>
   );
 };
 
-const styles = StyleSheet.create({
-  gallery: {
-    marginStart: 15,
-    marginBottom: 30,
-  },
 
-  image: {
-    width: 340,
-    height: 225,
-    borderRadius: 15,
-    marginEnd: 10,
+const styles = StyleSheet.create({
+  containerHorizontal: {
+    marginStart: 20,
+    marginBottom: 140,
+  },
+  containerVertical: {
+    marginStart: 20,
   },
 });
 
