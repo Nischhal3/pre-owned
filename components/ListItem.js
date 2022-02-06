@@ -2,8 +2,6 @@ import React from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import { Layout, Text } from '@ui-kitten/components';
-import { LinearGradient } from 'react-native-svg';
-
 
 
 const SecondhandItemHorizontal = (props) => {
@@ -41,6 +39,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
+    overlayColor: 'black',
   },
 
   imageVertical: {

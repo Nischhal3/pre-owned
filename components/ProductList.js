@@ -1,8 +1,8 @@
-import { List } from '@ui-kitten/components';
+import { List, Text } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SecondhandItemVertical, SecondhandItemHorizontal } from './ListItem';
-
+import {text_dark} from '../utils/colors';
 
 const products = [
   {
@@ -38,6 +38,7 @@ const products = [
 const ItemGallery = () => {
   return (
     <>
+     <Text style={styles.title}>Recently added</Text>
     <List
     data={products}
     contentContainerStyle={styles.containerHorizontal}
@@ -46,6 +47,7 @@ const ItemGallery = () => {
     renderItem={({item}) =>
     <SecondhandItemHorizontal singleItem={item} />}
     ></List>
+    <Text style={styles.title}>Popular Now</Text>
     <List
     data={products}
     contentContainerStyle={styles.containerVertical}
@@ -66,6 +68,13 @@ const styles = StyleSheet.create({
   },
   containerVertical: {
     marginStart: 20,
+  },
+
+  title: {
+    fontSize: 24,
+    fontWeight: '600',
+    margin: 20,
+    color: text_dark,
   },
 });
 

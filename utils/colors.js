@@ -9,7 +9,7 @@
 
 const primary = '#F8F5F1';
 const btnBackground = '#4A5746';
-const container = 'FAFAFA';
+const container = '#FAFAFA';
 const text_dark = '#282726';
 const text_light ='#FCFCFC';
 const active = '#58854A';
