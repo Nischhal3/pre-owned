@@ -2,10 +2,11 @@ import React, {useContext, useEffect} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Button} from '@ui-kitten/components';
 import PropTypes from 'prop-types';
-import {btnBackground} from '../utils/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {getUserByToken} from '../hooks/ApiHooks';
+import { ButtonLarge } from '../components/elements/AppButton';
+
 
 function WelcomeScreen({navigation}) {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -36,22 +37,12 @@ function WelcomeScreen({navigation}) {
       style={styles.background}
       source={require('../assets/backgrounds/OnBoarding.png')}
     >
-      <Button
-        style={styles.button}
-        onPress={() => {
+      <ButtonLarge title="Login" onPress={() => {
           navigation.navigate('Login');
-        }}
-      >
-        Log In
-      </Button>
-      <Button
-        style={styles.button}
-        onPress={() => {
+        }}/>
+      <ButtonLarge title="Create an account" onPress={() => {
           navigation.navigate('Login');
-        }}
-      >
-        Create an account
-      </Button>
+        }}/>
     </ImageBackground>
   );
 };
@@ -61,14 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  button: {
-    width: '80%',
-    height: 60,
-    bottom: 50,
-    margin: 10,
-    backgroundColor: btnBackground,
-    borderColor: btnBackground,
   },
 });
 

@@ -34,8 +34,8 @@ const products = [
   },
 ];
 
-
-const ItemGallery = () => {
+// Return a horizontal list
+const ItemGalleryHorizontal = () => {
   return (
     <>
      <Text style={styles.title}>Recently added</Text>
@@ -47,6 +47,14 @@ const ItemGallery = () => {
     renderItem={({item}) =>
     <SecondhandItemHorizontal singleItem={item} />}
     ></List>
+  </>
+  );
+};
+
+// Return a vertical list
+const ItemGalleryVertical = () => {
+  return (
+    <>
     <Text style={styles.title}>Popular Now</Text>
     <List
     data={products}
@@ -79,4 +87,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ItemGallery;
+export {ItemGalleryHorizontal, ItemGalleryVertical};

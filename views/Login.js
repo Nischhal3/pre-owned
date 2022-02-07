@@ -11,6 +11,7 @@ import {Card, Layout, ButtonGroup, Button, Text} from '@ui-kitten/components';
 import {primary, btnBackground, text_dark} from '../utils/colors';
 import SignupForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
+import colors from '../utils/colors';
 
 const Login = () => {
   const [formToggle, setFormToggle] = useState(true);
@@ -83,12 +84,12 @@ const styles = StyleSheet.create({
     top: '40%',
     width: '100%',
     height: '100%',
-    backgroundColor: primary,
-    borderColor: primary,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   card: {
-    backgroundColor: primary,
-    borderColor: primary,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   toggleGroup: {
     justifyContent: 'center',
@@ -96,14 +97,14 @@ const styles = StyleSheet.create({
   },
   toggle1: {
     width: 100,
-    backgroundColor: btnBackground,
-    borderColor: btnBackground,
+    backgroundColor: colors.btnBackground,
+    borderColor: colors.btnBackground,
   },
   toggle2: {
     width: 100,
     backgroundColor: '#60715B',
     borderColor: '#60715B',
-    color: text_dark,
+    color: colors.text_dark,
   },
   header: {
     textAlign: 'center',

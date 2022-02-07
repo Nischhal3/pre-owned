@@ -1,13 +1,16 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import ItemGallery from '../components/ProductList';
+import { ButtonSmall } from '../components/elements/AppButton';
+import { ItemGalleryHorizontal, ItemGalleryVertical } from '../components/ExploreList';
 import {container} from '../utils/colors';
+
 
 
 const ExploreScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-          <ItemGallery />
+          <ItemGalleryHorizontal />
+          <ItemGalleryVertical />
     </SafeAreaView>
   );
 };

@@ -6,9 +6,9 @@ import {login} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PropTypes} from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
-import {primary} from '../utils/colors';
 import FormInput from './formComponents/FormInput';
 import FormButton from './formComponents/FormButton';
+import colors from '../utils/colors';
 
 const LoginForm = () => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
   layout: {
     height: 350,
     justifyContent: 'space-around',
-    backgroundColor: primary,
-    borderColor: primary,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   input: {
     // margin: 10,

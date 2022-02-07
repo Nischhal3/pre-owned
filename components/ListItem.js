@@ -1,10 +1,10 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import { Card, Layout, Text } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 import colors from '../utils/colors';
 
-
+// Return secondhand item for horizontal list
 const SecondhandItemHorizontal = (props) => {
   return (
        <TouchableOpacity>
@@ -19,6 +19,7 @@ const SecondhandItemHorizontal = (props) => {
   );
 };
 
+// Return secondhand item for vertical list
 const SecondhandItemVertical = (props) => {
   return (
        <TouchableOpacity>
