@@ -1,11 +1,10 @@
 import React from 'react';
 import {StatusBar} from 'expo-status-bar';
-
 // Import Context
 import {MainProvider} from './contexts/MainContext';
-
 // Import Views
 import WelcomeScreen from './views/WelcomeScreen';
+import ExploreScreen from './views/Explore';
 
 // Import Navigation
 import Navigator from './navigation/navigator';
@@ -14,7 +13,7 @@ import Navigator from './navigation/navigator';
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
-import ProductDetail from './views/ProductDetail';
+import theme from './utils/theme.json';
 
 
 const App = () => {
@@ -31,7 +30,7 @@ const App = () => {
 export default () => (
   <>
     <IconRegistry icons={[EvaIconsPack]} />
-    <ApplicationProvider {...eva} theme={eva.light}>
+    <ApplicationProvider {...eva} theme={{...eva.light, ...theme}}>
       <App />
     </ApplicationProvider>
   </>

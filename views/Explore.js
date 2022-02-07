@@ -1,12 +1,28 @@
-import { View, Text } from 'react-native';
 import React from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import { ButtonSmall } from '../components/elements/AppButton';
+import { ItemGalleryHorizontal, ItemGalleryVertical } from '../components/ExploreList';
+import {container} from '../utils/colors';
 
-const Explore = () => {
+
+
+const ExploreScreen = () => {
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+          <ItemGalleryHorizontal />
+          <ItemGalleryVertical />
+    </SafeAreaView>
   );
 };
 
-export default Explore;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: container,
+
+  },
+});
+
+
+export default ExploreScreen;

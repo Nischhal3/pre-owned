@@ -1,54 +1,91 @@
 import React from 'react';
-import {StyleSheet, Image, TouchableHighlight} from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {Layout, Text} from '@ui-kitten/components';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
+import { Layout, Text } from '@ui-kitten/components';
+import colors from '../utils/colors';
 
-import {text_dark, text_light} from '../utils/colors';
-
-const ListItem = ({
-  title,
-  subTitle,
-  image,
-  IconComponent,
-  onPress,
-  renderRightActions,
-}) => {
+// Return secondhand item for horizontal list
+const SecondhandItemHorizontal = (props) => {
   return (
-    <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={text_light} onPress={onPress}>
-        <Layout style={styles.container}>
-          {IconComponent}
-          {image && <Image style={styles.image} source={image} />}
-          <Layout style={styles.detailsContainer}>
-            <Text style={styles.title}>{title}</Text>
-            {subTitle && <Text style={styles.price}>{subTitle}</Text>}
-          </Layout>
-        </Layout>
-      </TouchableHighlight>
-    </Swipeable>
+       <TouchableOpacity>
+       <Image
+       source={{uri: props.singleItem.thumbnails.w160}}
+       style={styles.imageHorizontal} />
+           <Layout style={styles.textBoxHorizontal}>
+                <Text style={styles.title}>{props.singleItem.title}</Text>
+                <Text style={styles.price}>{props.singleItem.price}</Text>
+            </Layout>
+       </TouchableOpacity>
   );
 };
+
+// Return secondhand item for vertical list
+const SecondhandItemVertical = (props) => {
+  return (
+       <TouchableOpacity>
+       <Image
+       source={{uri: props.singleItem.thumbnails.w160}}
+       style={styles.imageVertical} />
+           <Layout style={styles.textBoxVertical}>
+                <Text style={styles.title}>{props.singleItem.title}</Text>
+                <Text style={styles.price}>{props.singleItem.price}</Text>
+            </Layout>
+       </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    padding: 15,
-    backgroundColor: text_light,
+  imageHorizontal: {
+    width: 280,
+    height: 180,
+    borderRadius: 10,
+    marginEnd: 10,
+    marginBottom: 15,
   },
-  detailsContainer: {
-    marginLeft: 10,
-    justifyContent: 'center',
+
+  imageVertical: {
+    width: 350,
+    height: 220,
+    borderRadius: 10,
+    marginEnd: 10,
+    marginBottom: 15,
   },
-  image: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+
+  textBoxHorizontal: {
+    flex: 1,
+    position: 'absolute',
+    backgroundColor: null,
+    top: 100,
+    margin: 15,
   },
-  price: {
-    color: text_dark,
+
+  textBoxVertical: {
+    flex: 1,
+    position: 'absolute',
+    backgroundColor: null,
+    top: 140,
+    margin: 15,
   },
+
   title: {
-    fontWeight: '500',
+    fontSize: 24,
+    fontWeight: '700',
+    color: colors.text_light,
+  },
+
+  price: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.text_light,
   },
 });
 
-export default ListItem;
+SecondhandItemHorizontal.propTypes = {
+  singleItem: PropTypes.object.isRequired,
+};
+
+SecondhandItemVertical.propTypes = {
+  singleItem: PropTypes.object.isRequired,
+};
+
+export {SecondhandItemHorizontal, SecondhandItemVertical} ;
