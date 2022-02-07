@@ -2,13 +2,13 @@ import { List, Text } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SecondhandItemVertical, SecondhandItemHorizontal } from './ListItem';
-import {text_dark} from '../utils/colors';
+import colors from '../utils/colors';
 
 const products = [
   {
       'key': '0',
-      'title': 'Pink t-shirt',
-      'price': '2e',
+      'title': 'Carbinet for sale',
+      'price': '€45',
       'thumbnails': {
           w160: 'http://placekitten.com/2048/1919',
       },
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     margin: 20,
-    color: text_dark,
+    color: colors.text_dark,
   },
 });
 

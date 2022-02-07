@@ -13,6 +13,7 @@ import Navigator from './navigation/navigator';
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
+import theme from './utils/theme.json';
 
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
 export default () => (
   <>
     <IconRegistry icons={[EvaIconsPack]} />
-    <ApplicationProvider {...eva} theme={eva.light}>
+    <ApplicationProvider {...eva} theme={{...eva.light, ...theme}}>
       <App />
     </ApplicationProvider>
   </>

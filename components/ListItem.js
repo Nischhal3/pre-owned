@@ -1,7 +1,8 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import { Layout, Text } from '@ui-kitten/components';
+import { Card, Layout, Text } from '@ui-kitten/components';
+import colors from '../utils/colors';
 
 
 const SecondhandItemHorizontal = (props) => {
@@ -39,7 +40,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
-    overlayColor: 'black',
   },
 
   imageVertical: {
@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 24,
-    fontWeight: '800',
-    color: 'white',
+    fontWeight: '700',
+    color: colors.text_light,
   },
 
   price: {
     fontSize: 18,
-    fontWeight: '500',
-    color: 'white',
+    fontWeight: '800',
+    color: colors.text_light,
   },
 });
 
