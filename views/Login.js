@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: 'center',
+    color: colors.text_dark,
   },
 });
 
