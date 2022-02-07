@@ -20,10 +20,10 @@ import ProductDetail from './views/ProductDetail';
 const App = () => {
   return (
     <>
-    <ProductDetail />
-      {/* <MainProvider>
+    {/* <ProductDetail /> */}
+      <MainProvider>
         <Navigator />
-      </MainProvider> */}
+      </MainProvider>
     </>
   );
 };
