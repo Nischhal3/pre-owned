@@ -1,38 +1,37 @@
 import {Button} from '@ui-kitten/components';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import colors from '../../utils/colors';
 
-const ButtonSmall = ({ title, onPress, color = colors.btnBackground }) => {
+const ButtonSmall = ({title, onPress, color = colors.btnBackground}) => {
   return (
     <TouchableOpacity>
-    <Button style={styles.btnStyleSmall} onPress={onPress} >
-      {title}
-    </Button>
+      <Button style={styles.btnStyleSmall} onPress={onPress}>
+        {title}
+      </Button>
     </TouchableOpacity>
   );
 };
 
-const ButtonMedium = ({ title, onPress, color = colors.btnBackground }) => {
+const ButtonMedium = ({title, onPress, color = colors.btnBackground}) => {
   return (
     <TouchableOpacity>
-    <Button style={styles.btnStyleMedium} onPress={onPress} >
-      {title}
-    </Button>
+      <Button style={styles.btnStyleMedium} onPress={onPress}>
+        {title}
+      </Button>
     </TouchableOpacity>
   );
 };
 
-const ButtonLarge = ({ title, onPress, color = colors.btnBackground }) => {
+const ButtonLarge = ({title, onPress, color = colors.btnBackground}) => {
   return (
     <TouchableOpacity>
-    <Button style={styles.btnStyleLarge} onPress={onPress} >
-      {title}
-    </Button>
+      <Button style={styles.btnStyleLarge} onPress={onPress}>
+        {title}
+      </Button>
     </TouchableOpacity>
   );
 };
-
 
 const styles = StyleSheet.create({
   btnStyleSmall: {
@@ -65,6 +64,5 @@ const styles = StyleSheet.create({
     borderColor: colors.btnBackground,
   },
 });
-
 
 export {ButtonSmall, ButtonMedium, ButtonLarge};
