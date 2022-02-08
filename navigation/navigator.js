@@ -13,9 +13,10 @@ import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
 import Explore from '../views/Explore';
 import Message from '../views/Message';
+import Search from '../views/Search'
 import AddListing from '../views/AddListing';
 import Favourite from '../views/Favourite';
-import Account from '../views/Account';
+import Profile from '../views/Profile';
 import {MainContext} from '../contexts/MainContext';
 import colors from '../utils/colors';
 
@@ -30,23 +31,23 @@ const BottomTabBar = ({navigation, state}) => (
   >
     <BottomNavigationTab
       title="Explore"
-      icon={<Icon name="search-outline" />}
+      icon={<Icon name="compass-outline" />}
     />
     <BottomNavigationTab
-      title="Message"
-      icon={<Icon name="message-circle-outline" />}
+      title="Search"
+      icon={<Icon name="search-outline" />}
     />
     <BottomNavigationTab
       title="Add Listing"
       icon={<Icon name="plus-circle-outline" />}
     />
     <BottomNavigationTab
-      title="Favourite"
-      icon={<Icon name="heart-outline" />}
+      title="Profile"
+      icon={<Icon name="person-outline" />}
     />
     <BottomNavigationTab
-      title="Account"
-      icon={<Icon name="person-outline" />}
+      title="More"
+      icon={<Icon name="menu-outline" />}
     />
   </BottomNavigation>
 );
@@ -62,8 +63,8 @@ const TabScreen = () => {
         }}
       ></Tab.Screen>
       <Tab.Screen
-        name="Message"
-        component={Message}
+        name="Search"
+        component={Search}
         options={{headerTitleAlign: 'center'}}
       ></Tab.Screen>
       <Tab.Screen
@@ -72,13 +73,13 @@ const TabScreen = () => {
         options={{headerTitleAlign: 'center'}}
       ></Tab.Screen>
       <Tab.Screen
-        name="Favourite"
-        component={Favourite}
+        name="Profile"
+        component={Profile}
         options={{headerTitleAlign: 'center'}}
       ></Tab.Screen>
       <Tab.Screen
-        name="Account"
-        component={Account}
+        name="More"
+        component={Favourite}
         options={{headerTitleAlign: 'center'}}
       ></Tab.Screen>
     </Tab.Navigator>
