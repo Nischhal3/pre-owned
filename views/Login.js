@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
   },
   toggle1: {
     width: 100,
-    backgroundColor: colors.btnBackground,
-    borderColor: colors.btnBackground,
+    backgroundColor: '#60715B',
+    borderColor: '#60715B',
   },
   toggle2: {
     width: 100,
-    backgroundColor: '#60715B',
-    borderColor: '#60715B',
+    backgroundColor: colors.btnBackground,
+    borderColor: colors.btnBackground,
     color: colors.text_dark,
   },
   header: {
