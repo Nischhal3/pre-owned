@@ -5,11 +5,10 @@ import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {getUserByToken} from '../hooks/ApiHooks';
-import { ButtonLarge } from '../components/elements/AppButton';
-
+import {ButtonLarge} from '../components/elements/AppButton';
 
 function WelcomeScreen({navigation}) {
-  const {setIsLoggedIn, setUser} = useContext(MainContext);
+  const {setIsLoggedIn, setUser, setFormToggle} = useContext(MainContext);
 
   const checkToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -37,15 +36,22 @@ function WelcomeScreen({navigation}) {
       style={styles.background}
       source={require('../assets/backgrounds/OnBoarding.png')}
     >
-      <ButtonLarge title="Login" onPress={() => {
+      <ButtonLarge
+        title="Login"
+        onPress={() => {
           navigation.navigate('Login');
-        }}/>
-      <ButtonLarge title="Create an account" onPress={() => {
+        }}
+      />
+      <ButtonLarge
+        title="Create an account"
+        onPress={() => {
+          setFormToggle(false);
           navigation.navigate('Login');
-        }}/>
+        }}
+      />
     </ImageBackground>
   );
-};
+}
 
 const styles = StyleSheet.create({
   background: {

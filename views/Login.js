@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Image,
   StyleSheet,
@@ -6,15 +6,18 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {Card, Layout, ButtonGroup, Button, Text} from '@ui-kitten/components';
 import {primary, btnBackground, text_dark} from '../utils/colors';
 import SignupForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
 import colors from '../utils/colors';
+import {MainContext} from '../contexts/MainContext';
 
 const Login = () => {
-  const [formToggle, setFormToggle] = useState(true);
+  // const [formToggle, setFormToggle] = useState(true);
+  const {formToggle, setFormToggle} = useContext(MainContext);
 
   return (
     <TouchableOpacity
@@ -58,10 +61,12 @@ const Login = () => {
               </Card>
             ) : (
               <Card style={styles.card}>
-                <Text category="h4" style={styles.header}>
-                  Sign Up
-                </Text>
-                <SignupForm setFormToggle={setFormToggle} />
+                <ScrollView>
+                  <Text category="h4" style={styles.header}>
+                    Sign Up
+                  </Text>
+                  <SignupForm setFormToggle={setFormToggle} />
+                </ScrollView>
               </Card>
             )}
           </Card>
