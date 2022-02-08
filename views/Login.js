@@ -61,7 +61,7 @@ const Login = () => {
             ) : (
               <Card style={styles.card}>
                 <ScrollView>
-                  <Text category="h4" style={styles.header}>
+                  <Text category="h5" style={styles.header}>
                     Sign Up
                   </Text>
                   <SignupForm setFormToggle={setFormToggle} />
@@ -78,7 +78,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.container,
   },
   backgroundImg: {
     position: 'absolute',
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   toggleGroup: {
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   toggle1: {
     width: 100,
@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: 'center',
+    marginBottom: 10,
     color: colors.text_dark,
   },
 });
