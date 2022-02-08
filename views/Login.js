@@ -9,10 +9,9 @@ import {
   ScrollView,
 } from 'react-native';
 import {Card, Layout, ButtonGroup, Button, Text} from '@ui-kitten/components';
-import {primary, btnBackground, text_dark} from '../utils/colors';
+import colors from '../utils/colors';
 import SignupForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
-import colors from '../utils/colors';
 import {MainContext} from '../contexts/MainContext';
 
 const Login = () => {
