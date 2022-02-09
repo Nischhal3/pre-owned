@@ -1,17 +1,16 @@
 import React from 'react';
-import {Alert, Image, StyleSheet} from 'react-native';
-import {
-  Button,
-  Card,
-  Divider,
-  Input,
-  Layout,
-  Text,
-} from '@ui-kitten/components';
+import {Alert, Image, Keyboard, StyleSheet} from 'react-native';
+import {Button, Divider, Input, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
-import {btnBackground, text_dark, stroke, text_light} from '../utils/colors';
-import ListItem from '../components/ListItem';
+import colors, {
+  btnBackground,
+  text_dark,
+  stroke,
+  text_light,
+} from '../utils/colors';
+import {ProductDetailList} from '../components/ListItem';
+import {AppButton} from '../components/elements/AppButton';
 
 // Alert when sending message
 const sendMessage = () => {
@@ -29,11 +28,12 @@ const ProductDetail = () => {
         <Text style={styles.price}>35€</Text>
         <Divider />
 
-        <ListItem
+        <ProductDetailList
           style={styles.userContainer}
           image={require('../assets/products/profilepic.jpg')}
           title="Annie H."
           subTitle="5 Listings"
+          onPress={() => Keyboard.dismiss()}
         />
         <Divider />
         <Layout style={styles.detailsContainer}>
@@ -54,7 +54,9 @@ const ProductDetail = () => {
           </Text>
           <Divider />
         </Layout>
-
+        <Text category="s1" style={styles.detailsContainer}>
+          Send the Seller a message
+        </Text>
         {/* <Card style={styles.productDetail}></Card> */}
         <Input
           multiline={true}
@@ -62,9 +64,8 @@ const ProductDetail = () => {
           placeholder="Add Message"
           style={styles.commentBox}
         ></Input>
-        <Button style={styles.sendBtn} onPress={sendMessage}>
-          Send
-        </Button>
+
+        <AppButton style={styles.sendBtn} title="Send" onPress={sendMessage} />
       </Layout>
     </Layout>
   );
@@ -72,10 +73,11 @@ const ProductDetail = () => {
 const styles = StyleSheet.create({
   commentBox: {
     padding: 10,
-    borderColor: stroke,
+    borderColor: colors.stroke,
   },
+
   detailsContainer: {
-    padding: 20,
+    padding: 10,
   },
   detailDescription: {
     paddingVertical: 15,
@@ -90,6 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     marginVertical: 10,
+    left: 10,
   },
   productDetail: {
     marginVertical: 20,
@@ -97,14 +100,15 @@ const styles = StyleSheet.create({
   },
   sendBtn: {
     width: 100,
-    backgroundColor: btnBackground,
-    borderColor: btnBackground,
+    backgroundColor: colors.btnBackground,
+    borderColor: colors.btnBackground,
     alignSelf: 'flex-end',
     right: 10,
   },
   title: {
     fontSize: 24,
     fontWeight: '500',
+    left: 10,
   },
   userContainer: {
     marginVertical: 40,
