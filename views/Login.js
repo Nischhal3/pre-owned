@@ -9,9 +9,9 @@ import {
   ScrollView,
 } from 'react-native';
 import {Card, Layout, ButtonGroup, Button, Text} from '@ui-kitten/components';
+import colors from '../utils/colors';
 import SignupForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
-import colors from '../utils/colors';
 import {MainContext} from '../contexts/MainContext';
 
 const Login = () => {
@@ -61,7 +61,7 @@ const Login = () => {
             ) : (
               <Card style={styles.card}>
                 <ScrollView>
-                  <Text category="h4" style={styles.header}>
+                  <Text category="h5" style={styles.header}>
                     Sign Up
                   </Text>
                   <SignupForm setFormToggle={setFormToggle} />
@@ -78,7 +78,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.container,
   },
   backgroundImg: {
     position: 'absolute',
@@ -97,21 +97,22 @@ const styles = StyleSheet.create({
   },
   toggleGroup: {
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   toggle1: {
     width: 100,
-    backgroundColor: colors.btnBackground,
-    borderColor: colors.btnBackground,
+    backgroundColor: '#60715B',
+    borderColor: '#60715B',
   },
   toggle2: {
     width: 100,
-    backgroundColor: '#60715B',
-    borderColor: '#60715B',
+    backgroundColor: colors.btnBackground,
+    borderColor: colors.btnBackground,
     color: colors.text_dark,
   },
   header: {
     textAlign: 'center',
+    marginBottom: 10,
     color: colors.text_dark,
   },
 });

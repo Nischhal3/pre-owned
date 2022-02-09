@@ -1,6 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Alert} from 'react-native';
-import {Text, Layout, CheckBox} from '@ui-kitten/components';
+import {
+  Input,
+  Button,
+  Text,
+  Layout,
+  Icon,
+  CheckBox,
+  Modal,
+  Card,
+} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 // import {useUser} from '../hooks/ApiHooks';
 import {checkUserName, signUp} from '../hooks/ApiHooks';
@@ -11,7 +20,8 @@ import colors from '../utils/colors';
 
 const SignupForm = ({setFormToggle}) => {
   //for checkbox
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
+  const [visible, setVisible] = useState(false);
   //Api
   // const {signupUser, checkUsername} = useUser();
 
@@ -31,6 +41,10 @@ const SignupForm = ({setFormToggle}) => {
   });
 
   const onSubmit = async (data) => {
+    if (!checked) {
+      Alert.alert('Please read Terms and Conditions');
+      return;
+    }
     try {
       delete data.confirmPassword;
       const userData = await signUp(data);
@@ -187,13 +201,63 @@ const SignupForm = ({setFormToggle}) => {
       {/* <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Password' /> */}
       {/* <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Confirm password' /> */}
       <CheckBox
-        style={styles.input}
         checked={checked}
         onChange={(nextChecked) => setChecked(nextChecked)}
       >
-        {' '}
-        {`I accept all the Terms & Conditions`}{' '}
+        <Button
+          onPress={() => setVisible(true)}
+          status="warning"
+          style={{marginLeft: -110}}
+          appearance="ghost"
+        >
+          I accept Terms and Condition
+        </Button>
+        <Modal
+          visible={visible}
+          backdropStyle={styles.backdrop}
+          onBackdropPress={() => setVisible(false)}
+        >
+          <Card style={styles.modal} disabled={true}>
+            <Text style={styles.text}>
+              This agreement is between you the [“User” or “you”] and PreOwned
+              [“we or us or our”] If you do not agree with all of the provisions
+              of this agreement, you cannot use the Services.
+            </Text>
+            <Text style={styles.text}>
+              To remove any doubt, in the event of any conflict or discrepancy
+              between these Terms and conditions and any other provisions and/or
+              terms and/or otherwise between PreOwned and you, the provisions
+              and the terms of these Terms of Use will prevail. Please feel free
+              to contact us with any questions regarding the content of this
+              agreement.
+            </Text>
+            <Text style={styles.text}>
+              - Seller: those who upload their second hand product on our portal
+              in order to sell it.
+            </Text>
+            <Text style={styles.text}>
+              - Buyers: those who visit the portal in order to consult and buy
+              certain second-hand products.
+            </Text>
+            <Text style={styles.text}>
+              Sellers and Buyers users will be identified in the rest of this
+              legal document with the word “User/s”. PreOwned reserves the right
+              to update the Terms and Conditions at any time without notice to
+              the user.
+            </Text>
+            <Text style={styles.text}>
+              This document represents the full and final agreement of the
+              parties regarding these Terms and Conditions. In particular, it
+              contains each and every legal and usage clause that the user must
+              comply with during the entire period of use of our services.
+            </Text>
+            <Button style={styles.dismissBtn} onPress={() => setVisible(false)}>
+              DISMISS
+            </Button>
+          </Card>
+        </Modal>
       </CheckBox>
+
       <FormButton
         btnStyle={styles.button}
         handleSubmit={handleSubmit}
@@ -211,12 +275,26 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
-  input: {
-    // margin: 10,
-  },
   button: {
     width: '50%',
     alignSelf: 'center',
+  },
+  backdrop: {
+    backgroundColor: colors.primary,
+  },
+  dismissBtn: {marginTop: 20, borderRadius: 15},
+  input: {
+    // margin: 10,
+  },
+  modal: {
+    margin: 10,
+    borderRadius: 15,
+  },
+  text: {
+    lineHeight: 21,
+    padding: 5,
+    fontWeight: '500',
+    fontSize: 14,
   },
 });
 
