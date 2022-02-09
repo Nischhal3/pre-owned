@@ -1,8 +1,9 @@
-import { List, Text } from '@ui-kitten/components';
+import { Layout, List, Text } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { SecondhandItemVertical, SecondhandItemHorizontal } from './ListItem';
+import SecondhandItem from './ListItem';
 import colors from '../utils/colors';
+import PropTypes from 'prop-types';
 
 const products = [
   {
@@ -37,34 +38,28 @@ const products = [
 // Return a horizontal list
 const ItemGalleryHorizontal = () => {
   return (
-    <>
-     <Text style={styles.title}>Recently added</Text>
     <List
     data={products}
     contentContainerStyle={styles.containerHorizontal}
     horizontal= {true}
     showsHorizontalScrollIndicator={false}
     renderItem={({item}) =>
-    <SecondhandItemHorizontal singleItem={item} />}
+    <SecondhandItem singleItem={item} />}
     ></List>
-  </>
   );
 };
 
 // Return a vertical list
 const ItemGalleryVertical = () => {
   return (
-    <>
-    <Text style={styles.title}>Popular Now</Text>
     <List
     data={products}
     contentContainerStyle={styles.containerVertical}
     horizontal= {false}
     showsHorizontalScrollIndicator={false}
     renderItem={({item}) =>
-    <SecondhandItemVertical singleItem={item} />}
+    <SecondhandItem singleItem={item}/>}
     ></List>
-  </>
   );
 };
 
@@ -72,19 +67,18 @@ const ItemGalleryVertical = () => {
 const styles = StyleSheet.create({
   containerHorizontal: {
     marginStart: 20,
-    marginBottom: 140,
-  },
-  containerVertical: {
-    marginStart: 20,
+    marginBottom: 200,
   },
 
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    margin: 20,
-    color: colors.text_dark,
+  containerVertical: {
+    width: '100%',
+    marginStart: 20,
   },
 });
+
+ItemGalleryHorizontal.propTypes = {
+  navigation: PropTypes.object,
+};
 
 
 export {ItemGalleryHorizontal, ItemGalleryVertical};

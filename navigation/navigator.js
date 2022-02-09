@@ -10,7 +10,9 @@ import Message from '../views/Message';
 import AddListing from '../views/AddListing';
 import Favourite from '../views/Favourite';
 import Account from '../views/Account';
+import PopularNow from '../views/PopularNow';
 import {MainContext} from '../contexts/MainContext';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -52,9 +54,11 @@ const StackScreen = () => {
       <>
         <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}}></Stack.Screen>
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}}></Stack.Screen>
+        <Stack.Screen name="Popular now" component={PopularNow} options={{headerShown: false}}></Stack.Screen>
       </>
       }
-      {/* <Stack.Screen options={{headerShown: false}} name='Main' component={TabScreen}></Stack.Screen>
+      {
+      /* <Stack.Screen options={{headerShown: false}} name='Main' component={TabScreen}></Stack.Screen>
       <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}}></Stack.Screen>
       <Stack.Screen name="Login" component={Login} options={{headerShown: false}}></Stack.Screen> */}
     </Stack.Navigator>

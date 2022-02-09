@@ -4,29 +4,14 @@ import PropTypes from 'prop-types';
 import { Layout, Text } from '@ui-kitten/components';
 import colors from '../utils/colors';
 
-// Return secondhand item for horizontal list
-const SecondhandItemHorizontal = (props) => {
+// Return secondhand item
+const SecondhandItem = (props) => {
   return (
        <TouchableOpacity>
        <Image
        source={{uri: props.singleItem.thumbnails.w160}}
-       style={styles.imageHorizontal} />
-           <Layout style={styles.textBoxHorizontal}>
-                <Text style={styles.title}>{props.singleItem.title}</Text>
-                <Text style={styles.price}>{props.singleItem.price}</Text>
-            </Layout>
-       </TouchableOpacity>
-  );
-};
-
-// Return secondhand item for vertical list
-const SecondhandItemVertical = (props) => {
-  return (
-       <TouchableOpacity>
-       <Image
-       source={{uri: props.singleItem.thumbnails.w160}}
-       style={styles.imageVertical} />
-           <Layout style={styles.textBoxVertical}>
+       style={styles.image} />
+           <Layout style={styles.textBox}>
                 <Text style={styles.title}>{props.singleItem.title}</Text>
                 <Text style={styles.price}>{props.singleItem.price}</Text>
             </Layout>
@@ -35,35 +20,19 @@ const SecondhandItemVertical = (props) => {
 };
 
 const styles = StyleSheet.create({
-  imageHorizontal: {
-    width: 280,
-    height: 180,
+  image: {
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
+    width: 340,
+    height: 200,
   },
 
-  imageVertical: {
-    width: 350,
-    height: 220,
-    borderRadius: 10,
-    marginEnd: 10,
-    marginBottom: 15,
-  },
-
-  textBoxHorizontal: {
+  textBox: {
     flex: 1,
     position: 'absolute',
     backgroundColor: null,
     top: 100,
-    margin: 15,
-  },
-
-  textBoxVertical: {
-    flex: 1,
-    position: 'absolute',
-    backgroundColor: null,
-    top: 140,
     margin: 15,
   },
 
@@ -80,12 +49,9 @@ const styles = StyleSheet.create({
   },
 });
 
-SecondhandItemHorizontal.propTypes = {
+SecondhandItem.propTypes = {
   singleItem: PropTypes.object.isRequired,
 };
 
-SecondhandItemVertical.propTypes = {
-  singleItem: PropTypes.object.isRequired,
-};
 
-export {SecondhandItemHorizontal, SecondhandItemVertical} ;
+export default SecondhandItem;
