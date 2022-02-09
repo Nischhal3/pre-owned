@@ -2,26 +2,56 @@ import React, {useContext} from 'react';
 import {
   BottomNavigation,
   BottomNavigationTab,
-  Layout,
-  Text,
   Icon,
+  Drawer,
+  DrawerItem,
+  IndexPath,
 } from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import GlobalStyles from '../utils/GlobalStyles';
 import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
 import Explore from '../views/Explore';
 import Message from '../views/Message';
-import Search from '../views/Search'
+import Search from '../views/Search';
 import AddListing from '../views/AddListing';
+import MyListing from '../views/MyListing';
 import Favourite from '../views/Favourite';
 import Profile from '../views/Profile';
+import EditProfile from '../views/EditProfile';
 import {MainContext} from '../contexts/MainContext';
-import colors from '../utils/colors';
+import {SafeAreaView} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const Menu = createDrawerNavigator();
+
+const MenuContent = ({ navigation, state }) => (
+  <Drawer
+    selectedIndex={new IndexPath(state.index)}
+    onSelect={index => navigation.navigate(state.routeNames[index.row])}>
+    <DrawerItem title='Profile' />
+    <DrawerItem title='Edit Profile' />
+    <DrawerItem title='My Favorites' />
+    <DrawerItem title='My Messages' />
+    <DrawerItem title='My Listings' />
+    <DrawerItem title='Logout' />
+  </Drawer>
+);
+
+const MenuNavigator = () => (
+  <Menu.Navigator drawerContent={props => <MenuContent {...props}/>}>
+    <Menu.Screen name='Profile' component={Profile} options={{headerTitleAlign: 'center'}}/>
+    <Menu.Screen name='Edit Profile' component={EditProfile} options={{headerTitleAlign: 'center'}}/>
+    <Menu.Screen name='My Favorites' component={Favourite} options={{headerTitleAlign: 'center'}}/>
+    <Menu.Screen name='My Message' component={Message} options={{headerTitleAlign: 'center'}}/>
+    <Menu.Screen name='My Listings' component={MyListing} options={{headerTitleAlign: 'center'}}/>
+  </Menu.Navigator>
+);
+
 
 const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
@@ -45,10 +75,6 @@ const BottomTabBar = ({navigation, state}) => (
       title="Profile"
       icon={<Icon name="person-outline" />}
     />
-    <BottomNavigationTab
-      title="More"
-      icon={<Icon name="menu-outline" />}
-    />
   </BottomNavigation>
 );
 
@@ -59,8 +85,7 @@ const TabScreen = () => {
         name="Explore"
         component={Explore}
         options={{
-          headerTitleAlign: 'center',
-        }}
+          headerTitleAlign: 'center'}}
       ></Tab.Screen>
       <Tab.Screen
         name="Search"
@@ -73,14 +98,9 @@ const TabScreen = () => {
         options={{headerTitleAlign: 'center'}}
       ></Tab.Screen>
       <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{headerTitleAlign: 'center'}}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="More"
-        component={Favourite}
-        options={{headerTitleAlign: 'center'}}
+        name="ProfileWrap"
+        component={MenuNavigator}
+        options={{headerShown: false}}
       ></Tab.Screen>
     </Tab.Navigator>
   );
@@ -113,9 +133,6 @@ const StackScreen = () => {
           ></Stack.Screen>
         </>
       )}
-      {/* <Stack.Screen options={{headerShown: false}} name='Main' component={TabScreen}></Stack.Screen>
-      <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}}></Stack.Screen>
-      <Stack.Screen name="Login" component={Login} options={{headerShown: false}}></Stack.Screen> */}
     </Stack.Navigator>
   );
 };
@@ -123,7 +140,9 @@ const StackScreen = () => {
 const navigator = () => {
   return (
     <NavigationContainer>
-      <StackScreen />
+      <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+        <StackScreen />
+      </SafeAreaView>
     </NavigationContainer>
   );
 };
