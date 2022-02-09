@@ -23,15 +23,13 @@ const App = () => {
   const [loaded] = useFonts({
     Karla: require('./assets/fonts/Karla-Regular.ttf'),
   });
-  return <ProductDetail />;
-  //   (
-  //   <>
-
-  //     <MainProvider>
-  //       <Navigator />
-  //     </MainProvider>
-  //   </>
-  // );
+  return;
+  <>
+    {/* <ProductDetail /> */}
+    <MainProvider>
+      <Navigator />
+    </MainProvider>
+  </>;
 };
 
 export default () => (
