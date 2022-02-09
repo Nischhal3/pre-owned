@@ -15,10 +15,16 @@ import * as eva from '@eva-design/eva';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import theme from './utils/theme.json';
 
+// Fonts
+import {useFonts} from 'expo-font';
 
 const App = () => {
+  const [loaded] = useFonts({
+    Karla: require('./assets/fonts/Karla-Regular.ttf'),
+  });
   return (
     <>
+      {/* <ProductDetail /> */}
       <MainProvider>
         <Navigator />
       </MainProvider>
