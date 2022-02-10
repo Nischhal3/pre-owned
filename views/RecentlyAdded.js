@@ -34,6 +34,33 @@ const products = [
     },
     filename: 'http://placekitten.com/2039/1920',
   },
+  {
+    key: '3',
+    title: 'Annoying cat',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '4',
+    title: 'Annoying cat',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '5',
+    title: 'Annoying cat',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
 ];
 
 // TODO fetch items from server, item fetch to be added in API hooks
