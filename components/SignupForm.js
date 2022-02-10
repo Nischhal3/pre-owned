@@ -261,6 +261,7 @@ const SignupForm = ({setFormToggle}) => {
       <FormButton
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
+        disabled={true}
         text="Sign Up"
       />
     </Layout>
