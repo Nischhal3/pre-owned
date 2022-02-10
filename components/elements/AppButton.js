@@ -3,6 +3,7 @@ import {Button} from '@ui-kitten/components';
 import {SafeAreaView, TouchableOpacity} from 'react-native';
 import colors from '../../utils/colors';
 import GlobalStyles from '../../utils/GlobalStyles';
+import PropTypes from 'prop-types';
 
 const AppButton = ({title, onPress, color = colors.btnBackground, style}) => {
   return (
@@ -12,6 +13,13 @@ const AppButton = ({title, onPress, color = colors.btnBackground, style}) => {
       </Button>
     </TouchableOpacity>
   );
+};
+
+AppButton.propTypes = {
+  title: PropTypes.string,
+  onPress: PropTypes.func,
+  color: PropTypes.object,
+  style: PropTypes.object,
 };
 
 const FormButton = (props, style) => {
@@ -26,4 +34,11 @@ const FormButton = (props, style) => {
     </SafeAreaView>
   );
 };
+
+FormButton.propTypes = {
+  text: PropTypes.string,
+  handleSubmit: PropTypes.func,
+  onSubmit: PropTypes.func,
+};
+
 export {AppButton, FormButton};
