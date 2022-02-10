@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import {SafeAreaView} from 'react-native';
 import {
   BottomNavigation,
   BottomNavigationTab,
@@ -26,34 +27,71 @@ import {MainContext} from '../contexts/MainContext';
 import colors from '../utils/colors';
 import ProductDetail from '../views/ProductDetail';
 
-
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const Menu = createDrawerNavigator();
 
-const MenuContent = ({ navigation, state }) => (
+const MenuContent = ({navigation, state}) => (
   <Drawer
     selectedIndex={new IndexPath(state.index)}
-    onSelect={index => navigation.navigate(state.routeNames[index.row])}>
-    <DrawerItem title='Profile' accessoryLeft={<Icon name="person-outline"/>} />
-    <DrawerItem title='Edit Profile' accessoryLeft={<Icon name="edit-outline"/>} />
-    <DrawerItem title='My Favorites' accessoryLeft={<Icon name="heart-outline"/>} />
-    <DrawerItem title='My Messages' accessoryLeft={<Icon name="message-circle-outline"/>} />
-    <DrawerItem title='My Listings' accessoryLeft={<Icon name="list-outline"/>} />
-    <DrawerItem title='Logout' accessoryLeft={<Icon name="log-out-outline"/>} />
+    onSelect={(index) => navigation.navigate(state.routeNames[index.row])}
+  >
+    <DrawerItem
+      title="Profile"
+      accessoryLeft={<Icon name="person-outline" />}
+    />
+    <DrawerItem
+      title="Edit Profile"
+      accessoryLeft={<Icon name="edit-outline" />}
+    />
+    <DrawerItem
+      title="My Favorites"
+      accessoryLeft={<Icon name="heart-outline" />}
+    />
+    <DrawerItem
+      title="My Messages"
+      accessoryLeft={<Icon name="message-circle-outline" />}
+    />
+    <DrawerItem
+      title="My Listings"
+      accessoryLeft={<Icon name="list-outline" />}
+    />
+    <DrawerItem
+      title="Logout"
+      accessoryLeft={<Icon name="log-out-outline" />}
+    />
   </Drawer>
 );
 
 const MenuNavigator = () => (
-  <Menu.Navigator drawerContent={props => <MenuContent {...props}/>}>
-    <Menu.Screen name='Profile' component={Profile} options={{headerTitleAlign: 'center'}}/>
-    <Menu.Screen name='Edit Profile' component={EditProfile} options={{headerTitleAlign: 'center'}}/>
-    <Menu.Screen name='My Favorites' component={Favourite} options={{headerTitleAlign: 'center'}}/>
-    <Menu.Screen name='My Message' component={Message} options={{headerTitleAlign: 'center'}}/>
-    <Menu.Screen name='My Listings' component={MyListing} options={{headerTitleAlign: 'center'}}/>
+  <Menu.Navigator drawerContent={(props) => <MenuContent {...props} />}>
+    <Menu.Screen
+      name="Profile"
+      component={Profile}
+      options={{headerTitleAlign: 'center'}}
+    />
+    <Menu.Screen
+      name="Edit Profile"
+      component={EditProfile}
+      options={{headerTitleAlign: 'center'}}
+    />
+    <Menu.Screen
+      name="My Favorites"
+      component={Favourite}
+      options={{headerTitleAlign: 'center'}}
+    />
+    <Menu.Screen
+      name="My Message"
+      component={Message}
+      options={{headerTitleAlign: 'center'}}
+    />
+    <Menu.Screen
+      name="My Listings"
+      component={MyListing}
+      options={{headerTitleAlign: 'center'}}
+    />
   </Menu.Navigator>
 );
-
 
 const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
@@ -65,10 +103,7 @@ const BottomTabBar = ({navigation, state}) => (
       title="Explore"
       icon={<Icon name="compass-outline" />}
     />
-    <BottomNavigationTab
-      title="Search"
-      icon={<Icon name="search-outline" />}
-    />
+    <BottomNavigationTab title="Search" icon={<Icon name="search-outline" />} />
     <BottomNavigationTab
       title="Add Listing"
       icon={<Icon name="plus-circle-outline" />}
@@ -87,7 +122,8 @@ const TabScreen = () => {
         name="Explore"
         component={Explore}
         options={{
-          headerTitleAlign: 'center'}}
+          headerTitleAlign: 'center',
+        }}
       ></Tab.Screen>
       <Tab.Screen
         name="Search"
