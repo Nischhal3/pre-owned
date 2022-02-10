@@ -4,7 +4,7 @@ import {Layout} from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
-import {getUserByToken} from '../hooks/ApiHooks';
+import {getUserByToken} from '../hooks/UserApi';
 import {AppButton} from '../components/elements/AppButton';
 import colors from '../utils/colors';
 

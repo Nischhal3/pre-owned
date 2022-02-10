@@ -19,6 +19,7 @@ import Account from '../views/Account';
 import {MainContext} from '../contexts/MainContext';
 import colors from '../utils/colors';
 import ProductDetail from '../views/ProductDetail';
+import UserUpdateForm from '../components/UserUpdateForm';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -101,6 +102,10 @@ const StackScreen = () => {
           <Stack.Screen
             name="ProductDetail"
             component={ProductDetail}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="UpdateUser"
+            component={UserUpdateForm}
           ></Stack.Screen>
         </>
       ) : (

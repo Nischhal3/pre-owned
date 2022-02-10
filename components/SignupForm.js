@@ -12,7 +12,7 @@ import {
 } from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 // import {useUser} from '../hooks/ApiHooks';
-import {checkUserName, signUp} from '../hooks/ApiHooks';
+import {checkUserName, signUp} from '../hooks/UserApi';
 import {PropTypes} from 'prop-types';
 import FormInput from './formComponents/FormInput';
 import {FormButton} from './elements/AppButton';

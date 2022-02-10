@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {StyleSheet} from 'react-native';
 import {Text, Layout} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
-import {login} from '../hooks/ApiHooks';
+import {login} from '../hooks/UserApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PropTypes} from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
