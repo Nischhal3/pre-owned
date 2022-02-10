@@ -1,4 +1,4 @@
-import {List, Text} from '@ui-kitten/components';
+import {List} from '@ui-kitten/components';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
