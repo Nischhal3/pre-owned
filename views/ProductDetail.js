@@ -1,29 +1,34 @@
 import React from 'react';
-import {Alert, Image, Keyboard, StyleSheet} from 'react-native';
-import {Button, Divider, Input, Layout, Text} from '@ui-kitten/components';
+import {
+  Alert,
+  Image,
+  Keyboard,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import {Divider, Input, Layout, Text} from '@ui-kitten/components';
+import PropTypes from 'prop-types';
 
 // Import from files
-import colors, {
-  btnBackground,
-  text_dark,
-  stroke,
-  text_light,
-} from '../utils/colors';
+import colors from '../utils/colors';
 import {ProductList} from '../components/ListItem';
 import {AppButton} from '../components/elements/AppButton';
+import GlobalStyles from '../utils/GlobalStyles';
 
 // Alert when sending message
 const sendMessage = () => {
   Alert.alert('Success', 'Message Sent');
 };
-const ProductDetail = () => {
+const ProductDetail = ({route}) => {
+  const {file} = route.params;
   return (
-    <Layout>
+    <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
       <Image
         style={styles.image}
         source={require('../assets/products/books.jpg')}
       />
-      <Layout style={styles.detailsContainer}>
+      <ScrollView style={styles.detailsContainer}>
         <Text style={styles.title}>Books</Text>
         <Text style={styles.price}>35€</Text>
         <Divider />
@@ -66,8 +71,8 @@ const ProductDetail = () => {
         ></Input>
 
         <AppButton style={styles.sendBtn} title="Send" onPress={sendMessage} />
-      </Layout>
-    </Layout>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     height: 300,
   },
   price: {
-    color: text_dark,
+    color: colors.text_dark,
     fontWeight: 'bold',
     fontSize: 20,
     marginVertical: 10,
@@ -100,10 +105,9 @@ const styles = StyleSheet.create({
   },
   sendBtn: {
     width: 100,
-    backgroundColor: colors.btnBackground,
-    borderColor: colors.btnBackground,
+    height: 50,
     alignSelf: 'flex-end',
-    right: 10,
+    marginBottom: 30,
   },
   title: {
     fontSize: 24,
@@ -115,4 +119,7 @@ const styles = StyleSheet.create({
   },
 });
 
+ProductDetail.propTypes = {
+  route: PropTypes.object,
+};
 export default ProductDetail;

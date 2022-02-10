@@ -13,33 +13,40 @@ import {Icon, Layout, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 
 // Return secondhand item for horizontal list
-const SecondhandItemHorizontal = (props) => {
+const SecondhandItemHorizontal = ({navigation, singleItem}) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('ProductDetail', {file: singleItem});
+      }}
+    >
       <Image
-        source={{uri: props.singleItem.thumbnails.w160}}
+        source={{uri: singleItem.thumbnails.w160}}
         style={styles.imageHorizontal}
       />
       <Layout style={styles.textBoxHorizontal}>
-        <Text style={styles.title}>{props.singleItem.title}</Text>
-        <Text style={styles.price}>{props.singleItem.price}</Text>
+        <Text style={styles.title}>{singleItem.title}</Text>
+        <Text style={styles.price}>{singleItem.price}</Text>
       </Layout>
-      {/* <Icon colors={colors.stroke} name="chevron-right-outline" size={25} /> */}
     </TouchableOpacity>
   );
 };
 
 // Return secondhand item for vertical list
-const SecondhandItemVertical = (props) => {
+const SecondhandItemVertical = ({navigation, singleItem}) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('ProductDetail', {file: singleItem});
+      }}
+    >
       <Image
-        source={{uri: props.singleItem.thumbnails.w160}}
+        source={{uri: singleItem.thumbnails.w160}}
         style={styles.imageVertical}
       />
       <Layout style={styles.textBoxVertical}>
-        <Text style={styles.title}>{props.singleItem.title}</Text>
-        <Text style={styles.price}>{props.singleItem.price}</Text>
+        <Text style={styles.title}>{singleItem.title}</Text>
+        <Text style={styles.price}>{singleItem.price}</Text>
       </Layout>
     </TouchableOpacity>
   );
@@ -67,6 +74,7 @@ const ProductList = ({
             )}
           </Layout>
         </Layout>
+        {/* <Icon colors={colors.stroke} name="chevron-right-outline" size={25} /> */}
       </TouchableHighlight>
     </Swipeable>
   );
@@ -133,6 +141,7 @@ const styles = StyleSheet.create({
 
 SecondhandItemHorizontal.propTypes = {
   singleItem: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 SecondhandItemVertical.propTypes = {

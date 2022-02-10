@@ -7,27 +7,8 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
-  
-  btnStyleSmall: {
-    width: '50%',
-    height: 50,
-    bottom: 50,
-    margin: 10,
-    borderRadius: 19,
-    backgroundColor: colors.btnBackground,
-    borderColor: colors.btnBackground,
-  },
 
-  btnStyleMedium: {
-    width: '70%',
-    height: 60,
-    bottom: 50,
-    margin: 10,
-    borderRadius: 19,
-    backgroundColor: colors.btnBackground,
-    borderColor: colors.btnBackground,
-  },
-  btnStyleLarge: {
+  btnStyle: {
     width: 300,
     height: 60,
     margin: 10,

@@ -1,16 +1,17 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import { ButtonSmall } from '../components/elements/AppButton';
-import { ItemGalleryHorizontal, ItemGalleryVertical } from '../components/ExploreList';
+import {
+  ItemGalleryHorizontal,
+  ItemGalleryVertical,
+} from '../components/ExploreList';
 import {container} from '../utils/colors';
+import PropTypes from 'prop-types';
 
-
-
-const ExploreScreen = () => {
+const ExploreScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-          <ItemGalleryHorizontal />
-          <ItemGalleryVertical />
+      <ItemGalleryHorizontal navigation={navigation} />
+      <ItemGalleryVertical navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -20,9 +21,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: container,
-
   },
 });
 
+ExploreScreen.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default ExploreScreen;

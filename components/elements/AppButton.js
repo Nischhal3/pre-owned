@@ -7,11 +7,11 @@ import GlobalStyles from '../../utils/GlobalStyles';
 const AppButton = ({title, onPress, color = colors.btnBackground, style}) => {
   return (
     <TouchableOpacity>
-      <Button style={[GlobalStyles.btnStyleLarge, style]} onPress={onPress}>
+      <Button style={[GlobalStyles.btnStyle, style]} onPress={onPress}>
         {title}
       </Button>
     </TouchableOpacity>
   );
 };
 
-export { AppButton};
+export {AppButton};
