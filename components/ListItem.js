@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
+import {Avatar, Icon, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -69,7 +69,6 @@ const ProductList = ({
             )}
           </Layout>
         </Layout>
-        {/* <Icon colors={colors.stroke} name="chevron-right-outline" size={25} /> */}
       </TouchableHighlight>
     </Swipeable>
   );

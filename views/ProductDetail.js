@@ -38,7 +38,6 @@ const ProductDetail = ({route}) => {
           image={require('../assets/products/profilepic.jpg')}
           title="Annie H."
           subTitle="5 Listings"
-          onPress={() => Keyboard.dismiss()}
         />
         <Divider />
         <Layout style={styles.detailsContainer}>
