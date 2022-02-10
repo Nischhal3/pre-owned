@@ -1,4 +1,3 @@
-
 export default {
 primary:'#F8F5F1',
 btnBackground:'#4A5746',

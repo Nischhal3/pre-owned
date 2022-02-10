@@ -1,44 +1,95 @@
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 
 // Return secondhand item for explore
-const GalleryItem = (props) => {
+const GalleryItem = ({navigation, singleItem}) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+     onPress={() => {
+        navigation.navigate('ProductDetail', {file: singleItem});
+      }}>
       <Image
-        source={{uri: props.singleItem.thumbnails.w160}}
+        source={{uri: singleItem.thumbnails.w160}}
         style={styles.GalleryImage}
       />
       <Layout style={styles.GalleryTextBox}>
-        <Text style={styles.GalleryTitle}>{props.singleItem.title}</Text>
-        <Text style={styles.GalleryPrice}>{props.singleItem.price}</Text>
+        <Text style={styles.GalleryTitle}>{singleItem.title}</Text>
+        <Text style={styles.GalleryPrice}>{singleItem.price}</Text>
       </Layout>
     </TouchableOpacity>
   );
 };
 
 // Return secondhand item for other views
-const ListItems = (props) => {
+const ListItems = ({navigation, singleItem}) => {
   return (
     <ListItem>
       <Avatar
         shape="square"
         size={'giant'}
-        source={{uri: props.singleItem.thumbnails.w160}}
+        source={{uri: singleItem.thumbnails.w160}}
       />
       <ListItem>
-        <Text>{props.singleItem.title}</Text>
-        <Text>{props.singleItem.price}</Text>
+        <Text>{singleItem.title}</Text>
+        <Text>{singleItem.price}</Text>
       </ListItem>
     </ListItem>
   );
 };
 
+// for productDetail page
+const ProductList = ({
+  title,
+  subTitle,
+  image,
+  IconComponent,
+  onPress,
+  renderRightActions,
+}) => {
+  return (
+    <Swipeable renderRightActions={renderRightActions}>
+      <TouchableHighlight underlayColor={colors.text_light} onPress={onPress}>
+        <Layout style={styles.container}>
+          {IconComponent}
+          {image && <Image style={styles.image} source={image} />}
+          <Layout style={styles.detailsContainer}>
+            <Text style={{fontWeight: '500'}}>{title}</Text>
+            {subTitle && (
+              <Text style={{color: colors.text_dark}}>{subTitle}</Text>
+            )}
+          </Layout>
+        </Layout>
+        {/* <Icon colors={colors.stroke} name="chevron-right-outline" size={25} /> */}
+      </TouchableHighlight>
+    </Swipeable>
+  );
+};
 const styles = StyleSheet.create({
-  GalleryImage: {
+  container: {
+    flexDirection: 'row',
+    padding: 15,
+    backgroundColor: colors.text_light,
+  },
+  detailsContainer: {
+    marginLeft: 10,
+    justifyContent: 'center',
+  },
+  image: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+  },
+  imageHorizontal: {
+    width: 280,
+    height: 180,
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
@@ -99,10 +150,11 @@ const styles = StyleSheet.create({
 
 GalleryItem.propTypes = {
   singleItem: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 ListItems.propTypes = {
   singleItem: PropTypes.object.isRequired,
 };
 
-export {GalleryItem, ListItems};
+export {GalleryItem, ListItems, ProductList};

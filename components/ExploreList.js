@@ -1,8 +1,9 @@
-import {List} from '@ui-kitten/components';
+import {List, Text} from '@ui-kitten/components';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {GalleryItem} from './ListItem';
+import { GalleryItem } from './ListItem';
+import colors from '../utils/colors';
 
 const products = [
   {
@@ -36,27 +37,31 @@ const products = [
 
 // TODO fetch items from server, item fetch to be added in API hooks
 // Return a horizontal list
-const ItemGalleryHorizontal = () => {
+const ItemGalleryHorizontal = ({navigation}) => {
   return (
-    <List
-      data={products}
-      contentContainerStyle={styles.containerHorizontal}
-      horizontal={true}
-      showsHorizontalScrollIndicator={false}
-      renderItem={({item}) => <GalleryItem singleItem={item} />}
-    ></List>
+      <List
+      data={ products }
+      contentContainerStyle={ styles.containerHorizontal }
+      horizontal={ true }
+      showsHorizontalScrollIndicator={ false }
+      renderItem={ ( { item } ) => (
+        <GalleryItem navigation={ navigation } singleItem={ item } />
+      )}
+      ></List>
   );
 };
 
 // Return a vertical list
-const ItemGalleryVertical = () => {
+const ItemGalleryVertical = ({navigation}) => {
   return (
     <List
       data={products}
       contentContainerStyle={styles.containerVertical}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
-      renderItem={({item}) => <GalleryItem singleItem={item} />}
+      renderItem={ ( { item } ) => (
+        <GalleryItem navigation={navigation} singleItem={ item } />
+  )}
     ></List>
   );
 };
@@ -72,8 +77,10 @@ const styles = StyleSheet.create({
     marginStart: 20,
   },
 });
-
 ItemGalleryHorizontal.propTypes = {
+  navigation: PropTypes.object,
+};
+ItemGalleryVertical.propTypes = {
   navigation: PropTypes.object,
 };
 
