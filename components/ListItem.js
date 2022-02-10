@@ -1,40 +1,99 @@
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native';
 import PropTypes from 'prop-types';
-import { Layout, Text } from '@ui-kitten/components';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {Icon, Layout, Text} from '@ui-kitten/components';
+
+// Import from files
 import colors from '../utils/colors';
 
 // Return secondhand item for horizontal list
-const SecondhandItemHorizontal = (props) => {
+const SecondhandItemHorizontal = ({navigation, singleItem}) => {
   return (
-       <TouchableOpacity>
-       <Image
-       source={{uri: props.singleItem.thumbnails.w160}}
-       style={styles.imageHorizontal} />
-           <Layout style={styles.textBoxHorizontal}>
-                <Text style={styles.title}>{props.singleItem.title}</Text>
-                <Text style={styles.price}>{props.singleItem.price}</Text>
-            </Layout>
-       </TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('ProductDetail', {file: singleItem});
+      }}
+    >
+      <Image
+        source={{uri: singleItem.thumbnails.w160}}
+        style={styles.imageHorizontal}
+      />
+      <Layout style={styles.textBoxHorizontal}>
+        <Text style={styles.title}>{singleItem.title}</Text>
+        <Text style={styles.price}>{singleItem.price}</Text>
+      </Layout>
+    </TouchableOpacity>
   );
 };
 
 // Return secondhand item for vertical list
-const SecondhandItemVertical = (props) => {
+const SecondhandItemVertical = ({navigation, singleItem}) => {
   return (
-       <TouchableOpacity>
-       <Image
-       source={{uri: props.singleItem.thumbnails.w160}}
-       style={styles.imageVertical} />
-           <Layout style={styles.textBoxVertical}>
-                <Text style={styles.title}>{props.singleItem.title}</Text>
-                <Text style={styles.price}>{props.singleItem.price}</Text>
-            </Layout>
-       </TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('ProductDetail', {file: singleItem});
+      }}
+    >
+      <Image
+        source={{uri: singleItem.thumbnails.w160}}
+        style={styles.imageVertical}
+      />
+      <Layout style={styles.textBoxVertical}>
+        <Text style={styles.title}>{singleItem.title}</Text>
+        <Text style={styles.price}>{singleItem.price}</Text>
+      </Layout>
+    </TouchableOpacity>
   );
 };
 
+// for productDetail page
+const ProductList = ({
+  title,
+  subTitle,
+  image,
+  IconComponent,
+  onPress,
+  renderRightActions,
+}) => {
+  return (
+    <Swipeable renderRightActions={renderRightActions}>
+      <TouchableHighlight underlayColor={colors.text_light} onPress={onPress}>
+        <Layout style={styles.container}>
+          {IconComponent}
+          {image && <Image style={styles.image} source={image} />}
+          <Layout style={styles.detailsContainer}>
+            <Text style={{fontWeight: '500'}}>{title}</Text>
+            {subTitle && (
+              <Text style={{color: colors.text_dark}}>{subTitle}</Text>
+            )}
+          </Layout>
+        </Layout>
+        {/* <Icon colors={colors.stroke} name="chevron-right-outline" size={25} /> */}
+      </TouchableHighlight>
+    </Swipeable>
+  );
+};
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    padding: 15,
+    backgroundColor: colors.text_light,
+  },
+  detailsContainer: {
+    marginLeft: 10,
+    justifyContent: 'center',
+  },
+  image: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+  },
   imageHorizontal: {
     width: 280,
     height: 180,
@@ -82,10 +141,11 @@ const styles = StyleSheet.create({
 
 SecondhandItemHorizontal.propTypes = {
   singleItem: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 SecondhandItemVertical.propTypes = {
   singleItem: PropTypes.object.isRequired,
 };
 
-export {SecondhandItemHorizontal, SecondhandItemVertical} ;
+export {ProductList, SecondhandItemHorizontal, SecondhandItemVertical};

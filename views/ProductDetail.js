@@ -1,39 +1,44 @@
 import React from 'react';
-import {Alert, Image, StyleSheet} from 'react-native';
 import {
-  Button,
-  Card,
-  Divider,
-  Input,
-  Layout,
-  Text,
-} from '@ui-kitten/components';
+  Alert,
+  Image,
+  Keyboard,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import {Divider, Input, Layout, Text} from '@ui-kitten/components';
+import PropTypes from 'prop-types';
 
 // Import from files
-import {btnBackground, text_dark, stroke, text_light} from '../utils/colors';
-import ListItem from '../components/ListItem';
+import colors from '../utils/colors';
+import {ProductList} from '../components/ListItem';
+import {AppButton} from '../components/elements/AppButton';
+import GlobalStyles from '../utils/GlobalStyles';
 
 // Alert when sending message
 const sendMessage = () => {
   Alert.alert('Success', 'Message Sent');
 };
-const ProductDetail = () => {
+const ProductDetail = ({route}) => {
+  const {file} = route.params;
   return (
-    <Layout>
+    <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
       <Image
         style={styles.image}
         source={require('../assets/products/books.jpg')}
       />
-      <Layout style={styles.detailsContainer}>
+      <ScrollView style={styles.detailsContainer}>
         <Text style={styles.title}>Books</Text>
         <Text style={styles.price}>35€</Text>
         <Divider />
 
-        <ListItem
+        <ProductList
           style={styles.userContainer}
           image={require('../assets/products/profilepic.jpg')}
           title="Annie H."
           subTitle="5 Listings"
+          onPress={() => Keyboard.dismiss()}
         />
         <Divider />
         <Layout style={styles.detailsContainer}>
@@ -54,7 +59,9 @@ const ProductDetail = () => {
           </Text>
           <Divider />
         </Layout>
-
+        <Text category="s1" style={styles.detailsContainer}>
+          Send the Seller a message
+        </Text>
         {/* <Card style={styles.productDetail}></Card> */}
         <Input
           multiline={true}
@@ -62,20 +69,20 @@ const ProductDetail = () => {
           placeholder="Add Message"
           style={styles.commentBox}
         ></Input>
-        <Button style={styles.sendBtn} onPress={sendMessage}>
-          Send
-        </Button>
-      </Layout>
-    </Layout>
+
+        <AppButton style={styles.sendBtn} title="Send" onPress={sendMessage} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
   commentBox: {
     padding: 10,
-    borderColor: stroke,
+    borderColor: colors.stroke,
   },
+
   detailsContainer: {
-    padding: 20,
+    padding: 10,
   },
   detailDescription: {
     paddingVertical: 15,
@@ -86,10 +93,11 @@ const styles = StyleSheet.create({
     height: 300,
   },
   price: {
-    color: text_dark,
+    color: colors.text_dark,
     fontWeight: 'bold',
     fontSize: 20,
     marginVertical: 10,
+    left: 10,
   },
   productDetail: {
     marginVertical: 20,
@@ -97,18 +105,21 @@ const styles = StyleSheet.create({
   },
   sendBtn: {
     width: 100,
-    backgroundColor: btnBackground,
-    borderColor: btnBackground,
+    height: 50,
     alignSelf: 'flex-end',
-    right: 10,
+    marginBottom: 30,
   },
   title: {
     fontSize: 24,
     fontWeight: '500',
+    left: 10,
   },
   userContainer: {
     marginVertical: 40,
   },
 });
 
+ProductDetail.propTypes = {
+  route: PropTypes.object,
+};
 export default ProductDetail;

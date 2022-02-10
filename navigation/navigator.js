@@ -23,8 +23,9 @@ import Favourite from '../views/Favourite';
 import Profile from '../views/Profile';
 import EditProfile from '../views/EditProfile';
 import {MainContext} from '../contexts/MainContext';
-import {SafeAreaView} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import colors from '../utils/colors';
+import ProductDetail from '../views/ProductDetail';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -118,6 +119,10 @@ const StackScreen = () => {
             options={{headerShown: false}}
             name="Main"
             component={TabScreen}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="ProductDetail"
+            component={ProductDetail}
           ></Stack.Screen>
         </>
       ) : (
