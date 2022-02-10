@@ -1,22 +1,34 @@
-import { Text } from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import { ItemGalleryHorizontal, ItemGalleryVertical } from '../components/ExploreList';
+import {
+  ItemGalleryHorizontal,
+  ItemGalleryVertical,
+} from '../components/ExploreList';
 import colors from '../utils/colors';
-
-
+import PropTypes from 'prop-types';
 
 const ExploreScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title} onPress={() => {
-          navigation.navigate('Message');
-        }}>Recently added</Text>
-          <ItemGalleryHorizontal />
-          <Text style={styles.title} onPress={() => {
-          navigation.navigate('Message');
-        }}>Popular now</Text>
-          <ItemGalleryVertical />
+      <Text
+        style={styles.title}
+        onPress={() => {
+          navigation.navigate('Recently added');
+        }}
+      >
+        Recently added
+      </Text>
+      <ItemGalleryHorizontal />
+      <Text
+        style={styles.title}
+        onPress={() => {
+          navigation.navigate('Popular now');
+        }}
+      >
+        Popular now
+      </Text>
+      <ItemGalleryVertical />
     </SafeAreaView>
   );
 };
@@ -35,6 +47,8 @@ const styles = StyleSheet.create({
   },
 });
 
-
+ExploreScreen.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default ExploreScreen;

@@ -16,9 +16,11 @@ import Message from '../views/Message';
 import AddListing from '../views/AddListing';
 import Favourite from '../views/Favourite';
 import Account from '../views/Account';
-import PopularNow from '../views/PopularNow';
 import {MainContext} from '../contexts/MainContext';
 import colors from '../utils/colors';
+import PopularNow from '../views/PopularNow';
+import RecentlyAdded from '../views/RecentlyAdded';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -98,6 +100,16 @@ const StackScreen = () => {
             options={{headerShown: false}}
             name="Main"
             component={TabScreen}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="Recently added"
+            component={RecentlyAdded}
+            options={{headerShown: true}}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="Popular now"
+            component={PopularNow}
+            options={{headerShown: true}}
           ></Stack.Screen>
         </>
       ) : (

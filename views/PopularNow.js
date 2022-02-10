@@ -1,17 +1,13 @@
-import { Text } from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
 import React from 'react';
 import {View} from 'react-native';
-
-
-
 
 const PopularNow = () => {
   return (
     <View>
-<Text></Text>
+      <Text></Text>
     </View>
   );
 };
-
 
 export default PopularNow;

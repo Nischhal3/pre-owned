@@ -1,6 +1,5 @@
 import React, {useContext, useEffect} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
-import {Button} from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
