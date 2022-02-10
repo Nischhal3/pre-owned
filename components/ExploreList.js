@@ -2,8 +2,7 @@ import {List, Text} from '@ui-kitten/components';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import { GalleryItem } from './ListItem';
-import colors from '../utils/colors';
+import {GalleryItem} from './ListItem';
 
 const products = [
   {
@@ -39,15 +38,15 @@ const products = [
 // Return a horizontal list
 const ItemGalleryHorizontal = ({navigation}) => {
   return (
-      <List
-      data={ products }
-      contentContainerStyle={ styles.containerHorizontal }
-      horizontal={ true }
-      showsHorizontalScrollIndicator={ false }
-      renderItem={ ( { item } ) => (
-        <GalleryItem navigation={ navigation } singleItem={ item } />
+    <List
+      data={products}
+      contentContainerStyle={styles.containerHorizontal}
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      renderItem={({item}) => (
+        <GalleryItem navigation={navigation} singleItem={item} />
       )}
-      ></List>
+    ></List>
   );
 };
 
@@ -59,9 +58,9 @@ const ItemGalleryVertical = ({navigation}) => {
       contentContainerStyle={styles.containerVertical}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
-      renderItem={ ( { item } ) => (
-        <GalleryItem navigation={navigation} singleItem={ item } />
-  )}
+      renderItem={({item}) => (
+        <GalleryItem navigation={navigation} singleItem={item} />
+      )}
     ></List>
   );
 };

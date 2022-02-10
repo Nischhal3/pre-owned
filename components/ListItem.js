@@ -8,14 +8,16 @@ import {
 import PropTypes from 'prop-types';
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 // Return secondhand item for explore
 const GalleryItem = ({navigation, singleItem}) => {
   return (
     <TouchableOpacity
-     onPress={() => {
+      onPress={() => {
         navigation.navigate('ProductDetail', {file: singleItem});
-      }}>
+      }}
+    >
       <Image
         source={{uri: singleItem.thumbnails.w160}}
         style={styles.GalleryImage}
@@ -29,7 +31,7 @@ const GalleryItem = ({navigation, singleItem}) => {
 };
 
 // Return secondhand item for other views
-const ListItems = ({navigation, singleItem}) => {
+const PlainListItem = ({singleItem}) => {
   return (
     <ListItem>
       <Avatar
@@ -87,14 +89,12 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 35,
   },
-  imageHorizontal: {
-    width: 280,
-    height: 180,
+  GalleryImage: {
+    width: 300,
+    height: 200,
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
-    width: 340,
-    height: 200,
   },
 
   GalleryTextBox: {
@@ -153,8 +153,9 @@ GalleryItem.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-ListItems.propTypes = {
+PlainListItem.propTypes = {
   singleItem: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
-export {GalleryItem, ListItems, ProductList};
+export {GalleryItem, PlainListItem, ProductList};

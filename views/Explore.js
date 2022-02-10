@@ -19,7 +19,7 @@ const ExploreScreen = ({navigation}) => {
       >
         Recently added
       </Text>
-      <ItemGalleryHorizontal navigation={navigation}/>
+      <ItemGalleryHorizontal navigation={navigation} />
       <Text
         style={styles.title}
         onPress={() => {
@@ -28,12 +28,12 @@ const ExploreScreen = ({navigation}) => {
       >
         Popular now
       </Text>
-      <ItemGalleryVertical navigation={navigation}/>
+      <ItemGalleryVertical navigation={navigation} />
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create( {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
