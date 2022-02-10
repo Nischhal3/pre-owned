@@ -6,14 +6,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {Icon, Layout, Text} from '@ui-kitten/components';
-
-// Import from files
+import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-// Return secondhand item for horizontal list
-const SecondhandItemHorizontal = ({navigation, singleItem}) => {
+// Return secondhand item for explore
+const GalleryItem = ({navigation, singleItem}) => {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -22,33 +20,30 @@ const SecondhandItemHorizontal = ({navigation, singleItem}) => {
     >
       <Image
         source={{uri: singleItem.thumbnails.w160}}
-        style={styles.imageHorizontal}
+        style={styles.GalleryImage}
       />
-      <Layout style={styles.textBoxHorizontal}>
-        <Text style={styles.title}>{singleItem.title}</Text>
-        <Text style={styles.price}>{singleItem.price}</Text>
+      <Layout style={styles.GalleryTextBox}>
+        <Text style={styles.GalleryTitle}>{singleItem.title}</Text>
+        <Text style={styles.GalleryPrice}>{singleItem.price}</Text>
       </Layout>
     </TouchableOpacity>
   );
 };
 
-// Return secondhand item for vertical list
-const SecondhandItemVertical = ({navigation, singleItem}) => {
+// Return secondhand item for other views
+const PlainListItem = ({singleItem}) => {
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('ProductDetail', {file: singleItem});
-      }}
-    >
-      <Image
+    <ListItem>
+      <Avatar
+        shape="square"
+        size={'giant'}
         source={{uri: singleItem.thumbnails.w160}}
-        style={styles.imageVertical}
       />
-      <Layout style={styles.textBoxVertical}>
-        <Text style={styles.title}>{singleItem.title}</Text>
-        <Text style={styles.price}>{singleItem.price}</Text>
-      </Layout>
-    </TouchableOpacity>
+      <ListItem>
+        <Text>{singleItem.title}</Text>
+        <Text>{singleItem.price}</Text>
+      </ListItem>
+    </ListItem>
   );
 };
 
@@ -94,23 +89,15 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 35,
   },
-  imageHorizontal: {
-    width: 280,
-    height: 180,
+  GalleryImage: {
+    width: 300,
+    height: 200,
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
   },
 
-  imageVertical: {
-    width: 350,
-    height: 220,
-    borderRadius: 10,
-    marginEnd: 10,
-    marginBottom: 15,
-  },
-
-  textBoxHorizontal: {
+  GalleryTextBox: {
     flex: 1,
     position: 'absolute',
     backgroundColor: null,
@@ -118,34 +105,57 @@ const styles = StyleSheet.create({
     margin: 15,
   },
 
-  textBoxVertical: {
-    flex: 1,
-    position: 'absolute',
-    backgroundColor: null,
-    top: 140,
-    margin: 15,
-  },
-
-  title: {
+  GalleryTitle: {
     fontSize: 24,
     fontWeight: '700',
     color: colors.text_light,
   },
 
-  price: {
+  GalleryPrice: {
     fontSize: 18,
     fontWeight: '800',
     color: colors.text_light,
   },
+
+  ListImage: {
+    flex: 1,
+    marginEnd: 10,
+    marginBottom: 15,
+    width: '30%',
+    height: 100,
+  },
+
+  ListTextBox: {
+    flex: 1,
+    position: 'absolute',
+    left: '35%',
+    top: '20%',
+    backgroundColor: null,
+  },
+
+  ListTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    fontFamily: 'Karla',
+    color: colors.text_dark,
+  },
+
+  ListPrice: {
+    fontSize: 12,
+    fontWeight: '500',
+    fontFamily: 'Karla',
+    color: colors.text_dark,
+  },
 });
 
-SecondhandItemHorizontal.propTypes = {
+GalleryItem.propTypes = {
   singleItem: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
 };
 
-SecondhandItemVertical.propTypes = {
+PlainListItem.propTypes = {
   singleItem: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
-export {ProductList, SecondhandItemHorizontal, SecondhandItemVertical};
+export {GalleryItem, PlainListItem, ProductList};
