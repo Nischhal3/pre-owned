@@ -262,6 +262,7 @@ const SignupForm = ({setFormToggle}) => {
         btnStyle={styles.button}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
+        disabled={true}
         text="Sign Up"
       />
     </Layout>
@@ -278,6 +279,7 @@ const styles = StyleSheet.create({
   button: {
     width: '50%',
     alignSelf: 'center',
+    marginBottom: 30,
   },
   backdrop: {
     backgroundColor: colors.primary,

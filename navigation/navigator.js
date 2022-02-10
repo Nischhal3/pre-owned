@@ -24,6 +24,7 @@ import Profile from '../views/Profile';
 import EditProfile from '../views/EditProfile';
 import {MainContext} from '../contexts/MainContext';
 import {SafeAreaView} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -33,12 +34,12 @@ const MenuContent = ({ navigation, state }) => (
   <Drawer
     selectedIndex={new IndexPath(state.index)}
     onSelect={index => navigation.navigate(state.routeNames[index.row])}>
-    <DrawerItem title='Profile' />
-    <DrawerItem title='Edit Profile' />
-    <DrawerItem title='My Favorites' />
-    <DrawerItem title='My Messages' />
-    <DrawerItem title='My Listings' />
-    <DrawerItem title='Logout' />
+    <DrawerItem title='Profile' accessoryLeft={<Icon name="person-outline"/>} />
+    <DrawerItem title='Edit Profile' accessoryLeft={<Icon name="edit-outline"/>} />
+    <DrawerItem title='My Favorites' accessoryLeft={<Icon name="heart-outline"/>} />
+    <DrawerItem title='My Messages' accessoryLeft={<Icon name="message-circle-outline"/>} />
+    <DrawerItem title='My Listings' accessoryLeft={<Icon name="list-outline"/>} />
+    <DrawerItem title='Logout' accessoryLeft={<Icon name="log-out-outline"/>} />
   </Drawer>
 );
 
