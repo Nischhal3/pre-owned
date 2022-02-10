@@ -9,7 +9,7 @@ import colors, {
   stroke,
   text_light,
 } from '../utils/colors';
-import {ProductDetailList} from '../components/ListItem';
+import {ProductList} from '../components/ListItem';
 import {AppButton} from '../components/elements/AppButton';
 
 // Alert when sending message
@@ -28,7 +28,7 @@ const ProductDetail = () => {
         <Text style={styles.price}>35€</Text>
         <Divider />
 
-        <ProductDetailList
+        <ProductList
           style={styles.userContainer}
           image={require('../assets/products/profilepic.jpg')}
           title="Annie H."

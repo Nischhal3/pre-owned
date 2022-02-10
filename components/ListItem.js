@@ -46,16 +46,16 @@ const SecondhandItemVertical = (props) => {
 };
 
 // for productDetail page
-const ProductDetailList = ({
+const ProductList = ({
   title,
   subTitle,
   image,
   IconComponent,
   onPress,
-  rightButtons,
+  renderRightActions,
 }) => {
   return (
-    <Swipeable rightButtons={rightButtons}>
+    <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.text_light} onPress={onPress}>
         <Layout style={styles.container}>
           {IconComponent}
@@ -139,4 +139,4 @@ SecondhandItemVertical.propTypes = {
   singleItem: PropTypes.object.isRequired,
 };
 
-export {ProductDetailList, SecondhandItemHorizontal, SecondhandItemVertical};
+export {ProductList, SecondhandItemHorizontal, SecondhandItemVertical};
