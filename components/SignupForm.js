@@ -15,7 +15,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {checkUserName, signUp} from '../hooks/ApiHooks';
 import {PropTypes} from 'prop-types';
 import FormInput from './formComponents/FormInput';
-import FormButton from './formComponents/FormButton';
+import {FormButton} from './elements/AppButton';
 import colors from '../utils/colors';
 
 const SignupForm = ({setFormToggle}) => {
@@ -259,7 +259,7 @@ const SignupForm = ({setFormToggle}) => {
       </CheckBox>
 
       <FormButton
-        btnStyle={styles.button}
+        style={styles.button}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         text="Sign Up"

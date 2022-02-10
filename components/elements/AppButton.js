@@ -1,6 +1,6 @@
-import {Button} from '@ui-kitten/components';
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Button} from '@ui-kitten/components';
+import {TouchableOpacity} from 'react-native';
 import colors from '../../utils/colors';
 import GlobalStyles from '../../utils/GlobalStyles';
 
@@ -14,4 +14,14 @@ const AppButton = ({title, onPress, color = colors.btnBackground, style}) => {
   );
 };
 
-export {AppButton};
+const FormButton = (props, style) => {
+  return (
+    <Button
+      style={[GlobalStyles.btnStyle, style]}
+      onPress={props.handleSubmit(props.onSubmit)}
+    >
+      {props.text}
+    </Button>
+  );
+};
+export {AppButton, FormButton};
