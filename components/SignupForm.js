@@ -259,7 +259,6 @@ const SignupForm = ({setFormToggle}) => {
       </CheckBox>
 
       <FormButton
-        style={styles.button}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         text="Sign Up"
@@ -275,10 +274,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
-  button: {
-    width: '50%',
-    alignSelf: 'center',
-  },
+
   backdrop: {
     backgroundColor: colors.primary,
   },

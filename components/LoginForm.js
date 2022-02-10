@@ -79,7 +79,6 @@ const LoginForm = () => {
 
       <Text style={styles.password}>Forgot password?</Text>
       <FormButton
-        style={styles.button}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         text="Login"
@@ -101,10 +100,6 @@ const styles = StyleSheet.create({
   password: {
     marginBottom: 100,
     alignSelf: 'flex-end',
-  },
-  button: {
-    width: '50%',
-    alignSelf: 'center',
   },
 });
 
