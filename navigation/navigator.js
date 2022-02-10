@@ -1,28 +1,99 @@
 import React, {useContext} from 'react';
+import {SafeAreaView} from 'react-native';
 import {
   BottomNavigation,
   BottomNavigationTab,
-  Layout,
-  Text,
   Icon,
+  Drawer,
+  DrawerItem,
+  IndexPath,
 } from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import GlobalStyles from '../utils/GlobalStyles';
 import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
 import Explore from '../views/Explore';
 import Message from '../views/Message';
+import Search from '../views/Search';
 import AddListing from '../views/AddListing';
+import MyListing from '../views/MyListing';
 import Favourite from '../views/Favourite';
-import Account from '../views/Account';
+import Profile from '../views/Profile';
+import EditProfile from '../views/EditProfile';
 import {MainContext} from '../contexts/MainContext';
+import colors from '../utils/colors';
 import ProductDetail from '../views/ProductDetail';
 import PopularNow from '../views/PopularNow';
 import RecentlyAdded from '../views/RecentlyAdded';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const Menu = createDrawerNavigator();
+
+const MenuContent = ({navigation, state}) => (
+  <Drawer
+    selectedIndex={new IndexPath(state.index)}
+    onSelect={(index) => navigation.navigate(state.routeNames[index.row])}
+  >
+    <DrawerItem
+      title="Profile"
+      accessoryLeft={<Icon name="person-outline" />}
+    />
+    <DrawerItem
+      title="Edit Profile"
+      accessoryLeft={<Icon name="edit-outline" />}
+    />
+    <DrawerItem
+      title="My Favorites"
+      accessoryLeft={<Icon name="heart-outline" />}
+    />
+    <DrawerItem
+      title="My Messages"
+      accessoryLeft={<Icon name="message-circle-outline" />}
+    />
+    <DrawerItem
+      title="My Listings"
+      accessoryLeft={<Icon name="list-outline" />}
+    />
+    <DrawerItem
+      title="Logout"
+      accessoryLeft={<Icon name="log-out-outline" />}
+    />
+  </Drawer>
+);
+
+const MenuNavigator = () => (
+  <Menu.Navigator drawerContent={(props) => <MenuContent {...props} />}>
+    <Menu.Screen
+      name="Profile"
+      component={Profile}
+      options={{headerTitleAlign: 'center'}}
+    />
+    <Menu.Screen
+      name="Edit Profile"
+      component={EditProfile}
+      options={{headerTitleAlign: 'center'}}
+    />
+    <Menu.Screen
+      name="My Favorites"
+      component={Favourite}
+      options={{headerTitleAlign: 'center'}}
+    />
+    <Menu.Screen
+      name="My Message"
+      component={Message}
+      options={{headerTitleAlign: 'center'}}
+    />
+    <Menu.Screen
+      name="My Listings"
+      component={MyListing}
+      options={{headerTitleAlign: 'center'}}
+    />
+  </Menu.Navigator>
+);
 
 const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
@@ -32,22 +103,15 @@ const BottomTabBar = ({navigation, state}) => (
   >
     <BottomNavigationTab
       title="Explore"
-      icon={<Icon name="search-outline" />}
+      icon={<Icon name="compass-outline" />}
     />
-    <BottomNavigationTab
-      title="Message"
-      icon={<Icon name="message-circle-outline" />}
-    />
+    <BottomNavigationTab title="Search" icon={<Icon name="search-outline" />} />
     <BottomNavigationTab
       title="Add Listing"
       icon={<Icon name="plus-circle-outline" />}
     />
     <BottomNavigationTab
-      title="Favourite"
-      icon={<Icon name="heart-outline" />}
-    />
-    <BottomNavigationTab
-      title="Account"
+      title="Profile"
       icon={<Icon name="person-outline" />}
     />
   </BottomNavigation>
@@ -64,8 +128,8 @@ const TabScreen = () => {
         }}
       ></Tab.Screen>
       <Tab.Screen
-        name="Message"
-        component={Message}
+        name="Search"
+        component={Search}
         options={{headerTitleAlign: 'center'}}
       ></Tab.Screen>
       <Tab.Screen
@@ -74,14 +138,9 @@ const TabScreen = () => {
         options={{headerTitleAlign: 'center'}}
       ></Tab.Screen>
       <Tab.Screen
-        name="Favourite"
-        component={Favourite}
-        options={{headerTitleAlign: 'center'}}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="Account"
-        component={Account}
-        options={{headerTitleAlign: 'center'}}
+        name="ProfileWrap"
+        component={MenuNavigator}
+        options={{headerShown: false}}
       ></Tab.Screen>
     </Tab.Navigator>
   );
@@ -98,16 +157,6 @@ const StackScreen = () => {
             options={{headerShown: false}}
             name="Main"
             component={TabScreen}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="Recently added"
-            component={RecentlyAdded}
-            options={{headerShown: true}}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="Popular now"
-            component={PopularNow}
-            options={{headerShown: true}}
           ></Stack.Screen>
           <Stack.Screen
             name="ProductDetail"
@@ -128,9 +177,6 @@ const StackScreen = () => {
           ></Stack.Screen>
         </>
       )}
-      {/* <Stack.Screen options={{headerShown: false}} name='Main' component={TabScreen}></Stack.Screen>
-      <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}}></Stack.Screen>
-      <Stack.Screen name="Login" component={Login} options={{headerShown: false}}></Stack.Screen> */}
     </Stack.Navigator>
   );
 };
@@ -138,7 +184,9 @@ const StackScreen = () => {
 const navigator = () => {
   return (
     <NavigationContainer>
-      <StackScreen />
+      <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+        <StackScreen />
+      </SafeAreaView>
     </NavigationContainer>
   );
 };
