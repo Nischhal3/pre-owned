@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
+import {Avatar, Icon, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {PointRightArrow} from './elements/Icons';
@@ -59,9 +59,9 @@ const PlainListItem = ({navigation, singleItem}) => {
 };
 
 // for productDetail page
-const ProductList = ({
+const ListDetail = ({
   title,
-  subTitle,
+  description,
   image,
   IconComponent,
   onPress,
@@ -72,15 +72,21 @@ const ProductList = ({
       <TouchableHighlight underlayColor={colors.text_light} onPress={onPress}>
         <Layout style={styles.container}>
           {IconComponent}
-          {image && <Image style={styles.image} source={image} />}
+          {image && <Avatar style={styles.image} source={image} />}
           <Layout style={styles.detailsContainer}>
             <Text style={{fontWeight: '500'}}>{title}</Text>
-            {subTitle && (
-              <Text style={{color: colors.text_dark}}>{subTitle}</Text>
+            {description && (
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                style={{width: 250, color: colors.mediumGrey}}
+              >
+                {description}
+              </Text>
             )}
           </Layout>
+          <ListItem style={{flex: 1}} accessoryRight={PointRightArrow} />
         </Layout>
-        {/* <Icon colors={colors.stroke} name="chevron-right-outline" size={25} /> */}
       </TouchableHighlight>
     </Swipeable>
   );
@@ -89,6 +95,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 15,
+
     backgroundColor: colors.text_light,
   },
   detailsContainer: {
@@ -98,7 +105,6 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70,
-    borderRadius: 35,
   },
 
   GalleryImage: {
@@ -136,4 +142,4 @@ PlainListItem.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export {GalleryItem, PlainListItem, ProductList};
+export {GalleryItem, PlainListItem, ListDetail};
