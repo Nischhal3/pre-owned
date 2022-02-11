@@ -5,7 +5,7 @@ import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import {Card, Button} from 'react-native-elements';
 import FormInput from '../components/formComponents/FormInput';
-import {FormButton} from '../components/elements/AppButton';
+import {AppButton, FormButton} from '../components/elements/AppButton';
 import {Text} from '@ui-kitten/components';
 import {getToken} from '../hooks/CommonFunction';
 import {postMedia, postTag} from '../hooks/MediaHooks';
@@ -79,7 +79,7 @@ const AddListing = ({navigation}) => {
         {file_id: response.file_id, tag: appId},
         token
       );
-      console.log('upload response', tagResponse);
+      // console.log('upload response', tagResponse);
 
       tagResponse &&
         Alert.alert('File', 'uploaded', [
@@ -88,6 +88,7 @@ const AddListing = ({navigation}) => {
             onPress: () => {
               // TODO: clear the form values here after submission
               navigation.navigate('Explore');
+              reset();
             },
           },
         ]);
@@ -95,6 +96,16 @@ const AddListing = ({navigation}) => {
       console.error('Media upload: ', error);
     }
   };
+
+  // Resets the form
+  const reset = () => {
+    setImage('https://place-hold.it/300x200&text=Choose');
+    setImageSelected(false);
+    setValue('title', '');
+    setValue('description', '');
+    setType('image');
+  };
+
   return (
     <ScrollView>
       <Card>
@@ -162,6 +173,11 @@ const AddListing = ({navigation}) => {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           text="Upload"
+        />
+        <AppButton
+          title="Reset form"
+          titleStyle={{fontWeight: 'bold'}}
+          onPress={reset}
         />
       </Card>
     </ScrollView>
