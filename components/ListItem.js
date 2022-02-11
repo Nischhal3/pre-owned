@@ -6,14 +6,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {Avatar, Icon, Layout, ListItem, Text} from '@ui-kitten/components';
+import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-
-// Right arrow for lists
-const PointRightArrow = (props) => (
-  <Icon {...props} name="chevron-right-outline" />
-);
+import {PointRightArrow} from './elements/Icons';
 
 // Return secondhand item for explore
 const GalleryItem = ({navigation, singleItem}) => {

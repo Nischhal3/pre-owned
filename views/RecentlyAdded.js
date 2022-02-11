@@ -74,7 +74,7 @@ const RecentlyAdded = ({navigation}) => {
   return (
     <SafeAreaView>
       <List
-        data={ products }
+        data={products}
         contentContainerStyle={styles.container}
         horizontal={false}
         ItemSeparatorComponent={Divider}

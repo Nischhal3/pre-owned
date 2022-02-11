@@ -9,6 +9,7 @@ const products = [
     key: '0',
     title: 'Cabinet for sale',
     price: '€45',
+    published: '1 day ago',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1919',
     },
@@ -17,6 +18,7 @@ const products = [
   {
     key: '1',
     title: 'Kittens',
+    published: '1 day ago',
     price: '9e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1920',
@@ -26,6 +28,7 @@ const products = [
   {
     key: '2',
     title: 'Annoying cat',
+    published: '1 day ago',
     price: '5e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1921',
@@ -35,6 +38,7 @@ const products = [
   {
     key: '3',
     title: 'Annoying cat',
+    published: '1 day ago',
     price: '5e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1921',
@@ -44,6 +48,7 @@ const products = [
   {
     key: '4',
     title: 'Annoying cat',
+    published: '1 day ago',
     price: '5e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1921',
@@ -53,6 +58,7 @@ const products = [
   {
     key: '5',
     title: 'Annoying cat',
+    published: '1 day ago',
     price: '5e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1921',
@@ -68,7 +74,7 @@ const ItemGalleryHorizontal = ({navigation}) => {
     <List
       data={products}
       contentContainerStyle={styles.containerHorizontal}
-      horizontal={ true }
+      horizontal={true}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
         <GalleryItem navigation={navigation} singleItem={item} />
