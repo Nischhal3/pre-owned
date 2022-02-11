@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {PointRightArrow} from './elements/Icons';
 
 // Return secondhand item for explore
 const GalleryItem = ({navigation, singleItem}) => {
@@ -23,26 +24,36 @@ const GalleryItem = ({navigation, singleItem}) => {
         style={styles.GalleryImage}
       />
       <Layout style={styles.GalleryTextBox}>
-        <Text style={styles.GalleryTitle}>{singleItem.title}</Text>
-        <Text style={styles.GalleryPrice}>{singleItem.price}</Text>
+        <Text category={'h5'} style={{color: colors.text_light}}>
+          {singleItem.title}
+        </Text>
+        <Text category={'h6'} style={{color: colors.text_light}}>
+          {singleItem.price}
+        </Text>
       </Layout>
     </TouchableOpacity>
   );
 };
 
 // Return secondhand item for other views
-const PlainListItem = ({singleItem}) => {
+const PlainListItem = ({navigation, singleItem}) => {
   return (
-    <ListItem>
+    <ListItem style={{flex: 1, flexDirection: 'row'}}>
       <Avatar
         shape="square"
         size={'giant'}
         source={{uri: singleItem.thumbnails.w160}}
       />
-      <ListItem>
-        <Text>{singleItem.title}</Text>
-        <Text>{singleItem.price}</Text>
+      <ListItem style={styles.ListItemDetails}>
+        <Text category={'h6'} style={{fontWeight: '500', marginBottom: 5}}>
+          {singleItem.title}
+        </Text>
+        <Text category={'p1'}>{singleItem.price}</Text>
       </ListItem>
+      <Text category={'p2'} style={{flex: 2}}>
+        {singleItem.published}
+      </Text>
+      <ListItem style={{flex: 1}} accessoryRight={PointRightArrow} />
     </ListItem>
   );
 };
@@ -89,8 +100,9 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 35,
   },
+
   GalleryImage: {
-    width: 300,
+    width: 340,
     height: 200,
     borderRadius: 10,
     marginEnd: 10,
@@ -101,50 +113,16 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'absolute',
     backgroundColor: null,
-    top: 100,
+    top: 120,
     margin: 15,
   },
 
-  GalleryTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: colors.text_light,
-  },
-
-  GalleryPrice: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: colors.text_light,
-  },
-
-  ListImage: {
-    flex: 1,
-    marginEnd: 10,
-    marginBottom: 15,
-    width: '30%',
-    height: 100,
-  },
-
-  ListTextBox: {
-    flex: 1,
-    position: 'absolute',
-    left: '35%',
-    top: '20%',
-    backgroundColor: null,
-  },
-
-  ListTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    fontFamily: 'Karla',
-    color: colors.text_dark,
-  },
-
-  ListPrice: {
-    fontSize: 12,
-    fontWeight: '500',
-    fontFamily: 'Karla',
-    color: colors.text_dark,
+  ListItemDetails: {
+    flex: 6,
+    width: '50%',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    marginStart: 15,
   },
 });
 
