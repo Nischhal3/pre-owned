@@ -1,27 +1,50 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Image, StyleSheet} from 'react-native';
-import {Card, Layout, Button, Text, Avatar, Divider} from '@ui-kitten/components';
+import {
+  Card,
+  Layout,
+  Button,
+  Text,
+  Avatar,
+  Divider,
+} from '@ui-kitten/components';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
+import {fetchMedia, useMedia} from '../hooks/MediaHooks';
 
 const Profile = () => {
+  const {mediaArray} = useMedia();
   const {setIsLoggedIn} = useContext(MainContext);
-  const logout = () => {
+
+  const logout = async () => {
     AsyncStorage.clear();
     setIsLoggedIn(false);
   };
+  console.log('Profile', {mediaArray});
 
   return (
     <Layout style={styles.container}>
-      <Image style={styles.backgroundImg} source={require('../assets/backgrounds/ProfileBG.png')} />
+      <Image
+        style={styles.backgroundImg}
+        source={require('../assets/backgrounds/ProfileBG.png')}
+      />
       <Layout style={styles.cardWrap}>
-        <Avatar style={styles.avatar} source={require('../assets/backgrounds/LoginBG.png')} shape='round' />
+        <Avatar
+          style={styles.avatar}
+          source={require('../assets/backgrounds/LoginBG.png')}
+          shape="round"
+        />
         <Card style={styles.card}>
           <Text style={styles.username}>Username</Text>
           <Divider />
-          <Text style={styles.description}>I am able to provide fast delivery. If you live nearby. I can even make a drop of.</Text>
-          <Button style={styles.logout} onPress={logout}>Logout</Button>
+          <Text style={styles.description}>
+            I am able to provide fast delivery. If you live nearby. I can even
+            make a drop of.
+          </Text>
+          <Button style={styles.logout} onPress={logout}>
+            Logout
+          </Button>
         </Card>
       </Layout>
     </Layout>
@@ -71,7 +94,7 @@ const styles = StyleSheet.create({
   },
   logout: {
     marginTop: 100,
-  }
+  },
 });
 
 export default Profile;
