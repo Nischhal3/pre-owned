@@ -1,15 +1,16 @@
 import {Alert, Image, ScrollView, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
-import {Card, Button} from 'react-native-elements';
+import {Card} from 'react-native-elements';
 import FormInput from '../components/formComponents/FormInput';
 import {AppButton, FormButton} from '../components/elements/AppButton';
 import {Text} from '@ui-kitten/components';
 import {getToken} from '../hooks/CommonFunction';
 import {postMedia, postTag} from '../hooks/MediaHooks';
 import {appId} from '../utils/url';
+import {MainContext} from '../contexts/MainContext';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState('../assets/backgrounds/ProfileBG.png');
@@ -18,6 +19,7 @@ const AddListing = ({navigation}) => {
   );
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
+  const {update, setUpdate} = useContext(MainContext);
 
   const {
     control,
@@ -86,7 +88,7 @@ const AddListing = ({navigation}) => {
           {
             text: 'Ok',
             onPress: () => {
-              // TODO: clear the form values here after submission
+              setUpdate(update + 1);
               navigation.navigate('Explore');
               reset();
             },

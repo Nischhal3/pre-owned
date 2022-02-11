@@ -38,9 +38,10 @@ const products = [
 // TODO fetch items from server, item fetch to be added in API hooks
 // Return a horizontal list
 const ItemGalleryHorizontal = ({navigation}) => {
+  const {mediaArray} = useMedia();
   return (
     <List
-      data={products}
+      data={mediaArray}
       contentContainerStyle={styles.containerHorizontal}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
