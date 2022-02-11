@@ -7,7 +7,7 @@ import {GalleryItem} from './ListItem';
 const products = [
   {
     key: '0',
-    title: 'Carbinet for sale',
+    title: 'Cabinet for sale',
     price: '€45',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1919',
@@ -68,7 +68,7 @@ const ItemGalleryHorizontal = ({navigation}) => {
     <List
       data={products}
       contentContainerStyle={styles.containerHorizontal}
-      horizontal={true}
+      horizontal={ true }
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
         <GalleryItem navigation={navigation} singleItem={item} />
