@@ -61,4 +61,16 @@ const getUserByToken = async (token) => {
   return await fetchData(baseUrl + 'users/user', options);
 };
 
-export {signUp, login, checkUserName, getUserByToken};
+const updateUser = async (data, token) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify(data),
+  };
+  return await fetchData(`${baseUrl}users`, options);
+};
+
+export {signUp, login, checkUserName, getUserByToken, updateUser};
