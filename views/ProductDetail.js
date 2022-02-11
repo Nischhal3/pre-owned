@@ -37,7 +37,7 @@ const ProductDetail = ({route}) => {
           style={styles.userContainer}
           image={require('../assets/products/profilepic.jpg')}
           title="Annie H."
-          subTitle="5 Listings"
+          description="5 Listings"
         />
         <Divider />
         <Layout style={styles.detailsContainer}>
