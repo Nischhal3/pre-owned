@@ -1,8 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import {Button, Icon, Layout} from '@ui-kitten/components';
 import colors from '../../utils/colors';
-import {TrashIcon} from './Icons';
 
 const DeleteAction = ({onPress}) => {
   return (
