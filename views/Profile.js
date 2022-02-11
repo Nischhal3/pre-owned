@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {
   Card,
@@ -11,7 +11,6 @@ import {
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
-import {fetchMedia, useMedia} from '../hooks/MediaHooks';
 
 const Profile = () => {
   const {setIsLoggedIn} = useContext(MainContext);
