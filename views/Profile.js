@@ -14,14 +14,12 @@ import colors from '../utils/colors';
 import {fetchMedia, useMedia} from '../hooks/MediaHooks';
 
 const Profile = () => {
-  const {mediaArray} = useMedia();
   const {setIsLoggedIn} = useContext(MainContext);
 
   const logout = async () => {
     AsyncStorage.clear();
     setIsLoggedIn(false);
   };
-  console.log('Profile', {mediaArray});
 
   return (
     <Layout style={styles.container}>

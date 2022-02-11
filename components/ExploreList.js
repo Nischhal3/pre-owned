@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {GalleryItem} from './ListItem';
+import {useMedia} from '../hooks/MediaHooks';
 
 const products = [
   {
@@ -52,9 +53,11 @@ const ItemGalleryHorizontal = ({navigation}) => {
 
 // Return a vertical list
 const ItemGalleryVertical = ({navigation}) => {
+  const {mediaArray} = useMedia();
+  console.log('Explorer', {mediaArray});
   return (
     <List
-      data={products}
+      data={mediaArray}
       contentContainerStyle={styles.containerVertical}
       horizontal={false}
       showsHorizontalScrollIndicator={false}

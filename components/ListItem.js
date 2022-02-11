@@ -9,9 +9,11 @@ import PropTypes from 'prop-types';
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {uploadsUrl} from '../utils/url';
 
 // Return secondhand item for explore
 const GalleryItem = ({navigation, singleItem}) => {
+  console.log('Listitem', singleItem);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -19,12 +21,13 @@ const GalleryItem = ({navigation, singleItem}) => {
       }}
     >
       <Image
-        source={{uri: singleItem.thumbnails.w160}}
+        source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         style={styles.GalleryImage}
       />
       <Layout style={styles.GalleryTextBox}>
         <Text style={styles.GalleryTitle}>{singleItem.title}</Text>
-        <Text style={styles.GalleryPrice}>{singleItem.price}</Text>
+        <Text style={styles.GalleryTitle}>{singleItem.description}</Text>
+        {/* <Text style={styles.GalleryPrice}>{singleItem.price}</Text> */}
       </Layout>
     </TouchableOpacity>
   );
