@@ -8,7 +8,7 @@ import FormInput from '../components/formComponents/FormInput';
 import {AppButton, FormButton} from '../components/elements/AppButton';
 import {Text} from '@ui-kitten/components';
 import {getToken} from '../hooks/CommonFunction';
-import {postMedia, postTag} from '../hooks/MediaHooks';
+import {postMedia, postTag, useMedia} from '../hooks/MediaHooks';
 import {appId} from '../utils/url';
 import {MainContext} from '../contexts/MainContext';
 
@@ -111,11 +111,23 @@ const AddListing = ({navigation}) => {
   return (
     <ScrollView>
       <Card>
-        <Card.Image
-          source={{uri: image}}
-          style={styles.image}
-          onPress={pickImage}
-        />
+        {type === 'image' ? (
+          <Card.Image
+            source={{uri: image}}
+            style={styles.image}
+            onPress={pickImage}
+          />
+        ) : (
+          <Video
+            source={{uri: image}}
+            style={styles.image}
+            useNativeControls={true}
+            resizeMode="cover"
+            onError={(err) => {
+              console.error('video', err);
+            }}
+          />
+        )}
         <Controller
           control={control}
           rules={{
