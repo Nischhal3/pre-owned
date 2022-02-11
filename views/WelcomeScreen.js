@@ -6,7 +6,13 @@ import {MainContext} from '../contexts/MainContext';
 import {getUserByToken} from '../hooks/ApiHooks';
 import {AppButton} from '../components/elements/AppButton';
 
-function WelcomeScreen({navigation}) {
+// Lottie animation
+import LottieView from 'lottie-react-native';
+import {Layout, Text} from '@ui-kitten/components';
+import colors from '../utils/colors';
+
+const WelcomeScreen = ({navigation}) => {
+  const animation = React.createRef(); // animation
   const {setIsLoggedIn, setUser, setFormToggle} = useContext(MainContext);
 
   const checkToken = async () => {
@@ -28,6 +34,7 @@ function WelcomeScreen({navigation}) {
 
   useEffect(() => {
     checkToken();
+    // animation.current?.play();
   }, []);
 
   return (
@@ -35,10 +42,19 @@ function WelcomeScreen({navigation}) {
       style={styles.background}
       source={require('../assets/backgrounds/OnBoarding.png')}
     >
-      {/* <Layout style={styles.btnContainer}></Layout> */}
+      {/* <Layout style={styles.inner}> */}
+
+      {/* <LottieView
+        ref={animation}
+        source={require('../assets/brand/PreOwned-animation.json')}
+        style={styles.animation}
+        loop={true}
+      /> */}
+
       <AppButton
         title="Login"
         onPress={() => {
+          setFormToggle(true);
           navigation.navigate('Login');
         }}
       />
@@ -50,9 +66,10 @@ function WelcomeScreen({navigation}) {
           navigation.navigate('Login');
         }}
       />
+      {/* </Layout> */}
     </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   background: {
@@ -60,10 +77,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  // btnContainer: {
-  //   padding: 20,
+  // animation: {
   //   width: '100%',
-  //   backgroundColor: colors.text_light,
+  //   height: '70%',
+  //   marginBottom: 20,
+  //   alignSelf: 'center',
+  // },
+  // inner: {
+  //   width: 400,
+  //   height: undefined,
+  //   backgroundColor: colors.primary,
+  //   alignSelf: 'center',
   // },
 });
 
