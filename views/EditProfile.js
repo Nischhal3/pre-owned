@@ -104,17 +104,14 @@ const EditProfile = ({navigation}) => {
         )}
         name="username"
       />
-      <ErrorMessage
-        errors={errors}
-        field={username}
-        message={username.message}
-      />
+      {/* Need to ask teacher: Not working */}
+      {/* {<ErrorMessage field={errors.username} text={errors.username.message} />} */}
 
-      {/* {errors.username && (
+      {errors.username && (
         <Text status="danger">
           {errors.username && errors.username.message}{' '}
         </Text>
-      )} */}
+      )}
 
       <Controller
         control={control}
