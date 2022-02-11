@@ -54,6 +54,7 @@ const WelcomeScreen = ({navigation}) => {
       <AppButton
         title="Login"
         onPress={() => {
+          setFormToggle(true);
           navigation.navigate('Login');
         }}
       />
