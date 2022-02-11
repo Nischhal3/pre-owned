@@ -1,5 +1,11 @@
-import {Alert, Image, ScrollView, StyleSheet} from 'react-native';
-import React, {useContext, useState} from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
@@ -11,6 +17,7 @@ import {getToken} from '../hooks/CommonFunction';
 import {postMedia, postTag, useMedia} from '../hooks/MediaHooks';
 import {appId} from '../utils/url';
 import {MainContext} from '../contexts/MainContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState('../assets/backgrounds/ProfileBG.png');
@@ -90,7 +97,6 @@ const AddListing = ({navigation}) => {
             onPress: () => {
               setUpdate(update + 1);
               navigation.navigate('Explore');
-              reset();
             },
           },
         ]);
@@ -107,6 +113,13 @@ const AddListing = ({navigation}) => {
     setValue('description', '');
     setType('image');
   };
+
+  // Resets form user if off from this view
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset();
+    }, [])
+  );
 
   return (
     <ScrollView>
@@ -188,6 +201,7 @@ const AddListing = ({navigation}) => {
           onSubmit={onSubmit}
           text="Upload"
         />
+        <ActivityIndicator animating={true} color="#6B818C" size="large" />
         <AppButton
           title="Reset form"
           titleStyle={{fontWeight: 'bold'}}
