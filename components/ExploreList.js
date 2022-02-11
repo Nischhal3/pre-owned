@@ -7,8 +7,9 @@ import {GalleryItem} from './ListItem';
 const products = [
   {
     key: '0',
-    title: 'Carbinet for sale',
+    title: 'Cabinet for sale',
     price: '€45',
+    published: '1 day ago',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1919',
     },
@@ -17,6 +18,7 @@ const products = [
   {
     key: '1',
     title: 'Kittens',
+    published: '1 day ago',
     price: '9e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1920',
@@ -26,6 +28,37 @@ const products = [
   {
     key: '2',
     title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '3',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '4',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '5',
+    title: 'Annoying cat',
+    published: '1 day ago',
     price: '5e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1921',
