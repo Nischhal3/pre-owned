@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
@@ -102,19 +103,35 @@ const styles = StyleSheet.create({
   },
 
   GalleryImage: {
-    width: 340,
-    height: 200,
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
+
+    ...Platform.select({
+      ios: {
+        width: 350,
+        height: 220,
+      },
+      android: {
+        width: 320,
+        height: 190,
+      },
+    }),
   },
 
   GalleryTextBox: {
-    flex: 1,
     position: 'absolute',
     backgroundColor: null,
-    top: 120,
-    margin: 15,
+    marginStart: 15,
+
+    ...Platform.select({
+      ios: {
+        top: 150,
+      },
+      android: {
+        top: 120,
+      },
+    }),
   },
 
   ListItemDetails: {
