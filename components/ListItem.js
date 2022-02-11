@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
 
   GalleryImage: {
-    width: 300,
+    width: 340,
     height: 200,
     borderRadius: 10,
     marginEnd: 10,
