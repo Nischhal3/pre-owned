@@ -1,6 +1,5 @@
 import {List} from '@ui-kitten/components';
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {GalleryItem} from './ListItem';
 
@@ -73,7 +72,10 @@ const ItemGalleryHorizontal = ({navigation}) => {
   return (
     <List
       data={products}
-      contentContainerStyle={styles.containerHorizontal}
+      contentContainerStyle={{
+        marginStart: 20,
+        alignItems: 'center',
+      }}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
@@ -88,7 +90,7 @@ const ItemGalleryVertical = ({navigation}) => {
   return (
     <List
       data={products}
-      contentContainerStyle={styles.containerVertical}
+      contentContainerStyle={{marginStart: 20}}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
@@ -98,17 +100,6 @@ const ItemGalleryVertical = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  containerHorizontal: {
-    marginStart: 20,
-    marginBottom: 200,
-  },
-
-  containerVertical: {
-    width: '100%',
-    marginStart: 20,
-  },
-});
 ItemGalleryHorizontal.propTypes = {
   navigation: PropTypes.object,
 };
