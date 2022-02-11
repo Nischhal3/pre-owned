@@ -7,4 +7,6 @@ export default {
   active: '#58854A',
   stroke: '#949393',
   danger: '#FF5252',
+  lightGrey: '#e5e5e5',
+  mediumGrey: '#6e6969',
 };

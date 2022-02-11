@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Alert} from 'react-native';
 import {Layout, Divider, Icon} from '@ui-kitten/components';
-import {MessagesList} from '../components/ListItem';
+import {ListDetail} from '../components/ListItem';
 import DeleteAction from '../components/elements/DeleteAction';
 import colors from '../utils/colors';
 import {PointRightArrow} from '../components/elements/Icons';
@@ -53,7 +53,7 @@ const Message = () => {
         data={messages}
         keyExTractor={(message) => message.id.toString()}
         renderItem={({item}) => (
-          <MessagesList
+          <ListDetail
             title={item.title}
             description={item.description}
             image={item.image}

@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 
 // Import from files
 import colors from '../utils/colors';
-import {ProductList} from '../components/ListItem';
+import {ListDetail} from '../components/ListItem';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
 
@@ -33,7 +33,7 @@ const ProductDetail = ({route}) => {
         <Text style={styles.price}>35€</Text>
         <Divider />
 
-        <ProductList
+        <ListDetail
           style={styles.userContainer}
           image={require('../assets/products/profilepic.jpg')}
           title="Annie H."

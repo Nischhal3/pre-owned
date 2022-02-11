@@ -1,67 +1,98 @@
 import React, {useState} from 'react';
-import {FlatList} from 'react-native';
-import {Layout} from '@ui-kitten/components';
-import {ProductList} from '../components/ListItem';
-import DeleteAction from '../components/elements/DeleteAction';
+import {StyleSheet, SafeAreaView} from 'react-native';
+import {Divider, List} from '@ui-kitten/components';
+import {PlainListItem} from '../components/ListItem';
 import colors from '../utils/colors';
+import PropTypes from 'prop-types';
 
-const initialMessages = [
+const myProducts = [
   {
-    id: 1,
-    title: 'T1',
-    description: 'D1',
-    image: require('../assets/products/profilepic.jpg'),
+    key: '0',
+    title: 'Cabinet for sale',
+    published: '1 day ago',
+    price: '€45',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1919',
+    },
+    filename: 'http://placekitten.com/2048/1920',
   },
   {
-    id: 2,
-    title: 'T2',
-    description: 'D2',
-    image: require('../assets/products/books.jpg'),
+    key: '1',
+    title: 'Kittens',
+    published: '1 day ago',
+    price: '9e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1920',
+    },
+    filename: 'http://placekitten.com/2041/1922',
+  },
+  {
+    key: '2',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '3',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '4',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '5',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
   },
 ];
-const MyListing = () => {
-  const [messages, setMessages] = useState(initialMessages);
-  const [refreshing, setRefreshing] = useState(false);
-
-  const handleDelete = (message) => {
-    // delete the message from messages array
-    setMessages(messages.filter((m) => m.id !== message.id));
-  };
-
+const MyListing = ({navigation}) => {
   return (
-    <Layout>
-      <FlatList
-        data={messages}
-        keyExTractor={(message) => message.id.toString()}
+    <SafeAreaView>
+      <List
+        data={myProducts}
+        contentContainerStyle={styles.container}
+        horizontal={false}
+        ItemSeparatorComponent={Divider}
+        showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <ProductList
-            title={item.title}
-            subTitle={item.description}
-            image={item.image}
-            onPress={() => console.log('message selected', item)}
-            renderRightActions={() => (
-              <DeleteAction onPress={() => handleDelete(item)} />
-            )}
-          />
+          <PlainListItem navigation={navigation} singleItem={item} />
         )}
-        ItemSeparatorComponent={
-          <Layout
-            style={{width: '100%', height: 1, backgroundColor: colors.stroke}}
-          />
-        }
-        refreshing={refreshing}
-        onRefresh={() => {
-          setMessages([
-            {
-              id: 2,
-              title: 'T2',
-              description: 'D2',
-              image: require('../assets/products/profilepic.jpg'),
-            },
-          ]);
-        }}
-      />
-    </Layout>
+      ></List>
+    </SafeAreaView>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    margin: 0,
+    padding: 0,
+    backgroundColor: colors.primary,
+  },
+});
+
+MyListing.propTypes = {
+  navigation: PropTypes.object,
+};
+
 export default MyListing;
