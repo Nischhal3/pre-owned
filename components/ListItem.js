@@ -15,7 +15,7 @@ import {uploadsUrl} from '../utils/url';
 
 // Return secondhand item for explore
 const GalleryItem = ({navigation, singleItem}) => {
-  console.log('Listitem', singleItem);
+  // console.log('Listitem', singleItem);
   return (
     <TouchableOpacity
       onPress={() => {

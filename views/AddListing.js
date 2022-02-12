@@ -26,7 +26,7 @@ const AddListing = ({navigation}) => {
   );
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
-  const {update, setUpdate} = useContext(MainContext);
+  const {update, setUpdate, loading, setLoading} = useContext(MainContext);
 
   const {
     control,
@@ -57,6 +57,7 @@ const AddListing = ({navigation}) => {
   };
 
   const onSubmit = async (data) => {
+    setLoading(true);
     if (!imageSelected) {
       Alert.alert('Please select file');
       return;
@@ -80,7 +81,7 @@ const AddListing = ({navigation}) => {
     // console.log('formData', formData);
 
     try {
-      const token = await getToken();
+      const token = 'Hello';
       const response = await postMedia(formData, token);
       // console.log('Media upload', response);
 
@@ -90,7 +91,8 @@ const AddListing = ({navigation}) => {
       );
       // console.log('upload response', tagResponse);
 
-      tagResponse &&
+      if (tagResponse) {
+        setLoading(false);
         Alert.alert('File', 'uploaded', [
           {
             text: 'Ok',
@@ -100,7 +102,9 @@ const AddListing = ({navigation}) => {
             },
           },
         ]);
+      }
     } catch (error) {
+      setLoading(false);
       console.error('Media upload: ', error);
     }
   };
@@ -201,7 +205,7 @@ const AddListing = ({navigation}) => {
           onSubmit={onSubmit}
           text="Upload"
         />
-        <ActivityIndicator animating={true} color="#6B818C" size="large" />
+        <ActivityIndicator animating={loading} color="#6B818C" size="large" />
         <AppButton
           title="Reset form"
           titleStyle={{fontWeight: 'bold'}}
