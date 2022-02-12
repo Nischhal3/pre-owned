@@ -81,7 +81,7 @@ const AddListing = ({navigation}) => {
     // console.log('formData', formData);
 
     try {
-      const token = 'Hello';
+      const token = await getToken();
       const response = await postMedia(formData, token);
       // console.log('Media upload', response);
 

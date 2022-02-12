@@ -5,10 +5,9 @@ import {fetchData} from './CommonFunction';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
-  const {update, user} = useContext(MainContext);
+  const {update} = useContext(MainContext);
 
   const fetchMedia = async () => {
-    // setLoading(true);
     try {
       let json = await getFilesByTag(appId);
       // if (myFilesOnly) {
@@ -17,7 +16,6 @@ const useMedia = () => {
 
       const media = await Promise.all(
         json.map(async (item) => {
-          // limiting api to fetch 10 objects only
           const response = await fetch(baseUrl + 'media/' + item.file_id);
           const mediaData = await response.json();
           // console.log(mediaData);
@@ -27,16 +25,12 @@ const useMedia = () => {
       setMediaArray(media);
     } catch (error) {
       console.log('Error', error);
-      // setLoading(false);
-    } finally {
-      // setLoading(false);
     }
   };
 
   // Call loadMedia() only once when the component is loaded
   // Or when the update state is changed in MainContext
   useEffect(() => {
-    // limiting api to fetch 5 objects only
     fetchMedia();
   }, [update]);
   return {mediaArray};
