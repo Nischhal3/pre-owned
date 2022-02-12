@@ -1,6 +1,5 @@
 import {List} from '@ui-kitten/components';
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {GalleryItem} from './ListItem';
 import {useMedia} from '../hooks/MediaHooks';
@@ -8,8 +7,9 @@ import {useMedia} from '../hooks/MediaHooks';
 const products = [
   {
     key: '0',
-    title: 'Carbinet for sale',
+    title: 'Cabinet for sale',
     price: '€45',
+    published: '1 day ago',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1919',
     },
@@ -18,6 +18,7 @@ const products = [
   {
     key: '1',
     title: 'Kittens',
+    published: '1 day ago',
     price: '9e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1920',
@@ -27,6 +28,37 @@ const products = [
   {
     key: '2',
     title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '3',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '4',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '5',
+    title: 'Annoying cat',
+    published: '1 day ago',
     price: '5e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1921',
@@ -42,7 +74,10 @@ const ItemGalleryHorizontal = ({navigation}) => {
   return (
     <List
       data={mediaArray}
-      contentContainerStyle={styles.containerHorizontal}
+      contentContainerStyle={{
+        marginStart: 20,
+        alignItems: 'center',
+      }}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
@@ -59,7 +94,7 @@ const ItemGalleryVertical = ({navigation}) => {
   return (
     <List
       data={mediaArray}
-      contentContainerStyle={styles.containerVertical}
+      contentContainerStyle={{marginStart: 20}}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
@@ -69,17 +104,6 @@ const ItemGalleryVertical = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  containerHorizontal: {
-    marginStart: 20,
-    marginBottom: 200,
-  },
-
-  containerVertical: {
-    width: '100%',
-    marginStart: 20,
-  },
-});
 ItemGalleryHorizontal.propTypes = {
   navigation: PropTypes.object,
 };

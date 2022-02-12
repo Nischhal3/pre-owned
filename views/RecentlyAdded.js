@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 const products = [
   {
     key: '0',
-    title: 'Carbinet for sale',
+    title: 'Cabinet for sale',
+    published: '1 day ago',
     price: '€45',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1919',
@@ -19,6 +20,7 @@ const products = [
   {
     key: '1',
     title: 'Kittens',
+    published: '1 day ago',
     price: '9e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1920',
@@ -28,6 +30,37 @@ const products = [
   {
     key: '2',
     title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '3',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '4',
+    title: 'Annoying cat',
+    published: '1 day ago',
+    price: '5e',
+    thumbnails: {
+      w160: 'http://placekitten.com/2048/1921',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
+  {
+    key: '5',
+    title: 'Annoying cat',
+    published: '1 day ago',
     price: '5e',
     thumbnails: {
       w160: 'http://placekitten.com/2048/1921',
@@ -42,7 +75,7 @@ const RecentlyAdded = ({navigation}) => {
     <SafeAreaView>
       <List
         data={products}
-        contentContainerStyle={styles.containerVertical}
+        contentContainerStyle={styles.container}
         horizontal={false}
         ItemSeparatorComponent={Divider}
         showsHorizontalScrollIndicator={false}
@@ -55,10 +88,10 @@ const RecentlyAdded = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  containerVertical: {
-    width: '100%',
-    padding: 20,
-    backgroundColor: colors.container,
+  container: {
+    margin: 0,
+    padding: 0,
+    backgroundColor: colors.primary,
   },
 });
 
