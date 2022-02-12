@@ -11,9 +11,11 @@ import {Avatar, Icon, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {PointRightArrow} from './elements/Icons';
+import {uploadsUrl} from '../utils/url';
 
 // Return secondhand item for explore
 const GalleryItem = ({navigation, singleItem}) => {
+  console.log('Listitem', singleItem);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -21,7 +23,7 @@ const GalleryItem = ({navigation, singleItem}) => {
       }}
     >
       <Image
-        source={{uri: singleItem.thumbnails.w160}}
+        source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         style={styles.GalleryImage}
       />
       <Layout style={styles.GalleryTextBox}>

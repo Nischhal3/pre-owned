@@ -26,4 +26,5 @@ const FormButton = (props, style) => {
     </SafeAreaView>
   );
 };
+
 export {AppButton, FormButton};

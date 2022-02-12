@@ -7,6 +7,7 @@ const MainProvider = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [formToggle, setFormToggle] = useState(true);
+  const [update, setUpdate] = useState(0);
 
   return (
     <MainContext.Provider
@@ -17,6 +18,8 @@ const MainProvider = ({children}) => {
         setUser,
         formToggle,
         setFormToggle,
+        update,
+        setUpdate,
       }}
     >
       {children}
