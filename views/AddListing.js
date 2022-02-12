@@ -1,5 +1,11 @@
-import {Alert, Image, ScrollView, StyleSheet} from 'react-native';
-import React, {useContext, useState} from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
@@ -11,6 +17,7 @@ import {getToken} from '../hooks/CommonFunction';
 import {postMedia, postTag, useMedia} from '../hooks/MediaHooks';
 import {appId} from '../utils/url';
 import {MainContext} from '../contexts/MainContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState('../assets/backgrounds/ProfileBG.png');
@@ -19,7 +26,7 @@ const AddListing = ({navigation}) => {
   );
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
-  const {update, setUpdate} = useContext(MainContext);
+  const {update, setUpdate, loading, setLoading} = useContext(MainContext);
 
   const {
     control,
@@ -50,6 +57,7 @@ const AddListing = ({navigation}) => {
   };
 
   const onSubmit = async (data) => {
+    setLoading(true);
     if (!imageSelected) {
       Alert.alert('Please select file');
       return;
@@ -83,18 +91,20 @@ const AddListing = ({navigation}) => {
       );
       // console.log('upload response', tagResponse);
 
-      tagResponse &&
+      if (tagResponse) {
+        setLoading(false);
         Alert.alert('File', 'uploaded', [
           {
             text: 'Ok',
             onPress: () => {
               setUpdate(update + 1);
               navigation.navigate('Explore');
-              reset();
             },
           },
         ]);
+      }
     } catch (error) {
+      setLoading(false);
       console.error('Media upload: ', error);
     }
   };
@@ -107,6 +117,13 @@ const AddListing = ({navigation}) => {
     setValue('description', '');
     setType('image');
   };
+
+  // Resets form user if off from this view
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset();
+    }, [])
+  );
 
   return (
     <ScrollView>
@@ -188,6 +205,7 @@ const AddListing = ({navigation}) => {
           onSubmit={onSubmit}
           text="Upload"
         />
+        <ActivityIndicator animating={loading} color="#6B818C" size="large" />
         <AppButton
           title="Reset form"
           titleStyle={{fontWeight: 'bold'}}
