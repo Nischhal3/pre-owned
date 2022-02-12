@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Alert,
   Image,
-  Keyboard,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import {Divider, Input, Layout, Text} from '@ui-kitten/components';
+import {Divider, Icon, Input, Layout, Text} from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 
 // Import from files
@@ -15,6 +15,7 @@ import colors from '../utils/colors';
 import {ListDetail} from '../components/ListItem';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
+import LikeButton from '../components/elements/LikeButton';
 
 // Alert when sending message
 const sendMessage = () => {
@@ -22,6 +23,8 @@ const sendMessage = () => {
 };
 const ProductDetail = ({route}) => {
   const {file} = route.params;
+  const [liked, setLiked] = useState(false);
+
   return (
     <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
       <Image
@@ -29,8 +32,19 @@ const ProductDetail = ({route}) => {
         source={require('../assets/products/books.jpg')}
       />
       <ScrollView style={styles.detailsContainer}>
-        <Text style={styles.title}>Books</Text>
-        <Text style={styles.price}>35€</Text>
+        <Layout style={styles.container}>
+          <Layout style={{flexDirection: 'column', flex: 2}}>
+            <Text style={styles.title}>Books</Text>
+            <Text style={styles.price}>35€</Text>
+          </Layout>
+          {/* <ListDetail
+            style={styles.userContainer}
+            title="Books"
+            description="25€"
+          /> */}
+          <LikeButton style={{flex: 1}} />
+        </Layout>
+
         <Divider />
 
         <ListDetail
@@ -56,7 +70,6 @@ const ProductDetail = ({route}) => {
             product descriptionThis is the product descriptionThis is the
             product
           </Text>
-          <Divider />
         </Layout>
         <Text category="s1" style={styles.detailsContainer}>
           Send the Seller a message
@@ -75,6 +88,13 @@ const ProductDetail = ({route}) => {
   );
 };
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 100,
+    padding: 15,
+    backgroundColor: colors.container,
+  },
   commentBox: {
     padding: 10,
     borderColor: colors.stroke,
