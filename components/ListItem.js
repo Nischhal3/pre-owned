@@ -4,15 +4,18 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {Avatar, Icon, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {PointRightArrow} from './elements/Icons';
+import {uploadsUrl} from '../utils/url';
 
 // Return secondhand item for explore
 const GalleryItem = ({navigation, singleItem}) => {
+  // console.log('Listitem', singleItem);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -20,7 +23,7 @@ const GalleryItem = ({navigation, singleItem}) => {
       }}
     >
       <Image
-        source={{uri: singleItem.thumbnails.w160}}
+        source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         style={styles.GalleryImage}
       />
       <Layout style={styles.GalleryTextBox}>
@@ -108,19 +111,35 @@ const styles = StyleSheet.create({
   },
 
   GalleryImage: {
-    width: 340,
-    height: 200,
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
+
+    ...Platform.select({
+      ios: {
+        width: 350,
+        height: 220,
+      },
+      android: {
+        width: 320,
+        height: 190,
+      },
+    }),
   },
 
   GalleryTextBox: {
-    flex: 1,
     position: 'absolute',
     backgroundColor: null,
-    top: 120,
-    margin: 15,
+    marginStart: 15,
+
+    ...Platform.select({
+      ios: {
+        top: 150,
+      },
+      android: {
+        top: 120,
+      },
+    }),
   },
 
   ListItemDetails: {

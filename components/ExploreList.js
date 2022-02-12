@@ -1,8 +1,8 @@
 import {List} from '@ui-kitten/components';
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {GalleryItem} from './ListItem';
+import {useMedia} from '../hooks/MediaHooks';
 
 const products = [
   {
@@ -70,10 +70,14 @@ const products = [
 // TODO fetch items from server, item fetch to be added in API hooks
 // Return a horizontal list
 const ItemGalleryHorizontal = ({navigation}) => {
+  const {mediaArray} = useMedia();
   return (
     <List
-      data={products}
-      contentContainerStyle={styles.containerHorizontal}
+      data={mediaArray}
+      contentContainerStyle={{
+        marginStart: 20,
+        alignItems: 'center',
+      }}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
@@ -85,10 +89,12 @@ const ItemGalleryHorizontal = ({navigation}) => {
 
 // Return a vertical list
 const ItemGalleryVertical = ({navigation}) => {
+  const {mediaArray} = useMedia();
+  console.log('Explorer', {mediaArray});
   return (
     <List
-      data={products}
-      contentContainerStyle={styles.containerVertical}
+      data={mediaArray}
+      contentContainerStyle={{marginStart: 20}}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
@@ -98,17 +104,6 @@ const ItemGalleryVertical = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  containerHorizontal: {
-    marginStart: 20,
-    marginBottom: 200,
-  },
-
-  containerVertical: {
-    width: '100%',
-    marginStart: 20,
-  },
-});
 ItemGalleryHorizontal.propTypes = {
   navigation: PropTypes.object,
 };

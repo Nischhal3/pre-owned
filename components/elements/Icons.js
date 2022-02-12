@@ -1,7 +1,12 @@
 import {Icon} from '@ui-kitten/components';
 import React from 'react';
+<<<<<<< HEAD
 import {View} from 'react-native';
 import colors from '../../utils/colors';
+=======
+
+
+>>>>>>> second-main
 // Right arrow for lists
 const PointRightArrow = (props) => (
   <Icon {...props} name="chevron-right-outline" />
