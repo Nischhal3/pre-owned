@@ -16,14 +16,14 @@ const AppButton = ({title, onPress, color = colors.btnBackground, style}) => {
 
 const FormButton = (props, style) => {
   return (
-    //<SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+    <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
     <Button
       style={[GlobalStyles.formButtonStyle, style]}
       onPress={props.handleSubmit(props.onSubmit)}
     >
       {props.text}
     </Button>
-    // </SafeAreaView>
+    </SafeAreaView>
   );
 };
 
