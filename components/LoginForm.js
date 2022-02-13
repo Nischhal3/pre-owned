@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     alignSelf: 'flex-end',
   },
-
 });
 
 LoginForm.propTypes = {
