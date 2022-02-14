@@ -66,4 +66,33 @@ const postTag = async (tagData, token) => {
 const getFilesByTag = async (tag) => {
   return await fetchData(`${baseUrl}tags/${tag}`);
 };
-export {postMedia, postTag, useMedia};
+
+const useFavourite = () => {
+  const postFavourite = async (fileId, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify({file_id: fileId}),
+    };
+    return await fetchData(`${baseUrl}favourites`, options);
+  };
+  const getFavourtiesByFileId = async (fileId) => {
+    return await fetchData(`${baseUrl}favourites/file/${fileId}`);
+  };
+
+  // Unlike a post
+  const deleteFavourite = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    return await fetchData(`${baseUrl}favourites/file/${fileId}`, options);
+  };
+  return {postFavourite, deleteFavourite, getFavourtiesByFileId};
+};
+export {postMedia, postTag, useMedia, useFavourite};
