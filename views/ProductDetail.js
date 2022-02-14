@@ -28,7 +28,7 @@ import {uploadsUrl} from '../utils/url';
 const sendMessage = () => {
   Alert.alert('Success', 'Message Sent');
 };
-const ProductDetail = ({route}) => {
+const ProductDetail = ({route, navigation, profile}) => {
   const {file} = route.params;
 
   // fetch file
@@ -117,6 +117,9 @@ const ProductDetail = ({route}) => {
         <Divider />
 
         <ListDetail
+          onPress={() => {
+            navigation.navigate('Profile', {file: profile});
+          }}
           style={styles.userContainer}
           image={require('../assets/products/profilepic.jpg')}
           title="Annie H."
