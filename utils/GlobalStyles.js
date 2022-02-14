@@ -19,8 +19,8 @@ export default StyleSheet.create({
   formButtonStyle: {
     width: '50%',
     height: 50,
-    margin: 10,
-    borderRadius: 19,
+    marginBottom: 5,
+    borderRadius: 20,
     alignSelf: 'center',
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
