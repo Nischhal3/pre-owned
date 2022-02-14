@@ -74,9 +74,7 @@ const ItemGalleryHorizontal = ({navigation}) => {
 
   // Sorting items by recently added date
   mediaArray.sort((a, b) => a.time_added < b.time_added);
-  // mediaArray.forEach((item) => {
-  //   console.log('Time', item.time_added);
-  // });
+
   return (
     <List
       data={mediaArray}
