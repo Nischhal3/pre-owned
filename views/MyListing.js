@@ -5,72 +5,85 @@ import {PlainListItem} from '../components/ListItem';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 
-const myProducts = [
-  {
-    key: '0',
-    title: 'Cabinet for sale',
-    published: '1 day ago',
-    price: '€45',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1919',
-    },
-    filename: 'http://placekitten.com/2048/1920',
-  },
-  {
-    key: '1',
-    title: 'Kittens',
-    published: '1 day ago',
-    price: '9e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1920',
-    },
-    filename: 'http://placekitten.com/2041/1922',
-  },
-  {
-    key: '2',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '3',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '4',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '5',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-];
-const MyListing = ({navigation}) => {
+// const myProducts = [
+//   {
+//     key: '0',
+//     title: 'Cabinet for sale',
+//     published: '1 day ago',
+//     price: '€45',
+//     thumbnails: {
+//       w160: 'http://placekitten.com/2048/1919',
+//     },
+//     filename: 'http://placekitten.com/2048/1920',
+//   },
+//   {
+//     key: '1',
+//     title: 'Kittens',
+//     published: '1 day ago',
+//     price: '9e',
+//     thumbnails: {
+//       w160: 'http://placekitten.com/2048/1920',
+//     },
+//     filename: 'http://placekitten.com/2041/1922',
+//   },
+//   {
+//     key: '2',
+//     title: 'Annoying cat',
+//     published: '1 day ago',
+//     price: '5e',
+//     thumbnails: {
+//       w160: 'http://placekitten.com/2048/1921',
+//     },
+//     filename: 'http://placekitten.com/2039/1920',
+//   },
+//   {
+//     key: '3',
+//     title: 'Annoying cat',
+//     published: '1 day ago',
+//     price: '5e',
+//     thumbnails: {
+//       w160: 'http://placekitten.com/2048/1921',
+//     },
+//     filename: 'http://placekitten.com/2039/1920',
+//   },
+//   {
+//     key: '4',
+//     title: 'Annoying cat',
+//     published: '1 day ago',
+//     price: '5e',
+//     thumbnails: {
+//       w160: 'http://placekitten.com/2048/1921',
+//     },
+//     filename: 'http://placekitten.com/2039/1920',
+//   },
+//   {
+//     key: '5',
+//     title: 'Annoying cat',
+//     published: '1 day ago',
+//     price: '5e',
+//     thumbnails: {
+//       w160: 'http://placekitten.com/2048/1921',
+//     },
+//     filename: 'http://placekitten.com/2039/1920',
+//   },
+// ];
+const MyListing = ({navigation, myFilesOnly}) => {
+  const {mediaArray} = useMedia(myFilesOnly);
+
   return (
     <SafeAreaView>
-      <List
+      <FlatList
+        data={mediaArray}
+        keyExtractor={(item) => item.file_id.toString()}
+        renderItem={({item}) => (
+          <ListItem
+            navigation={navigation}
+            singleMedia={item}
+            myFilesOnly={myFilesOnly}
+          />
+        )}
+      />
+      {/* <List
         data={myProducts}
         contentContainerStyle={styles.container}
         horizontal={false}
@@ -79,7 +92,7 @@ const MyListing = ({navigation}) => {
         renderItem={({item}) => (
           <PlainListItem navigation={navigation} singleItem={item} />
         )}
-      ></List>
+      ></List> */}
     </SafeAreaView>
   );
 };
