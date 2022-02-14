@@ -96,10 +96,7 @@ const ListDetail = ({
               </Text>
             )}
           </Layout>
-          <ListItem
-            style={{flex: 1, right: Platform.OS === 'android' ? 40 : 20}}
-            accessoryRight={PointRightArrow}
-          />
+          <ListItem style={{flex: 1}} accessoryRight={PointRightArrow} />
         </Layout>
       </TouchableHighlight>
     </Swipeable>
