@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+// Import from react
+import React, {useContext, useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import PropTypes from 'prop-types';
 import {
   Alert,
   Image,
@@ -7,15 +10,18 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import {Divider, Icon, Input, Layout, Text} from '@ui-kitten/components';
-import PropTypes from 'prop-types';
+
+// Import from Library UI Kitten
+import {Divider, Input, Layout, Text} from '@ui-kitten/components';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
 import {ListDetail} from '../components/ListItem';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
-import LikeButton from '../components/elements/LikeButton';
+import {useFavourite} from '../hooks/MediaHooks';
+import {MainContext} from '../contexts/MainContext';
 
 // Alert when sending message
 const sendMessage = () => {
@@ -23,7 +29,53 @@ const sendMessage = () => {
 };
 const ProductDetail = ({route}) => {
   const {file} = route.params;
-  const [liked, setLiked] = useState(false);
+
+  //favorite
+  const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
+    useFavourite();
+  const [likes, setLikes] = useState([]);
+  const [userLike, setUserLike] = useState(false);
+  const {user} = useContext(MainContext);
+
+  // add to favourite
+  const fetchLikes = async () => {
+    try {
+      const likesData = await getFavourtiesByFileId(file.file_id);
+      setLikes(likesData);
+      likesData.forEach((like) => {
+        like.user_id === user.user_id && setUserLike(true);
+      });
+    } catch (e) {
+      Alert.alert('Error showing likes', 'Close');
+      console.error('fetch like error', e);
+    }
+  };
+  const addLike = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const response = await postFavourite(file.file_id, token);
+      response && setUserLike(true);
+    } catch (e) {
+      console.error('Add Like error', e);
+    }
+  };
+  const unlike = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const response = await deleteFavourite(file.file_id, token);
+      response && setUserLike(false);
+    } catch (e) {
+      console.error('Remove Like error', e);
+    }
+  };
+
+  useEffect(() => {
+    fetchLikes();
+  }, [userLike]);
+
+  const onSubmit = async () => {
+    userLike ? await unlike() : addLike();
+  };
 
   return (
     <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
@@ -33,16 +85,35 @@ const ProductDetail = ({route}) => {
       />
       <ScrollView style={styles.detailsContainer}>
         <Layout style={styles.container}>
-          <Layout style={{flexDirection: 'column', flex: 2}}>
+          <Layout
+            style={{
+              flexDirection: 'column',
+              flex: 2,
+              backgroundColor: colors.container,
+            }}
+          >
             <Text style={styles.title}>Books</Text>
             <Text style={styles.price}>35€</Text>
           </Layout>
-          {/* <ListDetail
-            style={styles.userContainer}
-            title="Books"
-            description="25€"
-          /> */}
-          <LikeButton style={{flex: 1}} />
+
+          <Pressable onPress={onSubmit}>
+            <MaterialCommunityIcons
+              name={userLike ? 'heart' : 'heart-outline'}
+              size={32}
+              style={{right: 10}}
+              color={userLike ? 'red' : 'black'}
+            />
+            {/*            
+                <Icon
+                  name={userLike ? 'heart' : 'heart-outline'}
+                  size={32}
+                  color={userLike ? 'red' : 'black'}
+                /> */}
+
+            <Text category="s1" >
+              {likes.length}
+            </Text>
+          </Pressable>
         </Layout>
 
         <Divider />
@@ -74,7 +145,6 @@ const ProductDetail = ({route}) => {
         <Text category="s1" style={styles.detailsContainer}>
           Send the Seller a message
         </Text>
-        {/* <Card style={styles.productDetail}></Card> */}
         <Input
           multiline={true}
           textStyle={{minHeight: 64}}
