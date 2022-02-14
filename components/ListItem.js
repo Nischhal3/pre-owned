@@ -19,7 +19,7 @@ const GalleryItem = ({navigation, singleItem}) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('ProductDetail', {file: singleItem});
+        navigation.navigate('Product Detail', {file: singleItem});
       }}
     >
       <Image
