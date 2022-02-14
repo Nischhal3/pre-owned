@@ -7,7 +7,7 @@ const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update} = useContext(MainContext);
 
-  const fetchMedia = async () => {
+  const fetchMedia = async (myPostsOnly) => {
     try {
       let json = await getFilesByTag(appId);
       // if (myFilesOnly) {
