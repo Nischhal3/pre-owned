@@ -24,5 +24,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
+    marginTop: Platform.OS === 'android' ? -20 : 0,
   },
 });
