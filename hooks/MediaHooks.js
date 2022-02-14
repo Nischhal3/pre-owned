@@ -68,6 +68,7 @@ const getFilesByTag = async (tag) => {
 };
 
 const useFavourite = () => {
+  // Like a post
   const postFavourite = async (fileId, token) => {
     const options = {
       method: 'POST',
@@ -95,4 +96,5 @@ const useFavourite = () => {
   };
   return {postFavourite, deleteFavourite, getFavourtiesByFileId};
 };
-export {postMedia, postTag, useMedia, useFavourite};
+
+export {getFilesByTag, postMedia, postTag, useMedia, useFavourite};

@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 // Import from Library UI Kitten
-import {Divider, Input, Layout, Text} from '@ui-kitten/components';
+import {Avatar, Divider, Input, Layout, Text} from '@ui-kitten/components';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
@@ -20,8 +20,9 @@ import colors from '../utils/colors';
 import {ListDetail} from '../components/ListItem';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
-import {useFavourite} from '../hooks/MediaHooks';
+import {useFavourite, useTag} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
+import {uploadsUrl} from '../utils/url';
 
 // Alert when sending message
 const sendMessage = () => {
@@ -29,6 +30,8 @@ const sendMessage = () => {
 };
 const ProductDetail = ({route}) => {
   const {file} = route.params;
+
+  // fetch file
 
   //favorite
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
@@ -79,10 +82,7 @@ const ProductDetail = ({route}) => {
 
   return (
     <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
-      <Image
-        style={styles.image}
-        source={require('../assets/products/books.jpg')}
-      />
+      <Image style={styles.image} source={{uri: uploadsUrl + file.filename}} />
       <ScrollView style={styles.detailsContainer}>
         <Layout style={styles.container}>
           <Layout
@@ -92,7 +92,7 @@ const ProductDetail = ({route}) => {
               backgroundColor: colors.container,
             }}
           >
-            <Text style={styles.title}>Books</Text>
+            <Text style={styles.title}>{file.title}</Text>
             <Text style={styles.price}>35€</Text>
           </Layout>
 
@@ -110,9 +110,7 @@ const ProductDetail = ({route}) => {
                   color={userLike ? 'red' : 'black'}
                 /> */}
 
-            <Text category="s1" >
-              {likes.length}
-            </Text>
+            <Text category="s1">{likes.length}</Text>
           </Pressable>
         </Layout>
 
@@ -123,7 +121,11 @@ const ProductDetail = ({route}) => {
           image={require('../assets/products/profilepic.jpg')}
           title="Annie H."
           description="5 Listings"
-        />
+        >
+          {/* // when api is ready */}
+          {/* <Avatar source={{uri: avatar}} />
+          <Text>{username.username}</Text> */}
+        </ListDetail>
         <Divider />
         <Layout style={styles.detailsContainer}>
           <Text category="s1" style={styles.detail}>
@@ -134,12 +136,7 @@ const ProductDetail = ({route}) => {
             category="c1"
             numberOfLines={4}
           >
-            This is the product description This is the product descriptionThis
-            is the product descriptionThis is the product descriptionThis is the
-            product descriptionThis is the product descriptionThis is the
-            product descriptionThis is the product descriptionThis is the
-            product descriptionThis is the product descriptionThis is the
-            product
+            {file.description}
           </Text>
         </Layout>
         <Text category="s1" style={styles.detailsContainer}>
@@ -176,6 +173,7 @@ const styles = StyleSheet.create({
   detailDescription: {
     paddingVertical: 15,
     lineHeight: 16,
+    fontSize: 14,
   },
   image: {
     width: '100%',
