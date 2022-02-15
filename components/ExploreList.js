@@ -2,7 +2,7 @@ import {List} from '@ui-kitten/components';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useMedia} from '../hooks/MediaHooks';
-import GalleryItem from './Lists/GalleryItem';
+import GalleryItem from '../components/lists/GalleryItem';
 
 // Return a horizontal list
 const ItemGalleryHorizontal = ({navigation}) => {

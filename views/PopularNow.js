@@ -4,7 +4,8 @@ import {Divider, List} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
-import PlainListItem from '../components/Lists/PlainListItem';
+import PlainListItem from '../components/lists/PlainListItem';
+
 
 const products = [
   {
