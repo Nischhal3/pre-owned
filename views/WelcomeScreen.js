@@ -1,7 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {getUserByToken} from '../hooks/ApiHooks';
 import {AppButton} from '../components/elements/AppButton';
@@ -10,22 +9,25 @@ import {AppButton} from '../components/elements/AppButton';
 import LottieView from 'lottie-react-native';
 import {Layout, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
+import {getToken} from '../hooks/CommonFunction';
 
 const WelcomeScreen = ({navigation}) => {
   const animation = React.createRef(); // animation
-  const {setIsLoggedIn, setUser, setFormToggle} = useContext(MainContext);
+  const {setIsLoggedIn, setUser, setFormToggle, setUsername} =
+    useContext(MainContext);
 
   const checkToken = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await getToken();
     // console.log('token value in async storage', userToken);
     if (!userToken) {
       return;
     }
     try {
-      const userData = await getUserByToken(userToken);
+      const userData = await getUserByToken();
       // console.log('chekToken', userData);
       // console.log('token', userToken);
       setUser(userData);
+      setUsername(userData.username);
       setIsLoggedIn(true);
     } catch (error) {
       console.error(error);
