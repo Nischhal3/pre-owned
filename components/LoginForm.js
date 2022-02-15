@@ -9,6 +9,7 @@ import {MainContext} from '../contexts/MainContext';
 import FormInput from './formComponents/FormInput';
 import {FormButton} from './elements/AppButton';
 import colors from '../utils/colors';
+import ErrorMessage from './elements/ErrorMessage';
 
 const LoginForm = () => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -39,7 +40,7 @@ const LoginForm = () => {
       <Controller
         control={control}
         rules={{
-          required: true,
+          required: {value: true, message: 'This is required.'},
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <FormInput
@@ -54,12 +55,16 @@ const LoginForm = () => {
         )}
         name="username"
       />
-      {errors.username && <Text status="danger">This is required.</Text>}
+
+      <ErrorMessage
+        error={errors?.username}
+        message={errors?.username?.message}
+      />
 
       <Controller
         control={control}
         rules={{
-          required: true,
+          required: {value: true, message: 'This is required.'},
           maxLength: 100,
         }}
         render={({field: {onChange, onBlur, value}}) => (
@@ -75,7 +80,10 @@ const LoginForm = () => {
         )}
         name="password"
       />
-      {errors.password && <Text status="danger">This is required.</Text>}
+      <ErrorMessage
+        error={errors?.password}
+        message={errors?.password?.message}
+      />
 
       <Text style={styles.password}>Forgot password?</Text>
       <FormButton
@@ -101,7 +109,6 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     alignSelf: 'flex-end',
   },
-
 });
 
 LoginForm.propTypes = {

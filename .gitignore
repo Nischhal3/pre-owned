@@ -1,4 +1,4 @@
-# node_modules/
+node_modules/
 .expo/
 dist/
 npm-debug.*
@@ -697,3 +697,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,macos,reactnative,windows,linux
+node_modules

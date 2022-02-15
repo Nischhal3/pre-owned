@@ -17,12 +17,14 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
-import {ListDetail} from '../components/ListItem';
+import ListDetail from '../components/lists/ListDetail';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
 import {useFavourite, useTag} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
+import {getUserById, getUserByToken} from '../hooks/ApiHooks';
+import {getToken} from '../hooks/CommonFunction';
 
 // Alert when sending message
 const sendMessage = () => {
@@ -39,7 +41,13 @@ const ProductDetail = ({route, navigation, profile}) => {
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
   const {user} = useContext(MainContext);
-
+  const [name, setName] = useState('');
+  // Get user's detail
+  const getUser = async () => {
+    const token = await getToken();
+    const users = await getUserByToken(token);
+    setName(users.username);
+  };
   // add to favourite
   const fetchLikes = async () => {
     try {
@@ -73,6 +81,7 @@ const ProductDetail = ({route, navigation, profile}) => {
   };
 
   useEffect(() => {
+    getUser();
     fetchLikes();
   }, [userLike]);
 
@@ -122,12 +131,12 @@ const ProductDetail = ({route, navigation, profile}) => {
           }}
           style={styles.userContainer}
           image={require('../assets/products/profilepic.jpg')}
-          title="Annie H."
+          title={name}
           description="5 Listings"
         >
           {/* // when api is ready */}
           {/* <Avatar source={{uri: avatar}} />
-          <Text>{username.username}</Text> */}
+           */}
         </ListDetail>
         <Divider />
         <Layout style={styles.detailsContainer}>
