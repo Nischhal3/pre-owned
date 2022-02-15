@@ -17,7 +17,7 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
-import {ListDetail} from '../components/ListItem';
+import ListDetail from '../components/lists/ListDetail';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
 import {useFavourite, useTag} from '../hooks/MediaHooks';
