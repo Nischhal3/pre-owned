@@ -1,4 +1,4 @@
-import {Layout, Text} from '@ui-kitten/components';
+import {Button, Layout, Text} from '@ui-kitten/components';
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {
@@ -7,33 +7,39 @@ import {
 } from '../components/ExploreList';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
-import GlobalStyles from '../utils/GlobalStyles';
+import {PointRightArrow} from '../components/elements/Icons';
 
 // Return explore screen
 const ExploreScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Layout style={{flex: 1, backgroundColor: colors.container}}>
-        <Text
-          style={styles.title}
+      <Layout style={styles.horizontalGallery}>
+        <Button
           onPress={() => {
             navigation.navigate('Recently added');
           }}
+          size={'giant'}
+          style={{justifyContent: 'space-between'}}
+          appearance="ghost"
+          accessoryRight={PointRightArrow}
         >
           Recently added
-        </Text>
+        </Button>
         <ItemGalleryHorizontal navigation={navigation} />
       </Layout>
 
       <Layout style={styles.verticalGallery}>
-        <Text
-          style={styles.title}
+        <Button
           onPress={() => {
             navigation.navigate('Popular now');
           }}
+          size={'giant'}
+          style={{justifyContent: 'space-between'}}
+          appearance="ghost"
+          accessoryRight={PointRightArrow}
         >
           Popular now
-        </Text>
+        </Button>
         <ItemGalleryVertical navigation={navigation} />
       </Layout>
     </SafeAreaView>
@@ -47,16 +53,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.container,
   },
 
-  verticalGallery: {
-    flex: 1,
+  horizontalGallery: {
     backgroundColor: colors.container,
+    marginTop: 10,
   },
 
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    margin: 20,
-    color: colors.text_dark,
+  verticalGallery: {
+    flex: 1,
+    marginTop: -10,
+    backgroundColor: colors.container,
   },
 });
 
