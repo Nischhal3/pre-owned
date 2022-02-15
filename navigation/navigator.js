@@ -189,21 +189,19 @@ const StackScreen = () => {
             options={{headerShown: false}}
             name="Main"
             component={TabScreen}
-          ></Stack.Screen>
+          />
           <Stack.Screen
             name="Recently added"
             component={RecentlyAdded}
             options={{headerShown: true}}
-          ></Stack.Screen>
+          />
           <Stack.Screen
             name="Popular now"
             component={PopularNow}
             options={{headerShown: true}}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="ProductDetail"
-            component={ProductDetail}
-          ></Stack.Screen>
+          />
+          <Stack.Screen name="Product Detail" component={ProductDetail} />
+          <Stack.Screen name="Profile" component={Profile} />
         </>
       ) : (
         <>
