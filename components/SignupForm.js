@@ -15,6 +15,7 @@ import {PropTypes} from 'prop-types';
 import FormInput from './formComponents/FormInput';
 import {FormButton} from './elements/AppButton';
 import colors from '../utils/colors';
+import ErrorMessage from './formComponents/ErrorMessage';
 
 const SignupForm = ({setFormToggle}) => {
   //for checkbox
@@ -92,12 +93,15 @@ const SignupForm = ({setFormToggle}) => {
         name="username"
       />
 
-      {errors.username && (
+      {/* {errors.username && (
         <Text status="danger">
           {errors.username && errors.username.message}{' '}
         </Text>
-      )}
-
+      )} */}
+      <ErrorMessage
+        error={errors?.username}
+        message={errors?.username?.message}
+      />
       <Controller
         control={control}
         rules={{
