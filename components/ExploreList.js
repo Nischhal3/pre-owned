@@ -1,73 +1,9 @@
 import {List} from '@ui-kitten/components';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {GalleryItem} from './ListItem';
 import {useMedia} from '../hooks/MediaHooks';
+import GalleryItem from './Lists/GalleryItem';
 
-const products = [
-  {
-    key: '0',
-    title: 'Cabinet for sale',
-    price: '€45',
-    published: '1 day ago',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1919',
-    },
-    filename: 'http://placekitten.com/2048/1920',
-  },
-  {
-    key: '1',
-    title: 'Kittens',
-    published: '1 day ago',
-    price: '9e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1920',
-    },
-    filename: 'http://placekitten.com/2041/1922',
-  },
-  {
-    key: '2',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '3',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '4',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '5',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-];
-
-// TODO fetch items from server, item fetch to be added in API hooks
 // Return a horizontal list
 const ItemGalleryHorizontal = ({navigation}) => {
   const {mediaArray} = useMedia();

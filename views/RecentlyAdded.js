@@ -2,9 +2,10 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Divider, List} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
-import {PlainListItem} from '../components/ListItem';
+
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
+import PlainListItem from '../components/Lists/PlainListItem';
 
 const products = [
   {

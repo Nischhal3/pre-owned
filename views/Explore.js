@@ -1,4 +1,4 @@
-import {Button, Layout, Text} from '@ui-kitten/components';
+import {Button, Layout} from '@ui-kitten/components';
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {
