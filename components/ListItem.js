@@ -68,6 +68,7 @@ const PlainListItem = ({navigation, singleItem}) => {
   );
 };
 
+
 const styles = StyleSheet.create({
   GalleryImage: {
     borderRadius: 10,
