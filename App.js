@@ -18,6 +18,7 @@ import theme from './utils/theme.json';
 
 // Fonts
 import {useFonts} from 'expo-font';
+import ListingEditScreen from './views/ListingEditScreen';
 
 const App = () => {
   const [loaded] = useFonts({
@@ -26,9 +27,10 @@ const App = () => {
   return (
     <>
       {/* <ProducDetail /> */}
-      <MainProvider>
+      <ListingEditScreen />
+      {/* <MainProvider>
         <Navigator />
-      </MainProvider>
+      </MainProvider> */}
     </>
   );
 };

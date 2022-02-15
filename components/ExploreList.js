@@ -71,6 +71,10 @@ const products = [
 // Return a horizontal list
 const ItemGalleryHorizontal = ({navigation}) => {
   const {mediaArray} = useMedia();
+
+  // Sorting items by recently added date
+  mediaArray.sort((a, b) => a.time_added < b.time_added);
+
   return (
     <List
       data={mediaArray}
@@ -90,7 +94,7 @@ const ItemGalleryHorizontal = ({navigation}) => {
 // Return a vertical list
 const ItemGalleryVertical = ({navigation}) => {
   const {mediaArray} = useMedia();
-  console.log('Explorer', {mediaArray});
+  // console.log('Explorer', mediaArray);
   return (
     <List
       data={mediaArray}

@@ -1,17 +1,18 @@
 import React from 'react';
 import {
-  Image,
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {Avatar, Icon, Layout, ListItem, Text} from '@ui-kitten/components';
+import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {PointRightArrow} from './elements/Icons';
 import {uploadsUrl} from '../utils/url';
+import {LinearGradient} from 'expo-linear-gradient';
 
 // Return secondhand item for explore
 const GalleryItem = ({navigation, singleItem}) => {
@@ -22,10 +23,17 @@ const GalleryItem = ({navigation, singleItem}) => {
         navigation.navigate('Product Detail', {file: singleItem});
       }}
     >
-      <Image
+      <ImageBackground
         source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         style={styles.GalleryImage}
-      />
+        imageStyle={{borderRadius: 15}}
+      >
+        <LinearGradient
+          colors={['transparent', 'rgba(0,0,0.5,0.5)']}
+          style={{flex: 1, justifyContent: 'center', borderRadius: 15}}
+        ></LinearGradient>
+      </ImageBackground>
+
       <Layout style={styles.GalleryTextBox}>
         <Text category={'h5'} style={{color: colors.text_light}}>
           {singleItem.title}
@@ -101,7 +109,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 15,
-
     backgroundColor: colors.text_light,
   },
   detailsContainer: {
