@@ -96,7 +96,10 @@ const ListDetail = ({
               </Text>
             )}
           </Layout>
-          <ListItem style={{flex: 1}} accessoryRight={PointRightArrow} />
+          <ListItem
+            style={{flex: 1, right: Platform.OS === 'android' ? 40 : 20}}
+            accessoryRight={PointRightArrow}
+          />
         </Layout>
       </TouchableHighlight>
     </Swipeable>
@@ -106,7 +109,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 15,
-
     backgroundColor: colors.text_light,
   },
   detailsContainer: {
