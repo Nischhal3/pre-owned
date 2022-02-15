@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
-import {Divider, List} from '@ui-kitten/components';
+import React, {useContext, useState} from 'react';
+import {StyleSheet, SafeAreaView, FlatList} from 'react-native';
+import {Divider, List, Text} from '@ui-kitten/components';
 import {PlainListItem} from '../components/ListItem';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
+import {useMedia} from '../hooks/MediaHooks';
+import {MainContext} from '../contexts/MainContext';
+import {ListItem} from 'react-native-elements';
 
 // const myProducts = [
 //   {
@@ -68,7 +71,11 @@ import PropTypes from 'prop-types';
 //   },
 // ];
 const MyListing = ({navigation, myFilesOnly}) => {
-  const {mediaArray} = useMedia(myFilesOnly);
+  const {mediaArray} = useMedia();
+  const {user} = useContext(MainContext);
+
+  const myMedia = mediaArray.filter((item) => item.user_id === user.user_id);
+  console.log('Json', myMedia);
 
   return (
     <SafeAreaView>
