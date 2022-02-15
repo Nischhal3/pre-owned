@@ -44,8 +44,8 @@ const getUserByToken = async (token) => {
   return await fetchData(baseUrl + 'users/user', options);
 };
 
-// Get user by their id
-const getUserById = async (userId, token) => {
+// Get user
+const getUserById = async (token) => {
   const options = {
     method: 'GET',
     headers: {'x-access-token': token},
