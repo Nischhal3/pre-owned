@@ -1,68 +1,39 @@
-import {Button} from '@ui-kitten/components';
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Button, Spinner} from '@ui-kitten/components';
+import {SafeAreaView, TouchableOpacity} from 'react-native';
 import colors from '../../utils/colors';
+import GlobalStyles from '../../utils/GlobalStyles';
 
-const ButtonSmall = ({title, onPress, color = colors.btnBackground}) => {
+const AppButton = ({title, onPress, color = colors.btnBackground, style}) => {
   return (
     <TouchableOpacity>
-      <Button style={styles.btnStyleSmall} onPress={onPress}>
+      <Button style={[GlobalStyles.btnStyle, style]} onPress={onPress}>
         {title}
       </Button>
     </TouchableOpacity>
   );
 };
 
-const ButtonMedium = ({title, onPress, color = colors.btnBackground}) => {
+const FormButton = (props, style) => {
   return (
-    <TouchableOpacity>
-      <Button style={styles.btnStyleMedium} onPress={onPress}>
-        {title}
-      </Button>
-    </TouchableOpacity>
+    <Button
+      style={[GlobalStyles.formButtonStyle, style]}
+      onPress={props.handleSubmit(props.onSubmit)}
+    >
+      {props.text}
+    </Button>
   );
 };
 
-const ButtonLarge = ({title, onPress, color = colors.btnBackground}) => {
+const UploadButton = (props, style) => {
   return (
-    <TouchableOpacity>
-      <Button style={styles.btnStyleLarge} onPress={onPress}>
-        {title}
-      </Button>
-    </TouchableOpacity>
+    <Button
+      style={[GlobalStyles.formButtonStyle, style]}
+      onPress={props.handleSubmit(props.onSubmit)}
+      accessoryLeft={<Spinner size="small" color="#fff" />}
+    >
+      {props.text}
+    </Button>
   );
 };
-
-const styles = StyleSheet.create({
-  btnStyleSmall: {
-    width: '50%',
-    height: 50,
-    bottom: 50,
-    margin: 10,
-    borderRadius: 19,
-    backgroundColor: colors.btnBackground,
-    borderColor: colors.btnBackground,
-  },
-
-  btnStyleMedium: {
-    width: '70%',
-    height: 60,
-    bottom: 50,
-    margin: 10,
-    borderRadius: 19,
-    backgroundColor: colors.btnBackground,
-    borderColor: colors.btnBackground,
-  },
-
-  btnStyleLarge: {
-    width: 300,
-    height: 60,
-    bottom: 50,
-    margin: 10,
-    borderRadius: 19,
-    backgroundColor: colors.btnBackground,
-    borderColor: colors.btnBackground,
-  },
-});
-
-export {ButtonSmall, ButtonMedium, ButtonLarge};
+export {AppButton, FormButton, UploadButton};

@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PropTypes} from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import FormInput from './formComponents/FormInput';
-import FormButton from './formComponents/FormButton';
+import {FormButton} from './elements/AppButton';
 import colors from '../utils/colors';
 
 const LoginForm = () => {
@@ -79,7 +79,6 @@ const LoginForm = () => {
 
       <Text style={styles.password}>Forgot password?</Text>
       <FormButton
-        btnStyle={styles.button}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         text="Login"
@@ -101,10 +100,6 @@ const styles = StyleSheet.create({
   password: {
     marginBottom: 100,
     alignSelf: 'flex-end',
-  },
-  button: {
-    width: '50%',
-    alignSelf: 'center',
   },
 });
 

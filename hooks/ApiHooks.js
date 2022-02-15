@@ -1,24 +1,7 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import {baseUrl} from '../utils/url';
-
-// Communicating with server
-const fetchData = async (url, options = {}) => {
-  try {
-    const response = await fetch(url, options);
-    const json = await response.json();
-    if (response.ok) {
-      return json;
-    } else {
-      const message = json.error
-        ? `${json.message}: ${json.error}`
-        : json.message;
-      throw new Error(message || response.statusText);
-    }
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+import {fetchData} from './CommonFunction';
 
 // Function for user registration
 const signUp = async (data) => {
@@ -61,4 +44,25 @@ const getUserByToken = async (token) => {
   return await fetchData(baseUrl + 'users/user', options);
 };
 
-export {signUp, login, checkUserName, getUserByToken};
+// Get user
+const getUserById = async (token) => {
+  const options = {
+    method: 'GET',
+    headers: {'x-access-token': token},
+  };
+  return await fetchData(`${baseUrl}users/${userId}`, options);
+};
+
+const updateUser = async (data, token) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify(data),
+  };
+  return await fetchData(`${baseUrl}users`, options);
+};
+
+export {signUp, login, checkUserName, getUserByToken, getUserById, updateUser};
