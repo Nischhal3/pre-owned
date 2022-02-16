@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import {baseUrl} from '../utils/url';
-import {fetchData} from './CommonFunction';
+import {fetchData, getToken} from './CommonFunction';
 
 // Function for user registration
 const signUp = async (data) => {
@@ -36,7 +36,8 @@ const checkUserName = async (inputName) => {
 };
 
 // Gets user by their token
-const getUserByToken = async (token) => {
+const getUserByToken = async () => {
+  const token = await getToken();
   const options = {
     method: 'GET',
     headers: {'x-access-token': token},
@@ -45,7 +46,8 @@ const getUserByToken = async (token) => {
 };
 
 // Get user
-const getUserById = async (token) => {
+const getUserById = async (userId) => {
+  const token = await getToken();
   const options = {
     method: 'GET',
     headers: {'x-access-token': token},

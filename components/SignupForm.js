@@ -17,6 +17,7 @@ import {PropTypes} from 'prop-types';
 import FormInput from './formComponents/FormInput';
 import {FormButton} from './elements/AppButton';
 import colors from '../utils/colors';
+import ErrorMessage from './elements/ErrorMessage';
 
 const SignupForm = ({setFormToggle}) => {
   //for checkbox
@@ -94,11 +95,10 @@ const SignupForm = ({setFormToggle}) => {
         name="username"
       />
 
-      {errors.username && (
-        <Text status="danger">
-          {errors.username && errors.username.message}{' '}
-        </Text>
-      )}
+      <ErrorMessage
+        error={errors?.username}
+        message={errors?.username?.message}
+      />
 
       <Controller
         control={control}
@@ -106,7 +106,7 @@ const SignupForm = ({setFormToggle}) => {
           required: {value: true, message: 'This is required.'},
           pattern: {
             value: /\S+@\S+\.\S+$/,
-            message: 'Has to be valid email.',
+            message: 'Not valid email.',
           },
         }}
         render={({field: {onChange, onBlur, value}}) => (
@@ -125,9 +125,7 @@ const SignupForm = ({setFormToggle}) => {
         name="email"
       />
 
-      {errors.email && (
-        <Text status="danger">{errors.email && errors.email.message} </Text>
-      )}
+      <ErrorMessage error={errors?.email} message={errors?.email?.message} />
 
       <Controller
         control={control}
@@ -157,11 +155,10 @@ const SignupForm = ({setFormToggle}) => {
         name="password"
       />
 
-      {errors.password && (
-        <Text status="danger">
-          {errors.password && errors.password.message}{' '}
-        </Text>
-      )}
+      <ErrorMessage
+        error={errors?.password}
+        message={errors?.password?.message}
+      />
 
       <Controller
         control={control}
@@ -190,11 +187,10 @@ const SignupForm = ({setFormToggle}) => {
         name="confirmPassword"
       />
 
-      {errors.confirmPassword && (
-        <Text status="danger">
-          {errors.confirmPassword && errors.confirmPassword.message}{' '}
-        </Text>
-      )}
+      <ErrorMessage
+        error={errors?.confirmPassword}
+        message={errors?.confirmPassword?.message}
+      />
 
       {/* <Input style={styles.input} accessoryLeft={<Icon name="person-outline"/>} placeholder="Username" /> */}
       {/* <Input style={styles.input} accessoryLeft={<Icon name="email-outline"/>} placeholder='Email' /> */}

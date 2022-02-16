@@ -33,8 +33,22 @@ const sendMessage = () => {
 };
 const ProductDetail = ({route, navigation, profile}) => {
   const {file} = route.params;
+  const [avatar, setAvatar] = useState('http://placekitten.com/180');
 
-  // fetch file
+  // fetch Avatar
+  const fetchAvatar = async () => {
+    try {
+      const avatarList = await getFilesByTag('avatar_' + file.user_id);
+      if (avatarList.length === 0) {
+        return;
+      }
+      const avatar = avatarList.pop();
+      setAvatar(uploadsUrl + avatar.filename);
+      console.log('single.js avatar', avatar);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
 
   //favorite
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
@@ -43,16 +57,14 @@ const ProductDetail = ({route, navigation, profile}) => {
   const [userLike, setUserLike] = useState(false);
   const {user} = useContext(MainContext);
   const [name, setName] = useState('');
-  // Get user's detail
-  const getUser = async () => {
-    const token = await getToken();
-    const users = await getUserByToken(token);
-    setName(users.username);
-  };
+
   // add to favourite
   const fetchLikes = async () => {
     try {
       const likesData = await getFavourtiesByFileId(file.file_id);
+      const userData = await getUserById(file.user_id);
+
+      setName(userData.username);
       setLikes(likesData);
       likesData.forEach((like) => {
         like.user_id === user.user_id && setUserLike(true);
@@ -82,10 +94,9 @@ const ProductDetail = ({route, navigation, profile}) => {
   };
 
   useEffect(() => {
-    getUser();
     fetchLikes();
   }, [userLike]);
-
+  console.log('name', name);
   const onSubmit = async () => {
     userLike ? await unlike() : addLike();
   };
@@ -125,14 +136,10 @@ const ProductDetail = ({route, navigation, profile}) => {
             navigation.navigate('Profile', {file: profile});
           }}
           style={styles.userContainer}
-          image={require('../assets/products/profilepic.jpg')}
+          image={{uri: avatar}}
           title={name}
           description="5 Listings"
-        >
-          {/* // when api is ready */}
-          {/* <Avatar source={{uri: avatar}} />
-           */}
-        </ListDetail>
+        ></ListDetail>
         <Divider />
         <Layout style={styles.detailsContainer}>
           <Text category="s1" style={styles.detail}>
