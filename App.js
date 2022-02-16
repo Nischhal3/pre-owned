@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import React from 'react';
 // Import Context
 import {MainProvider} from './contexts/MainContext';
 
@@ -37,7 +36,6 @@ const App = () => {
   }
   return (
     <>
-      {/* <ProducDetail /> */}
       <MainProvider>
         <Navigator />
       </MainProvider>
