@@ -32,8 +32,22 @@ const sendMessage = () => {
 };
 const ProductDetail = ({route, navigation, profile}) => {
   const {file} = route.params;
+  const [avatar, setAvatar] = useState('http://placekitten.com/180');
 
-  // fetch file
+  // fetch Avatar
+  const fetchAvatar = async () => {
+    try {
+      const avatarList = await getFilesByTag('avatar_' + file.user_id);
+      if (avatarList.length === 0) {
+        return;
+      }
+      const avatar = avatarList.pop();
+      setAvatar(uploadsUrl + avatar.filename);
+      console.log('single.js avatar', avatar);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
 
   //favorite
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
@@ -130,13 +144,10 @@ const ProductDetail = ({route, navigation, profile}) => {
             navigation.navigate('Profile', {file: profile});
           }}
           style={styles.userContainer}
-          image={require('../assets/products/profilepic.jpg')}
+          image={{uri: avatar}}
           title={name}
           description="5 Listings"
         >
-          {/* // when api is ready */}
-          {/* <Avatar source={{uri: avatar}} />
-           */}
         </ListDetail>
         <Divider />
         <Layout style={styles.detailsContainer}>
