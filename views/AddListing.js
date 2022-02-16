@@ -12,13 +12,13 @@ import * as ImagePicker from 'expo-image-picker';
 import {Card} from 'react-native-elements';
 import FormInput from '../components/formComponents/FormInput';
 import {AppButton, FormButton} from '../components/elements/AppButton';
-import {Text} from '@ui-kitten/components';
 import {getToken} from '../hooks/CommonFunction';
 import {postMedia, postTag, useMedia} from '../hooks/MediaHooks';
 import {appId} from '../utils/url';
 import {MainContext} from '../contexts/MainContext';
 import {useFocusEffect} from '@react-navigation/native';
-import {IndexPath, Layout, Select, SelectItem} from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
+import CategoryPicker from '../components/CategoryPicker';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState('../assets/backgrounds/ProfileBG.png');
@@ -28,7 +28,7 @@ const AddListing = ({navigation}) => {
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
   const {update, setUpdate, loading, setLoading} = useContext(MainContext);
-  const [selectedIndex, setSelectedIndex] = useState();
+
   const {
     control,
     handleSubmit,
@@ -106,7 +106,7 @@ const AddListing = ({navigation}) => {
       }
     } catch (error) {
       setLoading(false);
-      console.error('Media upload: ', error);
+      Alert.alert('Fail to upload', `${error}`, [{text: 'Close'}]);
     }
   };
 
@@ -200,20 +200,8 @@ const AddListing = ({navigation}) => {
             {errors.description && errors.description.message}{' '}
           </Text>
         )}
-        {/* Select category */}
-        <Layout style={styles.container} level="1">
-          <Select
-            selectedIndex={selectedIndex}
-            onSelect={(index) => setSelectedIndex(index)}
-            placeholder="Select category"
-          >
-            <SelectItem title="Home & Living" />
-            <SelectItem title="Clothing" />
-            <SelectItem title="Electronics" />
-            <SelectItem title="Gaming & Accessories" />
-            <SelectItem title="Others" />
-          </Select>
-        </Layout>
+        {/* should this be required? */}
+        <CategoryPicker />
         <FormButton
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}

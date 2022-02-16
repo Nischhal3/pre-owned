@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 // Import from Library UI Kitten
-import {Avatar, Divider, Input, Layout, Text} from '@ui-kitten/components';
+import {Icon, Divider, Input, Layout, Text} from '@ui-kitten/components';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
@@ -25,6 +25,7 @@ import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById, getUserByToken} from '../hooks/ApiHooks';
 import {getToken} from '../hooks/CommonFunction';
+import {AppIcon} from '../components/elements/Icons';
 
 // Alert when sending message
 const sendMessage = () => {
@@ -112,12 +113,6 @@ const ProductDetail = ({route, navigation, profile}) => {
               style={{right: 10}}
               color={userLike ? 'red' : 'black'}
             />
-            {/*            
-                <Icon
-                  name={userLike ? 'heart' : 'heart-outline'}
-                  size={32}
-                  color={userLike ? 'red' : 'black'}
-                /> */}
 
             <Text category="s1">{likes.length}</Text>
           </Pressable>
