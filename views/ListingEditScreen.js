@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import CategoryPickerItem from '../components/categorypicker/CategoryPickerItem';
-import FormPicker from '../components/categorypicker/FormPicker';
+import Selection from '../components/categorypicker/Selection';
 import Screen from '../components/Screen';
 
 const categories = [
@@ -62,10 +62,14 @@ const categories = [
   },
 ];
 
-const ListingEditScreen = () => {
+const ListingEditScreen = ({}) => {
+  const [selectedIndex, setSelectedIndex] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
+
   return (
     <Screen style={styles.container}>
-      <FormPicker
+      <Selection
         items={categories}
         name="category"
         numberOfColumns={3}

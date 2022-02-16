@@ -27,10 +27,10 @@ const App = () => {
   return (
     <>
       {/* <ProducDetail /> */}
-      <ListingEditScreen />
-      {/* <MainProvider>
+      {/* <ListingEditScreen /> */}
+      <MainProvider>
         <Navigator />
-      </MainProvider> */}
+      </MainProvider>
     </>
   );
 };

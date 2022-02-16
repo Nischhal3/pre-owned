@@ -1,9 +1,11 @@
 import {Text} from '@ui-kitten/components';
-import React from 'react';
-import {Image, View, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {Image, View, StyleSheet, TouchableOpacity, Picker} from 'react-native';
 import {AppIcon} from '../elements/Icons';
 
 const CategoryPickerItem = ({item, onPress}) => {
+  const [selectedValue, setSelectedValue] = useState('');
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress}>
@@ -12,6 +14,7 @@ const CategoryPickerItem = ({item, onPress}) => {
           name={item.icon}
           size={80}
         /> */}
+
         <Image
           source={{
             uri: item.file,

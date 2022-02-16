@@ -10,23 +10,23 @@ import {
 } from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
-import PickerItem from './PickerItem';
 import Screen from '../Screen';
 import {Text} from '@ui-kitten/components';
 import colors from '../../utils/colors';
 
-const Picker = ({
+const ItemPicker = ({
   file,
   icon,
   items,
   numberOfColumns = 1,
   onSelectItem,
-  PickerItemComponent = PickerItem,
+  PickerItemComponent,
   placeholder,
   selectedItem,
   width = '100%',
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
@@ -66,7 +66,8 @@ const Picker = ({
                 label={item.label}
                 onPress={() => {
                   setModalVisible(false);
-                  onSelectItem(item);
+                  onSelectItem(item.label);
+                  console.log(item.label);
                 }}
               />
             )}
@@ -95,7 +96,8 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
+    color: colors.text_dark,
   },
 });
 
-export default Picker;
+export default ItemPicker;
