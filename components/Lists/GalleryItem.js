@@ -1,18 +1,13 @@
 import React from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  ImageBackground,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform, PixelRatio} from 'react-native';
 import PropTypes from 'prop-types';
 import {Layout, Text} from '@ui-kitten/components';
 import {uploadsUrl} from '../../utils/url';
-import {LinearGradient} from 'expo-linear-gradient';
 import colors from '../../utils/colors';
+import ImageWithOverlay from '../elements/ImageWithOverlay';
 
-// Return secondhand item for explore
-const GalleryItem = ({navigation, singleItem}) => {
+// Single item for explore horizontal list
+const GalleryItemHorizontal = ({navigation, singleItem}) => {
   // console.log('Listitem', singleItem);
   return (
     <TouchableOpacity
@@ -20,18 +15,35 @@ const GalleryItem = ({navigation, singleItem}) => {
         navigation.navigate('Product Detail', {file: singleItem});
       }}
     >
-      <ImageBackground
+      <ImageWithOverlay
         source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
-        style={styles.GalleryImage}
-        imageStyle={{borderRadius: 15}}
-      >
-        <LinearGradient
-          colors={['transparent', 'rgba(0,0,0.5,0.5)']}
-          style={{flex: 1, justifyContent: 'center', borderRadius: 15}}
-        ></LinearGradient>
-      </ImageBackground>
+        style={styles.GalleryImageHorizontal}
+      />
+      <Layout style={styles.GalleryTextBoxHorizontal}>
+        <Text category={'h5'} style={{color: colors.text_light}}>
+          {singleItem.title}
+        </Text>
+        <Text category={'h6'} style={{color: colors.text_light}}>
+          {singleItem.price}
+        </Text>
+      </Layout>
+    </TouchableOpacity>
+  );
+};
 
-      <Layout style={styles.GalleryTextBox}>
+// Single item for explore vertical list
+const GalleryItemVertical = ({navigation, singleItem}) => {
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Product Detail', {file: singleItem});
+      }}
+    >
+      <ImageWithOverlay
+        source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
+        style={styles.GalleryImageVertical}
+      />
+      <Layout style={styles.GalleryTextBoxVertical}>
         <Text category={'h5'} style={{color: colors.text_light}}>
           {singleItem.title}
         </Text>
@@ -44,7 +56,15 @@ const GalleryItem = ({navigation, singleItem}) => {
 };
 
 const styles = StyleSheet.create({
-  GalleryImage: {
+  GalleryImageHorizontal: {
+    borderRadius: 10,
+    marginEnd: 10,
+    marginBottom: 15,
+    width: 280,
+    height: 170,
+  },
+
+  GalleryImageVertical: {
     borderRadius: 10,
     marginEnd: 10,
     marginBottom: 15,
@@ -55,13 +75,28 @@ const styles = StyleSheet.create({
         height: 220,
       },
       android: {
-        width: 370,
+        width: 350,
         height: 210,
       },
     }),
   },
 
-  GalleryTextBox: {
+  GalleryTextBoxHorizontal: {
+    position: 'absolute',
+    backgroundColor: null,
+    marginStart: 15,
+
+    ...Platform.select({
+      ios: {
+        top: 120,
+      },
+      android: {
+        top: 100,
+      },
+    }),
+  },
+
+  GalleryTextBoxVertical: {
     position: 'absolute',
     backgroundColor: null,
     marginStart: 15,
@@ -71,15 +106,20 @@ const styles = StyleSheet.create({
         top: 150,
       },
       android: {
-        top: 120,
+        top: 140,
       },
     }),
   },
 });
 
-GalleryItem.propTypes = {
+GalleryItemHorizontal.propTypes = {
   singleItem: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
 };
 
-export default GalleryItem;
+GalleryItemVertical.propTypes = {
+  singleItem: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
+
+export {GalleryItemHorizontal, GalleryItemVertical};

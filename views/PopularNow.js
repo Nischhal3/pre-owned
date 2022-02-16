@@ -6,7 +6,6 @@ import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import PlainListItem from '../components/lists/PlainListItem';
 
-
 const products = [
   {
     key: '0',

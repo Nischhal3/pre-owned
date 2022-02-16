@@ -2,10 +2,13 @@ import {List} from '@ui-kitten/components';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useMedia} from '../hooks/MediaHooks';
-import GalleryItem from '../components/lists/GalleryItem';
+import {
+  GalleryItemHorizontal,
+  GalleryItemVertical,
+} from '../components/lists/GalleryItem';
 
-// Return a horizontal list
-const ItemGalleryHorizontal = ({navigation}) => {
+// Return a horizontal gallery list
+const GalleryListHorizontal = ({navigation}) => {
   const {mediaArray} = useMedia();
 
   // Sorting items by recently added date
@@ -21,14 +24,14 @@ const ItemGalleryHorizontal = ({navigation}) => {
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
-        <GalleryItem navigation={navigation} singleItem={item} />
+        <GalleryItemHorizontal navigation={navigation} singleItem={item} />
       )}
     ></List>
   );
 };
 
-// Return a vertical list
-const ItemGalleryVertical = ({navigation}) => {
+// Return a vertical gallery list
+const GalleryListVertical = ({navigation}) => {
   const {mediaArray} = useMedia();
   // console.log('Explorer', mediaArray);
   return (
@@ -38,17 +41,17 @@ const ItemGalleryVertical = ({navigation}) => {
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
-        <GalleryItem navigation={navigation} singleItem={item} />
+        <GalleryItemVertical navigation={navigation} singleItem={item} />
       )}
     ></List>
   );
 };
 
-ItemGalleryHorizontal.propTypes = {
+GalleryListHorizontal.propTypes = {
   navigation: PropTypes.object,
 };
-ItemGalleryVertical.propTypes = {
+GalleryListVertical.propTypes = {
   navigation: PropTypes.object,
 };
 
-export {ItemGalleryHorizontal, ItemGalleryVertical};
+export {GalleryListHorizontal, GalleryListVertical};

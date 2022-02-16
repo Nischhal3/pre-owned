@@ -2,8 +2,8 @@ import {Button, Layout} from '@ui-kitten/components';
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {
-  ItemGalleryHorizontal,
-  ItemGalleryVertical,
+  GalleryListHorizontal,
+  GalleryListVertical,
 } from '../components/ExploreList';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
@@ -25,7 +25,7 @@ const ExploreScreen = ({navigation}) => {
         >
           Recently added
         </Button>
-        <ItemGalleryHorizontal navigation={navigation} />
+        <GalleryListHorizontal navigation={navigation} />
       </Layout>
 
       <Layout style={styles.verticalGallery}>
@@ -40,7 +40,7 @@ const ExploreScreen = ({navigation}) => {
         >
           Popular now
         </Button>
-        <ItemGalleryVertical navigation={navigation} />
+        <GalleryListVertical navigation={navigation} />
       </Layout>
     </SafeAreaView>
   );
