@@ -26,12 +26,12 @@ const ListDetail = ({
           {IconComponent}
           {image && <Avatar style={styles.image} source={image} />}
           <Layout style={styles.detailsContainer}>
-            <Text style={{fontWeight: '500'}}>{title}</Text>
+            <Text style={styles.title}>{title}</Text>
             {description && (
               <Text
                 ellipsizeMode="tail"
                 numberOfLines={1}
-                style={{width: 250, color: colors.mediumGrey}}
+                style={styles.description}
               >
                 {description}
               </Text>
@@ -50,8 +50,13 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 15,
-
     backgroundColor: colors.text_light,
+  },
+  description: {
+    width: 250,
+    color: colors.mediumGrey,
+    paddingVertical: 5,
+    fontFamily: 'Karla_400Regular_Italic',
   },
   detailsContainer: {
     marginLeft: 10,
@@ -61,5 +66,6 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
   },
+  title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });
 export default ListDetail;

@@ -180,14 +180,20 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: colors.stroke,
   },
-
+  detail: {
+    fontFamily: 'Karla_700Bold',
+    fontSize: 16,
+  },
   detailsContainer: {
     padding: 10,
+    fontSize: 16,
+    fontFamily: 'Karla_700Bold',
   },
   detailDescription: {
     paddingVertical: 15,
     lineHeight: 16,
     fontSize: 14,
+    fontFamily: 'Karla',
   },
   image: {
     width: '100%',
@@ -197,6 +203,7 @@ const styles = StyleSheet.create({
     color: colors.text_dark,
     fontWeight: 'bold',
     fontSize: 20,
+    fontFamily: 'Karla_400Regular',
     marginVertical: 10,
     left: 10,
   },
@@ -209,8 +216,10 @@ const styles = StyleSheet.create({
     height: 50,
     alignSelf: 'flex-end',
     marginBottom: 30,
+    fontWeight: '500',
   },
   title: {
+    fontFamily: 'Karla_700Bold',
     fontSize: 24,
     fontWeight: '500',
     left: 10,

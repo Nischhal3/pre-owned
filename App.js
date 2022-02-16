@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {StyleSheet} from 'react-native';
 // Import Context
 import {MainProvider} from './contexts/MainContext';
 
@@ -6,18 +7,34 @@ import {MainProvider} from './contexts/MainContext';
 import Navigator from './navigation/navigator';
 
 // Import from UI Kitten Library
-import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
+import {ApplicationProvider, IconRegistry, Text} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import theme from './utils/theme.json';
 
-// Fonts
+// Import fonts
+import {
+  Karla_400Regular,
+  Karla_400Regular_Italic,
+  Karla_700Bold,
+  Karla_700Bold_Italic,
+} from '@expo-google-fonts/karla';
 import {useFonts} from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 const App = () => {
-  const [loaded] = useFonts({
-    Karla: require('./assets/fonts/Karla-Regular.ttf'),
+  // use fonts
+  let [fontsLoaded, error] = useFonts({
+    Karla_400Regular,
+    Karla_400Regular_Italic,
+    Karla_700Bold,
+    Karla_700Bold_Italic,
+    'Karla': require('./assets/fonts/Karla.ttf'),
   });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     <>
       {/* <ProducDetail /> */}
