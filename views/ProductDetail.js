@@ -32,7 +32,7 @@ const sendMessage = () => {
 };
 const ProductDetail = ({route, navigation, profile}) => {
   const {file} = route.params;
-
+  // console.log('file', file.user_id);
   // fetch file
 
   //favorite
@@ -42,16 +42,14 @@ const ProductDetail = ({route, navigation, profile}) => {
   const [userLike, setUserLike] = useState(false);
   const {user} = useContext(MainContext);
   const [name, setName] = useState('');
-  // Get user's detail
-  const getUser = async () => {
-    const token = await getToken();
-    const users = await getUserByToken(token);
-    setName(users.username);
-  };
+
   // add to favourite
   const fetchLikes = async () => {
     try {
       const likesData = await getFavourtiesByFileId(file.file_id);
+      const userData = await getUserById(file.user_id);
+
+      setName(userData.username);
       setLikes(likesData);
       likesData.forEach((like) => {
         like.user_id === user.user_id && setUserLike(true);
@@ -81,10 +79,9 @@ const ProductDetail = ({route, navigation, profile}) => {
   };
 
   useEffect(() => {
-    getUser();
     fetchLikes();
   }, [userLike]);
-
+  console.log('name', name);
   const onSubmit = async () => {
     userLike ? await unlike() : addLike();
   };
@@ -112,7 +109,7 @@ const ProductDetail = ({route, navigation, profile}) => {
               style={{right: 10}}
               color={userLike ? 'red' : 'black'}
             />
-            {/*            
+            {/*
                 <Icon
                   name={userLike ? 'heart' : 'heart-outline'}
                   size={32}

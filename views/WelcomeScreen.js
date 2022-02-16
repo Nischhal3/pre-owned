@@ -13,8 +13,7 @@ import {getToken} from '../hooks/CommonFunction';
 
 const WelcomeScreen = ({navigation}) => {
   const animation = React.createRef(); // animation
-  const {setIsLoggedIn, setUser, setFormToggle, setUsername} =
-    useContext(MainContext);
+  const {setIsLoggedIn, setUser, setFormToggle} = useContext(MainContext);
 
   const checkToken = async () => {
     const userToken = await getToken();
@@ -27,7 +26,6 @@ const WelcomeScreen = ({navigation}) => {
       // console.log('chekToken', userData);
       // console.log('token', userToken);
       setUser(userData);
-      setUsername(userData.username);
       setIsLoggedIn(true);
     } catch (error) {
       console.error(error);
