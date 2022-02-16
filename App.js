@@ -1,11 +1,6 @@
 import React from 'react';
-import {StatusBar} from 'expo-status-bar';
 // Import Context
 import {MainProvider} from './contexts/MainContext';
-// Import Views
-import WelcomeScreen from './views/WelcomeScreen';
-import ExploreScreen from './views/Explore';
-import ProductDetail from './views/ProductDetail';
 
 // Import Navigation
 import Navigator from './navigation/navigator';

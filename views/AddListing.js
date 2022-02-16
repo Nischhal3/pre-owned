@@ -12,12 +12,13 @@ import * as ImagePicker from 'expo-image-picker';
 import {Card} from 'react-native-elements';
 import FormInput from '../components/formComponents/FormInput';
 import {AppButton, FormButton} from '../components/elements/AppButton';
-import {Text} from '@ui-kitten/components';
 import {getToken} from '../hooks/CommonFunction';
 import {postMedia, postTag, useMedia} from '../hooks/MediaHooks';
 import {appId} from '../utils/url';
 import {MainContext} from '../contexts/MainContext';
 import {useFocusEffect} from '@react-navigation/native';
+import {Text} from '@ui-kitten/components';
+import CategoryPicker from '../components/CategoryPicker';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState('../assets/backgrounds/ProfileBG.png');
@@ -105,7 +106,7 @@ const AddListing = ({navigation}) => {
       }
     } catch (error) {
       setLoading(false);
-      console.error('Media upload: ', error);
+      Alert.alert('Fail to upload', `${error}`, [{text: 'Close'}]);
     }
   };
 
@@ -199,7 +200,8 @@ const AddListing = ({navigation}) => {
             {errors.description && errors.description.message}{' '}
           </Text>
         )}
-
+        {/* should this be required? */}
+        <CategoryPicker />
         <FormButton
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
