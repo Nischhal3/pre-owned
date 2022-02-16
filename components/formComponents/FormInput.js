@@ -4,6 +4,7 @@ import React from 'react';
 const FormInput = (props) => {
   return (
     <Input
+      style={props.style}
       placeholder={props.name}
       onBlur={props.onBlur}
       accessoryLeft={<Icon name={props.iconName} />}

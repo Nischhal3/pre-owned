@@ -53,17 +53,11 @@ const Login = () => {
             </ButtonGroup>
             {formToggle ? (
               <Card style={styles.card}>
-                <Text category="h4" style={styles.header}>
-                  Log In
-                </Text>
                 <LoginForm setFormToggle={setFormToggle} />
               </Card>
             ) : (
               <Card style={styles.card}>
                 <ScrollView>
-                  <Text category="h5" style={styles.header}>
-                    Sign Up
-                  </Text>
                   <SignupForm setFormToggle={setFormToggle} />
                 </ScrollView>
               </Card>

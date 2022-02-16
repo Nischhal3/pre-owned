@@ -3,7 +3,7 @@ import React from 'react';
 
 const FormButton = (props) => {
   return (
-    <Button style={props.btnStyle} onPress={props.handleSubmit(props.onSubmit)}>
+    <Button style={props.btnStyle} onPress={props.handleSubmit(props.onSubmit)} disabled={props.disabled}>
       {props.text}
     </Button>
   );
