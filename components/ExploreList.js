@@ -34,7 +34,7 @@ const GalleryListVertical = ({navigation}) => {
   return (
     <List
       data={mediaArray}
-      contentContainerStyle={{marginStart: 20}}
+      contentContainerStyle={{marginStart: 10, alignItems: 'center'}}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (

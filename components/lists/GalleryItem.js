@@ -20,7 +20,6 @@ const GalleryItemHorizontal = ({navigation, singleItem}) => {
       <ImageDetail
         style={styles.GalleryTextBoxHorizontal}
         title={singleItem.title}
-        price={singleItem.price}
       />
     </TouchableOpacity>
   );
@@ -41,7 +40,6 @@ const GalleryItemVertical = ({navigation, singleItem}) => {
       <ImageDetail
         style={styles.GalleryTextBoxVertical}
         title={singleItem.title}
-        price={singleItem.price}
       />
     </TouchableOpacity>
   );
@@ -77,7 +75,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: null,
     marginStart: 15,
-    top: 105,
+    top: 120,
   },
 
   GalleryTextBoxVertical: {
@@ -87,10 +85,10 @@ const styles = StyleSheet.create({
 
     ...Platform.select({
       ios: {
-        top: 150,
+        top: 170,
       },
       android: {
-        top: 140,
+        top: 160,
       },
     }),
   },

@@ -5,7 +5,7 @@ import {StyleSheet} from 'react-native';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import PlainListItem from '../components/lists/PlainListItem';
-import { useMedia } from '../hooks/MediaHooks';
+import {useMedia} from '../hooks/MediaHooks';
 
 // TODO fetch items from server, item fetch to be added in API hooks
 const RecentlyAdded = ({navigation}) => {
@@ -23,7 +23,11 @@ const RecentlyAdded = ({navigation}) => {
         ItemSeparatorComponent={Divider}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <PlainListItem navigation={navigation} singleItem={item} displayText={true} />
+          <PlainListItem
+            navigation={navigation}
+            singleItem={item}
+            displayText={true}
+          />
         )}
       ></List>
     </SafeAreaView>
