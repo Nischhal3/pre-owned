@@ -1,10 +1,9 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Platform, PixelRatio} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import PropTypes from 'prop-types';
-import {Layout, Text} from '@ui-kitten/components';
 import {uploadsUrl} from '../../utils/url';
-import colors from '../../utils/colors';
 import ImageWithOverlay from '../elements/ImageWithOverlay';
+import ImageDetail from '../ImageDetail';
 
 // Single item for explore horizontal list
 const GalleryItemHorizontal = ({navigation, singleItem}) => {
@@ -19,14 +18,11 @@ const GalleryItemHorizontal = ({navigation, singleItem}) => {
         source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         style={styles.GalleryImageHorizontal}
       />
-      <Layout style={styles.GalleryTextBoxHorizontal}>
-        <Text category={'h5'} style={{color: colors.text_light}}>
-          {singleItem.title}
-        </Text>
-        <Text category={'h6'} style={{color: colors.text_light}}>
-          {singleItem.price}
-        </Text>
-      </Layout>
+      <ImageDetail
+        style={styles.GalleryTextBoxHorizontal}
+        title={singleItem.title}
+        price={singleItem.price}
+      />
     </TouchableOpacity>
   );
 };
@@ -43,14 +39,11 @@ const GalleryItemVertical = ({navigation, singleItem}) => {
         source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         style={styles.GalleryImageVertical}
       />
-      <Layout style={styles.GalleryTextBoxVertical}>
-        <Text category={'h5'} style={{color: colors.text_light}}>
-          {singleItem.title}
-        </Text>
-        <Text category={'h6'} style={{color: colors.text_light}}>
-          {singleItem.price}
-        </Text>
-      </Layout>
+      <ImageDetail
+        style={styles.GalleryTextBoxVertical}
+        title={singleItem.title}
+        price={singleItem.price}
+      />
     </TouchableOpacity>
   );
 };
@@ -85,15 +78,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: null,
     marginStart: 15,
-
-    ...Platform.select({
-      ios: {
-        top: 120,
-      },
-      android: {
-        top: 100,
-      },
-    }),
+    top: 105,
   },
 
   GalleryTextBoxVertical: {

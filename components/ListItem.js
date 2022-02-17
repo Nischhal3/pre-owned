@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native';
+import {StyleSheet, TouchableHighlight} from 'react-native';
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {PointRightArrow} from './elements/Icons';
-
 
 // for productDetail page
 const ListDetail = ({
@@ -57,8 +53,6 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
   },
-} );
-
-
+});
 
 export {ListDetail};
