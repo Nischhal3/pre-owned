@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 PlainListItem.propTypes = {
   singleItem: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
-  displayText: PropTypes.object.isRequired,
+  displayText: PropTypes.object,
 };
 
 export default PlainListItem;
