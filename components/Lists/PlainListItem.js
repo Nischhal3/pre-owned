@@ -20,13 +20,7 @@ const PlainListItem = ({navigation, singleItem}) => {
         </Text>
       </ListItem>
 
-      <ListItem
-        style={{flex: 1}}
-        accessoryRight={PointRightArrow}
-        onPress={() => {
-          navigation.navigate('Product Detail', {file: singleItem});
-        }}
-      />
+      <ListItem style={{flex: 1}} accessoryRight={PointRightArrow} />
     </ListItem>
   );
 };
