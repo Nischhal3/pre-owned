@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Alert} from 'react-native';
-import {Layout, Divider, Icon} from '@ui-kitten/components';
-import {ListDetail} from '../components/ListItem';
+import {Layout, Divider} from '@ui-kitten/components';
 import DeleteAction from '../components/elements/DeleteAction';
-import colors from '../utils/colors';
-import {PointRightArrow} from '../components/elements/Icons';
+import ListDetail from '../components/lists/ListDetail';
 
 const initialMessages = [
   {

@@ -46,7 +46,8 @@ const getUserByToken = async () => {
 };
 
 // Get user
-const getUserById = async (token) => {
+const getUserById = async (userId) => {
+  const token = await getToken();
   const options = {
     method: 'GET',
     headers: {'x-access-token': token},
