@@ -9,13 +9,9 @@ import Profile from '../views/Profile';
 import {MainContext} from '../contexts/MainContext';
 import ProductDetail from '../views/ProductDetail';
 import PopularNow from '../views/PopularNow';
-<<<<<<< HEAD
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AllProducts from '../views/AllProducts';
-=======
-import RecentlyAdded from '../views/RecentlyAdded';
 import TabScreen from '../components/navComponents/Bottom';
->>>>>>> second-main
 
 const Stack = createNativeStackNavigator();
 
