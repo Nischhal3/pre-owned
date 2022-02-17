@@ -17,7 +17,6 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
-import ListDetail from '../components/lists/ListDetail';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
 import {useFavourite, useTag} from '../hooks/MediaHooks';
@@ -26,6 +25,7 @@ import {uploadsUrl} from '../utils/url';
 import {getUserById, getUserByToken} from '../hooks/ApiHooks';
 import {getToken} from '../hooks/CommonFunction';
 import {AppIcon} from '../components/elements/Icons';
+import ListDetail from '../components/lists/ListDetail';
 
 // Alert when sending message
 const sendMessage = () => {
