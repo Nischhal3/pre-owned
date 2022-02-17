@@ -6,7 +6,6 @@ import {
   Button,
   Text,
   Avatar,
-  Divider,
 } from '@ui-kitten/components';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -64,7 +63,6 @@ const Profile = () => {
       )}
         <Card style={styles.card}>
           <Text style={styles.username}>{user.username}</Text>
-          <Divider />
           {user.description ? (
             <Text style={styles.description}>
               {user.description}

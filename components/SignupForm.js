@@ -198,9 +198,9 @@ const SignupForm = ({setFormToggle}) => {
         onChange={(nextChecked) => setChecked(nextChecked)}
       >
         <Button
+          style={styles.Terms}
           onPress={() => setVisible(true)}
           status="warning"
-          style={{marginLeft: -110}}
           appearance="ghost"
         >
           I accept Terms and Condition
@@ -276,6 +276,10 @@ const styles = StyleSheet.create({
   },
   checkBox: {
     marginBottom: 30,
+    marginLeft: 10,
+  },
+  Terms: {
+    textAlign: 'left',
   },
   backdrop: {
     backgroundColor: colors.primary,
