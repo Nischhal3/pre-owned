@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
 });
 
 ListDetail.propTypes = {
-  title: PropTypes.object.isRequired,
-  description: PropTypes.object,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
   image: PropTypes.object,
   IconComponent: PropTypes.object,
   onPress: PropTypes.object,
