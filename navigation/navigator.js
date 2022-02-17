@@ -27,8 +27,8 @@ import {MainContext} from '../contexts/MainContext';
 import colors from '../utils/colors';
 import ProductDetail from '../views/ProductDetail';
 import PopularNow from '../views/PopularNow';
-import RecentlyAdded from '../views/RecentlyAdded';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AllProducts from '../views/AllProducts';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -191,8 +191,8 @@ const StackScreen = () => {
             component={TabScreen}
           />
           <Stack.Screen
-            name="Recently added"
-            component={RecentlyAdded}
+            name="All products"
+            component={AllProducts}
             options={{headerShown: true}}
           />
           <Stack.Screen

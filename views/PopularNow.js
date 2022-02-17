@@ -11,6 +11,9 @@ import {useMedia} from '../hooks/MediaHooks';
 const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
 
+  // Sorting items by recently added date
+  mediaArray.sort((a, b) => a.time_added < b.time_added);
+
   return (
     <SafeAreaView>
       <List
