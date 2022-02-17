@@ -75,7 +75,7 @@ ListDetail.propTypes = {
   description: PropTypes.string,
   image: PropTypes.object,
   IconComponent: PropTypes.object,
-  onPress: PropTypes.object,
+  onPress: PropTypes.func,
   renderRightActions: PropTypes.object,
 };
 

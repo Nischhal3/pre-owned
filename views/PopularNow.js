@@ -20,7 +20,11 @@ const PopularNow = ({navigation}) => {
         ItemSeparatorComponent={Divider}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <PlainListItem navigation={navigation} singleItem={item} />
+          <PlainListItem
+            navigation={navigation}
+            singleItem={item}
+            displayText={true}
+          />
         )}
       ></List>
     </SafeAreaView>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {ImageBackground} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
+import PropTypes from 'prop-types';
 
 // Returning image with black gradient overlay on top
 const ImageWithOverlay = ({source, style}) => {
@@ -16,6 +17,11 @@ const ImageWithOverlay = ({source, style}) => {
       ></LinearGradient>
     </ImageBackground>
   );
+};
+
+ImageWithOverlay.propTypes = {
+  source: PropTypes.object,
+  style: PropTypes.object,
 };
 
 export default ImageWithOverlay;
