@@ -7,7 +7,6 @@ import ImageDetail from '../ImageDetail';
 
 // Single item for explore horizontal list
 const GalleryItemHorizontal = ({navigation, singleItem}) => {
-  // console.log('Listitem', singleItem);
   return (
     <TouchableOpacity
       onPress={() => {
