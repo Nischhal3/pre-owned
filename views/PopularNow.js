@@ -2,79 +2,19 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Divider, List} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
-import {PlainListItem} from '../components/ListItem';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
-
-const products = [
-  {
-    key: '0',
-    title: 'Cabinet for sale',
-    published: '1 day ago',
-    price: '€45',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1919',
-    },
-    filename: 'http://placekitten.com/2048/1920',
-  },
-  {
-    key: '1',
-    title: 'Kittens',
-    published: '1 day ago',
-    price: '9e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1920',
-    },
-    filename: 'http://placekitten.com/2041/1922',
-  },
-  {
-    key: '2',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '3',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '4',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-  {
-    key: '5',
-    title: 'Annoying cat',
-    published: '1 day ago',
-    price: '5e',
-    thumbnails: {
-      w160: 'http://placekitten.com/2048/1921',
-    },
-    filename: 'http://placekitten.com/2039/1920',
-  },
-];
+import PlainListItem from '../components/lists/PlainListItem';
+import {useMedia} from '../hooks/MediaHooks';
 
 // TODO fetch items from server, item fetch to be added in API hooks
 const PopularNow = ({navigation}) => {
+  const {mediaArray} = useMedia();
+
   return (
     <SafeAreaView>
       <List
-        data={products}
+        data={mediaArray}
         contentContainerStyle={styles.container}
         horizontal={false}
         ItemSeparatorComponent={Divider}

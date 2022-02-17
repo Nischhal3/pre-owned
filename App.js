@@ -1,31 +1,41 @@
 import React from 'react';
-import {StatusBar} from 'expo-status-bar';
 // Import Context
 import {MainProvider} from './contexts/MainContext';
-// Import Views
-import WelcomeScreen from './views/WelcomeScreen';
-import ExploreScreen from './views/Explore';
-import ProductDetail from './views/ProductDetail';
 
 // Import Navigation
 import Navigator from './navigation/navigator';
 
 // Import from UI Kitten Library
-import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
+import {ApplicationProvider, IconRegistry, Text} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import theme from './utils/theme.json';
 
-// Fonts
+// Import fonts
+import {
+  Karla_400Regular,
+  Karla_400Regular_Italic,
+  Karla_700Bold,
+  Karla_700Bold_Italic,
+} from '@expo-google-fonts/karla';
 import {useFonts} from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 const App = () => {
-  const [loaded] = useFonts({
-    Karla: require('./assets/fonts/Karla-Regular.ttf'),
+  // use fonts
+  let [fontsLoaded, error] = useFonts({
+    Karla_400Regular,
+    Karla_400Regular_Italic,
+    Karla_700Bold,
+    Karla_700Bold_Italic,
+    'Karla': require('./assets/fonts/Karla.ttf'),
   });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     <>
-      {/* <ProducDetail /> */}
       <MainProvider>
         <Navigator />
       </MainProvider>
