@@ -1,6 +1,7 @@
 // Import from React
 import React from 'react';
 import {StyleSheet, TouchableHighlight, Platform} from 'react-native';
+import PropTypes from 'prop-types';
 
 // Import from UI Kitten Library
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
@@ -10,7 +11,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {PointRightArrow} from '../elements/Icons';
 import colors from '../../utils/colors';
 
-// now in use: ProductDetail.js
+// now in use: ProductDetail.js, Messages
 const ListDetail = ({
   title,
   description,
@@ -68,4 +69,14 @@ const styles = StyleSheet.create({
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });
+
+ListDetail.propTypes = {
+  title: PropTypes.object.isRequired,
+  description: PropTypes.object,
+  image: PropTypes.object,
+  IconComponent: PropTypes.object,
+  onPress: PropTypes.object,
+  renderRightActions: PropTypes.object,
+};
+
 export default ListDetail;
