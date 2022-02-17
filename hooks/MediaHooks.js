@@ -9,7 +9,7 @@ const useMedia = () => {
 
   const fetchMedia = async (myPostsOnly) => {
     try {
-      let json = await getFilesByTag(appId);
+      const json = await getFilesByTag(appId);
       // if (myFilesOnly) {
       //   json = json.filter((item) => item.user_id === user.user_id);
       // }

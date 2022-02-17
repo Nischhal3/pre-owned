@@ -12,20 +12,18 @@ import {
 } from 'react-native';
 
 // Import from Library UI Kitten
-import {Icon, Divider, Input, Layout, Text} from '@ui-kitten/components';
+import {Divider, Input, Layout, Text} from '@ui-kitten/components';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
-import ListDetail from '../components/lists/ListDetail';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
-import {useFavourite, useTag} from '../hooks/MediaHooks';
+import {useFavourite} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
-import {getUserById, getUserByToken} from '../hooks/ApiHooks';
-import {getToken} from '../hooks/CommonFunction';
-import {AppIcon} from '../components/elements/Icons';
+import {getUserById} from '../hooks/ApiHooks';
+import ListDetail from '../components/lists/ListDetail';
 
 // Alert when sending message
 const sendMessage = () => {
@@ -33,7 +31,9 @@ const sendMessage = () => {
 };
 const ProductDetail = ({route, navigation, profile}) => {
   const {file} = route.params;
-  const [avatar, setAvatar] = useState('http://placekitten.com/180');
+  const [avatar, setAvatar] = useState(
+    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+  );
 
   // fetch Avatar
   const fetchAvatar = async () => {
@@ -50,7 +50,7 @@ const ProductDetail = ({route, navigation, profile}) => {
     }
   };
 
-  //favorite
+  // favorite
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
     useFavourite();
   const [likes, setLikes] = useState([]);
@@ -96,7 +96,6 @@ const ProductDetail = ({route, navigation, profile}) => {
   useEffect(() => {
     fetchLikes();
   }, [userLike]);
-  console.log('name', name);
   const onSubmit = async () => {
     userLike ? await unlike() : addLike();
   };
@@ -231,5 +230,7 @@ const styles = StyleSheet.create({
 
 ProductDetail.propTypes = {
   route: PropTypes.object,
+  navigation: PropTypes.object,
+  profile: PropTypes.object,
 };
 export default ProductDetail;
