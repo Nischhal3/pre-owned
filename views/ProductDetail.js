@@ -12,12 +12,11 @@ import {
 } from 'react-native';
 
 // Import from Library UI Kitten
-import {Avatar, Divider, Input, Layout, Text} from '@ui-kitten/components';
+import {Icon, Divider, Input, Layout, Text} from '@ui-kitten/components';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
-import {ListDetail} from '../components/ListItem';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
 import {useFavourite, useTag} from '../hooks/MediaHooks';
@@ -25,6 +24,8 @@ import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById, getUserByToken} from '../hooks/ApiHooks';
 import {getToken} from '../hooks/CommonFunction';
+import {AppIcon} from '../components/elements/Icons';
+import ListDetail from '../components/lists/ListDetail';
 
 // Alert when sending message
 const sendMessage = () => {
@@ -32,8 +33,22 @@ const sendMessage = () => {
 };
 const ProductDetail = ({route, navigation, profile}) => {
   const {file} = route.params;
+  const [avatar, setAvatar] = useState('http://placekitten.com/180');
 
-  // fetch file
+  // fetch Avatar
+  const fetchAvatar = async () => {
+    try {
+      const avatarList = await getFilesByTag('avatar_' + file.user_id);
+      if (avatarList.length === 0) {
+        return;
+      }
+      const avatar = avatarList.pop();
+      setAvatar(uploadsUrl + avatar.filename);
+      console.log('single.js avatar', avatar);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
 
   //favorite
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
@@ -42,16 +57,14 @@ const ProductDetail = ({route, navigation, profile}) => {
   const [userLike, setUserLike] = useState(false);
   const {user} = useContext(MainContext);
   const [name, setName] = useState('');
-  // Get user's detail
-  const getUser = async () => {
-    const token = await getToken();
-    const users = await getUserByToken(token);
-    setName(users.username);
-  };
+
   // add to favourite
   const fetchLikes = async () => {
     try {
       const likesData = await getFavourtiesByFileId(file.file_id);
+      const userData = await getUserById(file.user_id);
+
+      setName(userData.username);
       setLikes(likesData);
       likesData.forEach((like) => {
         like.user_id === user.user_id && setUserLike(true);
@@ -81,10 +94,9 @@ const ProductDetail = ({route, navigation, profile}) => {
   };
 
   useEffect(() => {
-    getUser();
     fetchLikes();
   }, [userLike]);
-
+  console.log('name', name);
   const onSubmit = async () => {
     userLike ? await unlike() : addLike();
   };
@@ -112,12 +124,6 @@ const ProductDetail = ({route, navigation, profile}) => {
               style={{right: 10}}
               color={userLike ? 'red' : 'black'}
             />
-            {/*            
-                <Icon
-                  name={userLike ? 'heart' : 'heart-outline'}
-                  size={32}
-                  color={userLike ? 'red' : 'black'}
-                /> */}
 
             <Text category="s1">{likes.length}</Text>
           </Pressable>
@@ -130,14 +136,10 @@ const ProductDetail = ({route, navigation, profile}) => {
             navigation.navigate('Profile', {file: profile});
           }}
           style={styles.userContainer}
-          image={require('../assets/products/profilepic.jpg')}
+          image={{uri: avatar}}
           title={name}
           description="5 Listings"
-        >
-          {/* // when api is ready */}
-          {/* <Avatar source={{uri: avatar}} />
-           */}
-        </ListDetail>
+        ></ListDetail>
         <Divider />
         <Layout style={styles.detailsContainer}>
           <Text category="s1" style={styles.detail}>
@@ -178,14 +180,20 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: colors.stroke,
   },
-
+  detail: {
+    fontFamily: 'Karla_700Bold',
+    fontSize: 16,
+  },
   detailsContainer: {
     padding: 10,
+    fontSize: 16,
+    fontFamily: 'Karla_700Bold',
   },
   detailDescription: {
     paddingVertical: 15,
     lineHeight: 16,
     fontSize: 14,
+    fontFamily: 'Karla',
   },
   image: {
     width: '100%',
@@ -195,6 +203,7 @@ const styles = StyleSheet.create({
     color: colors.text_dark,
     fontWeight: 'bold',
     fontSize: 20,
+    fontFamily: 'Karla_400Regular',
     marginVertical: 10,
     left: 10,
   },
@@ -207,8 +216,10 @@ const styles = StyleSheet.create({
     height: 50,
     alignSelf: 'flex-end',
     marginBottom: 30,
+    fontWeight: '500',
   },
   title: {
+    fontFamily: 'Karla_700Bold',
     fontSize: 24,
     fontWeight: '500',
     left: 10,

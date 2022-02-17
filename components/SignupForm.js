@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {StyleSheet, Alert} from 'react-native';
 import {
+  Input,
   Button,
   Text,
   Layout,
+  Icon,
   CheckBox,
   Modal,
   Card,

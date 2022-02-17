@@ -1,12 +1,11 @@
 import React, {useContext, useState} from 'react';
 import {StyleSheet, SafeAreaView, FlatList} from 'react-native';
 import {Divider, List, Text} from '@ui-kitten/components';
-import {PlainListItem} from '../components/ListItem';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import {useMedia} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
-import {ListItem} from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 
 // const myProducts = [
 //   {
