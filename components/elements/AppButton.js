@@ -23,6 +23,7 @@ const FormButton = (props, style) => {
     <Button
       style={[GlobalStyles.formButtonStyle, style]}
       onPress={props.handleSubmit(props.onSubmit)}
+      disabled={props.disabled}
     >
       {props.text}
     </Button>
