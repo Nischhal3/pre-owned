@@ -28,7 +28,7 @@ const App = () => {
     Karla_400Regular_Italic,
     Karla_700Bold,
     Karla_700Bold_Italic,
-    // 'Karla': require('./assets/fonts/Karla.ttf'),
+    'Karla': require('./assets/fonts/Karla.ttf'),
   });
 
   if (!fontsLoaded) {

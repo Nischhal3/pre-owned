@@ -18,7 +18,7 @@ import {appId} from '../utils/url';
 import {MainContext} from '../contexts/MainContext';
 import {useFocusEffect} from '@react-navigation/native';
 import {Text} from '@ui-kitten/components';
-// import CategoryPicker from '../components/CategoryPicker';
+import CategoryPicker from '../components/CategoryPicker';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState('../assets/backgrounds/ProfileBG.png');
