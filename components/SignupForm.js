@@ -175,7 +175,7 @@ const SignupForm = ({setFormToggle}) => {
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <FormInput
-            style={styles.input}
+            style={styles.confirmInput}
             iconName="lock-outline"
             name="Confirm password"
             onBlur={onBlur}
@@ -192,18 +192,15 @@ const SignupForm = ({setFormToggle}) => {
         message={errors?.confirmPassword?.message}
       />
 
-      {/* <Input style={styles.input} accessoryLeft={<Icon name="person-outline"/>} placeholder="Username" /> */}
-      {/* <Input style={styles.input} accessoryLeft={<Icon name="email-outline"/>} placeholder='Email' /> */}
-      {/* <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Password' /> */}
-      {/* <Input style={styles.input} accessoryLeft={<Icon name="lock-outline"/>} placeholder='Confirm password' /> */}
       <CheckBox
+        style={styles.checkBox}
         checked={checked}
         onChange={(nextChecked) => setChecked(nextChecked)}
       >
         <Button
+          style={styles.Terms}
           onPress={() => setVisible(true)}
           status="warning"
-          style={{marginLeft: -110}}
           appearance="ghost"
         >
           I accept Terms and Condition
@@ -255,9 +252,10 @@ const SignupForm = ({setFormToggle}) => {
       </CheckBox>
 
       <FormButton
+        btnStyle={styles.button}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
-        disabled={true}
+        disabled={!checked}
         text="Sign Up"
       />
     </Layout>
@@ -267,17 +265,28 @@ const SignupForm = ({setFormToggle}) => {
 const styles = StyleSheet.create({
   layout: {
     height: 350,
-    justifyContent: 'space-around',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
-
+  input: {
+    marginBottom: 10,
+  },
+  confirmInput: {
+    marginBottom: 0,
+  },
+  checkBox: {
+    marginBottom: 30,
+    marginLeft: 10,
+  },
+  Terms: {
+    textAlign: 'left',
+  },
   backdrop: {
     backgroundColor: colors.primary,
   },
-  dismissBtn: {marginTop: 20, borderRadius: 15},
-  input: {
-    // margin: 10,
+  dismissBtn: {
+    marginTop: 20,
+    borderRadius: 15
   },
   modal: {
     margin: 10,
@@ -288,6 +297,9 @@ const styles = StyleSheet.create({
     padding: 5,
     fontWeight: '500',
     fontSize: 14,
+  },
+  button: {
+    marginTop: 10,
   },
 });
 
