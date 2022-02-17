@@ -1,11 +1,10 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import {Avatar, ListItem, Text} from '@ui-kitten/components';
+import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import {PointRightArrow} from '../elements/Icons';
 import {uploadsUrl} from '../../utils/url';
 import moment from 'moment';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText}) => {
@@ -15,23 +14,30 @@ const PlainListItem = ({navigation, singleItem, displayText}) => {
         navigation.navigate('Product Detail', {file: singleItem});
       }}
     >
-      <ListItem style={{flex: 1, flexDirection: 'row'}}>
+      <Layout
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          padding: 10,
+          alignItems: 'center',
+        }}
+      >
         <Avatar
           shape="square"
           size={'giant'}
           source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         />
-        <ListItem style={styles.ListItemDetails}>
+        <Layout style={styles.ListItemDetails}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 16,
               marginBottom: 5,
-              fontFamily: 'Karla_400Regular',
+              fontFamily: 'Karla_700Bold',
             }}
           >
             {singleItem.title}
           </Text>
-        </ListItem>
+        </Layout>
         {displayText === true ? (
           <Text style={{flex: 2, fontSize: 10, fontFamily: 'Karla_400Regular'}}>
             {moment(singleItem.time_added).format('DD.MM.YYYY hh:mm a')}
@@ -40,7 +46,7 @@ const PlainListItem = ({navigation, singleItem, displayText}) => {
           <Text>{''}</Text>
         )}
         <ListItem style={{flex: 1}} accessoryRight={PointRightArrow} />
-      </ListItem>
+      </Layout>
     </TouchableOpacity>
   );
 };

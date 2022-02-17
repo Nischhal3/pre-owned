@@ -9,7 +9,8 @@ import Profile from '../views/Profile';
 import {MainContext} from '../contexts/MainContext';
 import ProductDetail from '../views/ProductDetail';
 import PopularNow from '../views/PopularNow';
-import RecentlyAdded from '../views/RecentlyAdded';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AllProducts from '../views/AllProducts';
 import TabScreen from '../components/navComponents/Bottom';
 
 const Stack = createNativeStackNavigator();
@@ -27,8 +28,8 @@ const StackScreen = () => {
             component={TabScreen}
           />
           <Stack.Screen
-            name="Recently added"
-            component={RecentlyAdded}
+            name="All products"
+            component={AllProducts}
             options={{headerShown: true}}
           />
           <Stack.Screen

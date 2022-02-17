@@ -7,8 +7,7 @@ import PropTypes from 'prop-types';
 import PlainListItem from '../components/lists/PlainListItem';
 import {useMedia} from '../hooks/MediaHooks';
 
-// TODO fetch items from server, item fetch to be added in API hooks
-const PopularNow = ({navigation}) => {
+const AllProducts = ({navigation}) => {
   const {mediaArray} = useMedia();
 
   // Sorting items by recently added date
@@ -42,8 +41,8 @@ const styles = StyleSheet.create({
   },
 });
 
-PopularNow.propTypes = {
+AllProducts.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default PopularNow;
+export default AllProducts;

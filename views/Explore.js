@@ -16,14 +16,14 @@ const ExploreScreen = ({navigation}) => {
       <Layout style={styles.horizontalGallery}>
         <Button
           onPress={() => {
-            navigation.navigate('Recently added');
+            navigation.navigate('All products');
           }}
           size={'giant'}
           style={{justifyContent: 'space-between'}}
           appearance="ghost"
           accessoryRight={PointRightArrow}
         >
-          Recently added
+          All products
         </Button>
         <GalleryListHorizontal navigation={navigation} />
       </Layout>
