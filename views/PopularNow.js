@@ -5,14 +5,13 @@ import {StyleSheet} from 'react-native';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import PlainListItem from '../components/lists/PlainListItem';
-import {useMedia} from '../hooks/MediaHooks';
+import {useFavourite, useMedia} from '../hooks/MediaHooks';
 
 // TODO fetch items from server, item fetch to be added in API hooks
 const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
 
-  // Sorting items by recently added date
-  mediaArray.sort((a, b) => a.time_added < b.time_added);
+  console.log(mediaArray);
 
   return (
     <SafeAreaView>

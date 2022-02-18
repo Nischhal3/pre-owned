@@ -14,7 +14,7 @@ const GalleryItemHorizontal = ({navigation, singleItem}) => {
       }}
     >
       <ImageWithOverlay
-        source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
+        source={{uri: uploadsUrl + singleItem.thumbnails.w320}}
         style={styles.GalleryImageHorizontal}
       />
       <ImageDetail
@@ -27,6 +27,7 @@ const GalleryItemHorizontal = ({navigation, singleItem}) => {
 
 // Single item for explore vertical list
 const GalleryItemVertical = ({navigation, singleItem}) => {
+  console.log(singleItem);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -34,7 +35,7 @@ const GalleryItemVertical = ({navigation, singleItem}) => {
       }}
     >
       <ImageWithOverlay
-        source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
+        source={{uri: uploadsUrl + singleItem.thumbnails.w640}}
         style={styles.GalleryImageVertical}
       />
       <ImageDetail
