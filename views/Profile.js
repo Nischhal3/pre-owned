@@ -57,7 +57,7 @@ const Profile = () => {
       ) : (
         <Avatar
           style={styles.avatar}
-          source={require('../assets/backgrounds/LoginBG.png')}
+          source={require('../assets/backgrounds/Avatar.png')}
           shape="round"
         />
       )}

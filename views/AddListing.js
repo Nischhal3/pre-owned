@@ -11,14 +11,15 @@ import {postMedia, postTag} from '../hooks/MediaHooks';
 import {appId} from '../utils/url';
 import {MainContext} from '../contexts/MainContext';
 import {useFocusEffect} from '@react-navigation/native';
-import {Text} from '@ui-kitten/components';
+import {Text, Icon} from '@ui-kitten/components';
 import CategoryPicker from '../components/CategoryPicker';
 import PropTypes from 'prop-types';
 
 const AddListing = ({navigation}) => {
-  const [image, setImage] = useState(
-    'https://place-hold.it/300x200&text=Choose'
-  );
+  // const [image, setImage] = useState(
+  //   'https://place-hold.it/300x200&text=Choose'
+  // );
+  const [image, setImage] = useState(require("../assets/brand/upload.png"));
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
   const {update, setUpdate, loading, setLoading} = useContext(MainContext);
@@ -45,7 +46,7 @@ const AddListing = ({navigation}) => {
     });
     // console.log('Picke image', result);
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImage({uri: result.uri});
       setImageSelected(true);
       setType(result.type);
     }
@@ -106,7 +107,7 @@ const AddListing = ({navigation}) => {
 
   // Resets the form
   const reset = () => {
-    setImage('https://place-hold.it/300x200&text=Choose');
+    setImage(require("../assets/brand/upload.png"));
     setImageSelected(false);
     setValue('title', '');
     setValue('description', '');
@@ -122,16 +123,16 @@ const AddListing = ({navigation}) => {
 
   return (
     <ScrollView>
-      <Card>
+      <Card style={styles.card}>
         {type === 'image' ? (
           <Card.Image
-            source={{uri: image}}
+            source={image}
             style={styles.image}
             onPress={pickImage}
           />
         ) : (
           <Video
-            source={{uri: image}}
+            source={image}
             style={styles.image}
             useNativeControls={true}
             resizeMode="cover"
@@ -140,13 +141,20 @@ const AddListing = ({navigation}) => {
             }}
           />
         )}
+        <AppButton
+          // title="Clear list"
+          appBtnStyle={styles.clearBtn}
+          onPress={reset}
+          accessoryLeft={<Icon name="refresh-outline" />}
+          // appearance="ghost"
+        />
         <Controller
           control={control}
           rules={{
             required: {value: true, message: 'This is required.'},
             minLength: {
               value: 5,
-              message: 'Username has to be at least 5 characters.',
+              message: 'Title has to be at least 5 characters.',
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
@@ -200,26 +208,36 @@ const AddListing = ({navigation}) => {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           text="Upload"
+          style={styles.uploadBtn}
         />
         <ActivityIndicator animating={loading} color="#6B818C" size="large" />
-        <AppButton
-          title="Reset form"
-          titleStyle={{fontWeight: 'bold'}}
-          onPress={reset}
-        />
       </Card>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  inputStyle: {},
   image: {
+    zIndex: 2,
     width: '100%',
-    height: undefined,
+    height: 250,
     aspectRatio: 1,
-    marginBottom: 5,
+    marginBottom: 20,
   },
+  clearBtn: {
+    zIndex: 1,
+    width: 40,
+    height: 10,
+    position: 'absolute',
+    marginTop: -10,
+    alignSelf: 'flex-end',
+  },
+  inputStyle: {
+    marginBottom: 10,
+  },
+  uploadBtn: {
+    marginTop: 25,
+  }
 });
 AddListing.propTypes = {
   navigation: PropTypes.object.isRequired,

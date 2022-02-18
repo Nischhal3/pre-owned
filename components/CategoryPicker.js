@@ -19,7 +19,7 @@ const CategoryPicker = () => {
   return (
     <Layout level="1">
       <Select
-        label="Category"
+        // label="Category"
         caption="Choose a category for your product"
         placeholder="Select category"
         value={displayValue}

@@ -112,7 +112,7 @@ const EditProfile = ({navigation}) => {
       ) : (
         <Avatar
           style={styles.avatar}
-          source={require('../assets/backgrounds/LoginBG.png')}
+          source={require('../assets/backgrounds/Avatar.png')}
           shape="round"
         />
       )}
@@ -278,7 +278,7 @@ const EditProfile = ({navigation}) => {
         />
 
         <FormButton
-          btnStyle={styles.button}
+          style={styles.button}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           text="Save"
@@ -290,16 +290,12 @@ const EditProfile = ({navigation}) => {
 
 const styles = StyleSheet.create({
   layout: {
-    // height: 350,
-    // justifyContent: 'space-around',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
   avatar: {
-    // zIndex: 2,
     width: 150,
     height: 150,
-    // position: 'absolute',
     alignSelf: 'center',
     marginTop: 20,
   },
