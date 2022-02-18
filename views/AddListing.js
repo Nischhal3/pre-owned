@@ -63,7 +63,7 @@ const AddListing = ({navigation}) => {
     formData.append('title', data.title);
     formData.append('description', data.description);
 
-    const filename = image.split('/').pop();
+    const filename = image.toString().split('/').pop();
     let fileExtension = filename.split('.').pop();
 
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
@@ -153,8 +153,8 @@ const AddListing = ({navigation}) => {
           rules={{
             required: {value: true, message: 'This is required.'},
             minLength: {
-              value: 5,
-              message: 'Title has to be at least 5 characters.',
+              value: 3,
+              message: 'Title has to be at least 3 characters.',
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
@@ -187,11 +187,13 @@ const AddListing = ({navigation}) => {
             <FormInput
               style={styles.inputStyle}
               iconName="text-outline"
-              name="Description"
+              name="Descripe your product and give it a price"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
               textEntry={false}
+              multiline={true}
+              textStyle={{minHeight: 96}}
             />
           )}
           name="description"
@@ -207,10 +209,11 @@ const AddListing = ({navigation}) => {
         <FormButton
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-          text="Upload"
+          // text="Upload"
+          text={loading ? <ActivityIndicator animating={loading} color="#6B818C" size="large" /> : "Upload"}
           style={styles.uploadBtn}
         />
-        <ActivityIndicator animating={loading} color="#6B818C" size="large" />
+        {/* <ActivityIndicator animating={loading} color="#6B818C" size="large" /> */}
       </Card>
     </ScrollView>
   );

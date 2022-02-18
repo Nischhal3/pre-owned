@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
 import {uploadsUrl} from '../utils/url';
 import {getFilesByTag} from '../hooks/MediaHooks';
+import PropTypes from 'prop-types';
 
 const Profile = () => {
   const {setIsLoggedIn, user} = useContext(MainContext);
@@ -125,5 +126,9 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
 });
+
+Profile.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default Profile;

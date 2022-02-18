@@ -10,9 +10,10 @@ export default StyleSheet.create({
   btnStyle: {
     width: 300,
     height: 50,
-    margin: 10,
+    margin: 20,
     borderRadius: 19,
     fontFamily: 'Karla_700Bold',
+    alignSelf: 'center',
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
   },
