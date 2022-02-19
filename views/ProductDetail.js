@@ -105,13 +105,7 @@ const ProductDetail = ({route, navigation, profile}) => {
       <Image style={styles.image} source={{uri: uploadsUrl + file.filename}} />
       <ScrollView style={styles.detailsContainer}>
         <Layout style={styles.container}>
-          <Layout
-            style={{
-              flexDirection: 'column',
-              flex: 2,
-              backgroundColor: colors.container,
-            }}
-          >
+          <Layout style={styles.textbox}>
             <Text style={styles.title}>{file.title}</Text>
             <Text style={styles.price}>35€</Text>
           </Layout>
@@ -216,6 +210,14 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginBottom: 30,
     fontWeight: '500',
+  },
+  textbox: {
+    flexDirection: 'column',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginTop: 15,
+    backgroundColor: colors.container,
   },
   title: {
     fontFamily: 'Karla_700Bold',
