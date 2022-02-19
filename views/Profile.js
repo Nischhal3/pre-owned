@@ -31,6 +31,7 @@ const Profile = () => {
       setAvatar(uploadsUrl + avatar.filename);
       if (avatar != null) {
         setHasAvatar(true);
+        console.log(avatar);
       }
     } catch (error) {
       console.log(error.message);
@@ -39,6 +40,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchAvatar();
+    console.log("profile", user);
   }, []);
 
   return (
@@ -64,9 +66,10 @@ const Profile = () => {
       )}
         <Card style={styles.card}>
           <Text style={styles.username}>{user.username}</Text>
-          {user.description ? (
+          <Text style={styles.email}>{user.email}</Text>
+          {user.full_name ? (
             <Text style={styles.description}>
-              {user.description}
+              {user.full_name}
             </Text>
           ) : (
             <Text style={styles.description}>
@@ -115,11 +118,15 @@ const styles = StyleSheet.create({
   username: {
     marginTop: 80,
     alignSelf: 'center',
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
   },
+  email: {
+    alignSelf: 'center',
+    fontSize: 16,
+  },
   description: {
-    marginTop: 10,
+    marginTop: 20,
     alignSelf: 'center',
   },
   logout: {

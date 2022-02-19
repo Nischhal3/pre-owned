@@ -15,6 +15,7 @@ import {Text, Icon} from '@ui-kitten/components';
 import CategoryPicker from '../components/CategoryPicker';
 import PropTypes from 'prop-types';
 import uploadDefault from '../assets/brand/upload.png';
+import colors from '../utils/colors';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState(
@@ -91,7 +92,7 @@ const AddListing = ({navigation}) => {
 
       if (tagResponse) {
         setLoading(false);
-        Alert.alert('File', 'uploaded', [
+        Alert.alert('Success!', 'Post uploaded successfully.', [
           {
             text: 'Ok',
             onPress: () => {
@@ -212,7 +213,7 @@ const AddListing = ({navigation}) => {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           // text="Upload"
-          text={loading ? <ActivityIndicator animating={loading} color="#6B818C" size="large" /> : "Upload"}
+          text={loading ? <ActivityIndicator animating={loading} color={colors.text_light} size="large" /> : "Upload"}
           style={styles.uploadBtn}
         />
         {/* <ActivityIndicator animating={loading} color="#6B818C" size="large" /> */}
@@ -242,6 +243,7 @@ const styles = StyleSheet.create({
   },
   uploadBtn: {
     marginTop: 25,
+    textAlignVertical: 'center',
   }
 });
 AddListing.propTypes = {

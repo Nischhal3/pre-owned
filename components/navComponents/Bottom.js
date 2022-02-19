@@ -9,30 +9,14 @@ import {
   IndexPath,
 } from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import GlobalStyles from '../../utils/GlobalStyles';
-import Welcome from '../../views/WelcomeScreen';
-import Login from '../../views/Login';
 import Explore from '../../views/Explore';
-import Message from '../../views/Message';
 import Search from '../../views/Search';
 import AddListing from '../../views/AddListing';
-import MyListing from '../../views/MyListing';
-import Favourite from '../../views/Favourite';
-import Profile from '../../views/Profile';
-import EditProfile from '../../views/EditProfile';
-import {MainContext} from '../../contexts/MainContext';
-import ProductDetail from '../../views/ProductDetail';
-import PopularNow from '../../views/PopularNow';
-import RecentlyAdded from '../../views/RecentlyAdded';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MenuNavigator from './Drawer';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-const Menu = createDrawerNavigator();
 
 const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
