@@ -1,6 +1,10 @@
-import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+// Import from React and library
+import React, {useContext} from 'react';
+import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Import from UI Kitten Library
 import {
   Avatar,
   Button,
@@ -10,13 +14,40 @@ import {
   ListItem,
   Text,
 } from '@ui-kitten/components';
+
+// Import from files
 import {PointRightArrow} from '../elements/Icons';
 import {uploadsUrl} from '../../utils/url';
 import moment from 'moment';
 import colors from '../../utils/colors';
+import {useMedia} from '../../hooks/MediaHooks';
+import {MainContext} from '../../contexts/MainContext';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
+  const {deleteMedia} = useMedia();
+  const {update, setUpdate} = useContext(MainContext);
+
+  // function delete a listing
+  const deleteListing = () => {
+    Alert.alert('Delete Post', 'Confirm delete action?', [
+      {text: 'Cancel'},
+      {
+        text: 'OK',
+        onPress: async () => {
+          try {
+            const token = await AsyncStorage.getItem('userToken');
+            const response = await deleteMedia(singleItem.file_id, token);
+            // update the list after deletion
+            response && setUpdate(update + 1);
+          } catch (e) {
+            console.error(e);
+          }
+        },
+      },
+    ]);
+  };
+
   return (
     <TouchableOpacity
       style={styles.row}
@@ -62,12 +93,15 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
             style={styles.btn}
             accessoryLeft={<Icon name="edit-outline" />}
             onPress={() => {
-              navigation.navigate('Modify', {file: singleItem});
+              navigation.navigate('Edit Listing', {file: singleItem});
             }}
           />
           <Button
             style={styles.btn}
             accessoryLeft={<Icon name="trash-2-outline" />}
+            onPress={() => {
+              deleteListing();
+            }}
           />
         </ButtonGroup>
       )}
@@ -124,8 +158,8 @@ const styles = StyleSheet.create({
 PlainListItem.propTypes = {
   singleItem: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
+  showMyMedia: PropTypes.bool,
   displayText: PropTypes.bool,
-  showMyMedia: PropTypes.object,
 };
 
 export default PlainListItem;
