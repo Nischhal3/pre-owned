@@ -196,8 +196,8 @@ const styles = StyleSheet.create({
     color: colors.text_dark,
     fontWeight: 'bold',
     fontSize: 20,
+    bottom: 5,
     fontFamily: 'Karla_400Regular',
-    marginVertical: 10,
     left: 10,
   },
   productDetail: {
@@ -213,16 +213,20 @@ const styles = StyleSheet.create({
   },
   textbox: {
     flexDirection: 'column',
-    flex: 1,
+    flex: 7,
+    flexWrap: 'wrap',
+    height: 80,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginTop: 15,
     backgroundColor: colors.container,
   },
   title: {
     fontFamily: 'Karla_700Bold',
-    fontSize: 24,
+    fontSize: 20,
+    flex: 2,
+    flexWrap: 'wrap',
     fontWeight: '500',
+    bottom: 5,
     left: 10,
   },
   userContainer: {
