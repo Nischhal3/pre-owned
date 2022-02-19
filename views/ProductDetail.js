@@ -107,7 +107,7 @@ const ProductDetail = ({route, navigation, profile}) => {
         <Layout style={styles.container}>
           <Layout style={styles.textbox}>
             <Text style={styles.title}>{file.title}</Text>
-            <Text style={styles.price}>35€</Text>
+            {/* <Text style={styles.price}>35€</Text> */}
           </Layout>
 
           <Pressable onPress={onSubmit}>
@@ -136,7 +136,7 @@ const ProductDetail = ({route, navigation, profile}) => {
         <Divider />
         <Layout style={styles.detailsContainer}>
           <Text category="s1" style={styles.detail}>
-            Details
+            Price & Details
           </Text>
           <Text
             style={styles.detailDescription}
@@ -164,6 +164,7 @@ const ProductDetail = ({route, navigation, profile}) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     height: 100,
     padding: 15,
@@ -197,6 +198,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     bottom: 5,
+    top: 5,
     fontFamily: 'Karla_400Regular',
     left: 10,
   },
@@ -217,7 +219,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     height: 80,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     backgroundColor: colors.container,
   },
   title: {
@@ -226,8 +228,8 @@ const styles = StyleSheet.create({
     flex: 2,
     flexWrap: 'wrap',
     fontWeight: '500',
-    bottom: 5,
-    left: 10,
+    alignSelf: 'center',
+    top: 15,
   },
   userContainer: {
     marginVertical: 40,

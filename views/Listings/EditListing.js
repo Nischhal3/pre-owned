@@ -18,6 +18,8 @@ import {Button, Card, Input, Text} from '@ui-kitten/components';
 import {useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {uploadsUrl} from '../../utils/url';
+import {FormButton} from '../../components/elements/AppButton';
+import colors from '../../utils/colors';
 
 const EditListing = ({navigation, route}) => {
   const {file} = route.params;
@@ -38,21 +40,21 @@ const EditListing = ({navigation, route}) => {
     },
   });
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      quality: 0.5,
-    });
-    console.log('Picke image', result);
+  // const pickImage = async () => {
+  //   // No permissions request is necessary for launching the image library
+  //   const result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     quality: 0.5,
+  //   });
+  //   console.log('Picke image', result);
 
-    if (!result.cancelled) {
-      setImage(result.uri);
-      setImageSelected(true);
-      setType(result.type);
-    }
-  };
+  //   if (!result.cancelled) {
+  //     setImage(result.uri);
+  //     setImageSelected(true);
+  //     setType(result.type);
+  //   }
+  // };
   // Submit Changes
   const onSubmit = async (data) => {
     try {
@@ -83,82 +85,80 @@ const EditListing = ({navigation, route}) => {
       <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
         <Card
           style={{
-            flex: 1,
-            width: 340,
-            top: 30,
-            justifyContent: 'flex-start',
+            // flex: 2,
+            width: '100%',
+            top: 130,
+            justifyContent: 'center',
             alignItems: 'center',
           }}
         >
-          <ScrollView
-            style={{
-              marginTop: 30,
-            }}
-          >
-            <Image
-              source={{uri: uploadsUrl + file.filename}}
-              style={styles.image}
-            />
-            <Button
+          <Image
+            source={{uri: uploadsUrl + file.filename}}
+            style={styles.image}
+          />
+          {/* <Button
               style={styles.button}
               size="medium"
               title="Choose image"
               onPress={pickImage}
             >
               Choose Image
-            </Button>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({field: {onChange, onBlur, value}}) => (
-                <Input
-                  label="Title"
-                  style={styles.input}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  autoCapitalize="none"
-                  placeholder="Title"
-                />
-              )}
-              name="title"
-            />
-            {errors.title && <Text status="danger">This is required.</Text>}
-
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({field: {onChange, onBlur, value}}) => (
-                <Input
-                  label="Description"
-                  style={styles.input}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  autoCapitalize="none"
-                  placeholder="Description"
-                />
-              )}
-              name="description"
-            />
-            {errors.description && (
-              <Text status="danger">This is required.</Text>
+            </Button> */}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                label="Title"
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                autoCapitalize="none"
+                placeholder="Title"
+              />
             )}
+            name="title"
+          />
+          {errors.title && <Text status="danger">This is required.</Text>}
 
-            <Button
-              loading={loading}
-              style={styles.button}
-              size="medium"
-              title="Save"
-              onPress={handleSubmit(onSubmit)}
-            >
-              Save Changes
-            </Button>
-          </ScrollView>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                label="Description"
+                // style={styles.input}
+                style={{
+                  margin: 10,
+                  width: 250,
+                  marginBottom: 30,
+                }}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                autoCapitalize="none"
+                placeholder="Description"
+              />
+            )}
+            name="description"
+          />
+          {errors.description && <Text status="danger">This is required.</Text>}
+
+          <FormButton
+            // loading={loading}
+            style={styles.button}
+            size="medium"
+            title="Save"
+            // onPress={handleSubmit(onSubmit)}
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            text="Save changes"
+          />
         </Card>
       </TouchableOpacity>
     </KeyboardAvoidingView>
@@ -167,18 +167,22 @@ const EditListing = ({navigation, route}) => {
 
 const styles = StyleSheet.create({
   button: {
-    marginBottom: 10,
-    marginTop: 15,
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // marginBottom: 10,
+    // marginTop: 25,
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.container,
   },
   image: {
-    width: '100%',
+    width: '80%',
     height: undefined,
+    alignSelf: 'center',
     aspectRatio: 1,
     marginBottom: 15,
   },
