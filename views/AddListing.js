@@ -1,4 +1,4 @@
-import {ActivityIndicator, Alert, ScrollView, StyleSheet} from 'react-native';
+import {ActivityIndicator, Alert, ScrollView, StyleSheet, Image} from 'react-native';
 import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
@@ -14,12 +14,14 @@ import {useFocusEffect} from '@react-navigation/native';
 import {Text, Icon} from '@ui-kitten/components';
 import CategoryPicker from '../components/CategoryPicker';
 import PropTypes from 'prop-types';
+import uploadDefault from '../assets/brand/upload.png';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState(
   //   'https://place-hold.it/300x200&text=Choose'
   // );
-  const [image, setImage] = useState(require("../assets/brand/upload.png"));
+  const uploadDefaultUri = Image.resolveAssetSource(uploadDefault).uri
+  const [image, setImage] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
   const {update, setUpdate, loading, setLoading} = useContext(MainContext);
@@ -46,7 +48,7 @@ const AddListing = ({navigation}) => {
     });
     // console.log('Picke image', result);
     if (!result.cancelled) {
-      setImage({uri: result.uri});
+      setImage(result.uri);
       setImageSelected(true);
       setType(result.type);
     }
@@ -63,7 +65,7 @@ const AddListing = ({navigation}) => {
     formData.append('title', data.title);
     formData.append('description', data.description);
 
-    const filename = image.toString().split('/').pop();
+    const filename = image.split('/').pop();
     let fileExtension = filename.split('.').pop();
 
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
@@ -107,7 +109,7 @@ const AddListing = ({navigation}) => {
 
   // Resets the form
   const reset = () => {
-    setImage(require("../assets/brand/upload.png"));
+    setImage(uploadDefaultUri);
     setImageSelected(false);
     setValue('title', '');
     setValue('description', '');
@@ -126,13 +128,13 @@ const AddListing = ({navigation}) => {
       <Card style={styles.card}>
         {type === 'image' ? (
           <Card.Image
-            source={image}
+            source={{uri: image}}
             style={styles.image}
             onPress={pickImage}
           />
         ) : (
           <Video
-            source={image}
+            source={{uri: image}}
             style={styles.image}
             useNativeControls={true}
             resizeMode="cover"
