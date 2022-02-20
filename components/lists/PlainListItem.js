@@ -7,7 +7,10 @@ import {uploadsUrl} from '../../utils/url';
 import moment from 'moment';
 
 // SingleItem for vertical lists
-const PlainListItem = ({navigation, singleItem, displayText}) => {
+const PlainListItem = ({navigation, singleItem, displayText, file}) => {
+  file = singleItem.file_id;
+  console.log(file);
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -65,6 +68,7 @@ PlainListItem.propTypes = {
   singleItem: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
   displayText: PropTypes.bool,
+  file: PropTypes.number,
 };
 
 export default PlainListItem;
