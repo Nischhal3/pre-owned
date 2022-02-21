@@ -33,6 +33,7 @@ const useMedia = () => {
   // Or when the update state is changed in MainContext
   useEffect(() => {
     fetchMedia();
+    return () => {};
   }, [update]);
 
   const putMedia = async (data, token, fileId) => {

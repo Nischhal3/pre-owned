@@ -2,7 +2,6 @@
 import React, {useContext} from 'react';
 import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import from UI Kitten Library
 import {
@@ -22,6 +21,7 @@ import moment from 'moment';
 import colors from '../../utils/colors';
 import {useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
+import {getToken} from '../../hooks/CommonFunction';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
@@ -36,7 +36,7 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
         text: 'OK',
         onPress: async () => {
           try {
-            const token = await AsyncStorage.getItem('userToken');
+            const token = await getToken();
             const response = await deleteMedia(singleItem.file_id, token);
             // update the list after deletion
             response && setUpdate(update + 1);
