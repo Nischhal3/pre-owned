@@ -53,7 +53,7 @@ const WelcomeScreen = ({navigation}) => {
           }}
         />
         <AppButton
-          style={{marginBottom: 50}}
+          appBtnStyle={{marginBottom: 75}}
           title="Create an account"
           onPress={() => {
             setFormToggle(false);

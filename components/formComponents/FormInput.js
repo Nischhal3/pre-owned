@@ -12,6 +12,9 @@ const FormInput = (props) => {
       value={props.value}
       autoCapitalize="none"
       secureTextEntry={props.textEntry}
+      multiline={props.multiline}
+      textStyle={props.textStyle}
+      // textAlignVertical="top"
     />
   );
 };

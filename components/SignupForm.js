@@ -252,7 +252,7 @@ const SignupForm = ({setFormToggle}) => {
       </CheckBox>
 
       <FormButton
-        btnStyle={styles.button}
+        style={styles.button}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         disabled={!checked}

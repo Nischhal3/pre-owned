@@ -38,6 +38,7 @@ const EditProfile = ({navigation}) => {
       email: user.email,
       password: '',
       confirmPassword: '',
+      full_name: user.full_name,
     },
     mode: 'onBlur',
   });
@@ -52,16 +53,17 @@ const EditProfile = ({navigation}) => {
       const userToken = await getToken();
       const response = await updateUser(data, userToken);
 
-      console.log(data);
+      console.log("edit data", data);
       console.log('Data', response);
       if (response) {
         delete data.password;
         setUser(data);
-        Alert.alert('Profile Details', 'Successfully Updated', [
+        Alert.alert('Profile Details', 'Updated successfully.', [
           {
             text: 'Ok',
             onPress: () => {
               navigation.navigate('Profile');
+              console.log("after edit", user);
             },
           },
         ]);
@@ -72,6 +74,7 @@ const EditProfile = ({navigation}) => {
   };
 
   const fetchAvatar = async () => {
+    console.log("edit avatar user", user);
     try {
       const avatarArray = await getFilesByTag('avatar_' + user.user_id);
       const avatar = avatarArray.pop();
@@ -112,7 +115,7 @@ const EditProfile = ({navigation}) => {
       ) : (
         <Avatar
           style={styles.avatar}
-          source={require('../assets/backgrounds/LoginBG.png')}
+          source={require('../assets/backgrounds/Avatar.png')}
           shape="round"
         />
       )}
@@ -256,13 +259,13 @@ const EditProfile = ({navigation}) => {
 
         <Controller
           control={control}
-          rules={{
-            // required: {value: true, message: 'This is required.'},
-            pattern: {
-              // value: /\S+@\S+\.\S+$/,
-              message: 'Description',
-            },
-          }}
+          // rules={{
+          //   required: {value: true, message: 'This is required.'},
+          //   pattern: {
+          //     value: /\S+@\S+\.\S+$/,
+          //     message: 'Description',
+          //   },
+          // }}
           render={({field: {onChange, onBlur, value}}) => (
             <FormInput
               style={styles.input}
@@ -274,11 +277,11 @@ const EditProfile = ({navigation}) => {
               textEntry={false}
             />
           )}
-          name="description"
+          name="full_name"
         />
 
         <FormButton
-          btnStyle={styles.button}
+          style={styles.button}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           text="Save"
@@ -290,16 +293,12 @@ const EditProfile = ({navigation}) => {
 
 const styles = StyleSheet.create({
   layout: {
-    // height: 350,
-    // justifyContent: 'space-around',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
   avatar: {
-    // zIndex: 2,
     width: 150,
     height: 150,
-    // position: 'absolute',
     alignSelf: 'center',
     marginTop: 20,
   },
