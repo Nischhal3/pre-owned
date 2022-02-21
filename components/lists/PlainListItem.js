@@ -8,6 +8,7 @@ import {
   Avatar,
   Button,
   ButtonGroup,
+  Divider,
   Icon,
   Layout,
   ListItem,
