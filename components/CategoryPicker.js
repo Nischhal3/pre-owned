@@ -21,6 +21,7 @@ const CategoryPicker = () => {
       <Select
         // label="Category"
         caption="Choose a category for your product"
+        captionTextStyle={{margin: 10}}
         placeholder="Select category"
         value={displayValue}
         selectedIndex={selectedIndex}

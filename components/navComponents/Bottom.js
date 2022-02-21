@@ -8,7 +8,7 @@ import {
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Explore from '../../views/Explore';
 import Search from '../../views/Search';
-import AddListing from '../../views/AddListing';
+import AddListing from '../../views/Listings/AddListing';
 import MenuNavigator from './Drawer';
 
 const Tab = createBottomTabNavigator();

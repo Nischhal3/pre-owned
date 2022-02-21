@@ -10,18 +10,20 @@ import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import {Card} from 'react-native-elements';
-import FormInput from '../components/formComponents/FormInput';
-import {AppButton, FormButton} from '../components/elements/AppButton';
-import {getToken} from '../hooks/CommonFunction';
-import {postMedia, postTag} from '../hooks/MediaHooks';
-import {appId} from '../utils/url';
-import {MainContext} from '../contexts/MainContext';
 import {useFocusEffect} from '@react-navigation/native';
-import {Text, Icon} from '@ui-kitten/components';
-import CategoryPicker from '../components/CategoryPicker';
 import PropTypes from 'prop-types';
-import uploadDefault from '../assets/brand/upload.png';
-import colors from '../utils/colors';
+
+import {Text, Icon} from '@ui-kitten/components';
+
+import {AppButton, FormButton} from '../../components/elements/AppButton';
+import {MainContext} from '../../contexts/MainContext';
+import uploadDefault from '../../assets/brand/upload.png';
+import CategoryPicker from '../../components/CategoryPicker';
+import FormInput from '../../components/formComponents/FormInput';
+import colors from '../../utils/colors';
+import {appId} from '../../utils/url';
+import {getToken} from '../../hooks/CommonFunction';
+import {postMedia, postTag} from '../../hooks/MediaHooks';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState(
@@ -243,6 +245,9 @@ const AddListing = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    top: 50,
+  },
   image: {
     zIndex: 2,
     width: '100%',
