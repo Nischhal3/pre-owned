@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Layout, Select, SelectItem, IndexPath} from '@ui-kitten/components';
 import {CategoryIcon} from './elements/Icons';
+import {useFocusEffect} from '@react-navigation/native';
 
 const CategoryPicker = ({setCategory}) => {
   // categories selection
@@ -19,6 +20,12 @@ const CategoryPicker = ({setCategory}) => {
   useEffect(() => {
     setCategory(displayValue);
   }, [displayValue]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setSelectedIndex(new IndexPath(0));
+    }, [])
+  );
 
   return (
     <Layout level="1">
