@@ -20,6 +20,7 @@ import {MainContext} from '../../contexts/MainContext';
 import {uploadsUrl} from '../../utils/url';
 import {FormButton} from '../../components/elements/AppButton';
 import colors from '../../utils/colors';
+import ErrorMessage from '../../components/elements/ErrorMessage';
 
 const EditListing = ({navigation, route}) => {
   const {file} = route.params;
@@ -40,21 +41,6 @@ const EditListing = ({navigation, route}) => {
     },
   });
 
-  // const pickImage = async () => {
-  //   // No permissions request is necessary for launching the image library
-  //   const result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     quality: 0.5,
-  //   });
-  //   console.log('Picke image', result);
-
-  //   if (!result.cancelled) {
-  //     setImage(result.uri);
-  //     setImageSelected(true);
-  //     setType(result.type);
-  //   }
-  // };
   // Submit Changes
   const onSubmit = async (data) => {
     try {
@@ -74,7 +60,7 @@ const EditListing = ({navigation, route}) => {
         ]);
     } catch (e) {
       // let the user know the problem
-      console.log('onSubmit edit post problem', e.message);
+      console.log('onSubmit edit post problem', e);
     }
   };
   return (
@@ -92,73 +78,82 @@ const EditListing = ({navigation, route}) => {
             alignItems: 'center',
           }}
         >
-          <Image
-            source={{uri: uploadsUrl + file.filename}}
-            style={styles.image}
-          />
-          {/* <Button
+          <ScrollView>
+            <Image
+              source={{uri: uploadsUrl + file.filename}}
+              style={styles.image}
+            />
+            <Controller
+              control={control}
+              rules={{
+                required: {value: true, message: 'This is required.'},
+                minLength: {
+                  value: 3,
+                  message: 'Title has to be at least 3 characters.',
+                },
+                maxLength: {
+                  value: 20,
+                  message: 'Title has to be at most 20 characters.',
+                },
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <Input
+                  label="Title"
+                  style={styles.input}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  autoCapitalize="none"
+                  placeholder="Title"
+                />
+              )}
+              name="title"
+            />
+
+            <ErrorMessage
+              error={errors?.title}
+              message={errors?.title?.message}
+            />
+
+            <Controller
+              control={control}
+              rules={{
+                required: {value: true, message: 'This is required.'},
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <Input
+                  label="Description"
+                  // style={styles.input}
+                  style={{
+                    margin: 10,
+                    width: 250,
+                    marginBottom: 30,
+                  }}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  autoCapitalize="none"
+                  placeholder="Description"
+                />
+              )}
+              name="description"
+            />
+            <ErrorMessage
+              error={errors?.description}
+              message={errors?.description?.message}
+            />
+
+            <FormButton
+              // loading={loading}
               style={styles.button}
               size="medium"
-              title="Choose image"
-              onPress={pickImage}
-            >
-              Choose Image
-            </Button> */}
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <Input
-                label="Title"
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                autoCapitalize="none"
-                placeholder="Title"
-              />
-            )}
-            name="title"
-          />
-          {errors.title && <Text status="danger">This is required.</Text>}
-
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <Input
-                label="Description"
-                // style={styles.input}
-                style={{
-                  margin: 10,
-                  width: 250,
-                  marginBottom: 30,
-                }}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                autoCapitalize="none"
-                placeholder="Description"
-              />
-            )}
-            name="description"
-          />
-          {errors.description && <Text status="danger">This is required.</Text>}
-
-          <FormButton
-            // loading={loading}
-            style={styles.button}
-            size="medium"
-            title="Save"
-            // onPress={handleSubmit(onSubmit)}
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
-            text="Save changes"
-          />
+              title="Save"
+              // onPress={handleSubmit(onSubmit)}
+              handleSubmit={handleSubmit}
+              onSubmit={onSubmit}
+              text="Save changes"
+            />
+          </ScrollView>
         </Card>
       </TouchableOpacity>
     </KeyboardAvoidingView>

@@ -1,4 +1,10 @@
-import {ActivityIndicator, Alert, ScrollView, StyleSheet, Image} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
@@ -21,7 +27,7 @@ const AddListing = ({navigation}) => {
   // const [image, setImage] = useState(
   //   'https://place-hold.it/300x200&text=Choose'
   // );
-  const uploadDefaultUri = Image.resolveAssetSource(uploadDefault).uri
+  const uploadDefaultUri = Image.resolveAssetSource(uploadDefault).uri;
   const [image, setImage] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
@@ -159,6 +165,10 @@ const AddListing = ({navigation}) => {
               value: 3,
               message: 'Title has to be at least 3 characters.',
             },
+            maxLength: {
+              value: 20,
+              message: 'Title has to be at most 20 characters.',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <FormInput
@@ -213,7 +223,17 @@ const AddListing = ({navigation}) => {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           // text="Upload"
-          text={loading ? <ActivityIndicator animating={loading} color={colors.text_light} size="large" /> : "Upload"}
+          text={
+            loading ? (
+              <ActivityIndicator
+                animating={loading}
+                color={colors.text_light}
+                size="large"
+              />
+            ) : (
+              'Upload'
+            )
+          }
           style={styles.uploadBtn}
         />
         {/* <ActivityIndicator animating={loading} color="#6B818C" size="large" /> */}
@@ -244,7 +264,7 @@ const styles = StyleSheet.create({
   uploadBtn: {
     marginTop: 25,
     textAlignVertical: 'center',
-  }
+  },
 });
 AddListing.propTypes = {
   navigation: PropTypes.object.isRequired,
