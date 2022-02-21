@@ -34,6 +34,7 @@ const AddListing = ({navigation}) => {
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
   const {update, setUpdate, loading, setLoading} = useContext(MainContext);
+  const [category, setCategory] = useState('');
 
   const {
     control,
@@ -94,7 +95,7 @@ const AddListing = ({navigation}) => {
       // console.log('Media upload', response);
 
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: appId},
+        {file_id: response.file_id, tag: `${appId}_${category}`},
         token
       );
       // console.log('upload response', tagResponse);
@@ -220,8 +221,9 @@ const AddListing = ({navigation}) => {
             {errors.description && errors.description.message}{' '}
           </Text>
         )}
-        {/* should this be required? */}
-        <CategoryPicker />
+
+        <CategoryPicker setCategory={setCategory} />
+
         <FormButton
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
