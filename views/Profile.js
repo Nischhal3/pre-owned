@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
 import {uploadsUrl} from '../utils/url';
 import {getFilesByTag} from '../hooks/MediaHooks';
+import PropTypes from 'prop-types';
 
 const Profile = () => {
   const {setIsLoggedIn, user} = useContext(MainContext);
@@ -30,6 +31,7 @@ const Profile = () => {
       setAvatar(uploadsUrl + avatar.filename);
       if (avatar != null) {
         setHasAvatar(true);
+        console.log(avatar);
       }
     } catch (error) {
       console.log(error.message);
@@ -38,6 +40,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchAvatar();
+    console.log("profile", user);
   }, []);
 
   return (
@@ -57,15 +60,16 @@ const Profile = () => {
       ) : (
         <Avatar
           style={styles.avatar}
-          source={require('../assets/backgrounds/LoginBG.png')}
+          source={require('../assets/backgrounds/Avatar.png')}
           shape="round"
         />
       )}
         <Card style={styles.card}>
           <Text style={styles.username}>{user.username}</Text>
-          {user.description ? (
+          <Text style={styles.email}>{user.email}</Text>
+          {user.full_name ? (
             <Text style={styles.description}>
-              {user.description}
+              {user.full_name}
             </Text>
           ) : (
             <Text style={styles.description}>
@@ -114,16 +118,24 @@ const styles = StyleSheet.create({
   username: {
     marginTop: 80,
     alignSelf: 'center',
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
   },
+  email: {
+    alignSelf: 'center',
+    fontSize: 16,
+  },
   description: {
-    marginTop: 10,
+    marginTop: 20,
     alignSelf: 'center',
   },
   logout: {
     marginTop: 100,
   },
 });
+
+Profile.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default Profile;

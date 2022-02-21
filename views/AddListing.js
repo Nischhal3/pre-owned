@@ -1,4 +1,10 @@
-import {ActivityIndicator, Alert, ScrollView, StyleSheet} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
@@ -11,14 +17,18 @@ import {postMedia, postTag} from '../hooks/MediaHooks';
 import {appId} from '../utils/url';
 import {MainContext} from '../contexts/MainContext';
 import {useFocusEffect} from '@react-navigation/native';
-import {Text} from '@ui-kitten/components';
+import {Text, Icon} from '@ui-kitten/components';
 import CategoryPicker from '../components/CategoryPicker';
 import PropTypes from 'prop-types';
+import uploadDefault from '../assets/brand/upload.png';
+import colors from '../utils/colors';
 
 const AddListing = ({navigation}) => {
-  const [image, setImage] = useState(
-    'https://place-hold.it/300x200&text=Choose'
-  );
+  // const [image, setImage] = useState(
+  //   'https://place-hold.it/300x200&text=Choose'
+  // );
+  const uploadDefaultUri = Image.resolveAssetSource(uploadDefault).uri;
+  const [image, setImage] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
   const {update, setUpdate, loading, setLoading} = useContext(MainContext);
@@ -88,7 +98,7 @@ const AddListing = ({navigation}) => {
 
       if (tagResponse) {
         setLoading(false);
-        Alert.alert('File', 'uploaded', [
+        Alert.alert('Success!', 'Post uploaded successfully.', [
           {
             text: 'Ok',
             onPress: () => {
@@ -106,7 +116,7 @@ const AddListing = ({navigation}) => {
 
   // Resets the form
   const reset = () => {
-    setImage('https://place-hold.it/300x200&text=Choose');
+    setImage(uploadDefaultUri);
     setImageSelected(false);
     setValue('title', '');
     setValue('description', '');
@@ -122,7 +132,7 @@ const AddListing = ({navigation}) => {
 
   return (
     <ScrollView>
-      <Card>
+      <Card style={styles.card}>
         {type === 'image' ? (
           <Card.Image
             source={{uri: image}}
@@ -140,13 +150,24 @@ const AddListing = ({navigation}) => {
             }}
           />
         )}
+        <AppButton
+          // title="Clear list"
+          appBtnStyle={styles.clearBtn}
+          onPress={reset}
+          accessoryLeft={<Icon name="refresh-outline" />}
+          // appearance="ghost"
+        />
         <Controller
           control={control}
           rules={{
             required: {value: true, message: 'This is required.'},
             minLength: {
-              value: 5,
-              message: 'Username has to be at least 5 characters.',
+              value: 3,
+              message: 'Title has to be at least 3 characters.',
+            },
+            maxLength: {
+              value: 20,
+              message: 'Title has to be at most 20 characters.',
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
@@ -179,11 +200,13 @@ const AddListing = ({navigation}) => {
             <FormInput
               style={styles.inputStyle}
               iconName="text-outline"
-              name="Description"
+              name="Descripe your product and give it a price"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
               textEntry={false}
+              multiline={true}
+              textStyle={{minHeight: 96}}
             />
           )}
           name="description"
@@ -199,26 +222,48 @@ const AddListing = ({navigation}) => {
         <FormButton
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-          text="Upload"
+          // text="Upload"
+          text={
+            loading ? (
+              <ActivityIndicator
+                animating={loading}
+                color={colors.text_light}
+                size="large"
+              />
+            ) : (
+              'Upload'
+            )
+          }
+          style={styles.uploadBtn}
         />
-        <ActivityIndicator animating={loading} color="#6B818C" size="large" />
-        <AppButton
-          title="Reset form"
-          titleStyle={{fontWeight: 'bold'}}
-          onPress={reset}
-        />
+        {/* <ActivityIndicator animating={loading} color="#6B818C" size="large" /> */}
       </Card>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  inputStyle: {},
   image: {
+    zIndex: 2,
     width: '100%',
-    height: undefined,
+    height: 250,
     aspectRatio: 1,
-    marginBottom: 5,
+    marginBottom: 20,
+  },
+  clearBtn: {
+    zIndex: 1,
+    width: 40,
+    height: 10,
+    position: 'absolute',
+    marginTop: -10,
+    alignSelf: 'flex-end',
+  },
+  inputStyle: {
+    marginBottom: 10,
+  },
+  uploadBtn: {
+    marginTop: 25,
+    textAlignVertical: 'center',
   },
 });
 AddListing.propTypes = {
