@@ -1,5 +1,5 @@
 // Import from react
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import {
@@ -12,43 +12,47 @@ import {
 } from 'react-native';
 
 // Import from Library UI Kitten
-import {Divider, Input, Layout, Text} from '@ui-kitten/components';
+import {Divider, Layout, Text} from '@ui-kitten/components';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
 import {AppButton} from '../components/elements/AppButton';
 import GlobalStyles from '../utils/GlobalStyles';
-import {useFavourite} from '../hooks/MediaHooks';
+import {useMedia, useFavourite, useMessage} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
 import ListDetail from '../components/lists/ListDetail';
+import MessageForm from '../components/formComponents/MessageForm';
+import MessageList from '../components/lists/MessageList';
+import {getToken} from '../hooks/CommonFunction';
+import {useFocusEffect} from '@react-navigation/native';
+import {Controller, useForm} from 'react-hook-form';
+import FormInput from '../components/formComponents/FormInput';
 
 // Alert when sending message
-const sendMessage = () => {
-  Alert.alert('Success', 'Message Sent');
-};
-const ProductDetail = ({route, navigation, profile}) => {
+
+const ProductDetail = ({route, navigation, profile, fileId}) => {
   const {file} = route.params;
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
 
   // fetch Avatar
-  const fetchAvatar = async () => {
-    try {
-      const avatarList = await getFilesByTag('avatar_' + file.user_id);
-      if (avatarList.length === 0) {
-        return;
-      }
-      const avatar = avatarList.pop();
-      setAvatar(uploadsUrl + avatar.filename);
-      console.log('single.js avatar', avatar);
-    } catch (e) {
-      console.error(e.message);
-    }
-  };
+  // const fetchAvatar = async () => {
+  //   try {
+  //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
+  //     if (avatarList.length === 0) {
+  //       return;
+  //     }
+  //     const avatar = avatarList.pop();
+  //     setAvatar(uploadsUrl + avatar.filename);
+  //     console.log('single.js avatar', avatar);
+  //   } catch (e) {
+  //     console.error(e.message);
+  //   }
+  // };
 
   // favorite
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
@@ -149,14 +153,14 @@ const ProductDetail = ({route, navigation, profile}) => {
         <Text category="s1" style={styles.detailsContainer}>
           Send the Seller a message
         </Text>
-        <Input
+        {/* <Input
           multiline={true}
           textStyle={{minHeight: 64}}
           placeholder="Add Message"
           style={styles.commentBox}
-        ></Input>
-
-        <AppButton style={styles.sendBtn} title="Send" onPress={sendMessage} />
+        ></Input> */}
+        <MessageForm fileId={file.file_id} />
+        {/* <AppButton style={styles.sendBtn} title="Send" onPress={sendMessage} /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -170,10 +174,7 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: colors.container,
   },
-  commentBox: {
-    padding: 10,
-    borderColor: colors.stroke,
-  },
+
   detail: {
     fontFamily: 'Karla_700Bold',
     fontSize: 16,
@@ -206,13 +207,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 150,
   },
-  sendBtn: {
-    width: 100,
-    height: 50,
-    alignSelf: 'flex-end',
-    marginBottom: 30,
-    fontWeight: '500',
-  },
+
   textbox: {
     flexDirection: 'column',
     flex: 7,

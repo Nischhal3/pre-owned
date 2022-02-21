@@ -72,6 +72,28 @@ const postMedia = async (formData, token) => {
   return response;
 };
 
+// Messages (comment)
+const useMessage = () => {
+  const getMessagesByFileId = async (fileId) => {
+    return await fetchData(`${baseUrl}comments/file/${fileId}`);
+  };
+
+  const postMessage = async (message, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(message),
+    };
+    // console.log('message body', options.body);
+    return fetchData(`${baseUrl}comments`, options);
+  };
+
+  return {getMessagesByFileId, postMessage};
+};
+
 const postTag = async (tagData, token) => {
   const options = {
     method: 'POST',
@@ -119,4 +141,4 @@ const useFavourite = () => {
   return {postFavourite, deleteFavourite, getFavourtiesByFileId};
 };
 
-export {getFilesByTag, postMedia, postTag, useMedia, useFavourite};
+export {getFilesByTag, postMedia, postTag, useMessage, useMedia, useFavourite};
