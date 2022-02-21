@@ -14,6 +14,18 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import Explore from '../../views/Explore';
 import Search from '../../views/Search';
 import AddListing from '../../views/AddListing';
+<<<<<<< HEAD
+=======
+import MyListings from '../../views/Listings/MyListings';
+import Favourite from '../../views/Favourite';
+import Profile from '../../views/Profile';
+import EditProfile from '../../views/EditProfile';
+import {MainContext} from '../../contexts/MainContext';
+import ProductDetail from '../../views/ProductDetail';
+import PopularNow from '../../views/PopularNow';
+import RecentlyAdded from '../../views/RecentlyAdded';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+>>>>>>> 6a463e8997bb9c57c6fb5ab59962d00f086440e1
 import MenuNavigator from './Drawer';
 
 const Tab = createBottomTabNavigator();

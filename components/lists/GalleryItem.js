@@ -14,7 +14,7 @@ const GalleryItemHorizontal = ({navigation, singleItem}) => {
       }}
     >
       <ImageWithOverlay
-        source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
+        source={{uri: uploadsUrl + singleItem.thumbnails.w640}}
         style={styles.GalleryImageHorizontal}
       />
       <ImageDetail
@@ -34,7 +34,7 @@ const GalleryItemVertical = ({navigation, singleItem}) => {
       }}
     >
       <ImageWithOverlay
-        source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
+        source={{uri: uploadsUrl + singleItem.thumbnails.w640}}
         style={styles.GalleryImageVertical}
       />
       <ImageDetail
