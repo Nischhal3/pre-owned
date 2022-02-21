@@ -64,6 +64,7 @@ const AddListing = ({navigation}) => {
   };
 
   const onSubmit = async (data) => {
+    setImageSelected(false);
     setLoading(true);
     if (!imageSelected) {
       Alert.alert('Please select file');
@@ -168,7 +169,7 @@ const AddListing = ({navigation}) => {
               message: 'Title has to be at least 3 characters.',
             },
             maxLength: {
-              value: 20,
+              value: 10,
               message: 'Title has to be at most 20 characters.',
             },
           }}
@@ -194,7 +195,7 @@ const AddListing = ({navigation}) => {
           rules={{
             required: {value: true, message: 'This is required.'},
             minLength: {
-              value: 10,
+              value: 5,
               message: 'Description has to be at least 10 characters.',
             },
           }}
@@ -236,6 +237,7 @@ const AddListing = ({navigation}) => {
               'Upload'
             )
           }
+          disabled={!imageSelected}
           style={styles.uploadBtn}
         />
         {/* <ActivityIndicator animating={loading} color="#6B818C" size="large" /> */}
