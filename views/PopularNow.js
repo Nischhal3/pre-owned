@@ -12,8 +12,6 @@ const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
   const {getFavourtiesByFileId} = useFavourite();
 
-
-
   // const getFavourites = (id) => {
   //   console.log(id);
   //   return getFavourtiesByFileId(id).length;
