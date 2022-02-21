@@ -19,7 +19,7 @@ import Explore from '../../views/Explore';
 import Message from '../../views/Message';
 import Search from '../../views/Search';
 import AddListing from '../../views/AddListing';
-import MyListing from '../../views/MyListing';
+import MyListings from '../../views/Listings/MyListings';
 import Favourite from '../../views/Favourite';
 import Profile from '../../views/Profile';
 import EditProfile from '../../views/EditProfile';

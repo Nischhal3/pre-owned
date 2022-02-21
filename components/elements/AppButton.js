@@ -42,6 +42,4 @@ const UploadButton = (props, style) => {
   );
 };
 
-
-
 export {AppButton, FormButton, UploadButton};

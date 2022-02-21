@@ -10,7 +10,7 @@ import {
 } from '@ui-kitten/components';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Message from '../../views/Message';
-import MyListing from '../../views/MyListing';
+import MyListings from '../../views/Listings/MyListings';
 import Favourite from '../../views/Favourite';
 import Profile from '../../views/Profile';
 import EditProfile from '../../views/EditProfile';
@@ -106,7 +106,7 @@ const MenuNavigator = () => (
     />
     <Menu.Screen
       name="My Listings"
-      component={MyListing}
+      component={MyListings}
       options={{headerTitleAlign: 'center'}}
     />
   </Menu.Navigator>

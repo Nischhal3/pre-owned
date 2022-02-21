@@ -12,6 +12,7 @@ import PopularNow from '../views/PopularNow';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AllProducts from '../views/AllProducts';
 import TabScreen from '../components/navComponents/Bottom';
+import EditListing from '../views/Listings/EditListing';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,7 @@ const StackScreen = () => {
           />
           <Stack.Screen name="Product Detail" component={ProductDetail} />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Edit Listing" component={EditListing} />
         </>
       ) : (
         <>

@@ -13,8 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
 import FormInput from '../components/formComponents/FormInput';
-// import {FormButton} from '../components/elements/AppButton';
-import FormButton from '../components/formComponents/FormButton';
+import {FormButton} from '../components/elements/AppButton';
 import colors from '../utils/colors';
 import {checkUserName, updateUser} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
@@ -58,7 +57,7 @@ const EditProfile = ({navigation}) => {
       if (response) {
         delete data.password;
         setUser(data);
-        Alert.alert('File', 'uploaded', [
+        Alert.alert('Profile Details', 'Successfully Updated', [
           {
             text: 'Ok',
             onPress: () => {
@@ -88,10 +87,13 @@ const EditProfile = ({navigation}) => {
   const updateAvatar = async (mediaId) => {
     const data = {
       file_id: mediaId,
-      tag: 'avatar_' + user.user_id
+      tag: 'avatar_' + user.user_id,
     };
     try {
-      const result = await postTag(data, 'correct token should be here to use this');
+      const result = await postTag(
+        data,
+        'correct token should be here to use this'
+      );
       console.log(result);
     } catch (error) {
       console.error(error.message);
@@ -106,11 +108,7 @@ const EditProfile = ({navigation}) => {
   return (
     <Layout style={styles.layout}>
       {hasAvatar ? (
-        <Avatar
-          style={styles.avatar}
-          source={{uri: avatar}}
-          shape="round"
-        />
+        <Avatar style={styles.avatar} source={{uri: avatar}} shape="round" />
       ) : (
         <Avatar
           style={styles.avatar}
@@ -118,8 +116,8 @@ const EditProfile = ({navigation}) => {
           shape="round"
         />
       )}
-        <Layout style={styles.form}>
-          <Controller
+      <Layout style={styles.form}>
+        <Controller
           control={control}
           rules={{
             required: {value: true, message: 'This is required.'},
@@ -283,9 +281,9 @@ const EditProfile = ({navigation}) => {
           btnStyle={styles.button}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-          text="Update"
+          text="Save"
         />
-        </Layout>
+      </Layout>
     </Layout>
   );
 };

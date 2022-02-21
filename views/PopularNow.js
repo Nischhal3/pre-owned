@@ -12,14 +12,16 @@ const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
   const {getFavourtiesByFileId} = useFavourite();
 
-  const getFavourites = (id) => {
-    // console.log(id);
-    return getFavourtiesByFileId(id).length;
-  };
 
-  mediaArray.sort(
-    (a, b) => getFavourites(a.file_id) < getFavourites(b.file_id)
-  );
+
+  // const getFavourites = (id) => {
+  //   console.log(id);
+  //   return getFavourtiesByFileId(id).length;
+  // };
+
+  // mediaArray.sort(
+  //   (a, b) => getFavourites(a.file_id) < getFavourites(b.file_id)
+  // );
 
   return (
     <SafeAreaView>
@@ -34,7 +36,7 @@ const PopularNow = ({navigation}) => {
             navigation={navigation}
             singleItem={item}
             displayText={true}
-            file={getFavourites(item)}
+            // file={getFavourites(item)}
           />
         )}
       ></List>
