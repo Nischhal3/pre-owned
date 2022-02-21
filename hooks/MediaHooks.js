@@ -6,6 +6,7 @@ import {fetchData} from './CommonFunction';
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update} = useContext(MainContext);
+  const [loading, setLoading] = useState(false);
 
   const fetchMedia = async (myPostsOnly) => {
     try {
@@ -32,8 +33,29 @@ const useMedia = () => {
   // Or when the update state is changed in MainContext
   useEffect(() => {
     fetchMedia();
+    return () => {};
   }, [update]);
-  return {mediaArray};
+
+  const putMedia = async (data, token, fileId) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(data),
+    };
+    return await fetchData(baseUrl + `media/${fileId}`, options);
+  };
+
+  const deleteMedia = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {'x-access-token': token},
+    };
+    return await fetchData(`${baseUrl}media/${fileId}`, options);
+  };
+  return {mediaArray, putMedia, deleteMedia};
 };
 
 const postMedia = async (formData, token) => {

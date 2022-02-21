@@ -8,15 +8,17 @@ import {GalleryItemHorizontal, GalleryItemVertical} from './lists/GalleryItem';
 const GalleryListHorizontal = ({navigation}) => {
   const {mediaArray} = useMedia();
 
-  // Sorting items by recently added date
+  // Sorting items by recently added date and displaying first 5
   mediaArray.sort((a, b) => a.time_added < b.time_added);
+  const showFirstFive = mediaArray.slice(0, 5);
 
   return (
     <List
-      data={mediaArray}
+      data={showFirstFive}
       contentContainerStyle={{
-        marginStart: 20,
         alignItems: 'center',
+        paddingEnd: 30,
+        marginStart: 20,
       }}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
@@ -30,11 +32,13 @@ const GalleryListHorizontal = ({navigation}) => {
 // Return a vertical gallery list
 const GalleryListVertical = ({navigation}) => {
   const {mediaArray} = useMedia();
+  const showFirstFive = mediaArray.slice(0, 5);
+
   // console.log('Explorer', mediaArray);
   return (
     <List
-      data={mediaArray}
-      contentContainerStyle={{marginStart: 20}}
+      data={showFirstFive}
+      contentContainerStyle={{marginStart: 10, alignItems: 'center'}}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (

@@ -4,6 +4,7 @@ import React from 'react';
 const FormInput = (props) => {
   return (
     <Input
+      style={props.style}
       placeholder={props.name}
       onBlur={props.onBlur}
       accessoryLeft={<Icon name={props.iconName} />}
@@ -11,6 +12,9 @@ const FormInput = (props) => {
       value={props.value}
       autoCapitalize="none"
       secureTextEntry={props.textEntry}
+      multiline={props.multiline}
+      textStyle={props.textStyle}
+      // textAlignVertical="top"
     />
   );
 };
