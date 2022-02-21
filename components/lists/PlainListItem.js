@@ -91,14 +91,12 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
       {showMyMedia && (
         <ButtonGroup style={styles.buttonGroup} appearance="ghost">
           <Button
-            style={styles.btn}
             accessoryLeft={<Icon name="edit-outline" />}
             onPress={() => {
               navigation.navigate('Edit Listing', {file: singleItem});
             }}
           />
           <Button
-            style={styles.btn}
             accessoryLeft={<Icon name="trash-2-outline" />}
             onPress={() => {
               deleteListing();
@@ -111,16 +109,12 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
 };
 
 const styles = StyleSheet.create({
-  btn: {
-    backgroundColor: colors.primary,
-  },
-
   buttonGroup: {
     flex: 3.5,
     right: -5,
     width: 100,
     alignSelf: 'center',
-    backgroundColor: colors.primary,
+    // backgroundColor: colors.primary,
   },
   displayTime: {
     flex: 2,
@@ -131,7 +125,6 @@ const styles = StyleSheet.create({
   layout: {
     flex: 2,
     flexDirection: 'row',
-    backgroundColor: colors.primary,
     marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
