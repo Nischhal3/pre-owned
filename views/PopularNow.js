@@ -13,7 +13,7 @@ const PopularNow = ({navigation}) => {
   const {getFavourtiesByFileId} = useFavourite();
 
   const getFavourites = (id) => {
-    console.log(id);
+    // console.log(id);
     return getFavourtiesByFileId(id).length;
   };
 

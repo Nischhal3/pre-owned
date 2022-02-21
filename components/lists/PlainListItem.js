@@ -9,7 +9,7 @@ import moment from 'moment';
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, file}) => {
   file = singleItem.file_id;
-  console.log(file);
+  // console.log(file);
 
   return (
     <TouchableOpacity
