@@ -58,7 +58,6 @@ const EditProfile = ({navigation}) => {
       if (response) {
         delete data.password;
         setUser(data);
-        // setUser(user.username = data.username, user.email = data.email, user.full_name = data.full_name);
         Alert.alert('Profile Details', 'Updated successfully.', [
           {
             text: 'Ok',
