@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
@@ -22,8 +22,8 @@ import CategoryPicker from '../../components/CategoryPicker';
 import FormInput from '../../components/formComponents/FormInput';
 import colors from '../../utils/colors';
 import {appId} from '../../utils/url';
-import {getToken} from '../../hooks/CommonFunction';
-import {postMedia, postTag} from '../../hooks/MediaHooks';
+import {addMediaItem, getToken} from '../../hooks/CommonFunction';
+import {getFilesByTag, postMedia, postTag} from '../../hooks/MediaHooks';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState(
@@ -35,6 +35,56 @@ const AddListing = ({navigation}) => {
   const [type, setType] = useState('image');
   const {update, setUpdate, loading, setLoading} = useContext(MainContext);
   const [category, setCategory] = useState('');
+
+  // Category items
+  const [home, setHome] = useState([]);
+  const [electronics, setElectornics] = useState([]);
+  const [clothing, setClothing] = useState([]);
+  const [sports, setSports] = useState([]);
+  const [gaming, setGaming] = useState([]);
+  const [others, setOthers] = useState([]);
+
+  const homeTag = `${appId}_Home & Living`;
+  const electronicsTag = `${appId}_Electronics`;
+  const clothingTag = `${appId}_Clothing`;
+  const sportsTag = `${appId}_Sports`;
+  const gamingTag = `${appId}_Gaming & Accessories`;
+  const othersTag = `${appId}_Others`;
+
+  const [mediaArray, setMediaArray] = useState([]);
+  // const mediaArray = [];
+
+  const getCategoryItems = async () => {
+    const homeMedia = await getFilesByTag(homeTag);
+    const electronicsMedia = await getFilesByTag(electronicsTag);
+    const clothingMedia = await getFilesByTag(clothingTag);
+    const sportsMedia = await getFilesByTag(sportsTag);
+    const gamingMedia = await getFilesByTag(gamingTag);
+    const othersMedia = await getFilesByTag(othersTag);
+
+    setHome(homeMedia);
+    setElectornics(electronicsMedia);
+    setClothing(clothingMedia);
+    setSports(sportsMedia);
+    setGaming(gamingMedia);
+    setOthers(othersMedia);
+
+    // Adding all category items to single array
+    setMediaArray([
+      ...homeMedia,
+      ...electronicsMedia,
+      ...clothingMedia,
+      ...sportsMedia,
+      ...gamingMedia,
+      ...othersMedia,
+    ]);
+  };
+
+  console.log('Media', mediaArray.length);
+
+  useEffect(() => {
+    getCategoryItems();
+  }, [update]);
 
   const {
     control,
@@ -170,7 +220,7 @@ const AddListing = ({navigation}) => {
               message: 'Title has to be at least 3 characters.',
             },
             maxLength: {
-              value: 10,
+              value: 20,
               message: 'Title has to be at most 20 characters.',
             },
           }}
