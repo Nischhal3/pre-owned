@@ -1,11 +1,12 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {Input, List, ListItem} from '@ui-kitten/components';
+import React, {useState} from 'react';
+import {Input, ListItem} from '@ui-kitten/components';
 import {useMedia} from '../hooks/MediaHooks';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import {FilterIcon, SearchIcon} from '../components/elements/Icons';
-import PlainListItem from '../components/lists/PlainListItem';
+import {ScrollView} from 'react-native-gesture-handler';
+import {GalleryItemVertical} from '../components/lists/GalleryItem';
 
 const Search = ({navigation}) => {
   const {mediaArray} = useMedia();
@@ -23,7 +24,13 @@ const Search = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: colors.primary,
+      }}
+    >
       <ListItem
         style={{
           flexDirection: 'row',
@@ -42,22 +49,27 @@ const Search = ({navigation}) => {
           style={{flex: 1, backgroundColor: null}}
         />
       </ListItem>
-
-      {filteredData.map((item) => (
-        <PlainListItem
-          navigation={navigation}
-          singleItem={item}
-          displayText={true}
-          key={item.file_id}
-        />
-      ))}
+      <ScrollView style={styles.searchImageContainer}>
+        {filteredData.map((item) => (
+          <GalleryItemVertical
+            navigation={navigation}
+            singleItem={item}
+            key={item.file_id}
+            displayText={true}
+          />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-
-
+  searchImageContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    marginTop: 20,
+    backgroundColor: colors.primary,
+  },
   searchField: {
     flex: 10,
     borderRadius: 15,
