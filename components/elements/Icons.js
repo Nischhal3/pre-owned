@@ -20,4 +20,6 @@ const CategoryIcon = ({name, size = 22}) => {
 // FilterIcon
 const FilterIcon = (props) => <Icon {...props} name="funnel-outline" />;
 
-export {PointRightArrow, CategoryIcon, FilterIcon};
+const SearchIcon = (props) => <Icon {...props} name="search-outline" />;
+
+export {PointRightArrow, CategoryIcon, FilterIcon, SearchIcon};

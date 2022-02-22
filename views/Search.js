@@ -1,14 +1,26 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React from 'react';
-import {Divider, Input, List, ListItem} from '@ui-kitten/components';
+import React, {useEffect, useState} from 'react';
+import {Input, List, ListItem} from '@ui-kitten/components';
 import {useMedia} from '../hooks/MediaHooks';
-import PlainListItem from '../components/lists/PlainListItem';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
-import {FilterIcon} from '../components/elements/Icons';
+import {FilterIcon, SearchIcon} from '../components/elements/Icons';
+import PlainListItem from '../components/lists/PlainListItem';
 
-const Search = (navigation) => {
+const Search = ({navigation}) => {
   const {mediaArray} = useMedia();
+  const [filteredData, setFilteredData] = useState([]);
+
+  const searchProduct = (textToSearch) => {
+    try {
+      const newData = mediaArray.filter((i) =>
+        i.title.toLowerCase().includes(textToSearch.toLowerCase())
+      );
+      setFilteredData(newData);
+    } catch (e) {
+      console.log('Cant set filtered data', e);
+    }
+  };
 
   return (
     <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
@@ -19,36 +31,32 @@ const Search = (navigation) => {
           backgroundColor: colors.primary,
         }}
       >
-        <Input placeholder="Search..." style={styles.searchField} />
+        <Input
+          placeholder="Search..."
+          style={styles.searchField}
+          accessoryLeft={SearchIcon}
+          onChangeText={(text) => searchProduct(text)}
+        />
         <ListItem
           accessoryRight={FilterIcon}
           style={{flex: 1, backgroundColor: null}}
         />
       </ListItem>
-      <List
-        data={mediaArray}
-        contentContainerStyle={styles.container}
-        horizontal={false}
-        ItemSeparatorComponent={Divider}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({item}) => (
-          <PlainListItem
-            navigation={navigation}
-            singleItem={item}
-            displayText={true}
-          />
-        )}
-      ></List>
+
+      {filteredData.map((item) => (
+        <PlainListItem
+          navigation={navigation}
+          singleItem={item}
+          displayText={true}
+          key={item.file_id}
+        />
+      ))}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 0,
-    padding: 0,
-    backgroundColor: colors.primary,
-  },
+
 
   searchField: {
     flex: 10,
