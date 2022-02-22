@@ -1,5 +1,5 @@
 // Import from react
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import {
@@ -12,19 +12,17 @@ import {
 } from 'react-native';
 
 // Import from Library UI Kitten
-import { Divider, Layout, Text} from '@ui-kitten/components';
+import {Divider, Layout, Text} from '@ui-kitten/components';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
 import GlobalStyles from '../utils/GlobalStyles';
-import { useFavourite} from '../hooks/MediaHooks';
+import {useFavourite} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
-import ListDetail from '../components/lists/ListDetail';
-import MessageForm from '../components/formComponents/MessageForm';
-
+import {ListDetail, MessageList} from '../components/lists';
 
 const ProductDetail = ({route, navigation, profile, fileId}) => {
   const {file} = route.params;
@@ -150,8 +148,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
           Send the Seller a message
         </Text>
 
-        <MessageForm fileId={file.file_id} />
-        
+        <MessageList fileId={file.file_id} />
       </ScrollView>
     </SafeAreaView>
   );

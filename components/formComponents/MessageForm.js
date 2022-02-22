@@ -1,24 +1,26 @@
-import {View, Alert, StyleSheet} from 'react-native';
+// import from React
 import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {View, Alert, StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
 
+// Import from UI Kitten Library
+import {Divider, List, Text} from '@ui-kitten/components';
+
+// Import from files
 import {FormButton} from '../elements/AppButton';
 import {useMessage} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import colors from '../../utils/colors';
 import FormInput from './FormInput';
 import {getLocalTime, getToken} from '../../hooks/CommonFunction';
-import {Divider, List, Text} from '@ui-kitten/components';
 import ListDetail from '../lists/ListDetail';
-import {getUserById} from '../../hooks/ApiHooks';
 
 const MessageForm = ({fileId, showMessages = false}) => {
   const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
   const {updateMessage, setUpdateMessage, user} = useContext(MainContext);
   const [messages, setMessages] = useState([]);
-  const [senderName, setSenderName] = useState('');
   const {convertToLocalTime} = getLocalTime();
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
@@ -140,15 +142,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
     alignSelf: 'flex-end',
-    // marginBottom: 30,
     margin: 15,
-    // fontWeight: '500',
-    // fontFamily: 'Karla_700Bold',
   },
 });
 
 MessageForm.propTypes = {
-  route: PropTypes.object,
+  fileId: PropTypes.object,
+  showMessages: PropTypes.bool,
 };
 
 export default MessageForm;

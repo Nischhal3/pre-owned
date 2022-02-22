@@ -1,24 +1,19 @@
+// Import from React
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, Alert} from 'react-native';
-import {
-  Text,
-  Layout,
-  Icon,
-  CheckBox,
-  Modal,
-  Card,
-  Avatar,
-} from '@ui-kitten/components';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
+
+// Import from UI Kitten Library
+import {Text, Layout, Avatar} from '@ui-kitten/components';
+import {useForm, Controller} from 'react-hook-form';
+
+// Import from files
 import FormInput from '../components/formComponents/FormInput';
 import {FormButton} from '../components/elements/AppButton';
 import colors from '../utils/colors';
 import {checkUserName, updateUser} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import {getToken} from '../hooks/CommonFunction';
-import ErrorMessage from '../components/elements/ErrorMessage';
 import {uploadsUrl} from '../utils/url';
 import {getFilesByTag} from '../hooks/MediaHooks';
 
@@ -53,7 +48,7 @@ const EditProfile = ({navigation}) => {
       const userToken = await getToken();
       const response = await updateUser(data, userToken);
 
-      console.log("edit data", data);
+      console.log('edit data', data);
       console.log('Data', response);
       if (response) {
         delete data.password;
@@ -63,7 +58,7 @@ const EditProfile = ({navigation}) => {
             text: 'Ok',
             onPress: () => {
               navigation.navigate('Profile');
-              console.log("after edit", user);
+              console.log('after edit', user);
             },
           },
         ]);
@@ -74,7 +69,7 @@ const EditProfile = ({navigation}) => {
   };
 
   const fetchAvatar = async () => {
-    console.log("edit avatar user", user);
+    console.log('edit avatar user', user);
     try {
       const avatarArray = await getFilesByTag('avatar_' + user.user_id);
       const avatar = avatarArray.pop();

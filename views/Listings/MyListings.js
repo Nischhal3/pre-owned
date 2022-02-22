@@ -1,12 +1,14 @@
+// Import from React
 import React, {useContext} from 'react';
 import {SafeAreaView, FlatList} from 'react-native';
 import PropTypes from 'prop-types';
+
+// Import from files
 import {useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
-import PlainListItem from '../../components/lists/PlainListItem';
 import ItemSeparator from '../../components/elements/ItemSeparator';
-import {Divider} from '@ui-kitten/components';
 import colors from '../../utils/colors';
+import {PlainListItem} from '../../components/lists';
 
 const MyListings = ({navigation, showMyMedia = false}) => {
   const {mediaArray} = useMedia(showMyMedia);

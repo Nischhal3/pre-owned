@@ -1,46 +1,154 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Alert, View} from 'react-native';
-import {Layout, Divider, Text, Avatar} from '@ui-kitten/components';
+// import from React
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {View, Alert, StyleSheet} from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
+import PropTypes from 'prop-types';
+import {useFocusEffect} from '@react-navigation/native';
 
-import DeleteAction from '../elements/DeleteAction';
-import ListDetail from './ListDetail';
+// Import from UI Kitten Library
+import {Divider, List, Text} from '@ui-kitten/components';
+
+// Import from files
+import {FormButton} from '../elements/AppButton';
 import {useMessage} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
-import MessageItem from '../elements/MessageItem';
+import colors from '../../utils/colors';
+import FormInput from '../formComponents/FormInput';
+import {getLocalTime, getToken} from '../../hooks/CommonFunction';
+import ListDetail from './ListDetail';
 
-const MessageList = ({message, avatar, user, time}) => {
-  // delete message
-  // const handleDelete = (message) => {
-  //   Alert.alert(
-  //     'Delete message',
-  //     'Are you sure you want to delete this message?',
-  //     [
-  //       {text: 'Cancel'},
-  //       {
-  //         text: 'OK',
-  //         onPress: () => {
-  //           // delete the message from messages array
-  //           setMessages(messages.filter((m) => m.id !== message.id));
-  //         },
-  //       },
-  //     ]
-  //   );
-  // };
+const MessageList = ({fileId, showMessages = false}) => {
+  const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
+  const {updateMessage, setUpdateMessage, user} = useContext(MainContext);
+  const [messages, setMessages] = useState([]);
+  const {convertToLocalTime} = getLocalTime();
+  const [avatar, setAvatar] = useState(
+    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+  );
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+    setValue,
+  } = useForm({
+    defaultValues: {
+      message: '',
+    },
+    mode: 'onBlur',
+  });
+
+  const reset = () => {
+    setValue('message', '');
+  };
+
+  // get msg
+  const fetchMessage = async () => {
+    try {
+      const msgData = await getMessagesByFileId(fileId);
+      setMessages(msgData);
+      console.log(msgData);
+    } catch (e) {
+      console.error('get msg error', e.message);
+    }
+  };
+  useEffect(() => {
+    fetchMessage();
+  }, [updateMessage]);
+  // send Message
+  const sendMessage = async (data) => {
+    try {
+      const token = await getToken();
+      const response = await postMessage(
+        {file_id: fileId, comment: data.message},
+        token
+      );
+      response &&
+        Alert.alert('Success', 'Message Sent', [
+          {
+            text: 'OK',
+            onPress: () => {
+              reset();
+              setUpdateMessage(updateMessage + 1);
+            },
+          },
+        ]);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset();
+    }, [])
+  );
 
   return (
-    <Layout>
-      {/* <Avatar style={styles.image} source={image} /> */}
-      <Text> {message.comment}</Text>
-      {/* <Text>{user}</Text>
-      <Text> {time}</Text> */}
-    </Layout>
+    <View>
+      <Controller
+        control={control}
+        rules={{
+          required: {value: true, message: 'This is required.'},
+        }}
+        render={({field: {onChange, onBlur, value}}) => (
+          <FormInput
+            style={styles.commentBox}
+            iconName="text-outline"
+            name="Add Message"
+            onBlur={onBlur}
+            onChange={onChange}
+            value={value}
+            textEntry={false}
+          />
+        )}
+        name="message"
+      />
+      {errors.message && (
+        <Text status="danger">{errors.message && errors.message.message} </Text>
+      )}
+      <FormButton
+        style={styles.sendBtn}
+        text="Send"
+        handleSubmit={handleSubmit}
+        onSubmit={sendMessage}
+      />
+      <List
+        data={messages}
+        contentContainerStyle={styles.container}
+        horizontal={false}
+        ItemSeparatorComponent={Divider}
+        showsHorizontalScrollIndicator={false}
+        renderItem={({item}) => (
+          <ListDetail
+            description={item.comment}
+            title={user.username}
+            timeAdded={convertToLocalTime(item.time_added)}
+            image={{uri: avatar}}
+            showMessages={true}
+          />
+        )}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    width: 70,
-    height: 70,
+  commentBox: {
+    padding: 10,
+    borderColor: colors.stroke,
+  },
+  sendBtn: {
+    width: 100,
+    height: 50,
+    alignSelf: 'flex-end',
+    margin: 15,
   },
 });
+
+MessageList.propTypes = {
+  fileId: PropTypes.object,
+  showMessages: PropTypes.bool,
+};
+
 export default MessageList;

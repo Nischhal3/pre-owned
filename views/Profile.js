@@ -1,12 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Image, StyleSheet, ActivityIndicator} from 'react-native';
-import {
-  Card,
-  Layout,
-  Button,
-  Text,
-  Avatar,
-} from '@ui-kitten/components';
+import {Card, Layout, Button, Text, Avatar} from '@ui-kitten/components';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
@@ -40,7 +34,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchAvatar();
-    console.log("profile", user);
+    console.log('profile', user);
   }, []);
 
   return (
@@ -51,30 +45,22 @@ const Profile = () => {
         PlaceholderContent={<ActivityIndicator />}
       />
       <Layout style={styles.cardWrap}>
-      {hasAvatar ? (
-        <Avatar
-          style={styles.avatar}
-          source={{uri: avatar}}
-          shape="round"
-        />
-      ) : (
-        <Avatar
-          style={styles.avatar}
-          source={require('../assets/backgrounds/Avatar.png')}
-          shape="round"
-        />
-      )}
+        {hasAvatar ? (
+          <Avatar style={styles.avatar} source={{uri: avatar}} shape="round" />
+        ) : (
+          <Avatar
+            style={styles.avatar}
+            source={require('../assets/backgrounds/Avatar.png')}
+            shape="round"
+          />
+        )}
         <Card style={styles.card}>
           <Text style={styles.username}>{user.username}</Text>
           <Text style={styles.email}>{user.email}</Text>
           {user.full_name ? (
-            <Text style={styles.description}>
-              {user.full_name}
-            </Text>
+            <Text style={styles.description}>{user.full_name}</Text>
           ) : (
-            <Text style={styles.description}>
-              User description not set.
-            </Text>
+            <Text style={styles.description}>User description not set.</Text>
           )}
           {/* <Button style={styles.logout} onPress={logout}>
             Logout
