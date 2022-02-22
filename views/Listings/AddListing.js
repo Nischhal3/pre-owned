@@ -62,6 +62,7 @@ const AddListing = ({navigation}) => {
     const gamingMedia = await getFilesByTag(gamingTag);
     const othersMedia = await getFilesByTag(othersTag);
 
+    // Adding media files to their respective category
     setHome(homeMedia);
     setElectornics(electronicsMedia);
     setClothing(clothingMedia);
