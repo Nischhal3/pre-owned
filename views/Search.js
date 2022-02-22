@@ -14,10 +14,14 @@ const Search = ({navigation}) => {
 
   const searchProduct = (textToSearch) => {
     try {
-      const newData = mediaArray.filter((i) =>
-        i.title.toLowerCase().includes(textToSearch.toLowerCase())
-      );
-      setFilteredData(newData);
+      if (textToSearch === '') {
+        setFilteredData([]);
+      } else {
+        const newData = mediaArray.filter((i) =>
+          i.title.toLowerCase().includes(textToSearch.toLowerCase())
+        );
+        setFilteredData(newData);
+      }
     } catch (e) {
       console.log('Cant set filtered data', e);
     }
