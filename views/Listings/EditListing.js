@@ -59,7 +59,6 @@ const EditListing = ({navigation, route}) => {
           },
         ]);
     } catch (e) {
-      // let the user know the problem
       console.log('onSubmit edit post problem', e);
     }
   };

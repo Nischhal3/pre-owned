@@ -33,7 +33,7 @@ const useMedia = () => {
   // Or when the update state is changed in MainContext
   useEffect(() => {
     fetchMedia();
-    return () => {};
+    // return () => {};
   }, [update]);
 
   const putMedia = async (data, token, fileId) => {
@@ -74,6 +74,30 @@ const postMedia = async (formData, token) => {
 
 // Messages (comment)
 const useMessage = () => {
+  // const [messageArray, setMessagesArray] = useState([]);
+  // const {update} = useContext(MainContext);
+
+  // const loadMessages = async () => {
+  //   try {
+  //     const json = await getFilesByTag(appId);
+
+  //     const messages = await Promise.all(
+  //       json.map(async (item) => {
+  //         const response = await fetch(baseUrl + 'comments/' + item.file_id);
+  //         const messageData = await response.json();
+  //         console.log('from hooks', messageData);
+  //         return messageData;
+  //       })
+  //     );
+  //     setMessagesArray(messages);
+  //   } catch (error) {
+  //     console.log('Error', error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   loadMessages(0, 5);
+  // }, [update]);
+
   const getMessagesByFileId = async (fileId) => {
     return await fetchData(`${baseUrl}comments/file/${fileId}`);
   };

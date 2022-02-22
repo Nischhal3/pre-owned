@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 // Import from Library UI Kitten
-import {Divider, Layout, Text} from '@ui-kitten/components';
+import {Card, Divider, Layout, Text} from '@ui-kitten/components';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
@@ -100,8 +100,11 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
 
   return (
     <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
-      <Image style={styles.image} source={{uri: uploadsUrl + file.filename}} />
       <ScrollView style={styles.detailsContainer}>
+        <Image
+          style={styles.image}
+          source={{uri: uploadsUrl + file.filename}}
+        />
         <Layout style={styles.container}>
           <Layout style={styles.textbox}>
             <Text style={styles.title}>{file.title}</Text>
@@ -144,10 +147,10 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
             {file.description}
           </Text>
         </Layout>
+
         <Text category="s1" style={styles.detailsContainer}>
           Send the Seller a message
         </Text>
-
         <MessageList fileId={file.file_id} />
       </ScrollView>
     </SafeAreaView>

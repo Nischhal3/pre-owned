@@ -31,8 +31,6 @@ const ListDetail = ({
             <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
               {title}
             </Text>
-
-            {/* {description && ( */}
             <Text
               ellipsizeMode="tail"
               numberOfLines={1}
@@ -40,9 +38,11 @@ const ListDetail = ({
             >
               {description}
             </Text>
-            {/* )} */}
           </Layout>
-          <Text style={styles.time}>{timeAdded}</Text>
+          <Layout style={{alignSelf: 'flex-end'}}>
+            <Text style={styles.time}>{timeAdded}</Text>
+          </Layout>
+
           {!showMessages ? (
             <ListItem
               style={styles.arrowIcon}
@@ -62,8 +62,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
+    width: '100%',
     padding: 15,
-    backgroundColor: colors.text_light,
+    backgroundColor: colors.container,
   },
   description: {
     width: 250,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Karla_400Regular',
     bottom: -5,
-    right: '100%',
+    right: 120,
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });

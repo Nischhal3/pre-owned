@@ -1,16 +1,34 @@
 // import from React
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {View, Alert, StyleSheet} from 'react-native';
+import {
+  View,
+  Alert,
+  StyleSheet,
+  Pressable,
+  Platform,
+  StatusBar,
+  ScrollView,
+} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
 
 // Import from UI Kitten Library
-import {Divider, List, Text} from '@ui-kitten/components';
+import {
+  Button,
+  Card,
+  Divider,
+  Icon,
+  Layout,
+  List,
+  Modal,
+  Text,
+} from '@ui-kitten/components';
 
 // Import from files
-import {FormButton} from '../elements/AppButton';
+import {AppButton, FormButton} from '../elements/AppButton';
 import {useMessage} from '../../hooks/MediaHooks';
+import {getUserById} from '../../hooks/ApiHooks';
 import {MainContext} from '../../contexts/MainContext';
 import FormInput from '../formComponents/FormInput';
 import {getLocalTime, getToken} from '../../hooks/CommonFunction';
@@ -19,7 +37,10 @@ import {colors} from '../../utils';
 
 const MessageList = ({fileId, showMessages = false}) => {
   const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
+
   const {updateMessage, setUpdateMessage, user} = useContext(MainContext);
+  // const [senderName, setSenderName] = useState('');
+  const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
   const {convertToLocalTime} = getLocalTime();
   const [avatar, setAvatar] = useState(
@@ -46,15 +67,18 @@ const MessageList = ({fileId, showMessages = false}) => {
   const fetchMessage = async () => {
     try {
       const msgData = await getMessagesByFileId(fileId);
+      for (const message of msgData) {
+        const sender = await getUserById(message.user_id);
+        message['username'] = sender.username;
+      }
       setMessages(msgData);
-      console.log(msgData);
     } catch (e) {
       console.error('get msg error', e.message);
     }
   };
   useEffect(() => {
     fetchMessage();
-  }, [updateMessage]);
+  }, [messages]);
   // send Message
   const sendMessage = async (data) => {
     try {
@@ -85,58 +109,104 @@ const MessageList = ({fileId, showMessages = false}) => {
   );
 
   return (
-    <View>
-      <Controller
-        control={control}
-        rules={{
-          required: {value: true, message: 'This is required.'},
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <FormInput
-            style={styles.commentBox}
-            iconName="text-outline"
-            name="Add Message"
-            onBlur={onBlur}
-            onChange={onChange}
-            value={value}
-            textEntry={false}
-          />
+    <Layout style={styles.container}>
+      <Layout style={{height: 150}}>
+        <Controller
+          control={control}
+          rules={{
+            required: {value: true, message: 'This is required.'},
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <FormInput
+              style={styles.commentBox}
+              iconName="text-outline"
+              name="Add Message"
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              textEntry={false}
+              multiline={true}
+              textStyle={{minHeight: 96}}
+            />
+          )}
+          name="message"
+        />
+        {errors.message && (
+          <Text status="danger">
+            {errors.message && errors.message.message}{' '}
+          </Text>
         )}
-        name="message"
-      />
-      {errors.message && (
-        <Text status="danger">{errors.message && errors.message.message} </Text>
-      )}
-      <FormButton
-        style={styles.sendBtn}
-        text="Send"
-        handleSubmit={handleSubmit}
-        onSubmit={sendMessage}
-      />
-      <List
-        data={messages}
-        contentContainerStyle={styles.container}
-        horizontal={false}
-        ItemSeparatorComponent={Divider}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({item}) => (
-          <ListDetail
-            description={item.comment}
-            title={user.username}
-            timeAdded={convertToLocalTime(item.time_added)}
-            image={{uri: avatar}}
-            showMessages={true}
+        <FormButton
+          style={styles.sendBtn}
+          text="Send"
+          handleSubmit={handleSubmit}
+          onSubmit={sendMessage}
+        />
+      </Layout>
+      <Button onPress={() => setVisible(true)} appearance="ghost">
+        Total messages {messages.length}
+      </Button>
+      <Modal
+        visible={visible}
+        backdropStyle={styles.backdrop}
+        onBackdropPress={() => setVisible(false)}
+      >
+        <AppButton
+          appBtnStyle={styles.clearBtn}
+          onPress={() => setVisible(false)}
+          accessoryLeft={<Icon name="close-outline" />}
+        />
+        <Card style={{height: 600, backgroundColor: colors.container}}>
+          <List
+            data={messages}
+            contentContainerStyle={styles.container}
+            horizontal={false}
+            ItemSeparatorComponent={Divider}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item}) => (
+              <ListDetail
+                description={item.comment}
+                title={item.username}
+                timeAdded={convertToLocalTime(item.time_added)}
+                image={{uri: avatar}}
+              />
+            )}
           />
-        )}
-      />
-    </View>
+        </Card>
+      </Modal>
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
+  backdrop: {
+    backgroundColor: colors.primary,
+  },
+  container: {
+    fontSize: 16,
+    fontFamily: 'Karla_700Bold',
+  },
   commentBox: {
     padding: 10,
     borderColor: colors.stroke,
+  },
+  clearBtn: {
+    zIndex: 1,
+    width: 40,
+    height: 10,
+    position: 'absolute',
+    marginTop: -10,
+    alignSelf: 'flex-end',
+  },
+  dismissBtn: {
+    zIndex: 1,
+    position: 'absolute',
+    right: 20,
+  },
+  modal: {
+    height: 500,
+    margin: 10,
+    borderRadius: 15,
   },
   sendBtn: {
     width: 100,
@@ -146,9 +216,9 @@ const styles = StyleSheet.create({
   },
 });
 
-MessageList.propTypes = {
-  fileId: PropTypes.object,
-  showMessages: PropTypes.bool,
-};
+// MessageList.propTypes = {
+//   fileId: PropTypes.object,
+//   showMessages: PropTypes.bool,
+// };
 
 export default MessageList;
