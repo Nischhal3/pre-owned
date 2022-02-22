@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
-import {Button, Icon, Layout} from '@ui-kitten/components';
+import {Button, Icon} from '@ui-kitten/components';
 import colors from '../../utils/colors';
 
 const DeleteAction = ({onPress}) => {
@@ -23,4 +24,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+DeleteAction.propTypes = {
+  onPress: PropTypes.object,
+};
 export default DeleteAction;

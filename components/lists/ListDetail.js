@@ -1,7 +1,6 @@
 // Import from React
 import React from 'react';
 import {StyleSheet, TouchableHighlight, Platform} from 'react-native';
-import PropTypes from 'prop-types';
 
 // Import from UI Kitten Library
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
@@ -90,16 +89,5 @@ const styles = StyleSheet.create({
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });
-
-ListDetail.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  image: PropTypes.object,
-  IconComponent: PropTypes.object,
-  onPress: PropTypes.func,
-  renderRightActions: PropTypes.object,
-  timeAdded: PropTypes.object,
-  showMessages: PropTypes.bool,
-};
 
 export default ListDetail;
