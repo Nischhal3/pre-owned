@@ -22,7 +22,7 @@ import CategoryPicker from '../../components/CategoryPicker';
 import FormInput from '../../components/formComponents/FormInput';
 import colors from '../../utils/colors';
 import {appId} from '../../utils/url';
-import {addMediaItem, getToken} from '../../hooks/CommonFunction';
+import {getToken} from '../../hooks/CommonFunction';
 import {getFilesByTag, postMedia, postTag} from '../../hooks/MediaHooks';
 
 const AddListing = ({navigation}) => {
