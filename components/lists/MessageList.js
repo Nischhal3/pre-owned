@@ -12,10 +12,10 @@ import {Divider, List, Text} from '@ui-kitten/components';
 import {FormButton} from '../elements/AppButton';
 import {useMessage} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
-import colors from '../../utils/colors';
 import FormInput from '../formComponents/FormInput';
 import {getLocalTime, getToken} from '../../hooks/CommonFunction';
 import ListDetail from './ListDetail';
+import {colors} from '../../utils';
 
 const MessageList = ({fileId, showMessages = false}) => {
   const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);

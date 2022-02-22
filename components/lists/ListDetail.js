@@ -8,7 +8,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 // Import from files
 import {PointRightArrow} from '../elements/Icons';
-import colors from '../../utils/colors';
+import {colors} from '../../utils';
 
 // now in use: ProductDetail.js, Messages
 const ListDetail = ({

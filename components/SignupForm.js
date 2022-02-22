@@ -16,8 +16,8 @@ import {checkUserName, signUp} from '../hooks/ApiHooks';
 import {PropTypes} from 'prop-types';
 import FormInput from './formComponents/FormInput';
 import {FormButton} from './elements/AppButton';
-import colors from '../utils/colors';
 import ErrorMessage from './elements/ErrorMessage';
+import {colors} from '../utils';
 
 const SignupForm = ({setFormToggle}) => {
   //for checkbox
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   },
   dismissBtn: {
     marginTop: 20,
-    borderRadius: 15
+    borderRadius: 15,
   },
   modal: {
     margin: 10,

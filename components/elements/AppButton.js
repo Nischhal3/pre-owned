@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Spinner} from '@ui-kitten/components';
-import GlobalStyles from '../../utils/GlobalStyles';
+import { GlobalStyles } from '../../utils';
 
 const AppButton = (props) => {
   return (

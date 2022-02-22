@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import {Button, Icon} from '@ui-kitten/components';
-import colors from '../../utils/colors';
+import {colors} from '../../utils';
 
 const DeleteAction = ({onPress}) => {
   return (

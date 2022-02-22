@@ -21,9 +21,9 @@ import {getToken} from '../../hooks/CommonFunction';
 import {useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {uploadsUrl} from '../../utils/url';
-import colors from '../../utils/colors';
 import {FormButton} from '../../components/elements/AppButton';
 import ErrorMessage from '../../components/elements/ErrorMessage';
+import {colors} from '../../utils';
 
 const EditListing = ({navigation, route}) => {
   const {file} = route.params;
