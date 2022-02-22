@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {Alert, SafeAreaView, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import {Input, ListItem} from '@ui-kitten/components';
 import {useMedia} from '../hooks/MediaHooks';
@@ -12,6 +12,7 @@ const Search = ({navigation}) => {
   const {mediaArray} = useMedia();
   const [filteredData, setFilteredData] = useState([]);
 
+  // update filtered list
   const searchProduct = (textToSearch) => {
     try {
       if (textToSearch === '') {
@@ -25,6 +26,11 @@ const Search = ({navigation}) => {
     } catch (e) {
       console.log('Cant set filtered data', e);
     }
+  };
+
+  // Open modal window for filtering by category
+  const toggleModal = () => {
+    alert('modal opened');
   };
 
   return (
@@ -50,6 +56,9 @@ const Search = ({navigation}) => {
         />
         <ListItem
           accessoryRight={FilterIcon}
+          onPress={() => {
+            toggleModal();
+          }}
           style={{flex: 1, backgroundColor: null}}
         />
       </ListItem>
