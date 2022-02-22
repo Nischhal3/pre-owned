@@ -2,13 +2,13 @@
 import React, {useContext} from 'react';
 import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import from UI Kitten Library
 import {
   Avatar,
   Button,
   ButtonGroup,
+  Divider,
   Icon,
   Layout,
   ListItem,
@@ -22,6 +22,7 @@ import moment from 'moment';
 import colors from '../../utils/colors';
 import {useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
+import {getToken} from '../../hooks/CommonFunction';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
@@ -36,7 +37,7 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
         text: 'OK',
         onPress: async () => {
           try {
-            const token = await AsyncStorage.getItem('userToken');
+            const token = await getToken();
             const response = await deleteMedia(singleItem.file_id, token);
             // update the list after deletion
             response && setUpdate(update + 1);
@@ -90,14 +91,12 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
       {showMyMedia && (
         <ButtonGroup style={styles.buttonGroup} appearance="ghost">
           <Button
-            style={styles.btn}
             accessoryLeft={<Icon name="edit-outline" />}
             onPress={() => {
               navigation.navigate('Edit Listing', {file: singleItem});
             }}
           />
           <Button
-            style={styles.btn}
             accessoryLeft={<Icon name="trash-2-outline" />}
             onPress={() => {
               deleteListing();
@@ -110,16 +109,12 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
 };
 
 const styles = StyleSheet.create({
-  btn: {
-    backgroundColor: colors.primary,
-  },
-
   buttonGroup: {
     flex: 3.5,
     right: -5,
     width: 100,
     alignSelf: 'center',
-    backgroundColor: colors.primary,
+    // backgroundColor: colors.primary,
   },
   displayTime: {
     flex: 2,
@@ -130,7 +125,6 @@ const styles = StyleSheet.create({
   layout: {
     flex: 2,
     flexDirection: 'row',
-    backgroundColor: colors.primary,
     marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',

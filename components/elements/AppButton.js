@@ -4,24 +4,24 @@ import {SafeAreaView, TouchableOpacity} from 'react-native';
 import colors from '../../utils/colors';
 import GlobalStyles from '../../utils/GlobalStyles';
 
-const AppButton = ({title, onPress, color = colors.btnBackground, style}) => {
+const AppButton = (props, style) => {
   return (
-    <TouchableOpacity>
+    // <TouchableOpacity>
       <Button
-        size="small"
-        style={[GlobalStyles.btnStyle, style]}
-        onPress={onPress}
+        style={[GlobalStyles.btnStyle, props.appBtnStyle]}
+        onPress={props.onPress}
+        accessoryLeft={props.accessoryLeft}
       >
-        {title}
+        {props.title}
       </Button>
-    </TouchableOpacity>
+    //  </TouchableOpacity>
   );
 };
 
 const FormButton = (props, style) => {
   return (
     <Button
-      style={[GlobalStyles.formButtonStyle, style]}
+      style={[GlobalStyles.formButtonStyle, props.style]}
       onPress={props.handleSubmit(props.onSubmit)}
       disabled={props.disabled}
     >

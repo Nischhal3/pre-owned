@@ -9,10 +9,11 @@ export default StyleSheet.create({
 
   btnStyle: {
     width: 300,
-    height: 60,
-    margin: 10,
+    height: 50,
+    margin: 20,
     borderRadius: 19,
     fontFamily: 'Karla_700Bold',
+    alignSelf: 'center',
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
   },
@@ -20,12 +21,11 @@ export default StyleSheet.create({
   formButtonStyle: {
     width: '50%',
     height: 50,
-    marginBottom: 5,
     borderRadius: 20,
     alignSelf: 'center',
     fontFamily: 'Karla_700Bold',
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
-    marginTop: Platform.OS === 'android' ? -20 : 0,
+    // marginTop: Platform.OS === 'android' ? -20 : 0,
   },
 });
