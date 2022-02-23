@@ -4,7 +4,7 @@ import {StyleSheet, TouchableHighlight, Platform} from 'react-native';
 import moment from 'moment';
 // Import from UI Kitten Library
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {Swipeable} from 'react-native-gesture-handler';
 
 // Import from files
 import {PointRightArrow} from '../elements/Icons';
@@ -41,7 +41,7 @@ const ListDetail = ({
           </Layout>
           {showMessages ? (
             <Text style={styles.time}>
-              {moment(timeAdded).format('DD.MM.YYYY HH:mm')}
+              {moment(timeAdded).format('     HH:mm DD.MM.YYYY ')}
             </Text>
           ) : null}
 
@@ -61,7 +61,7 @@ const ListDetail = ({
 const styles = StyleSheet.create({
   arrowIcon: {
     // marginLeft: 10,
-    backgroundColor: colors.text_light,
+    backgroundColor: colors.primary,
     flex: 1,
     right: Platform.OS === 'android' ? 40 : 20,
   },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     padding: 10,
-    backgroundColor: colors.container,
+    backgroundColor: colors.primary,
     justifyContent: 'space-between',
   },
   description: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     // alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.container,
+    backgroundColor: colors.primary,
   },
   image: {
     width: 70,
@@ -91,10 +91,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.container,
   },
   time: {
-    fontSize: 14,
+    width: 70,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    fontSize: 12,
     fontFamily: 'Karla_400Regular',
     bottom: -5,
-    right: 100,
+    top: 15,
+    right: 70,
+    lineHeight: 20,
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });

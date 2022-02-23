@@ -1,15 +1,10 @@
 import React, {useContext, useEffect} from 'react';
-import {
-  Alert,
-  StyleSheet,
-
-  TouchableWithoutFeedback,
-} from 'react-native';
+import {Alert, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {useMessage} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 
-const DeleteAction = ({item}) => {
+const DeleteAction = ({onPress}) => {
   const animation = React.createRef(); // animation
 
   useEffect(() => {
@@ -19,30 +14,29 @@ const DeleteAction = ({item}) => {
   // delete function
   const {deleteMessage} = useMessage();
   const {update, setUpdate} = useContext(MainContext);
-  const handleDelete = () => {
-    console.log(item);
+  // const handleDelete = () => {
+  //   console.log(item);
 
-    Alert.alert('Delete Message', 'Confirm delete action?', [
-      {text: 'Cancel'},
-      {
-        text: 'OK',
-        onPress: async () => {
-          try {
-            const response = await deleteMessage(item.comment_id);
-            console.log(response);
-            // update the list after deletion
-            response && setUpdate(update + 1);
-          } catch (e) {
-            console.error(e);
-          }
-        },
-      },
-    ]);
-  };
+  //   Alert.alert('Delete Message', 'Confirm delete action?', [
+  //     {text: 'Cancel'},
+  //     {
+  //       text: 'OK',
+  //       onPress: async () => {
+  //         try {
+  //           const response = await deleteMessage(item.comment_id);
+  //           console.log(response);
+  //           // update the list after deletion
+  //           response && setUpdate(update + 1);
+  //         } catch (e) {
+  //           console.error(e);
+  //         }
+  //       },
+  //     },
+  //   ]);
+  // };
 
   return (
-
-    <TouchableWithoutFeedback onPress={handleDelete}>
+    <TouchableWithoutFeedback onPress={onPress}>
       <LottieView
         ref={animation}
         style={styles.animation}
