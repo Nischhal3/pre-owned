@@ -1,13 +1,25 @@
 import {Icon} from '@ui-kitten/components';
 import React from 'react';
+import {View} from 'react-native';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Right arrow for lists
 const PointRightArrow = (props) => (
   <Icon {...props} name="chevron-right-outline" />
 );
+
+// CategoryIcon
+const CategoryIcon = ({name, size = 22}) => {
+  return (
+    <View>
+      <MaterialCommunityIcons name={name} size={size} />
+    </View>
+  );
+};
+
 // FilterIcon
 const FilterIcon = (props) => <Icon {...props} name="funnel-outline" />;
 
 const SearchIcon = (props) => <Icon {...props} name="search-outline" />;
 
-export {PointRightArrow, FilterIcon, SearchIcon};
+export {PointRightArrow, CategoryIcon, FilterIcon, SearchIcon};

@@ -10,6 +10,7 @@ const MainProvider = ({children}) => {
   const [update, setUpdate] = useState(0);
   const [loading, setLoading] = useState(false);
   const [updateMessage, setUpdateMessage] = useState(0);
+  const [media, setMedia] = useState([]);
 
   return (
     <MainContext.Provider
@@ -26,6 +27,8 @@ const MainProvider = ({children}) => {
         setLoading,
         updateMessage,
         setUpdateMessage,
+        media,
+        setMedia,
       }}
     >
       {children}

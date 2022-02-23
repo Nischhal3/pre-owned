@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
@@ -23,7 +23,7 @@ import FormInput from '../../components/formComponents/FormInput';
 import colors from '../../utils/colors';
 import {appId} from '../../utils/url';
 import {getToken} from '../../hooks/CommonFunction';
-import {postMedia, postTag} from '../../hooks/MediaHooks';
+import {getFilesByTag, postMedia, postTag} from '../../hooks/MediaHooks';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState(
@@ -33,7 +33,9 @@ const AddListing = ({navigation}) => {
   const [image, setImage] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
-  const {update, setUpdate, loading, setLoading} = useContext(MainContext);
+  const {update, setUpdate, loading, setLoading, media, setMedia} =
+    useContext(MainContext);
+  const [category, setCategory] = useState('');
 
   const {
     control,
@@ -64,6 +66,7 @@ const AddListing = ({navigation}) => {
   };
 
   const onSubmit = async (data) => {
+    setImageSelected(false);
     setLoading(true);
     if (!imageSelected) {
       Alert.alert('Please select file');
@@ -93,7 +96,7 @@ const AddListing = ({navigation}) => {
       // console.log('Media upload', response);
 
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: appId},
+        {file_id: response.file_id, tag: `${appId}_${category}`},
         token
       );
       // console.log('upload response', tagResponse);
@@ -194,7 +197,7 @@ const AddListing = ({navigation}) => {
           rules={{
             required: {value: true, message: 'This is required.'},
             minLength: {
-              value: 10,
+              value: 5,
               message: 'Description has to be at least 10 characters.',
             },
           }}
@@ -219,8 +222,9 @@ const AddListing = ({navigation}) => {
             {errors.description && errors.description.message}{' '}
           </Text>
         )}
-        {/* should this be required? */}
-        <CategoryPicker />
+
+        <CategoryPicker setCategory={setCategory} />
+
         <FormButton
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
@@ -236,6 +240,7 @@ const AddListing = ({navigation}) => {
               'Upload'
             )
           }
+          disabled={!imageSelected}
           style={styles.uploadBtn}
         />
         {/* <ActivityIndicator animating={loading} color="#6B818C" size="large" /> */}

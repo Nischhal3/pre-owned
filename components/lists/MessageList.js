@@ -29,7 +29,7 @@ import {colors} from '../../utils';
 import DeleteAction from '../elements/DeleteAction';
 
 const MessageList = ({fileId, showMessages = false}) => {
-  const {deleteMessage, postMessage, getMessagesByFileId} = useMessage(
+  const {postMessage, getMessagesByFileId} = useMessage(
     fileId,
     showMessages
   );
@@ -62,23 +62,25 @@ const MessageList = ({fileId, showMessages = false}) => {
   };
   // function delete a message
   const handleDelete = () => {
-    Alert.alert('Delete Message', 'Confirm delete action?', [
-      {text: 'Cancel'},
-      {
-        text: 'OK',
-        onPress: async (data) => {
-          try {
-            const token = await getToken();
-            const response = await deleteMessage(data.comment_id, token);
-            console.log(response);
-            // update the list after deletion
-            response && setUpdate(update + 1);
-          } catch (e) {
-            console.error(e);
-          }
-        },
-      },
-    ]);
+    console.log(messages);
+
+    // Alert.alert('Delete Message', 'Confirm delete action?', [
+    //   {text: 'Cancel'},
+    //   {
+    //     text: 'OK',
+    //     onPress: async (data) => {
+    //       try {
+    //         const token = await getToken();
+    //         const response = await deleteMessage(data.comment_id, token);
+    //         console.log(response);
+    //         // update the list after deletion
+    //         response && setUpdate(update + 1);
+    //       } catch (e) {
+    //         console.error(e);
+    //       }
+    //     },
+    //   },
+    // ]);
   };
   // get msg
   const fetchMessage = async () => {
@@ -198,9 +200,7 @@ const MessageList = ({fileId, showMessages = false}) => {
                 title={item.username}
                 timeAdded={item.time_added}
                 image={{uri: avatar}}
-                renderRightActions={() => (
-                  <DeleteAction onPress={handleDelete} />
-                )}
+                renderRightActions={() => <DeleteAction item={item}  />}
                 ItemSeparatorComponent={Divider}
               />
             )}

@@ -1,28 +1,48 @@
-import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React, {useContext, useEffect} from 'react';
 import {
+  Alert,
   StyleSheet,
-  TouchableHighlight,
-  TouchableOpacity,
+
   TouchableWithoutFeedback,
 } from 'react-native';
-import {Button, Icon} from '@ui-kitten/components';
-import {colors} from '../../utils';
 import LottieView from 'lottie-react-native';
+import {useMessage} from '../../hooks/MediaHooks';
+import {MainContext} from '../../contexts/MainContext';
 
-const DeleteAction = ({onPress}) => {
+const DeleteAction = ({item}) => {
   const animation = React.createRef(); // animation
 
   useEffect(() => {
     animation.current?.play();
   }, []);
+
+  // delete function
+  const {deleteMessage} = useMessage();
+  const {update, setUpdate} = useContext(MainContext);
+  const handleDelete = () => {
+    console.log(item);
+
+    Alert.alert('Delete Message', 'Confirm delete action?', [
+      {text: 'Cancel'},
+      {
+        text: 'OK',
+        onPress: async () => {
+          try {
+            const response = await deleteMessage(item.comment_id);
+            console.log(response);
+            // update the list after deletion
+            response && setUpdate(update + 1);
+          } catch (e) {
+            console.error(e);
+          }
+        },
+      },
+    ]);
+  };
+
   return (
-    // <Button
-    //   onPress={onPress}
-    //   style={styles.container}
-    //   accessoryRight={
-    // }></Button>
-    <TouchableWithoutFeedback onPress={onPress}>
+
+    <TouchableWithoutFeedback onPress={handleDelete}>
       <LottieView
         ref={animation}
         style={styles.animation}
@@ -43,6 +63,6 @@ const styles = StyleSheet.create({
   },
 });
 // DeleteAction.propTypes = {
-//   onPress: PropTypes.object,
+//   item: PropTypes.object,
 // };
 export default DeleteAction;

@@ -18,13 +18,12 @@ import {
 import {PointRightArrow} from '../elements/Icons';
 import {uploadsUrl} from '../../utils/url';
 import moment from 'moment';
-import {useMedia} from '../../hooks/MediaHooks';
+import {deleteMedia, useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {getToken} from '../../hooks/CommonFunction';
 import {colors} from '../../utils';
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
-  const {deleteMedia} = useMedia();
   const {update, setUpdate} = useContext(MainContext);
 
   // function delete a listing

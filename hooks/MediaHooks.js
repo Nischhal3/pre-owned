@@ -1,33 +1,81 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import {appId, baseUrl} from '../utils/url';
-import {fetchData} from './CommonFunction';
+import {fetchData, fetchFromMedia} from './CommonFunction';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update} = useContext(MainContext);
   const [loading, setLoading] = useState(false);
 
+  // Category items
+  const [home, setHome] = useState([]);
+  const [electronics, setElectornics] = useState([]);
+  const [clothing, setClothing] = useState([]);
+  const [sports, setSports] = useState([]);
+  const [gaming, setGaming] = useState([]);
+  const [others, setOthers] = useState([]);
+
+  // Category tags
+  const homeTag = `${appId}_Home & Living`;
+  const electronicsTag = `${appId}_Electronics`;
+  const clothingTag = `${appId}_Clothing`;
+  const sportsTag = `${appId}_Sports`;
+  const gamingTag = `${appId}_Gaming & Accessories`;
+  const othersTag = `${appId}_Others`;
+
   const fetchMedia = async () => {
     try {
-      const json = await getFilesByTag(appId);
-      // if (myFilesOnly) {
-      //   json = json.filter((item) => item.user_id === user.user_id);
-      // }
+      // Fetching items by category
+      const homeMedia = await getFilesByTag(homeTag);
+      const electronicsMedia = await getFilesByTag(electronicsTag);
+      const clothingMedia = await getFilesByTag(clothingTag);
+      const sportsMedia = await getFilesByTag(sportsTag);
+      const gamingMedia = await getFilesByTag(gamingTag);
+      const othersMedia = await getFilesByTag(othersTag);
 
-      const media = await Promise.all(
-        json.map(async (item) => {
-          const response = await fetch(baseUrl + 'media/' + item.file_id);
-          const mediaData = await response.json();
-          // console.log(mediaData);
-          return mediaData;
-        })
+      // Storing items by category
+      const homeCategory = await fetchFromMedia(homeMedia, setHome);
+      const electronicsCategory = await fetchFromMedia(
+        electronicsMedia,
+        setElectornics
       );
-      setMediaArray(media);
+      const clothingCategory = await fetchFromMedia(clothingMedia, setClothing);
+      const sportsCategory = await fetchFromMedia(sportsMedia, setSports);
+      const gamingCategory = await fetchFromMedia(gamingMedia, setGaming);
+      const othersCategory = await fetchFromMedia(othersMedia, setOthers);
+
+      // Storing all the media category in single array
+      setMediaArray([
+        ...homeCategory,
+        ...electronicsCategory,
+        ...clothingCategory,
+        ...sportsCategory,
+        ...gamingCategory,
+        ...othersCategory,
+      ]);
+      //console.log('Length', mediaArray.length);
     } catch (error) {
       console.log('Error', error);
     }
   };
+
+  // const setMedianInArray = () => {
+  //   // Storing all the media category in single array
+  //   setMediaArray([
+  //     ...home,
+  //     ...electronics,
+  //     ...clothing,
+  //     ...sports,
+  //     ...gaming,
+  //     ...others,
+  //   ]);
+  // };
+
+  // useEffect(() => {
+  //   setMedianInArray();
+  //   return () => {};
+  // }, [home, electronics, sports, gaming, clothing, others]);
 
   // Call loadMedia() only once when the component is loaded
   // Or when the update state is changed in MainContext
@@ -36,26 +84,15 @@ const useMedia = () => {
     // return () => {};
   }, [update]);
 
-  const putMedia = async (data, token, fileId) => {
-    const options = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      },
-      body: JSON.stringify(data),
-    };
-    return await fetchData(baseUrl + `media/${fileId}`, options);
+  return {
+    mediaArray,
+    home,
+    electronics,
+    clothing,
+    sports,
+    gaming,
+    others,
   };
-
-  const deleteMedia = async (fileId, token) => {
-    const options = {
-      method: 'DELETE',
-      headers: {'x-access-token': token},
-    };
-    return await fetchData(`${baseUrl}media/${fileId}`, options);
-  };
-  return {mediaArray, putMedia, deleteMedia};
 };
 
 const postMedia = async (formData, token) => {
@@ -74,30 +111,6 @@ const postMedia = async (formData, token) => {
 
 // Messages (comment)
 const useMessage = () => {
-  // const [messageArray, setMessagesArray] = useState([]);
-  // const {update} = useContext(MainContext);
-
-  // const loadMessages = async () => {
-  //   try {
-  //     const json = await getFilesByTag(appId);
-
-  //     const messages = await Promise.all(
-  //       json.map(async (item) => {
-  //         const response = await fetch(baseUrl + 'comments/' + item.file_id);
-  //         const messageData = await response.json();
-  //         console.log('from hooks', messageData);
-  //         return messageData;
-  //       })
-  //     );
-  //     setMessagesArray(messages);
-  //   } catch (error) {
-  //     console.log('Error', error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   loadMessages(0, 5);
-  // }, [update]);
-
   const getMessagesByFileId = async (fileId) => {
     return await fetchData(`${baseUrl}comments/file/${fileId}`);
   };
@@ -114,15 +127,35 @@ const useMessage = () => {
 
     return await fetchData(`${baseUrl}comments`, options);
   };
-  const deleteMessage = async (msgId, token) => {
+  const deleteMessage = async (msgId) => {
     const options = {
       method: 'DELETE',
-      headers: {'x-access-token': token},
+      // headers: {'x-access-token': token},
     };
     return await fetchData(`${baseUrl}/comments/${msgId}`, options);
   };
 
   return {deleteMessage, getMessagesByFileId, postMessage};
+};
+
+const putMedia = async (data, token, fileId) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify(data),
+  };
+  return await fetchData(baseUrl + `media/${fileId}`, options);
+};
+
+const deleteMedia = async (fileId, token) => {
+  const options = {
+    method: 'DELETE',
+    headers: {'x-access-token': token},
+  };
+  return await fetchData(`${baseUrl}media/${fileId}`, options);
 };
 
 const postTag = async (tagData, token) => {
@@ -172,4 +205,13 @@ const useFavourite = () => {
   return {postFavourite, deleteFavourite, getFavourtiesByFileId};
 };
 
-export {getFilesByTag, postMedia, postTag, useMessage, useMedia, useFavourite};
+export {
+  getFilesByTag,
+  postMedia,
+  putMedia,
+  deleteMedia,
+  postTag,
+  useMedia,
+  useMessage,
+  useFavourite,
+};
