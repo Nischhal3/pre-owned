@@ -65,8 +65,11 @@ const useMedia = () => {
   // Call loadMedia() only once when the component is loaded
   // Or when the update state is changed in MainContext
   useEffect(() => {
+    let isCancelled = false;
     fetchMedia();
-    return () => {};
+    return () => {
+      isCancelled = true;
+    };
   }, [update]);
 
   const putMedia = async (data, token, fileId) => {
