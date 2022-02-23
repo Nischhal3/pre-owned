@@ -13,17 +13,16 @@ import {
 
 // Import from Library UI Kitten
 import {Card, Divider, Layout, Text} from '@ui-kitten/components';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Import from files
 import colors from '../utils/colors';
-import GlobalStyles from '../utils/GlobalStyles';
 import {useFavourite} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
 import {ListDetail, MessageList} from '../components/lists';
 import LottieView from 'lottie-react-native';
+import {GlobalStyles} from '../utils';
 
 const ProductDetail = ({route, navigation, profile, fileId}) => {
   const {file} = route.params;
@@ -56,6 +55,9 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
   const [userLike, setUserLike] = useState(false);
   const {user} = useContext(MainContext);
   const [name, setName] = useState('');
+  // favorite animation
+  const animation = React.useRef(null);
+  const isFirstRun = React.useRef(true);
 
   // add to favourite
   const fetchLikes = async () => {
@@ -94,60 +96,84 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
 
   useEffect(() => {
     fetchLikes();
+    if (isFirstRun.current) {
+      if (userLike) {
+        animation.current.play(66, 66);
+      } else {
+        animation.current.play(19, 19);
+      }
+      isFirstRun.current = false;
+    } else if (userLike) {
+      animation.current.play(19, 50);
+    } else {
+      animation.current.play(0, 19);
+    }
   }, [userLike]);
+
   const onSubmit = async () => {
     userLike ? await unlike() : addLike();
   };
 
   return (
-    // <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
-    <ScrollView style={styles.detailsContainer}>
-      <Image style={styles.image} source={{uri: uploadsUrl + file.filename}} />
-      <Layout style={styles.container}>
-        <Layout style={styles.textbox}>
-          <Text style={styles.title}>{file.title}</Text>
-          {/* <Text style={styles.price}>35€</Text> */}
+    <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+      <ScrollView style={styles.detailsContainer}>
+        <Image
+          style={styles.image}
+          source={{uri: uploadsUrl + file.filename}}
+        />
+        <Layout style={styles.container}>
+          <Layout style={styles.textbox}>
+            <Text style={styles.title}>{file.title}</Text>
+          </Layout>
+
+          <Pressable
+            onPress={onSubmit}
+            style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
+          >
+            <LottieView
+              ref={animation}
+              source={require('../assets/icons/like-animation.json')}
+              autoPlay={false}
+              loop={false}
+              style={{width: 60, height: 60}}
+            />
+            <Text category="s1" style={{right: '40%', bottom: 5}}>
+              {likes.length}
+            </Text>
+          </Pressable>
         </Layout>
 
-        <Pressable onPress={onSubmit}>
-          <MaterialCommunityIcons
-            name={userLike ? 'heart' : 'heart-outline'}
-            size={32}
-            style={{right: 10}}
-            color={userLike ? 'red' : 'black'}
-          />
+        <Divider />
 
-          <Text category="s1">{likes.length}</Text>
-        </Pressable>
-      </Layout>
+        <ListDetail
+          onPress={() => {
+            navigation.navigate('Profile', {profileParam: file.user_id});
+          }}
+          style={styles.userContainer}
+          image={{uri: avatar}}
+          title={name}
+          description="5 Listings"
+        />
+        <Divider />
+        <Layout style={styles.detailsContainer}>
+          <Text category="s1" style={styles.detail}>
+            Price & Details
+          </Text>
+          <Text
+            style={styles.detailDescription}
+            category="c1"
+            numberOfLines={4}
+          >
+            {file.description}
+          </Text>
+        </Layout>
 
-      <Divider />
-
-      <ListDetail
-        onPress={() => {
-          navigation.navigate('Profile', {profileParam: file.user_id});
-        }}
-        style={styles.userContainer}
-        image={{uri: avatar}}
-        title={name}
-        description="5 Listings"
-      />
-      <Divider />
-      <Layout style={styles.detailsContainer}>
-        <Text category="s1" style={styles.detail}>
-          Price & Details
+        <Text category="s1" style={styles.detailsContainer}>
+          Send the Seller a message
         </Text>
-        <Text style={styles.detailDescription} category="c1" numberOfLines={4}>
-          {file.description}
-        </Text>
-      </Layout>
-
-      <Text category="s1" style={styles.detailsContainer}>
-        Send the Seller a message
-      </Text>
-      <MessageList fileId={file.file_id} />
-    </ScrollView>
-    // </SafeAreaView>
+        <MessageList fileId={file.file_id} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
