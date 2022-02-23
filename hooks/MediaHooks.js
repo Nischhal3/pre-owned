@@ -88,7 +88,17 @@ const useMedia = () => {
     };
     return await fetchData(`${baseUrl}media/${fileId}`, options);
   };
-  return {mediaArray, putMedia, deleteMedia};
+  return {
+    mediaArray,
+    home,
+    electronics,
+    clothing,
+    sports,
+    gaming,
+    others,
+    putMedia,
+    deleteMedia,
+  };
 };
 
 const postMedia = async (formData, token) => {
