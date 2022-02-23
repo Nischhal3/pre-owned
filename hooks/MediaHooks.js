@@ -26,8 +26,6 @@ const useMedia = () => {
 
   const fetchMedia = async () => {
     try {
-      const json = await getFilesByTag(appId);
-
       // Fetching items by category
       const homeMedia = await getFilesByTag(homeTag);
       const electronicsMedia = await getFilesByTag(electronicsTag);
@@ -36,7 +34,7 @@ const useMedia = () => {
       const gamingMedia = await getFilesByTag(gamingTag);
       const othersMedia = await getFilesByTag(othersTag);
 
-      // Storing itesm by category
+      // Storing items by category
       const homeCategory = await fetchFromMedia(homeMedia, setHome);
       const electronicsCategory = await fetchFromMedia(
         electronicsMedia,
@@ -56,41 +54,36 @@ const useMedia = () => {
         ...gamingCategory,
         ...othersCategory,
       ]);
-      console.log('Length', mediaArray.length);
+      //console.log('Length', mediaArray.length);
     } catch (error) {
       console.log('Error', error);
     }
   };
 
+  // const setMedianInArray = () => {
+  //   // Storing all the media category in single array
+  //   setMediaArray([
+  //     ...home,
+  //     ...electronics,
+  //     ...clothing,
+  //     ...sports,
+  //     ...gaming,
+  //     ...others,
+  //   ]);
+  // };
+
+  // useEffect(() => {
+  //   setMedianInArray();
+  //   return () => {};
+  // }, [home, electronics, sports, gaming, clothing, others]);
+
   // Call loadMedia() only once when the component is loaded
   // Or when the update state is changed in MainContext
   useEffect(() => {
-    let isCancelled = false;
     fetchMedia();
-    return () => {
-      isCancelled = true;
-    };
+    return () => {};
   }, [update]);
 
-  const putMedia = async (data, token, fileId) => {
-    const options = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      },
-      body: JSON.stringify(data),
-    };
-    return await fetchData(baseUrl + `media/${fileId}`, options);
-  };
-
-  const deleteMedia = async (fileId, token) => {
-    const options = {
-      method: 'DELETE',
-      headers: {'x-access-token': token},
-    };
-    return await fetchData(`${baseUrl}media/${fileId}`, options);
-  };
   return {
     mediaArray,
     home,
@@ -99,8 +92,6 @@ const useMedia = () => {
     sports,
     gaming,
     others,
-    putMedia,
-    deleteMedia,
   };
 };
 
@@ -116,6 +107,26 @@ const postMedia = async (formData, token) => {
 
   const response = await fetchData(`${baseUrl}media`, options);
   return response;
+};
+
+const putMedia = async (data, token, fileId) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify(data),
+  };
+  return await fetchData(baseUrl + `media/${fileId}`, options);
+};
+
+const deleteMedia = async (fileId, token) => {
+  const options = {
+    method: 'DELETE',
+    headers: {'x-access-token': token},
+  };
+  return await fetchData(`${baseUrl}media/${fileId}`, options);
 };
 
 const postTag = async (tagData, token) => {
@@ -165,4 +176,12 @@ const useFavourite = () => {
   return {postFavourite, deleteFavourite, getFavourtiesByFileId};
 };
 
-export {getFilesByTag, postMedia, postTag, useMedia, useFavourite};
+export {
+  getFilesByTag,
+  postMedia,
+  putMedia,
+  deleteMedia,
+  postTag,
+  useMedia,
+  useFavourite,
+};
