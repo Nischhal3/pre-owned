@@ -18,7 +18,7 @@ import {Card, Input} from '@ui-kitten/components';
 
 // Import from files
 import {getToken} from '../../hooks/CommonFunction';
-import {useMedia} from '../../hooks/MediaHooks';
+import {putMedia, useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {uploadsUrl} from '../../utils/url';
 import {FormButton} from '../../components/elements/AppButton';
@@ -27,7 +27,6 @@ import ErrorMessage from '../../components/elements/ErrorMessage';
 
 const EditListing = ({navigation, route}) => {
   const {file} = route.params;
-  const {putMedia} = useMedia();
   const {update, setUpdate} = useContext(MainContext);
 
   const {
