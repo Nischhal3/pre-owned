@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Divider, List} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
@@ -11,15 +11,16 @@ import {useFavourite, useMedia} from '../hooks/MediaHooks';
 const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
   const {getFavourtiesByFileId} = useFavourite();
+  const [likes, setLikes] = useState(new Array(mediaArray.length).fill(''));
 
-  // const getFavourites = (id) => {
-  //   console.log(id);
-  //   return getFavourtiesByFileId(id).length;
-  // };
+  const file = mediaArray.map((item) => {
+    console.log(item.file_id);
+  });
 
-  // mediaArray.sort(
-  //   (a, b) => getFavourites(a.file_id) < getFavourites(b.file_id)
-  // );
+  const likeData = getFavourtiesByFileId(file);
+  setLikes(likeData);
+
+  console.log(likes.length);
 
   return (
     <SafeAreaView>
@@ -34,7 +35,6 @@ const PopularNow = ({navigation}) => {
             navigation={navigation}
             singleItem={item}
             displayText={true}
-            // file={getFavourites(item)}
           />
         )}
       ></List>

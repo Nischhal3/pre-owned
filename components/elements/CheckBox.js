@@ -18,6 +18,8 @@ const ModalCheckBox = () => {
     new Array(categoryNames.length).fill(false)
   );
 
+  console.log(checkedState);
+
   // Handle checkBox state on click
   const handleOnChange = (position) => {
     try {
@@ -25,7 +27,6 @@ const ModalCheckBox = () => {
         index === position ? !item : item
       );
       setCheckedState(updatedCheckedState);
-      console.log(checkedState);
     } catch (e) {
       console.log('Filter update failed', e);
     }
