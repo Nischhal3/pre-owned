@@ -42,7 +42,11 @@ const GalleryListVertical = ({navigation}) => {
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
-        <GalleryItemVertical navigation={navigation} singleItem={item} />
+        <GalleryItemVertical
+          navigation={navigation}
+          singleItem={item}
+          displayText={false}
+        />
       )}
     ></List>
   );

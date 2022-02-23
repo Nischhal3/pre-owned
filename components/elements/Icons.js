@@ -5,5 +5,9 @@ import React from 'react';
 const PointRightArrow = (props) => (
   <Icon {...props} name="chevron-right-outline" />
 );
+// FilterIcon
+const FilterIcon = (props) => <Icon {...props} name="funnel-outline" />;
 
-export {PointRightArrow};
+const SearchIcon = (props) => <Icon {...props} name="search-outline" />;
+
+export {PointRightArrow, FilterIcon, SearchIcon};
