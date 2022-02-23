@@ -1,15 +1,6 @@
 // import from React
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {
-  View,
-  Alert,
-  StyleSheet,
-  Pressable,
-  Platform,
-  StatusBar,
-  ScrollView,
-  FlatList,
-} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
@@ -102,7 +93,12 @@ const MessageList = ({fileId, showMessages = false}) => {
     }
   };
   useEffect(() => {
-    fetchMessage();
+    let isMounted = true; // fix memory leaks warning
+    if (isMounted) {
+      fetchMessage();
+    } else {
+      return (isMounted = false);
+    }
   }, [messages]);
   // send Message
   const sendMessage = async (data) => {

@@ -1,6 +1,11 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Button, Icon} from '@ui-kitten/components';
 import {colors} from '../../utils';
 import LottieView from 'lottie-react-native';
@@ -12,20 +17,19 @@ const DeleteAction = ({onPress}) => {
     animation.current?.play();
   }, []);
   return (
-    // <TouchableWithoutFeedback>
-    //   <Button
-    //     onPress={onPress}
-    //     style={styles.container}
-    //     accessoryRight={
-    <LottieView
-      ref={animation}
-      style={styles.animation}
-      source={require('../../assets/icons/trash-can-animation.json')}
-      loop={true}
-    />
-    //     }
-    //   ></Button>
-    // </TouchableWithoutFeedback>
+    // <Button
+    //   onPress={onPress}
+    //   style={styles.container}
+    //   accessoryRight={
+    // }></Button>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <LottieView
+        ref={animation}
+        style={styles.animation}
+        source={require('../../assets/icons/trash-can-animation.json')}
+        loop={true}
+      />
+    </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({
@@ -38,7 +42,7 @@ const styles = StyleSheet.create({
     left: 15,
   },
 });
-DeleteAction.propTypes = {
-  onPress: PropTypes.object,
-};
+// DeleteAction.propTypes = {
+//   onPress: PropTypes.object,
+// };
 export default DeleteAction;
