@@ -9,10 +9,12 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  View,
 } from 'react-native';
+import {Shadow} from 'react-native-shadow-2';
 
 // Import from Library UI Kitten
-import {Divider, Layout, Text} from '@ui-kitten/components';
+import {Card, Divider, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
@@ -23,6 +25,7 @@ import {getUserById} from '../hooks/ApiHooks';
 import {ListDetail, MessageList} from '../components/lists';
 import LottieView from 'lottie-react-native';
 import {GlobalStyles} from '../utils';
+import ItemSeparator from '../components/elements/ItemSeparator';
 
 const ProductDetail = ({route, navigation, profile, fileId}) => {
   const {file} = route.params;
@@ -116,46 +119,52 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
 
   return (
     <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
-      <ScrollView style={styles.detailsContainer}>
+      <ScrollView>
         <Image
           style={styles.image}
           source={{uri: uploadsUrl + file.filename}}
         />
-        <Layout style={styles.container}>
-          <Layout style={styles.textbox}>
+
+        {/* <Shadow> */}
+        <Card style={styles.card}>
+          <View style={styles.container}>
+            {/* <Layout style={styles.textbox}> */}
             <Text style={styles.title}>{file.title}</Text>
-          </Layout>
+            {/* </Layout> */}
 
-          <Pressable
-            onPress={onSubmit}
-            style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
-          >
-            <LottieView
-              ref={animation}
-              source={require('../assets/icons/like-animation.json')}
-              autoPlay={false}
-              loop={false}
-              style={{width: 60, height: 60}}
-            />
-            <Text category="s1" style={{right: '40%', bottom: 5, fontSize: 14}}>
-              {likes.length}
-            </Text>
-          </Pressable>
-        </Layout>
+            <Pressable
+              onPress={onSubmit}
+              style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
+            >
+              <LottieView
+                ref={animation}
+                source={require('../assets/icons/like-animation.json')}
+                autoPlay={false}
+                loop={false}
+                style={{width: 60, height: 60}}
+              />
+              <Text
+                category="s1"
+                style={{right: '40%', bottom: 5, fontSize: 14}}
+              >
+                {likes.length}
+              </Text>
+            </Pressable>
+          </View>
 
-        <Divider />
+          <ItemSeparator />
 
-        <ListDetail
-          onPress={() => {
-            navigation.navigate('Profile', {profileParam: file.user_id});
-          }}
-          style={styles.userContainer}
-          image={{uri: avatar}}
-          title={name}
-          description="5 Listings"
-        />
-        <Divider />
-        <Layout style={styles.detailsContainer}>
+          <ListDetail
+            onPress={() => {
+              navigation.navigate('Profile', {profileParam: file.user_id});
+            }}
+            style={styles.userContainer}
+            image={{uri: avatar}}
+            title={name}
+            description="5 Listings"
+          />
+          <ItemSeparator />
+          {/* <Layout style={styles.detailsContainer}> */}
           <Text category="s1" style={styles.detail}>
             Price & Details
           </Text>
@@ -166,44 +175,57 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
           >
             {file.description}
           </Text>
-        </Layout>
-
-        <Text category="s1" style={styles.detailsContainer}>
-          Send the Seller a message
-        </Text>
-        <MessageList fileId={file.file_id} />
+          <ItemSeparator />
+          <Text category="s1" style={styles.detail}>
+            Send the Seller a message
+          </Text>
+          {/* </Layout> */}
+          <MessageList fileId={file.file_id} />
+        </Card>
+        {/* </Shadow> */}
       </ScrollView>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  card: {
+    backgroundColor: colors.primary,
+    borderRadius: 45,
+    width: '90%',
+    alignSelf: 'center',
+  },
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     height: 100,
     padding: 15,
-    backgroundColor: colors.container,
+    // backgroundColor: colors.container,
   },
 
   detail: {
     fontFamily: 'Karla_700Bold',
     fontSize: 16,
+    paddingVertical: 10,
+    paddingLeft: 15,
   },
   detailsContainer: {
-    padding: 10,
     fontSize: 16,
     fontFamily: 'Karla_700Bold',
   },
   detailDescription: {
-    paddingVertical: 15,
     lineHeight: 16,
     fontSize: 14,
     fontFamily: 'Karla',
+    paddingBottom: 15,
+    paddingLeft: 15,
   },
   image: {
     width: '100%',
-    height: 300,
+    height: 280,
+    marginBottom: 10,
+    // borderBottomLeftRadius: 10,
+    // borderBottomRightRadius: 10,
   },
   price: {
     color: colors.text_dark,
@@ -218,7 +240,12 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 150,
   },
-
+  shadowProp: {
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
   textbox: {
     flexDirection: 'column',
     flex: 7,
@@ -226,7 +253,7 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.container,
+    // backgroundColor: colors.container,
   },
   title: {
     fontFamily: 'Karla_700Bold',
@@ -235,7 +262,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     fontWeight: '500',
     alignSelf: 'center',
-    top: 15,
   },
   userContainer: {
     marginVertical: 40,
