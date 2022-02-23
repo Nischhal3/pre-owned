@@ -1,7 +1,7 @@
 // Import from React
 import React from 'react';
 import {StyleSheet, TouchableHighlight, Platform} from 'react-native';
-
+import moment from 'moment';
 // Import from UI Kitten Library
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -39,7 +39,12 @@ const ListDetail = ({
               {description}
             </Text>
           </Layout>
-          <Text style={styles.time}>{timeAdded}</Text>
+          {showMessages ? (
+            <Text style={styles.time}>
+              {moment(timeAdded).format('DD.MM.YYYY HH:mm')}
+            </Text>
+          ) : null}
+
           {!showMessages ? (
             <ListItem
               style={styles.arrowIcon}
@@ -55,7 +60,7 @@ const ListDetail = ({
 };
 const styles = StyleSheet.create({
   arrowIcon: {
-    marginLeft: 20,
+    // marginLeft: 10,
     backgroundColor: colors.text_light,
     flex: 1,
     right: Platform.OS === 'android' ? 40 : 20,

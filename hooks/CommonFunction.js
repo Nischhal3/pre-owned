@@ -23,17 +23,4 @@ const getToken = async () => {
   return await AsyncStorage.getItem('userToken');
 };
 
-// Time Converting
-const getLocalTime = () => {
-  const convertToLocalTime = (date) => {
-    const year = date.slice(2, 4);
-    const month = date.slice(5, 7);
-    const day = date.slice(8, 10);
-    const hour = date.slice(11, 13);
-    const minute = date.slice(14, 16);
-
-    return `${day}/${month}/${year} ${hour}:${minute}`;
-  };
-  return {convertToLocalTime};
-};
-export {getToken, getLocalTime, fetchData};
+export {getToken, fetchData};

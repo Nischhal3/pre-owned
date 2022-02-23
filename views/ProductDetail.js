@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 // Import from Library UI Kitten
-import {Card, Divider, Layout, Text} from '@ui-kitten/components';
+import {Divider, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';

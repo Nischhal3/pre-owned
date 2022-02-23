@@ -23,7 +23,7 @@ import {useMessage} from '../../hooks/MediaHooks';
 import {getUserById} from '../../hooks/ApiHooks';
 import {MainContext} from '../../contexts/MainContext';
 import FormInput from '../formComponents/FormInput';
-import {getLocalTime, getToken} from '../../hooks/CommonFunction';
+import {getToken} from '../../hooks/CommonFunction';
 import ListDetail from './ListDetail';
 import {colors} from '../../utils';
 import DeleteAction from '../elements/DeleteAction';
@@ -39,7 +39,6 @@ const MessageList = ({fileId, showMessages = false}) => {
   // const [senderName, setSenderName] = useState('');
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
-  const {convertToLocalTime} = getLocalTime();
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
@@ -194,9 +193,10 @@ const MessageList = ({fileId, showMessages = false}) => {
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
               <ListDetail
+                showMessages={true}
                 description={item.comment}
                 title={item.username}
-                timeAdded={convertToLocalTime(item.time_added)}
+                timeAdded={item.time_added}
                 image={{uri: avatar}}
                 renderRightActions={() => (
                   <DeleteAction onPress={handleDelete} />
