@@ -3,20 +3,11 @@ import React from 'react';
 import {StyleSheet, TouchableHighlight, Platform} from 'react-native';
 import moment from 'moment';
 // Import from UI Kitten Library
-import {
-  Avatar,
-  Button,
-  Icon,
-  Layout,
-  ListItem,
-  Text,
-} from '@ui-kitten/components';
+import {Avatar, Button, Icon, Layout, Text} from '@ui-kitten/components';
 import {Swipeable} from 'react-native-gesture-handler';
 
 // Import from files
-import {PointRightArrow} from '../elements/Icons';
 import {colors} from '../../utils';
-import DeleteAction from '../elements/DeleteAction';
 
 // now in use: ProductDetail.js, Messages
 const ListDetail = ({
@@ -61,7 +52,6 @@ const ListDetail = ({
                   alert('btn delete pressed');
                 }}
               />
-              {/* <Button style={styles.deleteBtn}>Test Btn</Button> */}
             </>
           ) : (
             <Text style={styles.time}>
@@ -75,7 +65,6 @@ const ListDetail = ({
 };
 const styles = StyleSheet.create({
   arrowIcon: {
-    // marginLeft: 10,
     backgroundColor: colors.primary,
     flex: 1,
     right: Platform.OS === 'android' ? 40 : 20,

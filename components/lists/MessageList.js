@@ -28,7 +28,6 @@ import ListDetail from './ListDetail';
 import {colors} from '../../utils';
 import DeleteAction from '../elements/DeleteAction';
 import SVGIcon from '../../assets/icons/no-message.svg';
-import ItemSeparator from '../elements/ItemSeparator';
 
 const MessageList = ({fileId, showMessages = false}) => {
   const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
