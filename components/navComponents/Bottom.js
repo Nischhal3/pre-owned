@@ -10,6 +10,7 @@ import Explore from '../../views/Explore';
 import Search from '../../views/Search';
 import MenuNavigator from './Drawer';
 import {AddListing} from '../../views/Listings';
+import {MainContext} from '../../contexts/MainContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,6 +37,7 @@ const BottomTabBar = ({navigation, state}) => (
 );
 
 const TabScreen = () => {
+  const {user} = useContext(MainContext);
   return (
     <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
       <Tab.Screen

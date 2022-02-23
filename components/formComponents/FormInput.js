@@ -7,14 +7,14 @@ const FormInput = (props) => {
       style={props.style}
       placeholder={props.name}
       onBlur={props.onBlur}
-      accessoryLeft={<Icon name={props.iconName} />}
+      accessoryLeft={props.iconName ? <Icon name={props.iconName}/> : null}
       onChangeText={props.onChange}
       value={props.value}
       autoCapitalize="none"
       secureTextEntry={props.textEntry}
       multiline={props.multiline}
       textStyle={props.textStyle}
-      // textAlignVertical="top"
+      textAlignVertical="top"
     />
   );
 };

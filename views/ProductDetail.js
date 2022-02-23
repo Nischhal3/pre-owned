@@ -99,7 +99,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
   };
 
   return (
-    <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+    // <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
       <ScrollView style={styles.detailsContainer}>
         <Image
           style={styles.image}
@@ -127,7 +127,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
 
         <ListDetail
           onPress={() => {
-            navigation.navigate('Profile', {file: profile});
+            navigation.navigate('Profile', {profileParam: file.user_id});
           }}
           style={styles.userContainer}
           image={{uri: avatar}}
@@ -153,7 +153,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
         </Text>
         <MessageList fileId={file.file_id} />
       </ScrollView>
-    </SafeAreaView>
+    // </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({

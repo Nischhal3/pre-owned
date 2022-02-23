@@ -39,10 +39,7 @@ const ListDetail = ({
               {description}
             </Text>
           </Layout>
-          <Layout style={{alignSelf: 'flex-end'}}>
-            <Text style={styles.time}>{timeAdded}</Text>
-          </Layout>
-
+          <Text style={styles.time}>{timeAdded}</Text>
           {!showMessages ? (
             <ListItem
               style={styles.arrowIcon}
@@ -56,6 +53,7 @@ const ListDetail = ({
 };
 const styles = StyleSheet.create({
   arrowIcon: {
+    marginLeft: 20,
     backgroundColor: colors.text_light,
     flex: 1,
     right: Platform.OS === 'android' ? 40 : 20,
@@ -63,8 +61,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     width: '100%',
-    padding: 15,
+    padding: 10,
     backgroundColor: colors.container,
+    justifyContent: 'space-between',
   },
   description: {
     width: 250,
@@ -73,7 +72,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla_400Regular_Italic',
   },
   detailsContainer: {
+    // width: 100,
     marginLeft: 10,
+    // alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.container,
   },
@@ -82,11 +83,10 @@ const styles = StyleSheet.create({
     height: 70,
   },
   time: {
-    alignSelf: 'flex-end',
     fontSize: 14,
     fontFamily: 'Karla_400Regular',
     bottom: -5,
-    right: 120,
+    right: 100,
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });

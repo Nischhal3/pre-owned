@@ -8,6 +8,7 @@ import {
   Platform,
   StatusBar,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import PropTypes from 'prop-types';
@@ -38,7 +39,7 @@ import {colors} from '../../utils';
 const MessageList = ({fileId, showMessages = false}) => {
   const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
 
-  const {updateMessage, setUpdateMessage, user} = useContext(MainContext);
+  const {updateMessage, setUpdateMessage} = useContext(MainContext);
   // const [senderName, setSenderName] = useState('');
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -119,14 +120,14 @@ const MessageList = ({fileId, showMessages = false}) => {
           render={({field: {onChange, onBlur, value}}) => (
             <FormInput
               style={styles.commentBox}
-              iconName="text-outline"
+              // iconName="text-outline"
               name="Add Message"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
               textEntry={false}
               multiline={true}
-              textStyle={{minHeight: 96}}
+              textStyle={{minHeight: 72}}
             />
           )}
           name="message"
@@ -143,20 +144,22 @@ const MessageList = ({fileId, showMessages = false}) => {
           onSubmit={sendMessage}
         />
       </Layout>
-      <Button onPress={() => setVisible(true)} appearance="ghost">
+      <Button onPress={() => setVisible(true)} appearance="ghost" style={styles.messageBtn}>
         Total messages {messages.length}
       </Button>
       <Modal
+        style={{top: '10%'}}
         visible={visible}
         backdropStyle={styles.backdrop}
         onBackdropPress={() => setVisible(false)}
       >
         <AppButton
-          appBtnStyle={styles.clearBtn}
+          appBtnStyle={styles.returnBtn}
           onPress={() => setVisible(false)}
-          accessoryLeft={<Icon name="close-outline" />}
+          accessoryLeft={<Icon name="corner-up-left-outline" />}
         />
-        <Card style={{height: 600, backgroundColor: colors.container}}>
+        <Card style={styles.messagesContainer}>
+          <Text style={{alignSelf: 'center'}}>All Messages</Text>
           <List
             data={messages}
             contentContainerStyle={styles.container}
@@ -190,29 +193,31 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: colors.stroke,
   },
-  clearBtn: {
+  sendBtn: {
+    width: 100,
+    height: 50,
+    alignSelf: 'flex-end',
+    marginBottom: 15,
+  },
+  messageBtn: {
+    width: "45%",
+    alignSelf: 'center',
+    marginTop: "-10%",
+    marginBottom: 20,
+  },
+  returnBtn: {
     zIndex: 1,
     width: 40,
     height: 10,
     position: 'absolute',
     marginTop: -10,
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
   },
-  dismissBtn: {
-    zIndex: 1,
-    position: 'absolute',
-    right: 20,
-  },
-  modal: {
-    height: 500,
-    margin: 10,
-    borderRadius: 15,
-  },
-  sendBtn: {
-    width: 100,
-    height: 50,
-    alignSelf: 'flex-end',
-    margin: 15,
+  messagesContainer: {
+    top: 0,
+    // flex: 1,
+    height: 700,
+    backgroundColor: colors.container,
   },
 });
 
