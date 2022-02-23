@@ -137,7 +137,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
               loop={false}
               style={{width: 60, height: 60}}
             />
-            <Text category="s1" style={{right: '40%', bottom: 5}}>
+            <Text category="s1" style={{right: '40%', bottom: 5, fontSize: 14}}>
               {likes.length}
             </Text>
           </Pressable>

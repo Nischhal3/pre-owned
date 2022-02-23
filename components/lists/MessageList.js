@@ -228,12 +228,15 @@ const styles = StyleSheet.create({
     height: 50,
     alignSelf: 'flex-end',
     marginBottom: 15,
+
+    right: 10,
   },
   messageBtn: {
-    width: '45%',
-    alignSelf: 'center',
+    width: '55%',
+    alignSelf: 'flex-start',
     marginTop: '-10%',
     marginBottom: 20,
+    left: '-10%',
   },
   returnBtn: {
     zIndex: 1,
