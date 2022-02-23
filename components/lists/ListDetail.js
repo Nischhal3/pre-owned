@@ -3,12 +3,20 @@ import React from 'react';
 import {StyleSheet, TouchableHighlight, Platform} from 'react-native';
 import moment from 'moment';
 // Import from UI Kitten Library
-import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
+import {
+  Avatar,
+  Button,
+  Icon,
+  Layout,
+  ListItem,
+  Text,
+} from '@ui-kitten/components';
 import {Swipeable} from 'react-native-gesture-handler';
 
 // Import from files
 import {PointRightArrow} from '../elements/Icons';
 import {colors} from '../../utils';
+import DeleteAction from '../elements/DeleteAction';
 
 // now in use: ProductDetail.js, Messages
 const ListDetail = ({
@@ -39,19 +47,26 @@ const ListDetail = ({
               {description}
             </Text>
           </Layout>
-          {showMessages ? (
+          {/* When in android, message list shows a delete btn while ios swipeable */}
+          {showMessages && Platform.OS === 'android' ? (
+            <>
+              <Text style={styles.timeAndroid}>
+                {moment(timeAdded).format('     HH:mm DD.MM.YYYY ')}
+              </Text>
+              <Button
+                appearance={'ghost'}
+                style={styles.deleteBtn}
+                accessoryLeft={<Icon name="trash-2-outline" />}
+                onPress={() => {
+                  alert('btn delete pressed');
+                }}
+              />
+              {/* <Button style={styles.deleteBtn}>Test Btn</Button> */}
+            </>
+          ) : (
             <Text style={styles.time}>
               {moment(timeAdded).format('     HH:mm DD.MM.YYYY ')}
             </Text>
-          ) : null}
-
-          {!showMessages ? (
-            <ListItem
-              style={styles.arrowIcon}
-              accessoryRight={PointRightArrow}
-            />
-          ) : (
-            <Text>{''}</Text>
           )}
         </Layout>
       </TouchableHighlight>
@@ -72,6 +87,16 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     justifyContent: 'space-between',
   },
+  deleteBtn: {
+    width: 70,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    fontSize: 12,
+    fontFamily: 'Karla_400Regular',
+    bottom: 5,
+    right: 120,
+    lineHeight: 20,
+  },
   description: {
     width: 250,
     color: colors.mediumGrey,
@@ -79,9 +104,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla_400Regular_Italic',
   },
   detailsContainer: {
-    // width: 100,
     marginLeft: 10,
-    // alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary,
   },
@@ -99,6 +122,17 @@ const styles = StyleSheet.create({
     bottom: -5,
     top: 15,
     right: 70,
+    lineHeight: 20,
+  },
+  timeAndroid: {
+    width: 70,
+    // justifyContent: 'flex-end',
+    // alignItems: 'center',
+    fontSize: 10,
+    fontFamily: 'Karla_400Regular',
+    bottom: -5,
+    top: 15,
+    right: 110,
     lineHeight: 20,
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},

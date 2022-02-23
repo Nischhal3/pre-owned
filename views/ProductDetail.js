@@ -26,6 +26,7 @@ import {ListDetail, MessageList} from '../components/lists';
 import LottieView from 'lottie-react-native';
 import {GlobalStyles} from '../utils';
 import ItemSeparator from '../components/elements/ItemSeparator';
+import UserItem from '../components/elements/UserItem';
 
 const ProductDetail = ({route, navigation, profile, fileId}) => {
   const {file} = route.params;
@@ -154,7 +155,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
 
           <ItemSeparator />
 
-          <ListDetail
+          <UserItem
             onPress={() => {
               navigation.navigate('Profile', {profileParam: file.user_id});
             }}
@@ -264,7 +265,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   userContainer: {
-    marginVertical: 40,
+    // marginVertical: 40,
+    // alignItems: 'center',
   },
 });
 
