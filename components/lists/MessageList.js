@@ -43,7 +43,7 @@ const MessageList = ({fileId, showMessages = false}) => {
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
-
+  // display messages from latest to oldest
   messages.sort((a, b) => a.timeAdded < b.timeAdded);
 
   const {
