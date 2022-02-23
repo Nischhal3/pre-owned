@@ -25,7 +25,7 @@ const MainProvider = ({children}) => {
         loading,
         setLoading,
         updateMessage,
-        setUpdateMessage
+        setUpdateMessage,
       }}
     >
       {children}

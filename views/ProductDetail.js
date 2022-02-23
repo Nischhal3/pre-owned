@@ -100,61 +100,54 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
   };
 
   return (
-    <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
-      <ScrollView style={styles.detailsContainer}>
-        <Image
-          style={styles.image}
-          source={{uri: uploadsUrl + file.filename}}
-        />
-        <Layout style={styles.container}>
-          <Layout style={styles.textbox}>
-            <Text style={styles.title}>{file.title}</Text>
-            {/* <Text style={styles.price}>35€</Text> */}
-          </Layout>
-
-          <Pressable onPress={onSubmit}>
-            <MaterialCommunityIcons
-              name={userLike ? 'heart' : 'heart-outline'}
-              size={32}
-              style={{right: 10}}
-              color={userLike ? 'red' : 'black'}
-            />
-
-            <Text category="s1">{likes.length}</Text>
-          </Pressable>
+    // <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+    <ScrollView style={styles.detailsContainer}>
+      <Image style={styles.image} source={{uri: uploadsUrl + file.filename}} />
+      <Layout style={styles.container}>
+        <Layout style={styles.textbox}>
+          <Text style={styles.title}>{file.title}</Text>
+          {/* <Text style={styles.price}>35€</Text> */}
         </Layout>
 
-        <Divider />
+        <Pressable onPress={onSubmit}>
+          <MaterialCommunityIcons
+            name={userLike ? 'heart' : 'heart-outline'}
+            size={32}
+            style={{right: 10}}
+            color={userLike ? 'red' : 'black'}
+          />
 
-        <ListDetail
-          onPress={() => {
-            navigation.navigate('Profile', {file: profile});
-          }}
-          style={styles.userContainer}
-          image={{uri: avatar}}
-          title={name}
-          description="5 Listings"
-        />
-        <Divider />
-        <Layout style={styles.detailsContainer}>
-          <Text category="s1" style={styles.detail}>
-            Price & Details
-          </Text>
-          <Text
-            style={styles.detailDescription}
-            category="c1"
-            numberOfLines={4}
-          >
-            {file.description}
-          </Text>
-        </Layout>
+          <Text category="s1">{likes.length}</Text>
+        </Pressable>
+      </Layout>
 
-        <Text category="s1" style={styles.detailsContainer}>
-          Send the Seller a message
+      <Divider />
+
+      <ListDetail
+        onPress={() => {
+          navigation.navigate('Profile', {profileParam: file.user_id});
+        }}
+        style={styles.userContainer}
+        image={{uri: avatar}}
+        title={name}
+        description="5 Listings"
+      />
+      <Divider />
+      <Layout style={styles.detailsContainer}>
+        <Text category="s1" style={styles.detail}>
+          Price & Details
         </Text>
-        <MessageList fileId={file.file_id} />
-      </ScrollView>
-    </SafeAreaView>
+        <Text style={styles.detailDescription} category="c1" numberOfLines={4}>
+          {file.description}
+        </Text>
+      </Layout>
+
+      <Text category="s1" style={styles.detailsContainer}>
+        Send the Seller a message
+      </Text>
+      <MessageList fileId={file.file_id} />
+    </ScrollView>
+    // </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
