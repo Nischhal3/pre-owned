@@ -23,6 +23,7 @@ import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
 import {ListDetail, MessageList} from '../components/lists';
+import LottieView from 'lottie-react-native';
 
 const ProductDetail = ({route, navigation, profile, fileId}) => {
   const {file} = route.params;

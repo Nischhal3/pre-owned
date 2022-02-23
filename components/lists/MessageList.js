@@ -34,11 +34,16 @@ import FormInput from '../formComponents/FormInput';
 import {getLocalTime, getToken} from '../../hooks/CommonFunction';
 import ListDetail from './ListDetail';
 import {colors} from '../../utils';
+import DeleteAction from '../elements/DeleteAction';
 
 const MessageList = ({fileId, showMessages = false}) => {
-  const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
+  const {deleteMessage, postMessage, getMessagesByFileId} = useMessage(
+    fileId,
+    showMessages
+  );
 
-  const {updateMessage, setUpdateMessage, user} = useContext(MainContext);
+  const {updateMessage, setUpdateMessage, update, setUpdate} =
+    useContext(MainContext);
   // const [senderName, setSenderName] = useState('');
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -62,7 +67,26 @@ const MessageList = ({fileId, showMessages = false}) => {
   const reset = () => {
     setValue('message', '');
   };
-
+  // function delete a message
+  const handleDelete = () => {
+    Alert.alert('Delete Message', 'Confirm delete action?', [
+      {text: 'Cancel'},
+      {
+        text: 'OK',
+        onPress: async (data) => {
+          try {
+            const token = await getToken();
+            const response = await deleteMessage(data.comment_id, token);
+            console.log(response);
+            // update the list after deletion
+            response && setUpdate(update + 1);
+          } catch (e) {
+            console.error(e);
+          }
+        },
+      },
+    ]);
+  };
   // get msg
   const fetchMessage = async () => {
     try {
@@ -169,6 +193,10 @@ const MessageList = ({fileId, showMessages = false}) => {
                 title={item.username}
                 timeAdded={convertToLocalTime(item.time_added)}
                 image={{uri: avatar}}
+                renderRightActions={() => (
+                  <DeleteAction onPress={handleDelete} />
+                )}
+                ItemSeparatorComponent={Divider}
               />
             )}
           />

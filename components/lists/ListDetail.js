@@ -39,7 +39,9 @@ const ListDetail = ({
               {description}
             </Text>
           </Layout>
-          <Layout style={{alignSelf: 'flex-end'}}>
+          <Layout
+            style={{alignSelf: 'flex-end', backgroundColor: colors.container}}
+          >
             <Text style={styles.time}>{timeAdded}</Text>
           </Layout>
 
@@ -48,7 +50,9 @@ const ListDetail = ({
               style={styles.arrowIcon}
               accessoryRight={PointRightArrow}
             />
-          ) : null}
+          ) : (
+            <Text>{''}</Text>
+          )}
         </Layout>
       </TouchableHighlight>
     </Swipeable>
@@ -56,7 +60,7 @@ const ListDetail = ({
 };
 const styles = StyleSheet.create({
   arrowIcon: {
-    backgroundColor: colors.text_light,
+    backgroundColor: colors.container,
     flex: 1,
     right: Platform.OS === 'android' ? 40 : 20,
   },
@@ -80,6 +84,7 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70,
+    backgroundColor: colors.container,
   },
   time: {
     alignSelf: 'flex-end',

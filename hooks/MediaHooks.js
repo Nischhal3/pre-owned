@@ -114,8 +114,15 @@ const useMessage = () => {
 
     return await fetchData(`${baseUrl}comments`, options);
   };
+  const deleteMessage = async (msgId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {'x-access-token': token},
+    };
+    return await fetchData(`${baseUrl}/comments/${msgId}`, options);
+  };
 
-  return {getMessagesByFileId, postMessage};
+  return {deleteMessage, getMessagesByFileId, postMessage};
 };
 
 const postTag = async (tagData, token) => {

@@ -1,27 +1,41 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import {Button, Icon} from '@ui-kitten/components';
 import {colors} from '../../utils';
+import LottieView from 'lottie-react-native';
 
 const DeleteAction = ({onPress}) => {
+  const animation = React.createRef(); // animation
+
+  useEffect(() => {
+    animation.current?.play();
+  }, []);
   return (
-    <TouchableWithoutFeedback>
-      <Button
-        onPress={onPress}
-        style={styles.container}
-        accessoryRight={<Icon name="trash-outline" colors="fff" />}
-      ></Button>
-    </TouchableWithoutFeedback>
+    // <TouchableWithoutFeedback>
+    //   <Button
+    //     onPress={onPress}
+    //     style={styles.container}
+    //     accessoryRight={
+    <LottieView
+      ref={animation}
+      style={styles.animation}
+      source={require('../../assets/icons/trash-can-animation.json')}
+      loop={true}
+    />
+    //     }
+    //   ></Button>
+    // </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.danger,
-    borderColor: colors.danger,
+  animation: {
+    height: 50,
     width: 70,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    top: 10,
+    left: 15,
   },
 });
 DeleteAction.propTypes = {
