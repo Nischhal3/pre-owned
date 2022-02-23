@@ -94,21 +94,29 @@ const styles = StyleSheet.create({
 
     ...Platform.select({
       ios: {
-        top: 170,
+        top: '76%',
       },
       android: {
-        top: 160,
+        top: '72%',
       },
     }),
   },
   displayTime: {
     flex: 2,
     position: 'absolute',
-    fontSize: 14,
-    width: '20%',
+    fontSize: 16,
     fontFamily: 'Karla_400Regular',
-    margin: 20,
+    margin: 15,
     color: colors.text_light,
+
+    ...Platform.select({
+      ios: {
+        marginTop: '44%',
+      },
+      android: {
+        marginTop: '40%',
+      },
+    }),
   },
 });
 
