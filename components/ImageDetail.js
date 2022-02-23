@@ -15,7 +15,7 @@ const ImageDetail = ({style, title}) => {
 
 const styles = StyleSheet.create({
   imageTitle: {
-    fontSize: 20,
+    fontSize: 22,
     color: colors.text_light,
     fontFamily: 'Karla_700Bold',
   },

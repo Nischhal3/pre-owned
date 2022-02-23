@@ -154,6 +154,7 @@ PlainListItem.propTypes = {
   navigation: PropTypes.object.isRequired,
   showMyMedia: PropTypes.bool,
   displayText: PropTypes.bool,
+  file: PropTypes.number,
 };
 
 export default PlainListItem;
