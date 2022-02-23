@@ -17,10 +17,10 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
-import {useFocusEffect} from '@react-navigation/native';
 
 const Search = ({navigation}) => {
-  const {mediaArray, home} = useMedia();
+  const {mediaArray, home, electronics, clothing, sports, gaming, others} =
+    useMedia();
   const [filteredData, setFilteredData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [itemPosition, setItemPosition] = useState();
@@ -129,8 +129,53 @@ const Search = ({navigation}) => {
               displayText={true}
             />
           ))
+        ) : itemPosition === 1 ? (
+          electronics.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 2 ? (
+          clothing.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 3 ? (
+          sports.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 4 ? (
+          gaming.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 5 ? (
+          others.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
         ) : (
-          <Text>Hello</Text>
+          <Text> {''}</Text>
         )}
       </ScrollView>
       <Button style={{marginTop: 20}} onPress={reset}>
