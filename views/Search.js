@@ -26,6 +26,22 @@ const Search = ({navigation}) => {
   const [itemPosition, setItemPosition] = useState();
   const [search, setSearch] = useState('');
 
+  const data =
+    itemPosition === 0
+      ? home
+      : itemPosition === 1
+      ? electronics
+      : itemPosition === 2
+      ? clothing
+      : itemPosition === 3
+      ? sports
+      : itemPosition === 4
+      ? gaming
+      : itemPosition === 5
+      ? others
+      : null;
+
+  console.log('data', data);
   // update filtered list
   const searchProduct = (textToSearch) => {
     setSearch(textToSearch);
@@ -42,7 +58,6 @@ const Search = ({navigation}) => {
       console.log('Cant set filtered data', e);
     }
   };
-  console.log('position', itemPosition);
 
   const reset = () => {
     setVisible(false);
@@ -120,53 +135,8 @@ const Search = ({navigation}) => {
               displayText={true}
             />
           ))
-        ) : itemPosition === 0 ? (
-          home.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 1 ? (
-          electronics.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 2 ? (
-          clothing.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 3 ? (
-          sports.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 4 ? (
-          gaming.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 5 ? (
-          others.map((item) => (
+        ) : data !== null ? (
+          data.map((item) => (
             <GalleryItemVertical
               navigation={navigation}
               singleItem={item}
@@ -175,26 +145,12 @@ const Search = ({navigation}) => {
             />
           ))
         ) : (
-          <Text> {''}</Text>
+          <Text>Hello</Text>
         )}
       </ScrollView>
       <Button style={{marginTop: 20}} onPress={reset}>
         Clear Filter
       </Button>
-      {/* <ScrollView style={styles.searchImageContainer}>
-        {itemPosition === 0 ? (
-          home.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : (
-          <Text>{''}</Text>
-        )}
-      </ScrollView> */}
     </SafeAreaView>
   );
 };

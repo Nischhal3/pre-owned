@@ -17,8 +17,6 @@ const ModalCheckBox = ({setItemPosition}) => {
   const [checkedState, setCheckedState] = useState(
     new Array(categoryNames.length).fill(false)
   );
-  const [index, setIndex] = useState();
-  const [isChecked, setIsChecked] = useState(false);
 
   // Handle checkBox state on click
   const handleOnChange = (position) => {
