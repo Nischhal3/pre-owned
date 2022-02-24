@@ -73,11 +73,12 @@ const Search = ({navigation}) => {
     setSearch('');
   }, [isChecked]);
 
-  useFocusEffect(
-    useCallback(() => {
-      return () => reset();
-    }, [])
-  );
+  // We need to add it ?
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     return () => reset();
+  //   }, [])
+  // );
 
   return (
     <SafeAreaView
