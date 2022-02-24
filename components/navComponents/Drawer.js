@@ -10,12 +10,12 @@ import {
 } from '@ui-kitten/components';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Message from '../../views/Message';
-import MyListings from '../../views/Listings/MyListings';
 import Favourite from '../../views/Favourite';
 import Profile from '../../views/Profile';
 import EditProfile from '../../views/EditProfile';
 import {MainContext} from '../../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MyListings} from '../../views/Listings';
 
 const Menu = createDrawerNavigator();
 

@@ -1,15 +1,17 @@
 import React, {useContext, useEffect} from 'react';
-import {ImageBackground, Platform, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {MainContext} from '../contexts/MainContext';
-import {getUserByToken} from '../hooks/ApiHooks';
-import {AppButton} from '../components/elements/AppButton';
 
 // Lottie animation
 import LottieView from 'lottie-react-native';
-import {Layout, Text} from '@ui-kitten/components';
+import {Layout} from '@ui-kitten/components';
+
+// Import from files
 import colors from '../utils/colors';
 import {getToken} from '../hooks/CommonFunction';
+import {AppButton} from '../components/elements/AppButton';
+import {MainContext} from '../contexts/MainContext';
+import {getUserByToken} from '../hooks/ApiHooks';
 
 const WelcomeScreen = ({navigation}) => {
   const animation = React.createRef(); // animation

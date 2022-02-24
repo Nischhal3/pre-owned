@@ -81,7 +81,7 @@ const useMedia = () => {
   // Or when the update state is changed in MainContext
   useEffect(() => {
     fetchMedia();
-    return () => {};
+    // return () => {};
   }, [update]);
 
   return {
@@ -107,6 +107,35 @@ const postMedia = async (formData, token) => {
 
   const response = await fetchData(`${baseUrl}media`, options);
   return response;
+};
+
+// Messages (comment)
+const useMessage = () => {
+  const getMessagesByFileId = async (fileId) => {
+    return await fetchData(`${baseUrl}comments/file/${fileId}`);
+  };
+
+  const postMessage = async (message, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(message),
+    };
+
+    return await fetchData(`${baseUrl}comments`, options);
+  };
+  const deleteMessage = async (msgId) => {
+    const options = {
+      method: 'DELETE',
+      // headers: {'x-access-token': token},
+    };
+    return await fetchData(`${baseUrl}/comments/${msgId}`, options);
+  };
+
+  return {deleteMessage, getMessagesByFileId, postMessage};
 };
 
 const putMedia = async (data, token, fileId) => {
@@ -183,5 +212,6 @@ export {
   deleteMedia,
   postTag,
   useMedia,
+  useMessage,
   useFavourite,
 };

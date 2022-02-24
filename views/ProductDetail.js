@@ -5,50 +5,53 @@ import PropTypes from 'prop-types';
 import {
   Alert,
   Image,
+  Platform,
   Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  View,
 } from 'react-native';
+import {Shadow} from 'react-native-shadow-2';
 
 // Import from Library UI Kitten
-import {Divider, Input, Layout, Text} from '@ui-kitten/components';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {Card, Divider, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
-import {AppButton} from '../components/elements/AppButton';
-import GlobalStyles from '../utils/GlobalStyles';
 import {useFavourite} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
-import ListDetail from '../components/lists/ListDetail';
+import {ListDetail, MessageList} from '../components/lists';
+import LottieView from 'lottie-react-native';
+import {GlobalStyles} from '../utils';
+import ItemSeparator from '../components/elements/ItemSeparator';
+import UserItem from '../components/elements/UserItem';
 
-// Alert when sending message
-const sendMessage = () => {
-  Alert.alert('Success', 'Message Sent');
-};
-const ProductDetail = ({route, navigation, profile}) => {
+const ProductDetail = ({route, navigation, profile, fileId}) => {
   const {file} = route.params;
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
 
   // fetch Avatar
-  const fetchAvatar = async () => {
-    try {
-      const avatarList = await getFilesByTag('avatar_' + file.user_id);
-      if (avatarList.length === 0) {
-        return;
-      }
-      const avatar = avatarList.pop();
-      setAvatar(uploadsUrl + avatar.filename);
-      console.log('single.js avatar', avatar);
-    } catch (e) {
-      console.error(e.message);
-    }
-  };
+  // const fetchAvatar = async () => {
+  //   try {
+  //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
+  //     if (avatarList.length === 0) {
+  //       return;
+  //     }
+  //     const avatar = avatarList.pop();
+  //     setAvatar(uploadsUrl + avatar.filename);
+  //     console.log('single.js avatar', avatar);
+  //   } catch (e) {
+  //     console.error(e.message);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchAvatar();
+  // }, []);
 
   // favorite
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
@@ -57,6 +60,9 @@ const ProductDetail = ({route, navigation, profile}) => {
   const [userLike, setUserLike] = useState(false);
   const {user} = useContext(MainContext);
   const [name, setName] = useState('');
+  // favorite animation
+  const animation = React.useRef(null);
+  const isFirstRun = React.useRef(true);
 
   // add to favourite
   const fetchLikes = async () => {
@@ -95,103 +101,140 @@ const ProductDetail = ({route, navigation, profile}) => {
 
   useEffect(() => {
     fetchLikes();
+    if (isFirstRun.current) {
+      if (userLike) {
+        animation.current.play(66, 66);
+      } else {
+        animation.current.play(19, 19);
+      }
+      isFirstRun.current = false;
+    } else if (userLike) {
+      animation.current.play(19, 50);
+    } else {
+      animation.current.play(0, 19);
+    }
   }, [userLike]);
+
   const onSubmit = async () => {
     userLike ? await unlike() : addLike();
   };
 
   return (
-    <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
-      <Image style={styles.image} source={{uri: uploadsUrl + file.filename}} />
-      <ScrollView style={styles.detailsContainer}>
-        <Layout style={styles.container}>
-          <Layout style={styles.textbox}>
-            <Text style={styles.title}>{file.title}</Text>
-            {/* <Text style={styles.price}>35€</Text> */}
-          </Layout>
+    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+      <ScrollView>
+        <Image
+          style={styles.image}
+          source={{uri: uploadsUrl + file.filename}}
+        />
+        <View style={styles.boxShadow}>
+          <Shadow distance={15}>
+            <Card style={styles.card}>
+              <Layout style={styles.container}>
+                {/* <Layout style={styles.textbox}> */}
+                <Text style={styles.title}>{file.title}</Text>
+                {/* </Layout> */}
 
-          <Pressable onPress={onSubmit}>
-            <MaterialCommunityIcons
-              name={userLike ? 'heart' : 'heart-outline'}
-              size={32}
-              style={{right: 10}}
-              color={userLike ? 'red' : 'black'}
-            />
+                <Pressable
+                  onPress={onSubmit}
+                  style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
+                >
+                  <LottieView
+                    ref={animation}
+                    source={require('../assets/icons/like-animation.json')}
+                    autoPlay={false}
+                    loop={false}
+                    style={{width: 60, height: 60, right: -5}}
+                  />
+                  <Text
+                    category="s1"
+                    style={{
+                      right: Platform.OS === 'android' ? '25%' : '17%',
+                      bottom: 10,
+                      fontSize: 14,
+                    }}
+                  >
+                    {likes.length}
+                  </Text>
+                </Pressable>
+              </Layout>
 
-            <Text category="s1">{likes.length}</Text>
-          </Pressable>
-        </Layout>
+              <ItemSeparator />
 
-        <Divider />
+              <UserItem
+                onPress={() => {
+                  navigation.navigate('Profile', {profileParam: file.user_id});
+                }}
+                style={styles.userContainer}
+                image={{uri: avatar}}
+                title={name}
+                description="5 Listings"
+              />
+              <ItemSeparator />
 
-        <ListDetail
-          onPress={() => {
-            navigation.navigate('Profile', {file: profile});
-          }}
-          style={styles.userContainer}
-          image={{uri: avatar}}
-          title={name}
-          description="5 Listings"
-        ></ListDetail>
-        <Divider />
-        <Layout style={styles.detailsContainer}>
-          <Text category="s1" style={styles.detail}>
-            Price & Details
-          </Text>
-          <Text
-            style={styles.detailDescription}
-            category="c1"
-            numberOfLines={4}
-          >
-            {file.description}
-          </Text>
-        </Layout>
-        <Text category="s1" style={styles.detailsContainer}>
-          Send the Seller a message
-        </Text>
-        <Input
-          multiline={true}
-          textStyle={{minHeight: 64}}
-          placeholder="Add Message"
-          style={styles.commentBox}
-        ></Input>
+              <Text category="s1" style={styles.detail}>
+                Price & Details
+              </Text>
+              <Text
+                style={styles.detailDescription}
+                category="c1"
+                numberOfLines={4}
+              >
+                {file.description}
+              </Text>
+              <ItemSeparator />
+              <Text category="s1" style={styles.detail}>
+                Send the Seller a message
+              </Text>
 
-        <AppButton style={styles.sendBtn} title="Send" onPress={sendMessage} />
+              <MessageList fileId={file.file_id} />
+            </Card>
+          </Shadow>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  boxShadow: {
+    marginVertical: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  card: {
+    backgroundColor: colors.primary,
+    borderRadius: 45,
+    width: Platform.OS === 'android' ? 350 : 370,
+  },
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     height: 100,
     padding: 15,
-    backgroundColor: colors.container,
+    backgroundColor: colors.primary,
   },
-  commentBox: {
-    padding: 10,
-    borderColor: colors.stroke,
-  },
+
   detail: {
     fontFamily: 'Karla_700Bold',
     fontSize: 16,
+    paddingVertical: 10,
+    paddingLeft: 15,
   },
   detailsContainer: {
-    padding: 10,
     fontSize: 16,
     fontFamily: 'Karla_700Bold',
   },
   detailDescription: {
-    paddingVertical: 15,
     lineHeight: 16,
     fontSize: 14,
     fontFamily: 'Karla',
+    paddingBottom: 15,
+    paddingLeft: 15,
   },
   image: {
     width: '100%',
-    height: 300,
+    height: 280,
+    marginBottom: 10,
   },
   price: {
     color: colors.text_dark,
@@ -206,12 +249,11 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 150,
   },
-  sendBtn: {
-    width: 100,
-    height: 50,
-    alignSelf: 'flex-end',
-    marginBottom: 30,
-    fontWeight: '500',
+  shadowProp: {
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   textbox: {
     flexDirection: 'column',
@@ -220,7 +262,7 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.container,
+    // backgroundColor: colors.container,
   },
   title: {
     fontFamily: 'Karla_700Bold',
@@ -229,10 +271,10 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     fontWeight: '500',
     alignSelf: 'center',
-    top: 15,
   },
   userContainer: {
-    marginVertical: 40,
+    // marginVertical: 40,
+    // alignItems: 'center',
   },
 });
 

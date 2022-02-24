@@ -1,6 +1,6 @@
 // Import from React and library
 import React, {useContext} from 'react';
-import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
+import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten Library
@@ -8,7 +8,6 @@ import {
   Avatar,
   Button,
   ButtonGroup,
-  Divider,
   Icon,
   Layout,
   ListItem,
@@ -19,10 +18,10 @@ import {
 import {PointRightArrow} from '../elements/Icons';
 import {uploadsUrl} from '../../utils/url';
 import moment from 'moment';
-import colors from '../../utils/colors';
 import {deleteMedia, useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {getToken} from '../../hooks/CommonFunction';
+import {colors} from '../../utils';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
