@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // Import from files
 import {useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
-import ItemSeparator from '../../components/elements/ItemSeparator';
+import {ItemSeparator} from '../../components/elements/ItemSeparator';
 import colors from '../../utils/colors';
 import {PlainListItem} from '../../components/lists';
 import {Layout, Text} from '@ui-kitten/components';

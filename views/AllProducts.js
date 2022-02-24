@@ -6,7 +6,7 @@ import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import {useMedia} from '../hooks/MediaHooks';
 import {PlainListItem} from '../components/lists';
-import ItemSeparator from '../components/elements/ItemSeparator';
+import {ItemSeparator} from '../components/elements/ItemSeparator';
 
 const AllProducts = ({navigation}) => {
   const {mediaArray} = useMedia();

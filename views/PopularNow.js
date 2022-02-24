@@ -6,7 +6,7 @@ import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import PlainListItem from '../components/lists/PlainListItem';
 import {useFavourite, useMedia} from '../hooks/MediaHooks';
-import ItemSeparator from '../components/elements/ItemSeparator';
+import {ItemSeparator} from '../components/elements/ItemSeparator';
 
 // TODO fetch items from server, item fetch to be added in API hooks
 const PopularNow = ({navigation}) => {
