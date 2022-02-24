@@ -1,35 +1,39 @@
-import React, {useState} from 'react';
-import {CheckBox, Layout, Text} from '@ui-kitten/components';
+import React, {useEffect, useState} from 'react';
+import {Button, CheckBox, Layout, Text} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
 import colors from '../../utils/colors';
 
 // Filter categories
 const categoryNames = [
-  {category: 'Clothing & Accessories'},
   {category: 'Home & Living'},
   {category: 'Electronics'},
-  {category: 'Sport & Leisure'},
-  {category: 'Music'},
-  {category: 'Gaming'},
+  {category: 'Clothing '},
+  {category: 'Sports'},
+  {category: 'Gaming & Accessories'},
+  {category: 'Others'},
 ];
 
-const ModalCheckBox = () => {
+const ModalCheckBox = ({setItemPosition}) => {
   const [checkedState, setCheckedState] = useState(
     new Array(categoryNames.length).fill(false)
   );
+  const [index, setIndex] = useState();
+  const [isChecked, setIsChecked] = useState(false);
 
   // Handle checkBox state on click
   const handleOnChange = (position) => {
+    setItemPosition(position);
     try {
       const updatedCheckedState = checkedState.map((item, index) =>
-        index === position ? !item : item
+        index === position ? true : false
       );
       setCheckedState(updatedCheckedState);
-      console.log(checkedState);
     } catch (e) {
       console.log('Filter update failed', e);
     }
   };
+
+  // console.log(checkedState);
 
   return (
     <Layout style={{backgroundColor: colors.primary}}>

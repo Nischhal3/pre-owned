@@ -1,5 +1,5 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   Button,
   Card,
@@ -19,12 +19,16 @@ import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
 
 const Search = ({navigation}) => {
-  const {mediaArray} = useMedia();
+  const {mediaArray, home, electronics, clothing, sports, gaming, others} =
+    useMedia();
   const [filteredData, setFilteredData] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [itemPosition, setItemPosition] = useState();
+  const [search, setSearch] = useState('');
 
   // update filtered list
   const searchProduct = (textToSearch) => {
+    setSearch(textToSearch);
     try {
       if (textToSearch === '') {
         setFilteredData([]);
@@ -37,6 +41,13 @@ const Search = ({navigation}) => {
     } catch (e) {
       console.log('Cant set filtered data', e);
     }
+  };
+  console.log('position', itemPosition);
+
+  const reset = () => {
+    setVisible(false);
+    setItemPosition(null);
+    setSearch('');
   };
 
   return (
@@ -91,7 +102,7 @@ const Search = ({navigation}) => {
               >
                 Categories
               </Text>
-              <ModalCheckBox />
+              <ModalCheckBox setItemPosition={setItemPosition} />
               <Button style={{marginTop: 20}} onPress={() => setVisible(false)}>
                 Apply filter
               </Button>
@@ -100,15 +111,90 @@ const Search = ({navigation}) => {
         </Layout>
       </ListItem>
       <ScrollView style={styles.searchImageContainer}>
-        {filteredData.map((item) => (
-          <GalleryItemVertical
-            navigation={navigation}
-            singleItem={item}
-            key={item.file_id}
-            displayText={true}
-          />
-        ))}
+        {search !== '' ? (
+          filteredData.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 0 ? (
+          home.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 1 ? (
+          electronics.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 2 ? (
+          clothing.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 3 ? (
+          sports.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 4 ? (
+          gaming.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 5 ? (
+          others.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : (
+          <Text> {''}</Text>
+        )}
       </ScrollView>
+      <Button style={{marginTop: 20}} onPress={reset}>
+        Clear Filter
+      </Button>
+      {/* <ScrollView style={styles.searchImageContainer}>
+        {itemPosition === 0 ? (
+          home.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : (
+          <Text>{''}</Text>
+        )}
+      </ScrollView> */}
     </SafeAreaView>
   );
 };
