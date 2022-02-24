@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {
   Alert,
   Image,
+  Platform,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -119,81 +120,90 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
   };
 
   return (
-    <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
       <ScrollView>
         <Image
           style={styles.image}
           source={{uri: uploadsUrl + file.filename}}
         />
+        <View style={styles.boxShadow}>
+          <Shadow distance={15}>
+            <Card style={styles.card}>
+              <Layout style={styles.container}>
+                {/* <Layout style={styles.textbox}> */}
+                <Text style={styles.title}>{file.title}</Text>
+                {/* </Layout> */}
 
-        {/* <Shadow> */}
-        <Card style={styles.card}>
-          <View style={styles.container}>
-            {/* <Layout style={styles.textbox}> */}
-            <Text style={styles.title}>{file.title}</Text>
-            {/* </Layout> */}
+                <Pressable
+                  onPress={onSubmit}
+                  style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
+                >
+                  <LottieView
+                    ref={animation}
+                    source={require('../assets/icons/like-animation.json')}
+                    autoPlay={false}
+                    loop={false}
+                    style={{width: 60, height: 60, right: -5}}
+                  />
+                  <Text
+                    category="s1"
+                    style={{
+                      right: Platform.OS === 'android' ? '25%' : '17%',
+                      bottom: 10,
+                      fontSize: 14,
+                    }}
+                  >
+                    {likes.length}
+                  </Text>
+                </Pressable>
+              </Layout>
 
-            <Pressable
-              onPress={onSubmit}
-              style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
-            >
-              <LottieView
-                ref={animation}
-                source={require('../assets/icons/like-animation.json')}
-                autoPlay={false}
-                loop={false}
-                style={{width: 60, height: 60}}
+              <ItemSeparator />
+
+              <UserItem
+                onPress={() => {
+                  navigation.navigate('Profile', {profileParam: file.user_id});
+                }}
+                style={styles.userContainer}
+                image={{uri: avatar}}
+                title={name}
+                description="5 Listings"
               />
-              <Text
-                category="s1"
-                style={{right: '40%', bottom: 5, fontSize: 14}}
-              >
-                {likes.length}
+              <ItemSeparator />
+
+              <Text category="s1" style={styles.detail}>
+                Price & Details
               </Text>
-            </Pressable>
-          </View>
+              <Text
+                style={styles.detailDescription}
+                category="c1"
+                numberOfLines={4}
+              >
+                {file.description}
+              </Text>
+              <ItemSeparator />
+              <Text category="s1" style={styles.detail}>
+                Send the Seller a message
+              </Text>
 
-          <ItemSeparator />
-
-          <UserItem
-            onPress={() => {
-              navigation.navigate('Profile', {profileParam: file.user_id});
-            }}
-            style={styles.userContainer}
-            image={{uri: avatar}}
-            title={name}
-            description="5 Listings"
-          />
-          <ItemSeparator />
-          {/* <Layout style={styles.detailsContainer}> */}
-          <Text category="s1" style={styles.detail}>
-            Price & Details
-          </Text>
-          <Text
-            style={styles.detailDescription}
-            category="c1"
-            numberOfLines={4}
-          >
-            {file.description}
-          </Text>
-          <ItemSeparator />
-          <Text category="s1" style={styles.detail}>
-            Send the Seller a message
-          </Text>
-          {/* </Layout> */}
-          <MessageList fileId={file.file_id} />
-        </Card>
-        {/* </Shadow> */}
+              <MessageList fileId={file.file_id} />
+            </Card>
+          </Shadow>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  boxShadow: {
+    marginVertical: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   card: {
     backgroundColor: colors.primary,
     borderRadius: 45,
-    width: '90%',
-    alignSelf: 'center',
+    width: Platform.OS === 'android' ? 350 : 370,
   },
   container: {
     flexDirection: 'row',
@@ -201,7 +211,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 100,
     padding: 15,
-    // backgroundColor: colors.container,
+    backgroundColor: colors.primary,
   },
 
   detail: {
@@ -225,8 +235,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 280,
     marginBottom: 10,
-    // borderBottomLeftRadius: 10,
-    // borderBottomRightRadius: 10,
   },
   price: {
     color: colors.text_dark,

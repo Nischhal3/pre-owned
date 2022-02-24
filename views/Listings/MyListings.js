@@ -20,7 +20,7 @@ const MyListings = ({navigation, showMyMedia = false}) => {
   const myMedia = mediaArray.filter((item) => item.user_id === user.user_id);
   myMedia.sort((a, b) => a.time_added < b.time_added);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.text_light}}>
       {myMedia.length == 0 ? (
         <Layout
           style={{

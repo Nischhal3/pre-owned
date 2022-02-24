@@ -12,9 +12,7 @@ const UserItem = ({title, description, onPress, image}) => {
         <Layout style={styles.detailsContainer}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
-          {/* <Layout style={{width: 50, justifyContent: 'center', left: 180}}> */}
           <ListItem style={styles.arrowIcon} accessoryRight={PointRightArrow} />
-          {/* </Layout> */}
         </Layout>
       </Layout>
     </TouchableHighlight>
@@ -23,7 +21,7 @@ const UserItem = ({title, description, onPress, image}) => {
 const styles = StyleSheet.create({
   arrowIcon: {
     backgroundColor: 'transparent',
-    right: Platform.OS === 'android' ? 60 : 40,
+    right: Platform.OS === 'android' ? 56 : 30,
     bottom: '15%',
     padding: 0,
   },
