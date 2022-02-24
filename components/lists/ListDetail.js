@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     padding: 10,
-    backgroundColor: colors.box,
+    backgroundColor: colors.primary,
     justifyContent: 'space-between',
   },
   deleteBtn: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   detailsContainer: {
     marginLeft: 10,
     justifyContent: 'center',
-    backgroundColor: colors.box,
+    backgroundColor: colors.primary,
   },
   image: {
     width: 70,
