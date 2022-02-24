@@ -13,13 +13,14 @@ const categoryNames = [
   {category: 'Others'},
 ];
 
-const ModalCheckBox = ({setItemPosition}) => {
+const ModalCheckBox = ({setItemPosition, setIsChecked, isChecked}) => {
   const [checkedState, setCheckedState] = useState(
     new Array(categoryNames.length).fill(false)
   );
 
   // Handle checkBox state on click
   const handleOnChange = (position) => {
+    setIsChecked(isChecked + 1);
     setItemPosition(position);
     try {
       const updatedCheckedState = checkedState.map((item, index) =>

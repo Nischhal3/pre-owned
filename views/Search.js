@@ -1,5 +1,5 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Button,
   Card,
@@ -25,7 +25,9 @@ const Search = ({navigation}) => {
   const [visible, setVisible] = useState(false);
   const [itemPosition, setItemPosition] = useState();
   const [search, setSearch] = useState('');
+  const [isChecked, setIsChecked] = useState(0);
 
+  // Storing category values to data depending upon which check-box is clicked
   const data =
     itemPosition === 0
       ? home
@@ -41,7 +43,6 @@ const Search = ({navigation}) => {
       ? others
       : null;
 
-  console.log('data', data);
   // update filtered list
   const searchProduct = (textToSearch) => {
     setSearch(textToSearch);
@@ -59,11 +60,17 @@ const Search = ({navigation}) => {
     }
   };
 
+  // Clearing filter and search
   const reset = () => {
     setVisible(false);
     setItemPosition(null);
     setSearch('');
   };
+
+  // Setting search to empty string when filter check-box is clicked
+  useEffect(() => {
+    setSearch('');
+  }, [isChecked]);
 
   return (
     <SafeAreaView
@@ -81,6 +88,7 @@ const Search = ({navigation}) => {
         }}
       >
         <Input
+          value={search}
           placeholder="Search..."
           style={styles.searchField}
           accessoryLeft={SearchIcon}
@@ -117,7 +125,11 @@ const Search = ({navigation}) => {
               >
                 Categories
               </Text>
-              <ModalCheckBox setItemPosition={setItemPosition} />
+              <ModalCheckBox
+                setItemPosition={setItemPosition}
+                setIsChecked={setIsChecked}
+                isChecked={isChecked}
+              />
               <Button style={{marginTop: 20}} onPress={() => setVisible(false)}>
                 Apply filter
               </Button>
