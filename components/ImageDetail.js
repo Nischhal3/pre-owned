@@ -1,8 +1,8 @@
 import React from 'react';
 import {Layout, Text} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
-import colors from '../utils/colors';
 import PropTypes from 'prop-types';
+import {colors} from '../utils';
 
 // Component for displaying product details on explore image
 const ImageDetail = ({style, title}) => {

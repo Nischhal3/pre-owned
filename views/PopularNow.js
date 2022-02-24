@@ -6,6 +6,7 @@ import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import PlainListItem from '../components/lists/PlainListItem';
 import {useFavourite, useMedia} from '../hooks/MediaHooks';
+import ItemSeparator from '../components/elements/ItemSeparator';
 
 // TODO fetch items from server, item fetch to be added in API hooks
 const PopularNow = ({navigation}) => {
@@ -22,12 +23,12 @@ const PopularNow = ({navigation}) => {
   // );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <List
         data={mediaArray}
         contentContainerStyle={styles.container}
         horizontal={false}
-        ItemSeparatorComponent={Divider}
+        ItemSeparatorComponent={ItemSeparator}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
           <PlainListItem
@@ -37,16 +38,14 @@ const PopularNow = ({navigation}) => {
             // file={getFavourites(item)}
           />
         )}
-      ></List>
+      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin: 0,
-    padding: 0,
-    backgroundColor: colors.primary,
+    marginTop: 20,
   },
 });
 

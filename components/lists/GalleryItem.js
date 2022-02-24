@@ -35,6 +35,7 @@ const GalleryItemVertical = ({navigation, singleItem, displayText}) => {
     <TouchableOpacity
       onPress={() => {
         navigation.navigate('Product Detail', {file: singleItem});
+        console.log('file id', singleItem.file_id); // test comment with postman
       }}
     >
       <ImageWithOverlay
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     marginEnd: 10,
     marginBottom: 15,
     width: 280,
-    height: 170,
+    height: 180,
   },
 
   GalleryImageVertical: {
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
         height: 220,
       },
       android: {
-        width: 350,
-        height: 210,
+        width: 320,
+        height: 190,
       },
     }),
   },
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
 
     ...Platform.select({
       ios: {
-        top: '76%',
+        top: '75%',
       },
       android: {
         top: '72%',
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   displayTime: {
     flex: 2,
     position: 'absolute',
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: 'Karla_400Regular',
     margin: 15,
     color: colors.text_light,

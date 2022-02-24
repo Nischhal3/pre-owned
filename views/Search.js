@@ -18,6 +18,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
 import {useFocusEffect} from '@react-navigation/native';
+import {AppButton} from '../components/elements/AppButton';
 
 const Search = ({navigation}) => {
   const {mediaArray, home, electronics, clothing, sports, gaming, others} =
@@ -138,9 +139,20 @@ const Search = ({navigation}) => {
                 setIsChecked={setIsChecked}
                 isChecked={isChecked}
               />
-              <Button style={{marginTop: 20}} onPress={() => setVisible(false)}>
-                Apply filter
-              </Button>
+              <Layout
+                style={{flexDirection: 'row', backgroundColor: 'transparent'}}
+              >
+                <AppButton
+                  title="Clear filter"
+                  appBtnStyle={{marginTop: 20, width: 130}}
+                  onPress={reset}
+                />
+                <AppButton
+                  title="Apply Filter"
+                  appBtnStyle={{marginTop: 20, width: 130}}
+                  onPress={() => setVisible(false)}
+                />
+              </Layout>
             </Card>
           </Modal>
         </Layout>
@@ -168,9 +180,6 @@ const Search = ({navigation}) => {
           <Text>Hello</Text>
         )}
       </ScrollView>
-      <Button style={{marginTop: 20}} onPress={reset}>
-        Clear Filter
-      </Button>
     </SafeAreaView>
   );
 };

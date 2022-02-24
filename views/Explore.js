@@ -50,18 +50,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: colors.container,
+    backgroundColor: colors.background,
   },
 
   horizontalGallery: {
-    backgroundColor: colors.container,
+    backgroundColor: colors.background,
     marginTop: 10,
   },
 
   verticalGallery: {
     flex: 1,
     marginTop: -10,
-    backgroundColor: colors.container,
+    backgroundColor: colors.background,
   },
 });
 

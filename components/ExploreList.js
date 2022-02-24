@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useMedia} from '../hooks/MediaHooks';
 import {GalleryItemHorizontal, GalleryItemVertical} from './lists/GalleryItem';
+import {colors} from '../utils';
 
 // Return a horizontal gallery list
 const GalleryListHorizontal = ({navigation}) => {
@@ -14,6 +15,7 @@ const GalleryListHorizontal = ({navigation}) => {
 
   return (
     <List
+      style={{backgroundColor: colors.background}}
       data={showFirstFive}
       contentContainerStyle={{
         alignItems: 'center',
@@ -37,8 +39,9 @@ const GalleryListVertical = ({navigation}) => {
   // console.log('Explorer', mediaArray);
   return (
     <List
+      style={{backgroundColor: colors.background}}
       data={showFirstFive}
-      contentContainerStyle={{marginStart: 10, alignItems: 'center'}}
+      contentContainerStyle={{alignItems: 'center'}}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
