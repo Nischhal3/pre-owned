@@ -1,24 +1,20 @@
 import React from 'react';
 import {Button, Spinner} from '@ui-kitten/components';
-import {SafeAreaView, TouchableOpacity} from 'react-native';
-import colors from '../../utils/colors';
-import GlobalStyles from '../../utils/GlobalStyles';
+import { GlobalStyles } from '../../utils';
 
-const AppButton = (props, style) => {
+const AppButton = (props) => {
   return (
-    // <TouchableOpacity>
-      <Button
-        style={[GlobalStyles.btnStyle, props.appBtnStyle]}
-        onPress={props.onPress}
-        accessoryLeft={props.accessoryLeft}
-      >
-        {props.title}
-      </Button>
-    //  </TouchableOpacity>
+    <Button
+      style={[GlobalStyles.btnStyle, props.appBtnStyle]}
+      onPress={props.onPress}
+      accessoryLeft={props.accessoryLeft}
+    >
+      {props.title}
+    </Button>
   );
 };
 
-const FormButton = (props, style) => {
+const FormButton = (props) => {
   return (
     <Button
       style={[GlobalStyles.formButtonStyle, props.style]}

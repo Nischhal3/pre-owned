@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {baseUrl} from '../utils/url';
 
 // Communicating with server
-
 const fetchData = async (url, options = {}) => {
   try {
     const response = await fetch(url, options);

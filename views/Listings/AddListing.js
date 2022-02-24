@@ -178,7 +178,6 @@ const AddListing = ({navigation}) => {
           render={({field: {onChange, onBlur, value}}) => (
             <FormInput
               style={styles.inputStyle}
-              iconName="text-outline"
               name="Title"
               onBlur={onBlur}
               onChange={onChange}
@@ -204,7 +203,6 @@ const AddListing = ({navigation}) => {
           render={({field: {onChange, onBlur, value}}) => (
             <FormInput
               style={styles.inputStyle}
-              iconName="text-outline"
               name="Descripe your product and give it a price"
               onBlur={onBlur}
               onChange={onChange}
