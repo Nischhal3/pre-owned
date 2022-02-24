@@ -1,5 +1,5 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Button,
   Card,
@@ -17,6 +17,7 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
+import {useFocusEffect} from '@react-navigation/native';
 import {AppButton} from '../components/elements/AppButton';
 
 const Search = ({navigation}) => {
@@ -26,6 +27,23 @@ const Search = ({navigation}) => {
   const [visible, setVisible] = useState(false);
   const [itemPosition, setItemPosition] = useState();
   const [search, setSearch] = useState('');
+  const [isChecked, setIsChecked] = useState(0);
+
+  // Storing category values to data depending upon which check-box is clicked
+  const data =
+    itemPosition === 0
+      ? home
+      : itemPosition === 1
+      ? electronics
+      : itemPosition === 2
+      ? clothing
+      : itemPosition === 3
+      ? sports
+      : itemPosition === 4
+      ? gaming
+      : itemPosition === 5
+      ? others
+      : null;
 
   // update filtered list
   const searchProduct = (textToSearch) => {
@@ -43,13 +61,25 @@ const Search = ({navigation}) => {
       console.log('Cant set filtered data', e);
     }
   };
-  console.log('position', itemPosition);
 
+  // Clearing filter and search
   const reset = () => {
     setVisible(false);
     setItemPosition(null);
     setSearch('');
   };
+
+  // Setting search to empty string when filter check-box is clicked
+  useEffect(() => {
+    setSearch('');
+  }, [isChecked]);
+
+  // We need to add it ?
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     return () => reset();
+  //   }, [])
+  // );
 
   return (
     <SafeAreaView
@@ -67,6 +97,7 @@ const Search = ({navigation}) => {
         }}
       >
         <Input
+          value={search}
           placeholder="Search..."
           style={styles.searchField}
           accessoryLeft={SearchIcon}
@@ -103,7 +134,11 @@ const Search = ({navigation}) => {
               >
                 Categories
               </Text>
-              <ModalCheckBox setItemPosition={setItemPosition} />
+              <ModalCheckBox
+                setItemPosition={setItemPosition}
+                setIsChecked={setIsChecked}
+                isChecked={isChecked}
+              />
               <Layout
                 style={{flexDirection: 'row', backgroundColor: 'transparent'}}
               >
@@ -132,53 +167,8 @@ const Search = ({navigation}) => {
               displayText={true}
             />
           ))
-        ) : itemPosition === 0 ? (
-          home.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 1 ? (
-          electronics.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 2 ? (
-          clothing.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 3 ? (
-          sports.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 4 ? (
-          gaming.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : itemPosition === 5 ? (
-          others.map((item) => (
+        ) : data !== null ? (
+          data.map((item) => (
             <GalleryItemVertical
               navigation={navigation}
               singleItem={item}
@@ -187,7 +177,7 @@ const Search = ({navigation}) => {
             />
           ))
         ) : (
-          <Text> {''}</Text>
+          <Text>Hello</Text>
         )}
       </ScrollView>
     </SafeAreaView>

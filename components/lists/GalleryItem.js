@@ -30,7 +30,7 @@ const GalleryItemHorizontal = ({navigation, singleItem}) => {
 
 // Single item for explore vertical list
 const GalleryItemVertical = ({navigation, singleItem, displayText}) => {
-  console.log(singleItem);
+  // console.log(singleItem);
   return (
     <TouchableOpacity
       onPress={() => {
