@@ -1,13 +1,15 @@
 import React from 'react';
 import {Button, Spinner} from '@ui-kitten/components';
-import { GlobalStyles } from '../../utils';
+import {GlobalStyles} from '../../utils';
 
 const AppButton = (props) => {
   return (
     <Button
       style={[GlobalStyles.btnStyle, props.appBtnStyle]}
+      size={props.size}
       onPress={props.onPress}
       accessoryLeft={props.accessoryLeft}
+      accessoryRight={props.accessoryRight}
     >
       {props.title}
     </Button>

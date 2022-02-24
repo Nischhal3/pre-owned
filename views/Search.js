@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CheckBox,
+  Icon,
   Input,
   Layout,
   ListItem,
@@ -86,14 +87,14 @@ const Search = ({navigation}) => {
       style={{
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: colors.primary,
+        backgroundColor: colors.background,
       }}
     >
       <ListItem
         style={{
           flexDirection: 'row',
           width: '100%',
-          backgroundColor: colors.primary,
+          backgroundColor: colors.background,
         }}
       >
         <Input
@@ -143,13 +144,8 @@ const Search = ({navigation}) => {
                 style={{flexDirection: 'row', backgroundColor: 'transparent'}}
               >
                 <AppButton
-                  title="Clear filter"
-                  appBtnStyle={{marginTop: 20, width: 130}}
-                  onPress={reset}
-                />
-                <AppButton
                   title="Apply Filter"
-                  appBtnStyle={{marginTop: 20, width: 130}}
+                  appBtnStyle={{marginTop: 20, width: 180, alignSelf: 'center'}}
                   onPress={() => setVisible(false)}
                 />
               </Layout>
@@ -157,6 +153,17 @@ const Search = ({navigation}) => {
           </Modal>
         </Layout>
       </ListItem>
+      <AppButton
+        title="Filter"
+        accessoryRight={<Icon name="close" />}
+        appBtnStyle={{
+          marginTop: -10,
+          width: 100,
+          height: 40,
+          alignSelf: 'flex-end',
+        }}
+        onPress={reset}
+      />
       <ScrollView style={styles.searchImageContainer}>
         {search !== '' ? (
           filteredData.map((item) => (
@@ -189,7 +196,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     marginTop: 20,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.background,
   },
   searchField: {
     flex: 10,
