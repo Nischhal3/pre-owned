@@ -9,10 +9,9 @@ import Profile from '../views/Profile';
 import {MainContext} from '../contexts/MainContext';
 import ProductDetail from '../views/ProductDetail';
 import PopularNow from '../views/PopularNow';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import AllProducts from '../views/AllProducts';
 import TabScreen from '../components/navComponents/Bottom';
-import EditListing from '../views/Listings/EditListing';
+import {EditListing} from '../views/Listings';
 
 const Stack = createNativeStackNavigator();
 

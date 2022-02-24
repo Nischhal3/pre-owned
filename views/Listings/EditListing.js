@@ -18,16 +18,15 @@ import {Card, Input} from '@ui-kitten/components';
 
 // Import from files
 import {getToken} from '../../hooks/CommonFunction';
-import {useMedia} from '../../hooks/MediaHooks';
+import {putMedia, useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {uploadsUrl} from '../../utils/url';
+import {colors} from '../../utils';
 import {FormButton} from '../../components/elements/AppButton';
-import colors from '../../utils/colors';
 import ErrorMessage from '../../components/elements/ErrorMessage';
 
 const EditListing = ({navigation, route}) => {
   const {file} = route.params;
-  const {putMedia} = useMedia();
   const {update, setUpdate} = useContext(MainContext);
 
   const {
@@ -59,7 +58,6 @@ const EditListing = ({navigation, route}) => {
           },
         ]);
     } catch (e) {
-      // let the user know the problem
       console.log('onSubmit edit post problem', e);
     }
   };

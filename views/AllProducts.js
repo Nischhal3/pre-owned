@@ -4,8 +4,9 @@ import {Divider, List} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
-import PlainListItem from '../components/lists/PlainListItem';
 import {useMedia} from '../hooks/MediaHooks';
+import {PlainListItem} from '../components/lists';
+import ItemSeparator from '../components/elements/ItemSeparator';
 
 const AllProducts = ({navigation}) => {
   const {mediaArray} = useMedia();
@@ -14,12 +15,12 @@ const AllProducts = ({navigation}) => {
   mediaArray.sort((a, b) => a.time_added < b.time_added);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <List
         data={mediaArray}
         contentContainerStyle={styles.container}
         horizontal={false}
-        ItemSeparatorComponent={Divider}
+        ItemSeparatorComponent={ItemSeparator}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
           <PlainListItem
@@ -28,16 +29,14 @@ const AllProducts = ({navigation}) => {
             displayText={true}
           />
         )}
-      ></List>
+      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin: 0,
-    padding: 0,
-    backgroundColor: colors.primary,
+    marginTop: 20,
   },
 });
 

@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Layout, Select, SelectItem, IndexPath} from '@ui-kitten/components';
 import {CategoryIcon} from './elements/Icons';
+import {useFocusEffect} from '@react-navigation/native';
 
-const CategoryPicker = () => {
+const CategoryPicker = ({setCategory}) => {
   // categories selection
   const categories = [
-    'Select Category',
     'Home & Living',
     'Electronics',
     'Clothing',
@@ -15,6 +15,17 @@ const CategoryPicker = () => {
   ];
   const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
   const displayValue = categories[selectedIndex.row];
+
+  // Sets value of category after selectedIndex is rendered
+  useEffect(() => {
+    setCategory(displayValue);
+  }, [displayValue]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setSelectedIndex(new IndexPath(0));
+    }, [])
+  );
 
   return (
     <Layout level="1">
@@ -27,7 +38,6 @@ const CategoryPicker = () => {
         selectedIndex={selectedIndex}
         onSelect={(index) => setSelectedIndex(index)}
       >
-        <SelectItem title="" />
         <SelectItem
           title="Home & Living"
           accessoryLeft={<CategoryIcon name="floor-lamp" />}

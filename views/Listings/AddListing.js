@@ -4,8 +4,9 @@ import {
   ScrollView,
   StyleSheet,
   Image,
+  SafeAreaView,
 } from 'react-native';
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
@@ -23,7 +24,7 @@ import FormInput from '../../components/formComponents/FormInput';
 import colors from '../../utils/colors';
 import {appId} from '../../utils/url';
 import {getToken} from '../../hooks/CommonFunction';
-import {postMedia, postTag} from '../../hooks/MediaHooks';
+import {getFilesByTag, postMedia, postTag} from '../../hooks/MediaHooks';
 
 const AddListing = ({navigation}) => {
   // const [image, setImage] = useState(
@@ -33,7 +34,9 @@ const AddListing = ({navigation}) => {
   const [image, setImage] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
-  const {update, setUpdate, loading, setLoading} = useContext(MainContext);
+  const {update, setUpdate, loading, setLoading, media, setMedia} =
+    useContext(MainContext);
+  const [category, setCategory] = useState('');
 
   const {
     control,
@@ -64,6 +67,7 @@ const AddListing = ({navigation}) => {
   };
 
   const onSubmit = async (data) => {
+    setImageSelected(false);
     setLoading(true);
     if (!imageSelected) {
       Alert.alert('Please select file');
@@ -90,15 +94,21 @@ const AddListing = ({navigation}) => {
     try {
       const token = await getToken();
       const response = await postMedia(formData, token);
-      // console.log('Media upload', response);
+      console.log('Media upload', response);
 
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: appId},
+        {file_id: response.file_id, tag: `${appId}_${category}`},
         token
       );
-      // console.log('upload response', tagResponse);
 
-      if (tagResponse) {
+      // All category in one database
+      const allResponse = await postTag(
+        {file_id: response.file_id, tag: `${appId}`},
+        token
+      );
+      console.log('upload response', tagResponse, allResponse);
+
+      if (tagResponse && allResponse) {
         setLoading(false);
         Alert.alert('Success!', 'Post uploaded successfully.', [
           {
@@ -133,114 +143,116 @@ const AddListing = ({navigation}) => {
   );
 
   return (
-    <ScrollView>
-      <Card style={styles.card}>
-        {type === 'image' ? (
-          <Card.Image
-            source={{uri: image}}
-            style={styles.image}
-            onPress={pickImage}
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
+      <ScrollView>
+        <Card style={styles.card}>
+          {type === 'image' ? (
+            <Card.Image
+              source={{uri: image}}
+              style={styles.image}
+              onPress={pickImage}
+            />
+          ) : (
+            <Video
+              source={{uri: image}}
+              style={styles.image}
+              useNativeControls={true}
+              resizeMode="cover"
+              onError={(err) => {
+                console.error('video', err);
+              }}
+            />
+          )}
+          <AppButton
+            // title="Clear list"
+            appBtnStyle={styles.clearBtn}
+            onPress={reset}
+            accessoryLeft={<Icon name="refresh-outline" />}
+            // appearance="ghost"
           />
-        ) : (
-          <Video
-            source={{uri: image}}
-            style={styles.image}
-            useNativeControls={true}
-            resizeMode="cover"
-            onError={(err) => {
-              console.error('video', err);
+          <Controller
+            control={control}
+            rules={{
+              required: {value: true, message: 'This is required.'},
+              minLength: {
+                value: 3,
+                message: 'Title has to be at least 3 characters.',
+              },
+              maxLength: {
+                value: 20,
+                message: 'Title has to be at most 20 characters.',
+              },
             }}
-          />
-        )}
-        <AppButton
-          // title="Clear list"
-          appBtnStyle={styles.clearBtn}
-          onPress={reset}
-          accessoryLeft={<Icon name="refresh-outline" />}
-          // appearance="ghost"
-        />
-        <Controller
-          control={control}
-          rules={{
-            required: {value: true, message: 'This is required.'},
-            minLength: {
-              value: 3,
-              message: 'Title has to be at least 3 characters.',
-            },
-            maxLength: {
-              value: 20,
-              message: 'Title has to be at most 20 characters.',
-            },
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <FormInput
-              style={styles.inputStyle}
-              iconName="text-outline"
-              name="Title"
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
-              textEntry={false}
-            />
-          )}
-          name="title"
-        />
-        {errors.title && (
-          <Text status="danger">{errors.title && errors.title.message} </Text>
-        )}
-
-        <Controller
-          control={control}
-          rules={{
-            required: {value: true, message: 'This is required.'},
-            minLength: {
-              value: 10,
-              message: 'Description has to be at least 10 characters.',
-            },
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <FormInput
-              style={styles.inputStyle}
-              iconName="text-outline"
-              name="Descripe your product and give it a price"
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
-              textEntry={false}
-              multiline={true}
-              textStyle={{minHeight: 96}}
-            />
-          )}
-          name="description"
-        />
-
-        {errors.description && (
-          <Text status="danger">
-            {errors.description && errors.description.message}{' '}
-          </Text>
-        )}
-        {/* should this be required? */}
-        <CategoryPicker />
-        <FormButton
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          // text="Upload"
-          text={
-            loading ? (
-              <ActivityIndicator
-                animating={loading}
-                color={colors.text_light}
-                size="large"
+            render={({field: {onChange, onBlur, value}}) => (
+              <FormInput
+                style={styles.inputStyle}
+                name="Title"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={false}
               />
-            ) : (
-              'Upload'
-            )
-          }
-          style={styles.uploadBtn}
-        />
-        {/* <ActivityIndicator animating={loading} color="#6B818C" size="large" /> */}
-      </Card>
-    </ScrollView>
+            )}
+            name="title"
+          />
+          {errors.title && (
+            <Text status="danger">{errors.title && errors.title.message} </Text>
+          )}
+
+          <Controller
+            control={control}
+            rules={{
+              required: {value: true, message: 'This is required.'},
+              minLength: {
+                value: 5,
+                message: 'Description has to be at least 10 characters.',
+              },
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <FormInput
+                style={styles.inputStyle}
+                name="Descripe your product and give it a price"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={false}
+                multiline={true}
+                textStyle={{minHeight: 96}}
+              />
+            )}
+            name="description"
+          />
+
+          {errors.description && (
+            <Text status="danger">
+              {errors.description && errors.description.message}{' '}
+            </Text>
+          )}
+
+          <CategoryPicker setCategory={setCategory} />
+
+          <FormButton
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            // text="Upload"
+            text={
+              loading ? (
+                <ActivityIndicator
+                  animating={loading}
+                  color={colors.text_light}
+                  size="large"
+                />
+              ) : (
+                'Upload'
+              )
+            }
+            disabled={!imageSelected}
+            style={styles.uploadBtn}
+          />
+          {/* <ActivityIndicator animating={loading} color="#6B818C" size="large" /> */}
+        </Card>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

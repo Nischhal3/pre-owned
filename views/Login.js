@@ -8,11 +8,10 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import {Card, Layout, ButtonGroup, Button, Text} from '@ui-kitten/components';
+import {Card, Layout, ButtonGroup, Button} from '@ui-kitten/components';
 import colors from '../utils/colors';
-import SignupForm from '../components/SignupForm';
-import LoginForm from '../components/LoginForm';
 import {MainContext} from '../contexts/MainContext';
+import {LoginForm, SignupForm} from '../components';
 
 const Login = () => {
   // const [formToggle, setFormToggle] = useState(true);
@@ -84,6 +83,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
+    borderRadius: 30,
   },
   card: {
     backgroundColor: colors.primary,

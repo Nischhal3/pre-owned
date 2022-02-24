@@ -1,7 +1,7 @@
 import {Layout} from '@ui-kitten/components';
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import colors from '../../utils/colors';
+import {colors} from '../../utils';
 
 const ItemSeparator = () => {
   return <Layout style={styles.separator} />;
@@ -9,8 +9,8 @@ const ItemSeparator = () => {
 const styles = StyleSheet.create({
   separator: {
     width: '100%',
-    height: 1,
-    backgroundColor: colors.lightGrey,
+    height: 5,
+    backgroundColor: colors.background,
   },
 });
 export default ItemSeparator;
