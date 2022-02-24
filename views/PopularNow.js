@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Divider, List} from '@ui-kitten/components';
-import {StyleSheet} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
 import colors from '../utils/colors';
 import PropTypes from 'prop-types';
 import PlainListItem from '../components/lists/PlainListItem';
 import {useFavourite, useMedia} from '../hooks/MediaHooks';
+import {sortBy} from 'lodash';
 
 // TODO fetch items from server, item fetch to be added in API hooks
 const PopularNow = ({navigation}) => {
@@ -14,11 +15,22 @@ const PopularNow = ({navigation}) => {
   const [likes, setLikes] = useState(new Array(mediaArray.length).fill(''));
 
   const file = mediaArray.map((item) => {
-    console.log(item.file_id);
+    return item.file_id;
   });
 
-  const likeData = getFavourtiesByFileId(file);
-  setLikes(likeData);
+  console.log(file);
+
+  const handleOnChange = (position) => {
+    try {
+      const data = getFavourtiesByFileId(file);
+      const updatedLikeData = data.map((item, index) =>
+        index === position ? !item : item
+      );
+      setLikes(data);
+    } catch (e) {
+      console.log('Filter update failed', e);
+    }
+  };
 
   console.log(likes.length);
 
