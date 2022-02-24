@@ -1,5 +1,5 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   Button,
   Card,
@@ -20,12 +20,16 @@ import ModalCheckBox from '../components/elements/CheckBox';
 import {AppButton} from '../components/elements/AppButton';
 
 const Search = ({navigation}) => {
-  const {mediaArray} = useMedia();
+  const {mediaArray, home, electronics, clothing, sports, gaming, others} =
+    useMedia();
   const [filteredData, setFilteredData] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [itemPosition, setItemPosition] = useState();
+  const [search, setSearch] = useState('');
 
   // update filtered list
   const searchProduct = (textToSearch) => {
+    setSearch(textToSearch);
     try {
       if (textToSearch === '') {
         setFilteredData([]);
@@ -39,20 +43,27 @@ const Search = ({navigation}) => {
       console.log('Cant set filtered data', e);
     }
   };
+  console.log('position', itemPosition);
+
+  const reset = () => {
+    setVisible(false);
+    setItemPosition(null);
+    setSearch('');
+  };
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: colors.background,
+        backgroundColor: colors.primary,
       }}
     >
       <ListItem
         style={{
           flexDirection: 'row',
           width: '100%',
-          backgroundColor: colors.background,
+          backgroundColor: colors.primary,
         }}
       >
         <Input
@@ -92,28 +103,92 @@ const Search = ({navigation}) => {
               >
                 Categories
               </Text>
-              <ModalCheckBox />
-              {/* <Button style={{marginTop: 20}} onPress={() => setVisible(false)}>
-                Apply filter
-              </Button> */}
-              <AppButton
-                title="Apply Filter"
-                style={{marginTop: 20}}
-                onPress={() => setVisible(false)}
-              />
+              <ModalCheckBox setItemPosition={setItemPosition} />
+              <Layout
+                style={{flexDirection: 'row', backgroundColor: 'transparent'}}
+              >
+                <AppButton
+                  title="Clear filter"
+                  appBtnStyle={{marginTop: 20, width: 130}}
+                  onPress={reset}
+                />
+                <AppButton
+                  title="Apply Filter"
+                  appBtnStyle={{marginTop: 20, width: 130}}
+                  onPress={() => setVisible(false)}
+                />
+              </Layout>
             </Card>
           </Modal>
         </Layout>
       </ListItem>
       <ScrollView style={styles.searchImageContainer}>
-        {filteredData.map((item) => (
-          <GalleryItemVertical
-            navigation={navigation}
-            singleItem={item}
-            key={item.file_id}
-            displayText={true}
-          />
-        ))}
+        {search !== '' ? (
+          filteredData.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 0 ? (
+          home.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 1 ? (
+          electronics.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 2 ? (
+          clothing.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 3 ? (
+          sports.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 4 ? (
+          gaming.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : itemPosition === 5 ? (
+          others.map((item) => (
+            <GalleryItemVertical
+              navigation={navigation}
+              singleItem={item}
+              key={item.file_id}
+              displayText={true}
+            />
+          ))
+        ) : (
+          <Text> {''}</Text>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -124,7 +199,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     marginTop: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.primary,
   },
   searchField: {
     flex: 10,
