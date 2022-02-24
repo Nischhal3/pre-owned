@@ -36,15 +36,6 @@ const useMedia = () => {
       const othersMedia = await getFilesByTag(othersTag);
 
       // Storing items by category
-      // await fetchFromMedia(allMedia, setMediaArray);
-      // await fetchFromMedia(homeMedia, setHome);
-      // await fetchFromMedia(electronicsMedia, setElectornics);
-      // await fetchFromMedia(clothingMedia, setClothing);
-      // await fetchFromMedia(sportsMedia, setSports);
-      // await fetchFromMedia(gamingMedia, setGaming);
-      // await fetchFromMedia(othersMedia, setOthers);
-
-      // Storing items by category
       const allMediaCategory = await fetchFromMedia(allMedia);
       const homeCategory = await fetchFromMedia(homeMedia);
       const electronicsCategory = await fetchFromMedia(electronicsMedia);
@@ -60,15 +51,7 @@ const useMedia = () => {
       setSports(sportsCategory);
       setGaming(gamingCategory);
       setOthers(othersCategory);
-      // // Storing all the media category in single array
-      // setMediaArray([
-      //   ...homeCategory,
-      //   ...electronicsCategory,
-      //   ...clothingCategory,
-      //   ...sportsCategory,
-      //   ...gamingCategory,
-      //   ...othersCategory,
-      // ]);
+
       //console.log('Length', mediaArray.length);
     } catch (error) {
       console.log('Error', error);
