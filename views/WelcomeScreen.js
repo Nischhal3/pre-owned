@@ -48,15 +48,7 @@ const WelcomeScreen = ({navigation}) => {
       />
       <Layout style={styles.btnContainter}>
         <AppButton
-          title="Login"
-          onPress={() => {
-            setFormToggle(true);
-            navigation.navigate('Login');
-          }}
-        />
-        <AppButton
-          appBtnStyle={{marginBottom: 75}}
-          title="Create an account"
+          title="Continue"
           onPress={() => {
             setFormToggle(false);
             navigation.navigate('Login');
@@ -76,6 +68,7 @@ const styles = StyleSheet.create({
   btnContainter: {
     backgroundColor: 'transparent',
     alignSelf: 'center',
+    marginBottom: '20%',
   },
   inner: {
     width: '100%',

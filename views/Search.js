@@ -17,6 +17,7 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
+import {AppButton} from '../components/elements/AppButton';
 
 const Search = ({navigation}) => {
   const {mediaArray, home, electronics, clothing, sports, gaming, others} =
@@ -103,9 +104,20 @@ const Search = ({navigation}) => {
                 Categories
               </Text>
               <ModalCheckBox setItemPosition={setItemPosition} />
-              <Button style={{marginTop: 20}} onPress={() => setVisible(false)}>
-                Apply filter
-              </Button>
+              <Layout
+                style={{flexDirection: 'row', backgroundColor: 'transparent'}}
+              >
+                <AppButton
+                  title="Clear filter"
+                  appBtnStyle={{marginTop: 20, width: 130}}
+                  onPress={reset}
+                />
+                <AppButton
+                  title="Apply Filter"
+                  appBtnStyle={{marginTop: 20, width: 130}}
+                  onPress={() => setVisible(false)}
+                />
+              </Layout>
             </Card>
           </Modal>
         </Layout>
@@ -178,23 +190,6 @@ const Search = ({navigation}) => {
           <Text> {''}</Text>
         )}
       </ScrollView>
-      <Button style={{marginTop: 20}} onPress={reset}>
-        Clear Filter
-      </Button>
-      {/* <ScrollView style={styles.searchImageContainer}>
-        {itemPosition === 0 ? (
-          home.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : (
-          <Text>{''}</Text>
-        )}
-      </ScrollView> */}
     </SafeAreaView>
   );
 };

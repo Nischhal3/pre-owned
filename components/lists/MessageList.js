@@ -1,6 +1,6 @@
 // import from React
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Alert, Image, StyleSheet} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
@@ -32,8 +32,7 @@ import SVGIcon from '../../assets/icons/no-message.svg';
 const MessageList = ({fileId, showMessages = false}) => {
   const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
 
-  const {updateMessage, setUpdateMessage, update, setUpdate} =
-    useContext(MainContext);
+  const {updateMessage, setUpdateMessage} = useContext(MainContext);
   // const [senderName, setSenderName] = useState('');
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -132,7 +131,9 @@ const MessageList = ({fileId, showMessages = false}) => {
 
   return (
     <Layout style={styles.container}>
-      <Layout style={{height: 150, backgroundColor: colors.primary}}>
+      <Layout
+        style={{height: 150, backgroundColor: colors.primary, marginBottom: 20}}
+      >
         <Controller
           control={control}
           rules={{
@@ -142,7 +143,7 @@ const MessageList = ({fileId, showMessages = false}) => {
             <FormInput
               style={styles.commentBox}
               // iconName="text-outline"
-              name="Add Message"
+              name="Leave sender a message"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
@@ -164,14 +165,14 @@ const MessageList = ({fileId, showMessages = false}) => {
           handleSubmit={handleSubmit}
           onSubmit={sendMessage}
         />
+        <Button
+          onPress={() => setVisible(true)}
+          appearance="ghost"
+          style={styles.messageBtn}
+        >
+          Total messages {messages.length}
+        </Button>
       </Layout>
-      <Button
-        onPress={() => setVisible(true)}
-        appearance="ghost"
-        style={styles.messageBtn}
-      >
-        Total messages {messages.length}
-      </Button>
       <Modal
         style={{top: '10%'}}
         visible={visible}
@@ -233,6 +234,7 @@ const styles = StyleSheet.create({
   },
   commentBox: {
     padding: 10,
+    fontFamily: 'Karla',
     borderColor: colors.stroke,
   },
   sendBtn: {
@@ -243,9 +245,8 @@ const styles = StyleSheet.create({
     right: 10,
   },
   messageBtn: {
-    width: '55%',
     alignSelf: 'flex-start',
-    marginTop: '-10%',
+    marginTop: '-20%',
     marginBottom: 20,
     left: '-10%',
   },
@@ -282,9 +283,9 @@ const styles = StyleSheet.create({
   title: {alignSelf: 'center', fontFamily: 'Karla_700Bold'},
 });
 
-// MessageList.propTypes = {
-//   fileId: PropTypes.object,
-//   showMessages: PropTypes.bool,
-// };
+MessageList.propTypes = {
+  fileId: PropTypes.object,
+  showMessages: PropTypes.bool,
+};
 
 export default MessageList;

@@ -55,7 +55,7 @@ const ListDetail = ({
             </>
           ) : (
             <Text style={styles.time}>
-              {moment(timeAdded).format('     HH:mm DD.MM.YYYY ')}
+              {moment(timeAdded).format('DD.MM.YYYY hh:mm a')}
             </Text>
           )}
         </Layout>
@@ -65,15 +65,14 @@ const ListDetail = ({
 };
 const styles = StyleSheet.create({
   arrowIcon: {
-    backgroundColor: colors.primary,
-    flex: 1,
+    // flex: 1,
     right: Platform.OS === 'android' ? 40 : 20,
   },
   container: {
     flexDirection: 'row',
     width: '100%',
     padding: 10,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.box,
     justifyContent: 'space-between',
   },
   deleteBtn: {
@@ -95,12 +94,12 @@ const styles = StyleSheet.create({
   detailsContainer: {
     marginLeft: 10,
     justifyContent: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.box,
   },
   image: {
     width: 70,
     height: 70,
-    backgroundColor: colors.container,
+    backgroundColor: colors.text_light,
   },
   time: {
     width: 70,
