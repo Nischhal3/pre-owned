@@ -93,15 +93,21 @@ const AddListing = ({navigation}) => {
     try {
       const token = await getToken();
       const response = await postMedia(formData, token);
-      // console.log('Media upload', response);
+      console.log('Media upload', response);
 
       const tagResponse = await postTag(
         {file_id: response.file_id, tag: `${appId}_${category}`},
         token
       );
-      // console.log('upload response', tagResponse);
 
-      if (tagResponse) {
+      // All category in one database
+      const allResponse = await postTag(
+        {file_id: response.file_id, tag: `${appId}`},
+        token
+      );
+      console.log('upload response', tagResponse, allResponse);
+
+      if (tagResponse && allResponse) {
         setLoading(false);
         Alert.alert('Success!', 'Post uploaded successfully.', [
           {

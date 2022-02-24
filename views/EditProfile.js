@@ -53,8 +53,8 @@ const EditProfile = ({navigation}) => {
       const userToken = await getToken();
       const response = await updateUser(data, userToken);
 
-      console.log("edit data", data);
-      console.log('Data', response);
+      // console.log("edit data", data);
+      // console.log('Data', response);
       if (response) {
         delete data.password;
         setUser(data);
@@ -63,7 +63,7 @@ const EditProfile = ({navigation}) => {
             text: 'Ok',
             onPress: () => {
               navigation.navigate('Profile');
-              console.log("after edit", user);
+              console.log('after edit', user);
             },
           },
         ]);
@@ -74,7 +74,7 @@ const EditProfile = ({navigation}) => {
   };
 
   const fetchAvatar = async () => {
-    console.log("edit avatar user", user);
+    console.log('edit avatar user', user);
     try {
       const avatarArray = await getFilesByTag('avatar_' + user.user_id);
       const avatar = avatarArray.pop();

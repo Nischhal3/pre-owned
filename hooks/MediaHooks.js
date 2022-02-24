@@ -27,6 +27,7 @@ const useMedia = () => {
   const fetchMedia = async () => {
     try {
       // Fetching items by category
+      const allMedia = await getFilesByTag(appId);
       const homeMedia = await getFilesByTag(homeTag);
       const electronicsMedia = await getFilesByTag(electronicsTag);
       const clothingMedia = await getFilesByTag(clothingTag);
@@ -35,25 +36,35 @@ const useMedia = () => {
       const othersMedia = await getFilesByTag(othersTag);
 
       // Storing items by category
-      const homeCategory = await fetchFromMedia(homeMedia, setHome);
-      const electronicsCategory = await fetchFromMedia(
-        electronicsMedia,
-        setElectornics
-      );
-      const clothingCategory = await fetchFromMedia(clothingMedia, setClothing);
-      const sportsCategory = await fetchFromMedia(sportsMedia, setSports);
-      const gamingCategory = await fetchFromMedia(gamingMedia, setGaming);
-      const othersCategory = await fetchFromMedia(othersMedia, setOthers);
+      await fetchFromMedia(allMedia, setMediaArray);
+      await fetchFromMedia(homeMedia, setHome);
+      await fetchFromMedia(electronicsMedia, setElectornics);
+      await fetchFromMedia(clothingMedia, setClothing);
+      await fetchFromMedia(sportsMedia, setSports);
+      await fetchFromMedia(gamingMedia, setGaming);
+      await fetchFromMedia(othersMedia, setOthers);
 
-      // Storing all the media category in single array
-      setMediaArray([
-        ...homeCategory,
-        ...electronicsCategory,
-        ...clothingCategory,
-        ...sportsCategory,
-        ...gamingCategory,
-        ...othersCategory,
-      ]);
+      // Storing items by category
+      // const allMediaCategory = await fetchFromMedia(allMedia, setMediaArray);
+      // const homeCategory = await fetchFromMedia(homeMedia, setHome);
+      // const electronicsCategory = await fetchFromMedia(
+      //   electronicsMedia,
+      //   setElectornics
+      // );
+      // const clothingCategory = await fetchFromMedia(clothingMedia, setClothing);
+      // const sportsCategory = await fetchFromMedia(sportsMedia, setSports);
+      // const gamingCategory = await fetchFromMedia(gamingMedia, setGaming);
+      // const othersCategory = await fetchFromMedia(othersMedia, setOthers);
+
+      // // Storing all the media category in single array
+      // setMediaArray([
+      //   ...homeCategory,
+      //   ...electronicsCategory,
+      //   ...clothingCategory,
+      //   ...sportsCategory,
+      //   ...gamingCategory,
+      //   ...othersCategory,
+      // ]);
       //console.log('Length', mediaArray.length);
     } catch (error) {
       console.log('Error', error);

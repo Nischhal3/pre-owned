@@ -30,7 +30,6 @@ const fetchFromMedia = async (jsonData, setCategory) => {
     })
   );
   setCategory(media);
-  return media;
 };
 
 // Getting token from Storage
