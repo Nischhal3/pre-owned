@@ -60,23 +60,6 @@ const useMedia = () => {
     }
   };
 
-  // const setMedianInArray = () => {
-  //   // Storing all the media category in single array
-  //   setMediaArray([
-  //     ...home,
-  //     ...electronics,
-  //     ...clothing,
-  //     ...sports,
-  //     ...gaming,
-  //     ...others,
-  //   ]);
-  // };
-
-  // useEffect(() => {
-  //   setMedianInArray();
-  //   return () => {};
-  // }, [home, electronics, sports, gaming, clothing, others]);
-
   // Call loadMedia() only once when the component is loaded
   // Or when the update state is changed in MainContext
   useEffect(() => {
