@@ -55,7 +55,7 @@ const ListDetail = ({
             </>
           ) : (
             <Text style={styles.time}>
-              {moment(timeAdded).format('     HH:mm DD.MM.YYYY ')}
+              {moment(timeAdded).format('DD.MM.YYYY hh:mm a')}
             </Text>
           )}
         </Layout>

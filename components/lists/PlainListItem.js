@@ -111,9 +111,10 @@ const styles = StyleSheet.create({
   },
   displayTime: {
     flex: 2,
-    fontSize: 10,
+    fontSize: 12,
     fontFamily: 'Karla_400Regular',
     alignSelf: 'center',
+    lineHeight: 20,
   },
   layout: {
     flex: 2,

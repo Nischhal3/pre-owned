@@ -17,6 +17,7 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
+import {AppButton} from '../components/elements/AppButton';
 
 const Search = ({navigation}) => {
   const {mediaArray} = useMedia();
@@ -92,9 +93,14 @@ const Search = ({navigation}) => {
                 Categories
               </Text>
               <ModalCheckBox />
-              <Button style={{marginTop: 20}} onPress={() => setVisible(false)}>
+              {/* <Button style={{marginTop: 20}} onPress={() => setVisible(false)}>
                 Apply filter
-              </Button>
+              </Button> */}
+              <AppButton
+                title="Apply Filter"
+                style={{marginTop: 20}}
+                onPress={() => setVisible(false)}
+              />
             </Card>
           </Modal>
         </Layout>
