@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
 });
 
 MessageList.propTypes = {
-  fileId: PropTypes.object,
+  fileId: PropTypes.number,
   showMessages: PropTypes.bool,
 };
 
