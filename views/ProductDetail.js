@@ -158,7 +158,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
                 </Pressable>
               </Layout>
 
-              <ItemSeparator />
+              <Divider style={{backgroundColor: colors.lightGrey}} />
 
               <UserItem
                 onPress={() => {
@@ -169,7 +169,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
                 title={name}
                 description="5 Listings"
               />
-              <ItemSeparator />
+              <Divider style={{backgroundColor: colors.lightGrey}} />
 
               <Text category="s1" style={styles.detail}>
                 Price & Details
@@ -181,7 +181,7 @@ const ProductDetail = ({route, navigation, profile, fileId}) => {
               >
                 {file.description}
               </Text>
-              <ItemSeparator />
+              <Divider style={{backgroundColor: colors.lightGrey}} />
               <Text category="s1" style={styles.detail}>
                 Send the Seller a message
               </Text>

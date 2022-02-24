@@ -59,13 +59,7 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
         <Avatar
           shape="square"
           size={'giant'}
-          style={{
-            width: 70,
-            height: 70,
-            flex: 1,
-            resizeMode: 'cover',
-            backgroundColor: colors.primary,
-          }}
+          style={styles.productImage}
           source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         />
       </Layout>
@@ -128,6 +122,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  productImage: {
+    width: 70,
+    height: 70,
+    flex: 1,
+    resizeMode: 'cover',
+    backgroundColor: colors.box,
+    left: 10,
+  },
   titleBox: {
     flex: 6,
     backgroundColor: colors.box,
@@ -145,6 +147,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 10,
     backgroundColor: colors.box,
+    borderWidth: 1,
+    borderColor: colors.lightGrey,
   },
 });
 

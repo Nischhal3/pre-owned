@@ -9,8 +9,7 @@ const ItemSeparator = () => {
 const styles = StyleSheet.create({
   separator: {
     width: '100%',
-    height: 2,
-    margin: 10,
+    height: 5,
     backgroundColor: colors.background,
   },
 });

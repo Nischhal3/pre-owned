@@ -1,6 +1,6 @@
 // Import from React
 import React, {useContext} from 'react';
-import {SafeAreaView, FlatList} from 'react-native';
+import {SafeAreaView, FlatList, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from files
@@ -51,6 +51,7 @@ const MyListings = ({navigation, showMyMedia = false}) => {
         </Layout>
       ) : (
         <FlatList
+          contentContainerStyle={styles.container}
           data={myMedia}
           keyExtractor={(item) => item.file_id.toString()}
           ItemSeparatorComponent={ItemSeparator}
@@ -66,7 +67,11 @@ const MyListings = ({navigation, showMyMedia = false}) => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+  },
+});
 MyListings.propTypes = {
   navigation: PropTypes.object,
   showMyMedia: PropTypes.bool,

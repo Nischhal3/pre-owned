@@ -65,8 +65,7 @@ const ListDetail = ({
 };
 const styles = StyleSheet.create({
   arrowIcon: {
-    backgroundColor: colors.box,
-    flex: 1,
+    // flex: 1,
     right: Platform.OS === 'android' ? 40 : 20,
   },
   container: {
