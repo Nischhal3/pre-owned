@@ -17,6 +17,7 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Search = ({navigation}) => {
   const {mediaArray, home, electronics, clothing, sports, gaming, others} =
@@ -71,6 +72,12 @@ const Search = ({navigation}) => {
   useEffect(() => {
     setSearch('');
   }, [isChecked]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset();
+    }, [])
+  );
 
   return (
     <SafeAreaView
