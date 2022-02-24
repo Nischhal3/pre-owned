@@ -44,14 +44,14 @@ const Search = ({navigation}) => {
       style={{
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: colors.primary,
+        backgroundColor: colors.background,
       }}
     >
       <ListItem
         style={{
           flexDirection: 'row',
           width: '100%',
-          backgroundColor: colors.primary,
+          backgroundColor: colors.background,
         }}
       >
         <Input
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     marginTop: 20,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.background,
   },
   searchField: {
     flex: 10,

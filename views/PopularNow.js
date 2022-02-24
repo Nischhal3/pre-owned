@@ -22,7 +22,7 @@ const PopularNow = ({navigation}) => {
   // );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <List
         data={mediaArray}
         contentContainerStyle={styles.container}

@@ -22,6 +22,7 @@ import {deleteMedia, useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {getToken} from '../../hooks/CommonFunction';
 import {colors} from '../../utils';
+import {Shadow} from 'react-native-shadow-2';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
@@ -82,7 +83,7 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
       )}
       {!showMyMedia ? (
         <ListItem
-          style={{flex: 1, backgroundColor: colors.primary}}
+          style={{flex: 1, backgroundColor: colors.box}}
           accessoryRight={PointRightArrow}
         />
       ) : null}
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
   },
   titleBox: {
     flex: 6,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.box,
     alignSelf: 'center',
     marginStart: 15,
   },
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginHorizontal: 10,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.box,
   },
 });
 

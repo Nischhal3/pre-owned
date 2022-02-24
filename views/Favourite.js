@@ -1,11 +1,12 @@
-import { View, Text } from 'react-native';
+import {Text, SafeAreaView} from 'react-native';
 import React from 'react';
+import {colors} from '../utils';
 
 const Favourite = () => {
   return (
-    <View>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <Text></Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

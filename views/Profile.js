@@ -13,7 +13,7 @@ const Profile = ({route}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
   const [avatar, setAvatar] = useState();
   const [hasAvatar, setHasAvatar] = useState(false);
-  const userIdParam  = route.params?.profileParam ?? user.user_id;
+  const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
 
   const logout = async () => {
@@ -79,7 +79,7 @@ const Profile = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.container,
+    backgroundColor: colors.background,
   },
   backgroundImg: {
     zIndex: 0,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     top: '30%',
     width: '100%',
     height: '100%',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.background,
     borderColor: colors.primary,
     position: 'relative',
   },

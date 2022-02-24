@@ -276,6 +276,10 @@ const styles = StyleSheet.create({
     // marginVertical: 40,
     // alignItems: 'center',
   },
+  safeView: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
 });
 
 ProductDetail.propTypes = {

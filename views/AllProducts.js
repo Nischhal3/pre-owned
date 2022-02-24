@@ -14,7 +14,7 @@ const AllProducts = ({navigation}) => {
   mediaArray.sort((a, b) => a.time_added < b.time_added);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <List
         data={mediaArray}
         contentContainerStyle={styles.container}

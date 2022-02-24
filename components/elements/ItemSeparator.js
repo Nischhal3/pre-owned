@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   separator: {
     width: '100%',
     height: 2,
-    backgroundColor: colors.lightGrey,
+    margin: 10,
+    backgroundColor: colors.background,
   },
 });
 export default ItemSeparator;

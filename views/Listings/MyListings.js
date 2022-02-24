@@ -20,7 +20,7 @@ const MyListings = ({navigation, showMyMedia = false}) => {
   const myMedia = mediaArray.filter((item) => item.user_id === user.user_id);
   myMedia.sort((a, b) => a.time_added < b.time_added);
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: colors.text_light}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       {myMedia.length == 0 ? (
         <Layout
           style={{
@@ -51,7 +51,6 @@ const MyListings = ({navigation, showMyMedia = false}) => {
         </Layout>
       ) : (
         <FlatList
-          style={{backgroundColor: colors.container, width: '100%'}}
           data={myMedia}
           keyExtractor={(item) => item.file_id.toString()}
           ItemSeparatorComponent={ItemSeparator}
