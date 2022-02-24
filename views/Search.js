@@ -110,7 +110,7 @@ const Search = ({navigation}) => {
               >
                 <AppButton
                   title="Apply Filter"
-                  appBtnStyle={{marginTop: 20, width: 130}}
+                  appBtnStyle={{marginTop: 20, width: 180, alignSelf: 'center'}}
                   onPress={() => setVisible(false)}
                 />
               </Layout>
