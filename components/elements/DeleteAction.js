@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {Alert, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {getToken} from '../../hooks/CommonFunction';
 import {deleteMessage} from '../../hooks/MessageHook';
+import {colors} from '../../utils';
 // import {useMessage} from '../../hooks/MediaHooks';
 
 const DeleteAction = ({message, user}) => {
