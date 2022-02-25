@@ -36,13 +36,16 @@ const DeleteAction = ({message, user}) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={handleDelete}>
-      <LottieView
-        ref={animation}
-        style={styles.animation}
-        source={require('../../assets/icons/trash-can-animation.json')}
-        loop={true}
-      />
+    <TouchableWithoutFeedback>
+      {user.username === message.username ? (
+        <LottieView
+          ref={animation}
+          style={styles.animation}
+          source={require('../../assets/icons/trash-can-animation.json')}
+          loop={true}
+          onPress={handleDelete}
+        />
+      ) : null}
     </TouchableWithoutFeedback>
   );
 };
