@@ -19,7 +19,6 @@ const getMessagesByFileId = async (fileId) => {
 };
 
 const deleteMessage = async (msgId, token) => {
-  console.log('MEssage', msgId, token);
   const options = {
     method: 'DELETE',
     headers: {

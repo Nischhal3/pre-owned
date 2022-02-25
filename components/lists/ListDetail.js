@@ -21,8 +21,7 @@ const ListDetail = ({
   message,
   user,
 }) => {
-  console.log('User', user);
-  const handleDelete = async () => {
+  const handleDelete = () => {
     Alert.alert('Delete Message', 'Confirm delete action?', [
       {text: 'Cancel'},
       {
@@ -43,12 +42,10 @@ const ListDetail = ({
       },
     ]);
   };
+
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight
-        underlayColor={colors.text_light}
-        onPress={handleDelete}
-      >
+      <TouchableHighlight underlayColor={colors.text_light}>
         <Layout style={styles.container}>
           {IconComponent}
           {image && <Avatar style={styles.image} source={image} />}

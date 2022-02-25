@@ -1,43 +1,41 @@
-import React, {useContext, useEffect} from 'react';
-import {Alert, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import LottieView from 'lottie-react-native';
+import {getToken} from '../../hooks/CommonFunction';
+import {deleteMessage} from '../../hooks/MessageHook';
 // import {useMessage} from '../../hooks/MediaHooks';
-import {MainContext} from '../../contexts/MainContext';
 
-const DeleteAction = () => {
+const DeleteAction = ({message, user}) => {
   const animation = React.createRef(); // animation
 
   useEffect(() => {
     animation.current?.play();
   }, []);
 
-  // delete function
-  // const {deleteMessage} = useMessage();
-  const {update, setUpdate} = useContext(MainContext);
-  // const handleDelete = () => {
-  //   console.log(item);
-
-  //   Alert.alert('Delete Message', 'Confirm delete action?', [
-  //     {text: 'Cancel'},
-  //     {
-  //       text: 'OK',
-  //       onPress: async () => {
-  //         try {
-  //           const response = await deleteMessage(item.comment_id);
-  //           console.log(response);
-  //           // update the list after deletion
-  //           response && setUpdate(update + 1);
-  //         } catch (e) {
-  //           console.error(e);
-  //         }
-  //       },
-  //     },
-  //   ]);
-  // };
+  const handleDelete = () => {
+    Alert.alert('Delete Message', 'Confirm delete action?', [
+      {text: 'Cancel'},
+      {
+        text: 'OK',
+        onPress: async () => {
+          try {
+            const token = await getToken();
+            const response = await deleteMessage(message.comment_id, token);
+            // console.log(response);
+            if (response) {
+              Alert.alert('Message deleted');
+              return;
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        },
+      },
+    ]);
+  };
 
   return (
-    // <TouchableWithoutFeedback onPress={onPress}>
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={handleDelete}>
       <LottieView
         ref={animation}
         style={styles.animation}

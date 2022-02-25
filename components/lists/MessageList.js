@@ -191,8 +191,7 @@ const MessageList = ({fileId, showMessages = false}) => {
                   showMessages={true}
                   image={{uri: avatar}}
                   renderRightActions={() => (
-                    <DeleteAction />
-                    //<DeleteAction onPress={handleDelete} />
+                    <DeleteAction message={item} user={user} />
                   )}
                   ItemSeparatorComponent={Divider}
                   message={item}
