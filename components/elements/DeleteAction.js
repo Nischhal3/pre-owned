@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Alert, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {Alert, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {getToken} from '../../hooks/CommonFunction';
 import {deleteMessage} from '../../hooks/MessageHook';
@@ -36,27 +36,31 @@ const DeleteAction = ({message, user}) => {
   };
 
   return (
-    <TouchableWithoutFeedback>
-      {user.username === message.username ? (
-        <LottieView
-          ref={animation}
-          style={styles.animation}
-          source={require('../../assets/icons/trash-can-animation.json')}
-          loop={true}
-          onPress={handleDelete}
-        />
-      ) : null}
+    <TouchableWithoutFeedback onPress={handleDelete}>
+      <View
+        styles={{width: 30, justifyContent: 'center', alignItems: 'center'}}
+      >
+        {user.username === message.username ? (
+          <LottieView
+            ref={animation}
+            style={styles.animation}
+            source={require('../../assets/icons/trash-can-animation.json')}
+            loop={true}
+          />
+        ) : null}
+      </View>
     </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({
   animation: {
     height: 50,
-    width: 70,
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 10,
-    left: 15,
+    width: 50,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    top: 5,
+    marginRight: 20,
+    left: 7,
   },
 });
 // DeleteAction.propTypes = {
