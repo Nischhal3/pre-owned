@@ -1,10 +1,10 @@
 import React, {useContext, useEffect} from 'react';
 import {Alert, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import LottieView from 'lottie-react-native';
-import {useMessage} from '../../hooks/MediaHooks';
+// import {useMessage} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 
-const DeleteAction = ({onPress}) => {
+const DeleteAction = () => {
   const animation = React.createRef(); // animation
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const DeleteAction = ({onPress}) => {
   }, []);
 
   // delete function
-  const {deleteMessage} = useMessage();
+  // const {deleteMessage} = useMessage();
   const {update, setUpdate} = useContext(MainContext);
   // const handleDelete = () => {
   //   console.log(item);
@@ -36,7 +36,8 @@ const DeleteAction = ({onPress}) => {
   // };
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    // <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableWithoutFeedback>
       <LottieView
         ref={animation}
         style={styles.animation}

@@ -19,7 +19,7 @@ import {
 
 // Import from files
 import {AppButton, FormButton} from '../elements/AppButton';
-import {useMessage} from '../../hooks/MediaHooks';
+// import {useMessage} from '../../hooks/MediaHooks';
 import {getUserById} from '../../hooks/ApiHooks';
 import {MainContext} from '../../contexts/MainContext';
 import FormInput from '../formComponents/FormInput';
@@ -28,11 +28,16 @@ import ListDetail from './ListDetail';
 import {colors} from '../../utils';
 import DeleteAction from '../elements/DeleteAction';
 import SVGIcon from '../../assets/icons/no-message.svg';
+import {
+  deleteMessage,
+  getMessagesByFileId,
+  postMessage,
+} from '../../hooks/MessageHook';
 
 const MessageList = ({fileId, showMessages = false}) => {
-  const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
+  // const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
 
-  const {updateMessage, setUpdateMessage} = useContext(MainContext);
+  const {user, updateMessage, setUpdateMessage} = useContext(MainContext);
   // const [senderName, setSenderName] = useState('');
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -57,28 +62,7 @@ const MessageList = ({fileId, showMessages = false}) => {
   const reset = () => {
     setValue('message', '');
   };
-  // function delete a message
-  const handleDelete = () => {
-    console.log(messages);
 
-    // Alert.alert('Delete Message', 'Confirm delete action?', [
-    //   {text: 'Cancel'},
-    //   {
-    //     text: 'OK',
-    //     onPress: async (data) => {
-    //       try {
-    //         const token = await getToken();
-    //         const response = await deleteMessage(data.comment_id, token);
-    //         console.log(response);
-    //         // update the list after deletion
-    //         response && setUpdate(update + 1);
-    //       } catch (e) {
-    //         console.error(e);
-    //       }
-    //     },
-    //   },
-    // ]);
-  };
   // get msg
   const fetchMessage = async () => {
     try {
@@ -205,14 +189,14 @@ const MessageList = ({fileId, showMessages = false}) => {
               renderItem={({item}) => (
                 <ListDetail
                   showMessages={true}
-                  description={item.comment}
-                  title={item.username}
-                  timeAdded={item.time_added}
                   image={{uri: avatar}}
                   renderRightActions={() => (
-                    <DeleteAction onPress={handleDelete} />
+                    <DeleteAction />
+                    //<DeleteAction onPress={handleDelete} />
                   )}
                   ItemSeparatorComponent={Divider}
+                  message={item}
+                  user={user}
                 />
               )}
             />
