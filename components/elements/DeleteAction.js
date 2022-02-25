@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {Alert, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {getToken} from '../../hooks/CommonFunction';
 import {deleteMessage} from '../../hooks/MessageHook';
@@ -35,13 +35,16 @@ const DeleteAction = ({message, user}) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={handleDelete}>
-      <LottieView
-        ref={animation}
-        style={styles.animation}
-        source={require('../../assets/icons/trash-can-animation.json')}
-        loop={true}
-      />
+    <TouchableWithoutFeedback>
+      {user.username === message.username ? (
+        <LottieView
+          ref={animation}
+          style={styles.animation}
+          source={require('../../assets/icons/trash-can-animation.json')}
+          loop={true}
+          onPress={handleDelete}
+        />
+      ) : null}
     </TouchableWithoutFeedback>
   );
 };
