@@ -56,11 +56,7 @@ const MessageList = ({fileId, showMessages = false}) => {
     mode: 'onBlur',
   });
 
-  const reset = () => {
-    setValue('message', '');
-  };
-
-  // get msg
+  // Fetching message from database
   const fetchMessage = async () => {
     try {
       const msgData = await getMessagesByFileId(fileId);
@@ -79,7 +75,7 @@ const MessageList = ({fileId, showMessages = false}) => {
     fetchMessage();
   }, [updateMessage]);
 
-  // send Message
+  // Sending Messageto database
   const sendMessage = async (data) => {
     try {
       const token = await getToken();
@@ -103,6 +99,12 @@ const MessageList = ({fileId, showMessages = false}) => {
     }
   };
 
+  // Resets the text filed
+  const reset = () => {
+    setValue('message', '');
+  };
+
+  // Reseting message text field after message is sent
   useFocusEffect(
     useCallback(() => {
       return () => reset();

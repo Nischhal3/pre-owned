@@ -3,7 +3,6 @@ import {Alert, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {getToken} from '../../hooks/CommonFunction';
 import {deleteMessage} from '../../hooks/MessageHook';
-import {colors} from '../../utils';
 
 const DeleteAction = ({message, user, setUpdateMessage, updateMessage}) => {
   const animation = React.createRef(); // animation
