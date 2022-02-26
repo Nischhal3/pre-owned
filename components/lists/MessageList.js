@@ -42,7 +42,7 @@ const MessageList = ({fileId, showMessages = false}) => {
   );
 
   // display messages from latest to oldest
-  messages.sort((a, b) => a.timeAdded < b.timeAdded);
+  messages.sort((a, b) => a.time_added < b.time_added);
 
   const {
     control,
