@@ -1,6 +1,6 @@
 // Import from React
-import React from 'react';
-import {StyleSheet, TouchableHighlight, Platform} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {StyleSheet, TouchableHighlight, Platform, Alert} from 'react-native';
 import moment from 'moment';
 // Import from UI Kitten Library
 import {Avatar, Button, Icon, Layout, Text} from '@ui-kitten/components';
@@ -8,54 +8,81 @@ import {Swipeable} from 'react-native-gesture-handler';
 
 // Import from files
 import {colors} from '../../utils';
+import {getToken} from '../../hooks/CommonFunction';
+import {deleteMessage} from '../../hooks/MessageHook';
+import {MainContext} from '../../contexts/MainContext';
 
 // now in use: ProductDetail.js, Messages
 const ListDetail = ({
-  description,
   image,
   IconComponent,
-  onPress,
   renderRightActions,
   showMessages,
-  title,
-  timeAdded,
+  message,
+  user,
+  setUpdateMessage,
+  updateMessage,
 }) => {
+  // Can't use MainContext here ?
+  // const {updateMessage, setUpdateMessage} = useContext(MainContext);
+  const handleDelete = () => {
+    Alert.alert('Delete Message', 'Confirm delete action?', [
+      {text: 'Cancel'},
+      {
+        text: 'OK',
+        onPress: async () => {
+          try {
+            const token = await getToken();
+            const response = await deleteMessage(message.comment_id, token);
+            if (response) {
+              setUpdateMessage(updateMessage + 1);
+              Alert.alert('Message deleted');
+              return;
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        },
+      },
+    ]);
+  };
+
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={colors.text_light} onPress={onPress}>
+      <TouchableHighlight underlayColor={colors.text_light}>
         <Layout style={styles.container}>
           {IconComponent}
           {image && <Avatar style={styles.image} source={image} />}
           <Layout style={styles.detailsContainer}>
             <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
-              {title}
+              {message.username}
             </Text>
             <Text
               ellipsizeMode="tail"
               numberOfLines={1}
               style={styles.description}
             >
-              {description}
+              {message.comment}
             </Text>
           </Layout>
           {/* When in android, message list shows a delete btn while ios swipeable */}
           {showMessages && Platform.OS === 'android' ? (
             <>
               <Text style={styles.timeAndroid}>
-                {moment(timeAdded).format('     HH:mm DD.MM.YYYY ')}
+                {moment(message.time_added).format('     HH:mm DD.MM.YYYY ')}
               </Text>
-              <Button
-                appearance={'ghost'}
-                style={styles.deleteBtn}
-                accessoryLeft={<Icon name="trash-2-outline" />}
-                onPress={() => {
-                  alert('btn delete pressed');
-                }}
-              />
+              {user.username === message.username ? (
+                <Button
+                  appearance={'ghost'}
+                  style={styles.deleteBtn}
+                  accessoryLeft={<Icon name="trash-2-outline" />}
+                  onPress={handleDelete}
+                />
+              ) : null}
             </>
           ) : (
             <Text style={styles.time}>
-              {moment(timeAdded).format('DD.MM.YYYY hh:mm a')}
+              {moment(message.time_added).format('DD.MM.YYYY hh:mm a')}
             </Text>
           )}
         </Layout>

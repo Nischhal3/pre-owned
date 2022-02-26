@@ -6,7 +6,6 @@ import {fetchData, fetchFromMedia} from './CommonFunction';
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update} = useContext(MainContext);
-  const [loading, setLoading] = useState(false);
 
   // Category items
   const [home, setHome] = useState([]);
@@ -90,35 +89,6 @@ const postMedia = async (formData, token) => {
   return response;
 };
 
-// Messages (comment)
-const useMessage = () => {
-  const getMessagesByFileId = async (fileId) => {
-    return await fetchData(`${baseUrl}comments/file/${fileId}`);
-  };
-
-  const postMessage = async (message, token) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      },
-      body: JSON.stringify(message),
-    };
-
-    return await fetchData(`${baseUrl}comments`, options);
-  };
-  const deleteMessage = async (msgId) => {
-    const options = {
-      method: 'DELETE',
-      // headers: {'x-access-token': token},
-    };
-    return await fetchData(`${baseUrl}/comments/${msgId}`, options);
-  };
-
-  return {deleteMessage, getMessagesByFileId, postMessage};
-};
-
 const putMedia = async (data, token, fileId) => {
   const options = {
     method: 'PUT',
@@ -193,6 +163,5 @@ export {
   deleteMedia,
   postTag,
   useMedia,
-  useMessage,
   useFavourite,
 };

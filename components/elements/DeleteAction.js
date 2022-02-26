@@ -1,59 +1,65 @@
-import React, {useContext, useEffect} from 'react';
-import {Alert, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import React, {useEffect} from 'react';
+import {Alert, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
 import LottieView from 'lottie-react-native';
-import {useMessage} from '../../hooks/MediaHooks';
-import {MainContext} from '../../contexts/MainContext';
+import {getToken} from '../../hooks/CommonFunction';
+import {deleteMessage} from '../../hooks/MessageHook';
 
-const DeleteAction = ({onPress}) => {
+const DeleteAction = ({message, user, setUpdateMessage, updateMessage}) => {
   const animation = React.createRef(); // animation
 
   useEffect(() => {
     animation.current?.play();
   }, []);
 
-  // delete function
-  const {deleteMessage} = useMessage();
-  const {update, setUpdate} = useContext(MainContext);
-  // const handleDelete = () => {
-  //   console.log(item);
-
-  //   Alert.alert('Delete Message', 'Confirm delete action?', [
-  //     {text: 'Cancel'},
-  //     {
-  //       text: 'OK',
-  //       onPress: async () => {
-  //         try {
-  //           const response = await deleteMessage(item.comment_id);
-  //           console.log(response);
-  //           // update the list after deletion
-  //           response && setUpdate(update + 1);
-  //         } catch (e) {
-  //           console.error(e);
-  //         }
-  //       },
-  //     },
-  //   ]);
-  // };
+  const handleDelete = () => {
+    Alert.alert('Delete Message', 'Confirm delete action?', [
+      {text: 'Cancel'},
+      {
+        text: 'OK',
+        onPress: async () => {
+          try {
+            const token = await getToken();
+            const response = await deleteMessage(message.comment_id, token);
+            // console.log(response);
+            if (response) {
+              setUpdateMessage(updateMessage + 1);
+              Alert.alert('Message deleted');
+              return;
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        },
+      },
+    ]);
+  };
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <LottieView
-        ref={animation}
-        style={styles.animation}
-        source={require('../../assets/icons/trash-can-animation.json')}
-        loop={true}
-      />
+    <TouchableWithoutFeedback onPress={handleDelete}>
+      <View
+        styles={{width: 30, justifyContent: 'center', alignItems: 'center'}}
+      >
+        {user.username === message.username ? (
+          <LottieView
+            ref={animation}
+            style={styles.animation}
+            source={require('../../assets/icons/trash-can-animation.json')}
+            loop={true}
+          />
+        ) : null}
+      </View>
     </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({
   animation: {
     height: 50,
-    width: 70,
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 10,
-    left: 15,
+    width: 50,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    top: 5,
+    marginRight: 20,
+    left: 7,
   },
 });
 // DeleteAction.propTypes = {
