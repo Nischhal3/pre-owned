@@ -28,11 +28,7 @@ import ListDetail from './ListDetail';
 import {colors} from '../../utils';
 import DeleteAction from '../elements/DeleteAction';
 import SVGIcon from '../../assets/icons/no-message.svg';
-import {
-  deleteMessage,
-  getMessagesByFileId,
-  postMessage,
-} from '../../hooks/MessageHook';
+import {getMessagesByFileId, postMessage} from '../../hooks/MessageHook';
 
 const MessageList = ({fileId, showMessages = false}) => {
   // const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
@@ -44,6 +40,7 @@ const MessageList = ({fileId, showMessages = false}) => {
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
+
   // display messages from latest to oldest
   messages.sort((a, b) => a.timeAdded < b.timeAdded);
 
@@ -76,14 +73,12 @@ const MessageList = ({fileId, showMessages = false}) => {
       console.error('get msg error', e.message);
     }
   };
+
+  // Fetching message after deleting or adding new
   useEffect(() => {
-    let isMounted = true; // fix memory leaks warning
-    if (isMounted) {
-      fetchMessage();
-    } else {
-      return (isMounted = false);
-    }
-  }, [messages]);
+    fetchMessage();
+  }, [updateMessage]);
+
   // send Message
   const sendMessage = async (data) => {
     try {
@@ -92,16 +87,17 @@ const MessageList = ({fileId, showMessages = false}) => {
         {file_id: fileId, comment: data.message},
         token
       );
-      response &&
+      if (response) {
+        setUpdateMessage(updateMessage + 1);
         Alert.alert('Success', 'Message Sent', [
           {
             text: 'OK',
             onPress: () => {
               reset();
-              setUpdateMessage(updateMessage + 1);
             },
           },
         ]);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -191,11 +187,18 @@ const MessageList = ({fileId, showMessages = false}) => {
                   showMessages={true}
                   image={{uri: avatar}}
                   renderRightActions={() => (
-                    <DeleteAction message={item} user={user} />
+                    <DeleteAction
+                      message={item}
+                      user={user}
+                      setUpdateMessage={setUpdateMessage}
+                      updateMessage={updateMessage}
+                    />
                   )}
                   ItemSeparatorComponent={Divider}
                   message={item}
                   user={user}
+                  setUpdateMessage={setUpdateMessage}
+                  updateMessage={updateMessage}
                 />
               )}
             />

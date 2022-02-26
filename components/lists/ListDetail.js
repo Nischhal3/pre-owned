@@ -1,5 +1,5 @@
 // Import from React
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, TouchableHighlight, Platform, Alert} from 'react-native';
 import moment from 'moment';
 // Import from UI Kitten Library
@@ -20,7 +20,11 @@ const ListDetail = ({
   showMessages,
   message,
   user,
+  setUpdateMessage,
+  updateMessage,
 }) => {
+  // Can't use MainContext here ?
+  // const {updateMessage, setUpdateMessage} = useContext(MainContext);
   const handleDelete = () => {
     Alert.alert('Delete Message', 'Confirm delete action?', [
       {text: 'Cancel'},
@@ -32,6 +36,7 @@ const ListDetail = ({
             const response = await deleteMessage(message.comment_id, token);
             // console.log(response);
             if (response) {
+              setUpdateMessage(updateMessage + 1);
               Alert.alert('Message deleted');
               return;
             }

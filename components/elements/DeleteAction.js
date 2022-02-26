@@ -5,7 +5,7 @@ import {getToken} from '../../hooks/CommonFunction';
 import {deleteMessage} from '../../hooks/MessageHook';
 import {colors} from '../../utils';
 
-const DeleteAction = ({message, user}) => {
+const DeleteAction = ({message, user, setUpdateMessage, updateMessage}) => {
   const animation = React.createRef(); // animation
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const DeleteAction = ({message, user}) => {
             const response = await deleteMessage(message.comment_id, token);
             // console.log(response);
             if (response) {
+              setUpdateMessage(updateMessage + 1);
               Alert.alert('Message deleted');
               return;
             }
