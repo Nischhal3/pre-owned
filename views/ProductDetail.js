@@ -126,7 +126,7 @@ const ProductDetail = ({route, navigation}) => {
           source={{uri: uploadsUrl + file.filename}}
         />
         <View style={styles.boxShadow}>
-          <Shadow distance={15}>
+          <Shadow distance={7}>
             <Card style={styles.card}>
               <Layout style={styles.container}>
                 <Text style={styles.title}>{file.title}</Text>
