@@ -37,7 +37,7 @@ const ProductDetail = ({route, navigation}) => {
     useFavourite();
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
-  const {user} = useContext(MainContext);
+  const {user, updateFavourite, setUpdateFavourite} = useContext(MainContext);
   const [name, setName] = useState('');
   // favorite animation
   const animation = React.useRef(null);
@@ -81,7 +81,10 @@ const ProductDetail = ({route, navigation}) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const response = await postFavourite(file.file_id, token);
-      response && setUserLike(true);
+      if (response) {
+        setUpdateFavourite(updateFavourite + 1);
+        setUserLike(true);
+      }
     } catch (e) {
       console.error('Add Like error', e);
     }
@@ -90,7 +93,10 @@ const ProductDetail = ({route, navigation}) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const response = await deleteFavourite(file.file_id, token);
-      response && setUserLike(false);
+      if (response) {
+        setUpdateFavourite(updateFavourite + 1);
+        setUserLike(false);
+      }
     } catch (e) {
       console.error('Remove Like error', e);
     }

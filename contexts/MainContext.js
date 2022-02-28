@@ -11,6 +11,7 @@ const MainProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
   const [updateMessage, setUpdateMessage] = useState(0);
   const [media, setMedia] = useState([]);
+  const [updateFavourite, setUpdateFavourite] = useState(0);
 
   return (
     <MainContext.Provider
@@ -29,6 +30,8 @@ const MainProvider = ({children}) => {
         setUpdateMessage,
         media,
         setMedia,
+        updateFavourite,
+        setUpdateFavourite,
       }}
     >
       {children}
