@@ -1,6 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Image, StyleSheet, ActivityIndicator} from 'react-native';
-import {Card, Layout, Button, Text, Avatar} from '@ui-kitten/components';
+import {
+  Card,
+  Layout,
+  Button,
+  Text,
+  Avatar,
+  Divider,
+} from '@ui-kitten/components';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
@@ -8,6 +15,7 @@ import {uploadsUrl} from '../utils/url';
 import {getFilesByTag} from '../hooks/MediaHooks';
 import {getUserById} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
+import {ProfileSeparator} from '../components/elements/ItemSeparator';
 
 const Profile = ({route}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
@@ -47,10 +55,10 @@ const Profile = ({route}) => {
     <Layout style={styles.container}>
       <Image
         style={styles.backgroundImg}
-        source={require('../assets/backgrounds/ProfileBG.png')}
+        source={require('../assets/backgrounds/profile_background.png')}
         PlaceholderContent={<ActivityIndicator />}
       />
-      <Layout style={styles.cardWrap}>
+      <Layout style={styles.profileWrapper}>
         {hasAvatar ? (
           <Avatar style={styles.avatar} source={{uri: avatar}} shape="round" />
         ) : (
@@ -60,18 +68,24 @@ const Profile = ({route}) => {
             shape="round"
           />
         )}
-        <Card style={styles.card}>
-          <Text style={styles.username}>{userProfile.username}</Text>
-          <Text style={styles.email}>{userProfile.email}</Text>
-          {userProfile.full_name ? (
-            <Text style={styles.description}>{userProfile.full_name}</Text>
-          ) : (
-            <Text style={styles.description}>User description not set.</Text>
-          )}
-          {/* <Button style={styles.logout} onPress={logout}>
-            Logout
-          </Button> */}
-        </Card>
+        <Text style={styles.username}>{userProfile.username}</Text>
+        <ProfileSeparator />
+        <Text style={styles.bio}>Bio</Text>
+        {userProfile.full_name ? (
+          <Text style={styles.description}>{userProfile.full_name}</Text>
+        ) : (
+          <Text style={styles.description}>User description not set.</Text>
+        )}
+        <ProfileSeparator />
+      </Layout>
+
+      <Layout style={styles.statisticsWrapper}>
+        <Text style={styles.activity}>Activity</Text>
+        <Layout style={styles.icons}>
+          <Image source={require('../assets/icons/box_1mdpi.png')} />
+          <Image source={require('../assets/icons/heart_1mdpi.png')} />
+          <Image source={require('../assets/icons/bubble_1mdpi.png')} />
+        </Layout>
       </Layout>
     </Layout>
   );
@@ -82,47 +96,58 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   backgroundImg: {
-    zIndex: 0,
     position: 'absolute',
     top: 0,
   },
-  cardWrap: {
+  profileWrapper: {
+    flex: 2,
     backgroundColor: 'transparent',
     padding: 0,
   },
   avatar: {
-    zIndex: 2,
     width: 150,
     height: 150,
     position: 'absolute',
     alignSelf: 'center',
-    top: 120,
+    top: '10%',
   },
-  card: {
-    zIndex: 1,
-    top: '30%',
-    width: '100%',
-    height: '100%',
+  statisticsWrapper: {
+    flex: 1,
+    flexDirection: 'column',
     backgroundColor: colors.background,
-    borderColor: colors.primary,
-    position: 'relative',
+  },
+  icons: {
+    flex: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-start',
+    backgroundColor: colors.background,
   },
   username: {
-    marginTop: 80,
+    marginTop: '60%',
     alignSelf: 'center',
-    fontSize: 28,
-    fontWeight: 'bold',
-  },
-  email: {
-    alignSelf: 'center',
-    fontSize: 16,
+    fontSize: 26,
+    fontFamily: 'Karla_400Regular',
   },
   description: {
-    marginTop: 20,
+    fontSize: 18,
     alignSelf: 'center',
+    textAlign: 'center',
+    padding: 3,
+    fontFamily: 'Karla_400Regular',
   },
-  logout: {
-    marginTop: 100,
+  activity: {
+    flex: 1,
+    alignSelf: 'center',
+    fontSize: 20,
+    fontFamily: 'Karla_700Bold',
+    marginTop: '5%',
+  },
+  bio: {
+    marginTop: 18,
+    alignSelf: 'center',
+    fontSize: 20,
+    fontFamily: 'Karla_700Bold',
   },
 });
 
