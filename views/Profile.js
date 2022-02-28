@@ -12,10 +12,11 @@ import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
 import {uploadsUrl} from '../utils/url';
-import {getFilesByTag, useMedia} from '../hooks/MediaHooks';
+import {getFilesByTag, useFavourite, useMedia} from '../hooks/MediaHooks';
 import {getUserById} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
 import {ProfileSeparator} from '../components/elements/ItemSeparator';
+import {getToken} from '../hooks/CommonFunction';
 
 const Profile = ({route}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
@@ -23,12 +24,26 @@ const Profile = ({route}) => {
   const [hasAvatar, setHasAvatar] = useState(false);
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
-  const {mediaArray} = useMedia(myPosts);
+  const {mediaArray} = useMedia();
+  const {getFavourtiesList} = useFavourite();
+  const [favourites, setFavourites] = useState([]);
+  const {updateFavourite} = useContext(MainContext);
 
   // Show user count for user posts
   const myPosts = mediaArray.filter(
     (item) => item.user_id === userProfile.user_id
   );
+
+  // Get count for posts liked by user
+  const myLikes = async () => {
+    const token = await getToken();
+    const response = await getFavourtiesList(token);
+    setFavourites(response);
+  };
+
+  useEffect(() => {
+    myLikes();
+  }, [favourites]);
 
   const logout = async () => {
     AsyncStorage.clear();
@@ -94,7 +109,7 @@ const Profile = ({route}) => {
         </Layout>
         <Layout style={styles.calculations}>
           <Text style={styles.numbers}>{myPosts.length}</Text>
-          <Text style={styles.numbers}>3</Text>
+          <Text style={styles.numbers}>{favourites.length}</Text>
           <Text style={styles.numbers}>3</Text>
         </Layout>
       </Layout>
