@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   toggleGroup: {
     justifyContent: 'center',
     alignSelf: 'center',
-    top: '10%',
+    top: Platform.OS === 'android' ? '7%' : '5%',
     zIndex: 1,
     // marginVertical: 10,
   },

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Alert} from 'react-native';
+import {StyleSheet, Alert, Platform} from 'react-native';
 import {
   Button,
   Text,
@@ -58,6 +58,19 @@ const SignupForm = ({setFormToggle}) => {
 
   return (
     <Layout style={styles.layout}>
+      <Text
+        category="h5"
+        style={{
+          top: Platform.OS === 'android' ? '-17%' : '-19%',
+          textAlign: 'center',
+          fontFamily: 'Karla_700Bold',
+        }}
+      >
+        Create account
+      </Text>
+      <Text category="s1" style={styles.textWelcome}>
+        Find the stuffs in need or earn some extra income now
+      </Text>
       <Controller
         control={control}
         rules={{
@@ -256,14 +269,12 @@ const SignupForm = ({setFormToggle}) => {
 };
 
 const styles = StyleSheet.create({
-  layout: {
-    marginTop: '35%',
-    height: 350,
+  backdrop: {
     backgroundColor: colors.primary,
-    borderColor: colors.primary,
   },
-  input: {
-    marginBottom: 10,
+  button: {
+    top: '-2%',
+    bottom: 30,
   },
   confirmInput: {
     marginBottom: 0,
@@ -273,29 +284,43 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginLeft: 10,
   },
-  Terms: {
-    textAlign: 'left',
-    fontFamily: 'Karla_700Bold',
-  },
-  backdrop: {
-    backgroundColor: colors.primary,
-  },
   dismissBtn: {
     marginTop: 20,
     borderRadius: 15,
+  },
+  input: {
+    marginBottom: 10,
   },
   modal: {
     margin: 10,
     borderRadius: 15,
   },
+  layout: {
+    marginTop: '35%',
+    height: 350,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+    bottom: 20,
+  },
+
+  Terms: {
+    textAlign: 'left',
+    fontFamily: 'Karla_700Bold',
+  },
+
   text: {
     lineHeight: 21,
     padding: 5,
     fontWeight: '500',
     fontSize: 14,
   },
-  button: {
-    marginTop: 10,
+  textWelcome: {
+    top: '-15%',
+    textAlign: 'center',
+    fontFamily: 'Karla',
+    fontSize: 16,
+    paddingHorizontal: 10,
+    marginBottom: -30,
   },
 });
 
