@@ -26,6 +26,10 @@ export default StyleSheet.create({
     fontFamily: 'Karla_700Bold',
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
-    // marginTop: Platform.OS === 'android' ? -20 : 0,
+  },
+  input: {
+    borderRadius: 10,
+
+    backgroundColor: colors.text_light,
   },
 });

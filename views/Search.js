@@ -161,6 +161,7 @@ const Search = ({navigation}) => {
           width: 100,
           height: 40,
           alignSelf: 'flex-end',
+          paddingVertical: 5,
         }}
         onPress={reset}
       />
@@ -184,7 +185,7 @@ const Search = ({navigation}) => {
             />
           ))
         ) : (
-          <Text>Hello</Text>
+          <Text>Search.js - Please add some text and apply styling here</Text>
         )}
       </ScrollView>
     </SafeAreaView>

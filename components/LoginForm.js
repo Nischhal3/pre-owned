@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {Text, Layout} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 import {login} from '../hooks/ApiHooks';
@@ -37,6 +37,19 @@ const LoginForm = () => {
 
   return (
     <Layout style={styles.layout}>
+      <Text
+        category="h5"
+        style={{
+          top: Platform.OS === 'android' ? '-20%' : '-25%',
+          textAlign: 'center',
+          fontFamily: 'Karla_700Bold',
+        }}
+      >
+        Welcome back
+      </Text>
+      <Text category="s1" style={styles.textWelcome}>
+        Use your credentials below and login to your account
+      </Text>
       <Controller
         control={control}
         rules={{
@@ -87,6 +100,7 @@ const LoginForm = () => {
 
       <Text style={styles.password}>Forgot password?</Text>
       <FormButton
+        style={{top: '-15%'}}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         text="Login"
@@ -96,19 +110,29 @@ const LoginForm = () => {
 };
 
 const styles = StyleSheet.create({
+  input: {
+    marginBottom: 15,
+    alignSelf: 'center',
+    width: 300,
+  },
   layout: {
-    height: 350,
-    // justifyContent: 'space-around',
+    marginTop: '35%',
+    height: undefined,
     backgroundColor: colors.primary,
     borderColor: colors.primary,
-  },
-  input: {
-    marginBottom: 10,
   },
   password: {
     marginTop: 5,
     marginBottom: 100,
     alignSelf: 'flex-end',
+  },
+  textWelcome: {
+    top: Platform.OS === 'android' ? '-15%' : '-20%',
+    textAlign: 'center',
+    fontFamily: 'Karla',
+    fontSize: 16,
+    paddingHorizontal: 10,
+    marginBottom: -20,
   },
 });
 

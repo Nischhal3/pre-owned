@@ -186,9 +186,9 @@ const MessageList = ({fileId, showMessages = false}) => {
               ) : (
                 <List
                   data={messages}
-                  contentContainerStyle={styles.container}
+                  style={styles.container}
                   horizontal={false}
-                  ItemSeparatorComponent={Divider}
+                  ItemSeparatorComponent={MessageSeparator}
                   showsHorizontalScrollIndicator={false}
                   renderItem={({item}) => (
                     <ListDetail
@@ -202,7 +202,7 @@ const MessageList = ({fileId, showMessages = false}) => {
                           updateMessage={updateMessage}
                         />
                       )}
-                      ItemSeparatorComponent={Divider}
+                      ItemSeparatorComponent={MessageSeparator}
                       message={item}
                       user={user}
                       setUpdateMessage={setUpdateMessage}
