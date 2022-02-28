@@ -186,29 +186,13 @@ const MessageList = ({fileId, showMessages = false}) => {
               ) : (
                 <List
                   data={messages}
-<<<<<<< HEAD
                   style={styles.container}
                   horizontal={false}
                   ItemSeparatorComponent={MessageSeparator}
-=======
-                  contentContainerStyle={styles.container}
-                  horizontal={false}
-                  ItemSeparatorComponent={Divider}
->>>>>>> e43c75962af73ac997b475f34f98eac95c7f9a09
                   showsHorizontalScrollIndicator={false}
                   renderItem={({item}) => (
                     <ListDetail
                       showMessages={true}
-<<<<<<< HEAD
-                      description={item.comment}
-                      title={item.username}
-                      timeAdded={item.time_added}
-                      image={{uri: avatar}}
-                      renderRightActions={() => (
-                        <DeleteAction onPress={handleDelete} />
-                      )}
-                      ItemSeparatorComponent={MessageSeparator}
-=======
                       image={{uri: avatar}}
                       renderRightActions={() => (
                         <DeleteAction
@@ -218,12 +202,11 @@ const MessageList = ({fileId, showMessages = false}) => {
                           updateMessage={updateMessage}
                         />
                       )}
-                      ItemSeparatorComponent={Divider}
+                      ItemSeparatorComponent={MessageSeparator}
                       message={item}
                       user={user}
                       setUpdateMessage={setUpdateMessage}
                       updateMessage={updateMessage}
->>>>>>> e43c75962af73ac997b475f34f98eac95c7f9a09
                     />
                   )}
                 />
