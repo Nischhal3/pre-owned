@@ -3,7 +3,7 @@ import {FlatList, StyleSheet, Alert} from 'react-native';
 import {Layout, Divider} from '@ui-kitten/components';
 import DeleteAction from '../components/elements/DeleteAction';
 import ListDetail from '../components/lists/ListDetail';
-
+import ItemSeparator from '../components/elements/ItemSeparator';
 const initialMessages = [
   {
     id: 1,
@@ -46,7 +46,7 @@ const Message = () => {
   };
 
   return (
-    <Layout>
+    <Layout style={{flex: 1, backgroundColor: '#f2f5fa'}}>
       <FlatList
         data={messages}
         keyExTractor={(message) => message.id.toString()}
@@ -58,7 +58,7 @@ const Message = () => {
             renderRightActions={() => <DeleteAction onPress={handleDelete} />}
           />
         )}
-        ItemSeparatorComponent={Divider}
+        ItemSeparatorComponent={ItemSeparator}
         refreshing={refreshing}
         onRefresh={() => {
           setMessages([

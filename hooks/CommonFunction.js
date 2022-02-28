@@ -19,7 +19,7 @@ const fetchData = async (url, options = {}) => {
   }
 };
 
-const fetchFromMedia = async (jsonData, setCategory) => {
+const fetchFromMedia = async (jsonData) => {
   const media = await Promise.all(
     jsonData.map(async (item) => {
       const response = await fetch(baseUrl + 'media/' + item.file_id);
@@ -28,7 +28,6 @@ const fetchFromMedia = async (jsonData, setCategory) => {
       return mediaData;
     })
   );
-  setCategory(media);
   return media;
 };
 

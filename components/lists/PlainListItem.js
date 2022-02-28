@@ -22,6 +22,7 @@ import {deleteMedia, useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {getToken} from '../../hooks/CommonFunction';
 import {colors} from '../../utils';
+import {Shadow} from 'react-native-shadow-2';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
@@ -58,13 +59,7 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
         <Avatar
           shape="square"
           size={'giant'}
-          style={{
-            width: 70,
-            height: 70,
-            flex: 1,
-            resizeMode: 'cover',
-            backgroundColor: colors.primary,
-          }}
+          style={styles.productImage}
           source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         />
       </Layout>
@@ -82,7 +77,7 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
       )}
       {!showMyMedia ? (
         <ListItem
-          style={{flex: 1, backgroundColor: colors.primary}}
+          style={{flex: 1, backgroundColor: colors.box}}
           accessoryRight={PointRightArrow}
         />
       ) : null}
@@ -116,9 +111,10 @@ const styles = StyleSheet.create({
   },
   displayTime: {
     flex: 2,
-    fontSize: 10,
+    fontSize: 12,
     fontFamily: 'Karla_400Regular',
     alignSelf: 'center',
+    lineHeight: 20,
   },
   layout: {
     flex: 2,
@@ -127,9 +123,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  productImage: {
+    width: 70,
+    height: 70,
+    flex: 1,
+    resizeMode: 'cover',
+    backgroundColor: colors.box,
+    left: 10,
+  },
   titleBox: {
     flex: 6,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.box,
     alignSelf: 'center',
     marginStart: 15,
   },
@@ -143,7 +147,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginHorizontal: 10,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.box,
+    borderWidth: 1,
+    borderColor: colors.lightGrey,
   },
 });
 

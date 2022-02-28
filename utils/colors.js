@@ -1,5 +1,7 @@
 export default {
   primary: '#F8F5F1',
+  box: '#FDFCF7',
+  background: '#f2f5fa',
   btnBackground: '#4A5746',
   container: '#FAFAFA',
   text_dark: '#282726',

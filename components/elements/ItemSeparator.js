@@ -6,11 +6,21 @@ import {colors} from '../../utils';
 const ItemSeparator = () => {
   return <Layout style={styles.separator} />;
 };
+
+const MessageSeparator = () => {
+  return <Layout style={styles.msgSeparator} />;
+};
+
 const styles = StyleSheet.create({
-  separator: {
+  msgSeparator: {
     width: '100%',
-    height: 2,
+    height: 1.5,
     backgroundColor: colors.lightGrey,
   },
+  separator: {
+    width: '100%',
+    height: 5,
+    backgroundColor: colors.background,
+  },
 });
-export default ItemSeparator;
+export {ItemSeparator, MessageSeparator};

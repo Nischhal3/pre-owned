@@ -1,12 +1,12 @@
 // Import from React
 import React, {useContext} from 'react';
-import {SafeAreaView, FlatList} from 'react-native';
+import {SafeAreaView, FlatList, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from files
 import {useMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
-import ItemSeparator from '../../components/elements/ItemSeparator';
+import {ItemSeparator} from '../../components/elements/ItemSeparator';
 import colors from '../../utils/colors';
 import {PlainListItem} from '../../components/lists';
 import {Layout, Text} from '@ui-kitten/components';
@@ -20,7 +20,7 @@ const MyListings = ({navigation, showMyMedia = false}) => {
   const myMedia = mediaArray.filter((item) => item.user_id === user.user_id);
   myMedia.sort((a, b) => a.time_added < b.time_added);
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: colors.text_light}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       {myMedia.length == 0 ? (
         <Layout
           style={{
@@ -51,7 +51,7 @@ const MyListings = ({navigation, showMyMedia = false}) => {
         </Layout>
       ) : (
         <FlatList
-          style={{backgroundColor: colors.container, width: '100%'}}
+          contentContainerStyle={styles.container}
           data={myMedia}
           keyExtractor={(item) => item.file_id.toString()}
           ItemSeparatorComponent={ItemSeparator}
@@ -67,7 +67,11 @@ const MyListings = ({navigation, showMyMedia = false}) => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+  },
+});
 MyListings.propTypes = {
   navigation: PropTypes.object,
   showMyMedia: PropTypes.bool,

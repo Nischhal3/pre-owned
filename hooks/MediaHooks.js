@@ -6,7 +6,6 @@ import {fetchData, fetchFromMedia} from './CommonFunction';
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update} = useContext(MainContext);
-  const [loading, setLoading] = useState(false);
 
   // Category items
   const [home, setHome] = useState([]);
@@ -27,6 +26,7 @@ const useMedia = () => {
   const fetchMedia = async () => {
     try {
       // Fetching items by category
+      const allMedia = await getFilesByTag(appId);
       const homeMedia = await getFilesByTag(homeTag);
       const electronicsMedia = await getFilesByTag(electronicsTag);
       const clothingMedia = await getFilesByTag(clothingTag);
@@ -35,47 +35,27 @@ const useMedia = () => {
       const othersMedia = await getFilesByTag(othersTag);
 
       // Storing items by category
-      const homeCategory = await fetchFromMedia(homeMedia, setHome);
-      const electronicsCategory = await fetchFromMedia(
-        electronicsMedia,
-        setElectornics
-      );
-      const clothingCategory = await fetchFromMedia(clothingMedia, setClothing);
-      const sportsCategory = await fetchFromMedia(sportsMedia, setSports);
-      const gamingCategory = await fetchFromMedia(gamingMedia, setGaming);
-      const othersCategory = await fetchFromMedia(othersMedia, setOthers);
+      const allMediaCategory = await fetchFromMedia(allMedia);
+      const homeCategory = await fetchFromMedia(homeMedia);
+      const electronicsCategory = await fetchFromMedia(electronicsMedia);
+      const clothingCategory = await fetchFromMedia(clothingMedia);
+      const sportsCategory = await fetchFromMedia(sportsMedia);
+      const gamingCategory = await fetchFromMedia(gamingMedia);
+      const othersCategory = await fetchFromMedia(othersMedia);
 
-      // Storing all the media category in single array
-      setMediaArray([
-        ...homeCategory,
-        ...electronicsCategory,
-        ...clothingCategory,
-        ...sportsCategory,
-        ...gamingCategory,
-        ...othersCategory,
-      ]);
+      setMediaArray(allMediaCategory);
+      setHome(homeCategory);
+      setElectornics(electronicsCategory);
+      setClothing(clothingCategory);
+      setSports(sportsCategory);
+      setGaming(gamingCategory);
+      setOthers(othersCategory);
+
       //console.log('Length', mediaArray.length);
     } catch (error) {
       console.log('Error', error);
     }
   };
-
-  // const setMedianInArray = () => {
-  //   // Storing all the media category in single array
-  //   setMediaArray([
-  //     ...home,
-  //     ...electronics,
-  //     ...clothing,
-  //     ...sports,
-  //     ...gaming,
-  //     ...others,
-  //   ]);
-  // };
-
-  // useEffect(() => {
-  //   setMedianInArray();
-  //   return () => {};
-  // }, [home, electronics, sports, gaming, clothing, others]);
 
   // Call loadMedia() only once when the component is loaded
   // Or when the update state is changed in MainContext
@@ -107,35 +87,6 @@ const postMedia = async (formData, token) => {
 
   const response = await fetchData(`${baseUrl}media`, options);
   return response;
-};
-
-// Messages (comment)
-const useMessage = () => {
-  const getMessagesByFileId = async (fileId) => {
-    return await fetchData(`${baseUrl}comments/file/${fileId}`);
-  };
-
-  const postMessage = async (message, token) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      },
-      body: JSON.stringify(message),
-    };
-
-    return await fetchData(`${baseUrl}comments`, options);
-  };
-  const deleteMessage = async (msgId) => {
-    const options = {
-      method: 'DELETE',
-      // headers: {'x-access-token': token},
-    };
-    return await fetchData(`${baseUrl}/comments/${msgId}`, options);
-  };
-
-  return {deleteMessage, getMessagesByFileId, postMessage};
 };
 
 const putMedia = async (data, token, fileId) => {
@@ -212,6 +163,5 @@ export {
   deleteMedia,
   postTag,
   useMedia,
-  useMessage,
   useFavourite,
 };
