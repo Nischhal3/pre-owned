@@ -85,40 +85,50 @@ const Login = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.primary,
-  },
   backgroundImg: {
-    top: -160,
+    position: 'absolute',
     width: 450,
-    height: 420,
+    height: 320,
     borderBottomLeftRadius: 150,
-  },
-  cardContainer: {
-    borderRadius: 70,
-    justifyContent: 'center',
-    backgroundColor: colors.primary,
-    flex: 1,
-    margin: 3,
-  },
-  linearGradient: {
-    height: 480,
-    top: -190,
-    width: '98%',
-    borderRadius: 75,
-    alignSelf: 'center',
   },
   card: {
     backgroundColor: colors.primary,
   },
+
+  cardContainer: {
+    borderRadius: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    flex: 1,
+    margin: 3,
+  },
+  container: {
+    backgroundColor: colors.primary,
+  },
   iconGroup: {
-    top: 340,
+    position: 'absolute',
+    top: '122%',
     width: 200,
     flexDirection: 'row',
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
     alignSelf: 'center',
   },
+  header: {
+    textAlign: 'center',
+    marginBottom: 10,
+    color: colors.text_dark,
+  },
+  linearGradient: {
+    height: '77%',
+    top: '40%',
+    width: '98%',
+    borderRadius: 75,
+    alignSelf: 'center',
+    overflow: 'scroll',
+  },
+
   singleIcon: {
     width: 25,
     height: 25,
@@ -138,11 +148,6 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: 10,
-    color: colors.text_dark,
   },
 });
 
