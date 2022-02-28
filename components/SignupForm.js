@@ -197,14 +197,9 @@ const SignupForm = ({setFormToggle}) => {
         checked={checked}
         onChange={(nextChecked) => setChecked(nextChecked)}
       >
-        <Button
-          style={styles.Terms}
-          onPress={() => setVisible(true)}
-          status="warning"
-          appearance="ghost"
-        >
+        <Text style={styles.Terms} onPress={() => setVisible(true)}>
           I accept Terms and Condition
-        </Button>
+        </Text>
         <Modal
           visible={visible}
           backdropStyle={styles.backdrop}
@@ -264,6 +259,7 @@ const SignupForm = ({setFormToggle}) => {
 
 const styles = StyleSheet.create({
   layout: {
+    marginTop: 30,
     height: 350,
     backgroundColor: colors.primary,
     borderColor: colors.primary,
@@ -275,11 +271,13 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   checkBox: {
+    marginTop: 30,
     marginBottom: 30,
     marginLeft: 10,
   },
   Terms: {
     textAlign: 'left',
+    fontFamily: 'Karla_700Bold',
   },
   backdrop: {
     backgroundColor: colors.primary,

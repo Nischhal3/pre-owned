@@ -57,9 +57,6 @@ const EditProfile = ({navigation}) => {
       const userToken = await getToken();
       const response = await updateUser(data, userToken);
 
-      // console.log("edit data", data);
-      // console.log('Data', response);
-
       if (response) {
         delete data.password;
         setUser(data);
@@ -333,7 +330,6 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: 10,
   },
-
   layout: {
     backgroundColor: colors.primary,
     width: 350,
