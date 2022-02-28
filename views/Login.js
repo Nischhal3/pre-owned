@@ -7,87 +7,122 @@ import {
   Keyboard,
   Platform,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
-import {Card, Layout, ButtonGroup, Button} from '@ui-kitten/components';
+
+// Linear gradient
+import {LinearGradient} from 'expo-linear-gradient';
+
+// Ui Kitten
+import {Card, Layout, ButtonGroup, Button, Icon} from '@ui-kitten/components';
+
+// Import from files
 import colors from '../utils/colors';
 import {MainContext} from '../contexts/MainContext';
 import {LoginForm, SignupForm} from '../components';
 
 const Login = () => {
-  // const [formToggle, setFormToggle] = useState(true);
   const {formToggle, setFormToggle} = useContext(MainContext);
 
   return (
-    <TouchableOpacity
-      style={{flex: 1}}
-      activeOpacity={1}
-      onPress={() => Keyboard.dismiss()}
-    >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : ''}
-        style={styles.container}
+    <SafeAreaView style={{flex: 1}}>
+      <TouchableOpacity
+        style={{flex: 1}}
+        activeOpacity={1}
+        onPress={() => Keyboard.dismiss()}
       >
-        <Layout style={styles.layout}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : ''}
+          style={styles.container}
+        >
           <Image
             style={styles.backgroundImg}
-            source={require('../assets/backgrounds/LoginBG.png')}
+            source={require('../assets/backgrounds/login3.jpg')}
           />
-          <Card style={styles.cardContainer}>
-            <ButtonGroup
-              style={styles.toggleGroup}
-              selectedIndex={formToggle ? 0 : 1}
-            >
-              <Button
-                style={formToggle ? styles.toggle2 : styles.toggle1}
-                onPress={() => setFormToggle(true)}
+
+          <Layout style={styles.iconGroup}>
+            <Icon name="google" style={styles.singleIcon} />
+            <Icon name="facebook" style={styles.singleIcon} />
+            <Icon name="twitter" style={styles.singleIcon} />
+          </Layout>
+          <LinearGradient
+            colors={[colors.primary, '#c37032']}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 1}}
+            style={styles.linearGradient}
+          >
+            <Card style={styles.cardContainer}>
+              <ButtonGroup
+                style={styles.toggleGroup}
+                selectedIndex={formToggle ? 0 : 1}
               >
-                Log In
-              </Button>
-              <Button
-                style={formToggle ? styles.toggle1 : styles.toggle2}
-                onPress={() => setFormToggle(false)}
-              >
-                Sign Up
-              </Button>
-            </ButtonGroup>
-            {formToggle ? (
-              <Card style={styles.card}>
+                <Button
+                  style={formToggle ? styles.toggle2 : styles.toggle1}
+                  onPress={() => setFormToggle(true)}
+                >
+                  Log In
+                </Button>
+                <Button
+                  style={formToggle ? styles.toggle1 : styles.toggle2}
+                  onPress={() => setFormToggle(false)}
+                >
+                  Sign Up
+                </Button>
+              </ButtonGroup>
+              {formToggle ? (
                 <LoginForm setFormToggle={setFormToggle} />
-              </Card>
-            ) : (
-              <Card style={styles.card}>
+              ) : (
                 <ScrollView>
                   <SignupForm setFormToggle={setFormToggle} />
                 </ScrollView>
-              </Card>
-            )}
-          </Card>
-        </Layout>
-      </KeyboardAvoidingView>
-    </TouchableOpacity>
+              )}
+            </Card>
+          </LinearGradient>
+        </KeyboardAvoidingView>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: colors.container,
+    backgroundColor: colors.primary,
   },
   backgroundImg: {
-    position: 'absolute',
-    top: 0,
+    top: -160,
+    width: 450,
+    height: 420,
+    borderBottomLeftRadius: 150,
   },
   cardContainer: {
-    top: '40%',
-    width: '100%',
-    height: '100%',
+    borderRadius: 70,
+    justifyContent: 'center',
     backgroundColor: colors.primary,
-    borderColor: colors.primary,
-    borderRadius: 30,
+    flex: 1,
+    margin: 3,
+  },
+  linearGradient: {
+    height: 480,
+    top: -190,
+    width: '98%',
+    borderRadius: 75,
+    alignSelf: 'center',
   },
   card: {
     backgroundColor: colors.primary,
-    borderColor: colors.primary,
+  },
+  iconGroup: {
+    top: 340,
+    width: 200,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+  },
+  singleIcon: {
+    width: 25,
+    height: 25,
+    tintColor: colors.btnBackground,
   },
   toggleGroup: {
     justifyContent: 'center',
