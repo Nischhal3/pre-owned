@@ -128,8 +128,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
   },
+
   toggle1: {
-    width: 100,
+    borderRadius: 70,
     backgroundColor: '#60715B',
     borderColor: '#60715B',
   },
@@ -137,7 +138,6 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
-    color: colors.text_dark,
   },
   header: {
     textAlign: 'center',
