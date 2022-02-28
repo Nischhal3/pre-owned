@@ -12,7 +12,7 @@ import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
 import {uploadsUrl} from '../utils/url';
-import {getFilesByTag} from '../hooks/MediaHooks';
+import {getFilesByTag, useMedia} from '../hooks/MediaHooks';
 import {getUserById} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
 import {ProfileSeparator} from '../components/elements/ItemSeparator';
@@ -23,6 +23,12 @@ const Profile = ({route}) => {
   const [hasAvatar, setHasAvatar] = useState(false);
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
+  const {mediaArray} = useMedia(myPosts);
+
+  // Show user count for user posts
+  const myPosts = mediaArray.filter(
+    (item) => item.user_id === userProfile.user_id
+  );
 
   const logout = async () => {
     AsyncStorage.clear();
@@ -86,6 +92,11 @@ const Profile = ({route}) => {
           <Image source={require('../assets/icons/heart_1mdpi.png')} />
           <Image source={require('../assets/icons/bubble_1mdpi.png')} />
         </Layout>
+        <Layout style={styles.calculations}>
+          <Text style={styles.numbers}>{myPosts.length}</Text>
+          <Text style={styles.numbers}>3</Text>
+          <Text style={styles.numbers}>3</Text>
+        </Layout>
       </Layout>
     </Layout>
   );
@@ -102,51 +113,57 @@ const styles = StyleSheet.create({
   profileWrapper: {
     flex: 2,
     backgroundColor: 'transparent',
-    padding: 0,
+    alignItems: 'center',
   },
   avatar: {
     width: 150,
     height: 150,
     position: 'absolute',
-    alignSelf: 'center',
     top: '10%',
+  },
+  username: {
+    marginTop: '53%',
+    fontSize: 26,
+    fontFamily: 'Karla_400Regular',
+  },
+  bio: {
+    marginTop: '5%',
+    fontSize: 20,
+    fontFamily: 'Karla_700Bold',
+  },
+  description: {
+    fontSize: 18,
+    textAlign: 'center',
+    maxWidth: '80%',
+    fontFamily: 'Karla_400Regular',
   },
   statisticsWrapper: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: colors.background,
   },
+  activity: {
+    flex: 1,
+    fontSize: 18,
+    fontFamily: 'Karla_700Bold',
+    marginTop: '5%',
+    alignSelf: 'center',
+  },
   icons: {
     flex: 3,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    alignItems: 'flex-start',
     backgroundColor: colors.background,
   },
-  username: {
-    marginTop: '60%',
-    alignSelf: 'center',
-    fontSize: 26,
-    fontFamily: 'Karla_400Regular',
-  },
-  description: {
-    fontSize: 18,
-    alignSelf: 'center',
-    textAlign: 'center',
-    padding: 3,
-    fontFamily: 'Karla_400Regular',
-  },
-  activity: {
+  calculations: {
     flex: 1,
-    alignSelf: 'center',
-    fontSize: 20,
-    fontFamily: 'Karla_700Bold',
-    marginTop: '5%',
+    flexDirection: 'row',
+    bottom: '8%',
+    justifyContent: 'space-evenly',
+    backgroundColor: colors.background,
   },
-  bio: {
-    marginTop: 18,
-    alignSelf: 'center',
-    fontSize: 20,
+  numbers: {
+    marginHorizontal: '10%',
     fontFamily: 'Karla_700Bold',
   },
 });
