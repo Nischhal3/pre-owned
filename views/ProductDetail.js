@@ -124,7 +124,7 @@ const ProductDetail = ({route, navigation}) => {
           source={{uri: uploadsUrl + file.filename}}
         />
         <View style={styles.boxShadow}>
-          <Shadow distance={15}>
+          <Shadow distance={7}>
             <Card style={styles.card}>
               <Layout style={styles.container}>
                 <Text style={styles.title}>{file.title}</Text>
@@ -191,13 +191,15 @@ const ProductDetail = ({route, navigation}) => {
 const styles = StyleSheet.create({
   boxShadow: {
     marginVertical: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: 20,
+    alignSelf: 'center',
   },
   card: {
     backgroundColor: colors.primary,
     borderRadius: 45,
-    width: Platform.OS === 'android' ? 350 : 370,
+    alignSelf: 'center',
+    width: 360,
+    // width: Platform.OS === 'android' ? 350 : 370,
   },
   container: {
     flexDirection: 'row',
@@ -256,7 +258,6 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: colors.container,
   },
   title: {
     fontFamily: 'Karla_700Bold',
@@ -266,12 +267,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     alignSelf: 'center',
   },
-  // userContainer: {
 
-  // },
   safeView: {
     flex: 1,
     backgroundColor: colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

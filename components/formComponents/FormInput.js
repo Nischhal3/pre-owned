@@ -1,13 +1,14 @@
 import {Icon, Input} from '@ui-kitten/components';
 import React from 'react';
+import {GlobalStyles} from '../../utils';
 
 const FormInput = (props) => {
   return (
     <Input
-      style={props.style}
+      style={[GlobalStyles.input, props.style]}
       placeholder={props.name}
       onBlur={props.onBlur}
-      accessoryLeft={props.iconName ? <Icon name={props.iconName}/> : null}
+      accessoryLeft={props.iconName ? <Icon name={props.iconName} /> : null}
       onChangeText={props.onChange}
       value={props.value}
       autoCapitalize="none"
