@@ -18,10 +18,10 @@ import ErrorMessage from './elements/ErrorMessage';
 import {colors} from '../utils';
 
 const SignupForm = ({setFormToggle}) => {
-  //for checkbox
+  // for checkbox
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
-  //Api
+  // Api
   // const {signupUser, checkUsername} = useUser();
 
   const {
@@ -302,12 +302,10 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
     bottom: 20,
   },
-
   Terms: {
     textAlign: 'left',
     fontFamily: 'Karla_700Bold',
   },
-
   text: {
     lineHeight: 21,
     padding: 5,
