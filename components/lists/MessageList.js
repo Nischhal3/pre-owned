@@ -22,7 +22,7 @@ import {Shadow} from 'react-native-shadow-2';
 
 // Import from files
 import {AppButton, FormButton} from '../elements/AppButton';
-import {useMessage} from '../../hooks/MediaHooks';
+// import {useMessage} from '../../hooks/MediaHooks';
 import {getUserById} from '../../hooks/ApiHooks';
 import {MainContext} from '../../contexts/MainContext';
 import FormInput from '../formComponents/FormInput';
@@ -32,19 +32,21 @@ import {colors} from '../../utils';
 import DeleteAction from '../elements/DeleteAction';
 import {MessageSeparator} from '../elements/ItemSeparator';
 import SVGIcon from '../../assets/icons/no-message.svg';
+import {getMessagesByFileId, postMessage} from '../../hooks/MessageHook';
 
 const MessageList = ({fileId, showMessages = false}) => {
-  const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
+  // const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
 
-  const {updateMessage, setUpdateMessage} = useContext(MainContext);
+  const {user, updateMessage, setUpdateMessage} = useContext(MainContext);
   // const [senderName, setSenderName] = useState('');
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
+
   // display messages from latest to oldest
-  messages.sort((a, b) => a.timeAdded < b.timeAdded);
+  messages.sort((a, b) => a.time_added < b.time_added);
 
   const {
     control,
@@ -58,32 +60,7 @@ const MessageList = ({fileId, showMessages = false}) => {
     mode: 'onBlur',
   });
 
-  const reset = () => {
-    setValue('message', '');
-  };
-  // function delete a message
-  const handleDelete = () => {
-    console.log(messages);
-
-    // Alert.alert('Delete Message', 'Confirm delete action?', [
-    //   {text: 'Cancel'},
-    //   {
-    //     text: 'OK',
-    //     onPress: async (data) => {
-    //       try {
-    //         const token = await getToken();
-    //         const response = await deleteMessage(data.comment_id, token);
-    //         console.log(response);
-    //         // update the list after deletion
-    //         response && setUpdate(update + 1);
-    //       } catch (e) {
-    //         console.error(e);
-    //       }
-    //     },
-    //   },
-    // ]);
-  };
-  // get msg
+  // Fetching message from database
   const fetchMessage = async () => {
     try {
       const msgData = await getMessagesByFileId(fileId);
@@ -96,15 +73,13 @@ const MessageList = ({fileId, showMessages = false}) => {
       console.error('get msg error', e.message);
     }
   };
+
+  // Fetching message after deleting or adding new
   useEffect(() => {
-    let isMounted = true; // fix memory leaks warning
-    if (isMounted) {
-      fetchMessage();
-    } else {
-      return (isMounted = false);
-    }
-  }, [messages]);
-  // send Message
+    fetchMessage();
+  }, [updateMessage]);
+
+  // Sending Messageto database
   const sendMessage = async (data) => {
     try {
       const token = await getToken();
@@ -112,21 +87,28 @@ const MessageList = ({fileId, showMessages = false}) => {
         {file_id: fileId, comment: data.message},
         token
       );
-      response &&
+      if (response) {
+        setUpdateMessage(updateMessage + 1);
         Alert.alert('Success', 'Message Sent', [
           {
             text: 'OK',
             onPress: () => {
               reset();
-              setUpdateMessage(updateMessage + 1);
             },
           },
         ]);
+      }
     } catch (e) {
       console.log(e);
     }
   };
 
+  // Resets the text filed
+  const reset = () => {
+    setValue('message', '');
+  };
+
+  // Reseting message text field after message is sent
   useFocusEffect(
     useCallback(() => {
       return () => reset();
@@ -204,13 +186,20 @@ const MessageList = ({fileId, showMessages = false}) => {
               ) : (
                 <List
                   data={messages}
+<<<<<<< HEAD
                   style={styles.container}
                   horizontal={false}
                   ItemSeparatorComponent={MessageSeparator}
+=======
+                  contentContainerStyle={styles.container}
+                  horizontal={false}
+                  ItemSeparatorComponent={Divider}
+>>>>>>> e43c75962af73ac997b475f34f98eac95c7f9a09
                   showsHorizontalScrollIndicator={false}
                   renderItem={({item}) => (
                     <ListDetail
                       showMessages={true}
+<<<<<<< HEAD
                       description={item.comment}
                       title={item.username}
                       timeAdded={item.time_added}
@@ -219,6 +208,22 @@ const MessageList = ({fileId, showMessages = false}) => {
                         <DeleteAction onPress={handleDelete} />
                       )}
                       ItemSeparatorComponent={MessageSeparator}
+=======
+                      image={{uri: avatar}}
+                      renderRightActions={() => (
+                        <DeleteAction
+                          message={item}
+                          user={user}
+                          setUpdateMessage={setUpdateMessage}
+                          updateMessage={updateMessage}
+                        />
+                      )}
+                      ItemSeparatorComponent={Divider}
+                      message={item}
+                      user={user}
+                      setUpdateMessage={setUpdateMessage}
+                      updateMessage={updateMessage}
+>>>>>>> e43c75962af73ac997b475f34f98eac95c7f9a09
                     />
                   )}
                 />

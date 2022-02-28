@@ -33,6 +33,15 @@ const ProductDetail = ({route, navigation}) => {
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
+  const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
+    useFavourite();
+  const [likes, setLikes] = useState([]);
+  const [userLike, setUserLike] = useState(false);
+  const {user} = useContext(MainContext);
+  const [name, setName] = useState('');
+  // favorite animation
+  const animation = React.useRef(null);
+  const isFirstRun = React.useRef(true);
 
   // fetch Avatar
   // const fetchAvatar = async () => {
@@ -51,17 +60,6 @@ const ProductDetail = ({route, navigation}) => {
   // useEffect(() => {
   //   fetchAvatar();
   // }, []);
-
-  // favorite
-  const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
-    useFavourite();
-  const [likes, setLikes] = useState([]);
-  const [userLike, setUserLike] = useState(false);
-  const {user} = useContext(MainContext);
-  const [name, setName] = useState('');
-  // favorite animation
-  const animation = React.useRef(null);
-  const isFirstRun = React.useRef(true);
 
   // add to favourite
   const fetchLikes = async () => {
