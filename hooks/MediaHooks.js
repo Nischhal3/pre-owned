@@ -109,6 +109,11 @@ const deleteMedia = async (fileId, token) => {
   return await fetchData(`${baseUrl}media/${fileId}`, options);
 };
 
+const getMediaById = async (fileId) => {
+  return await fetchData(`${baseUrl}media/${fileId}`);
+};
+
+// Use tag for avatar
 const postTag = async (tagData, token) => {
   const options = {
     method: 'POST',
@@ -139,6 +144,7 @@ const useFavourite = () => {
     };
     return await fetchData(`${baseUrl}favourites`, options);
   };
+
   const getFavourtiesByFileId = async (fileId) => {
     return await fetchData(`${baseUrl}favourites/file/${fileId}`);
   };
@@ -153,7 +159,23 @@ const useFavourite = () => {
     };
     return await fetchData(`${baseUrl}favourites/file/${fileId}`, options);
   };
-  return {postFavourite, deleteFavourite, getFavourtiesByFileId};
+
+  const getFavourtiesList = async (token) => {
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+    };
+    return await fetchData(`${baseUrl}favourites`, options);
+  };
+
+  return {
+    postFavourite,
+    deleteFavourite,
+    getFavourtiesByFileId,
+    getFavourtiesList,
+  };
 };
 
 export {
@@ -161,6 +183,7 @@ export {
   postMedia,
   putMedia,
   deleteMedia,
+  getMediaById,
   postTag,
   useMedia,
   useFavourite,
