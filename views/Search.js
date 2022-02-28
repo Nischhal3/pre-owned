@@ -161,6 +161,7 @@ const Search = ({navigation}) => {
           width: 100,
           height: 40,
           alignSelf: 'flex-end',
+          paddingVertical: 5,
         }}
         onPress={reset}
       />
