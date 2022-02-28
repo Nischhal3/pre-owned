@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, Alert} from 'react-native';
 import {
-  Input,
   Button,
   Text,
   Layout,
-  Icon,
   CheckBox,
   Modal,
   Card,
@@ -259,7 +257,7 @@ const SignupForm = ({setFormToggle}) => {
 
 const styles = StyleSheet.create({
   layout: {
-    marginTop: 30,
+    marginTop: '35%',
     height: 350,
     backgroundColor: colors.primary,
     borderColor: colors.primary,

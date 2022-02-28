@@ -97,13 +97,14 @@ const LoginForm = () => {
 
 const styles = StyleSheet.create({
   layout: {
+    marginTop: '35%',
     height: 350,
-    // justifyContent: 'space-around',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
   input: {
-    marginBottom: 10,
+    marginBottom: 15,
+    width: 300,
   },
   password: {
     marginTop: 5,

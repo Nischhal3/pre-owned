@@ -14,7 +14,14 @@ import {
 import {LinearGradient} from 'expo-linear-gradient';
 
 // Ui Kitten
-import {Card, Layout, ButtonGroup, Button, Icon} from '@ui-kitten/components';
+import {
+  Card,
+  Layout,
+  ButtonGroup,
+  Button,
+  Icon,
+  Text,
+} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
@@ -108,7 +115,7 @@ const styles = StyleSheet.create({
   },
   iconGroup: {
     position: 'absolute',
-    top: '122%',
+    top: '112%',
     width: 200,
     flexDirection: 'row',
     backgroundColor: 'transparent',
@@ -121,8 +128,8 @@ const styles = StyleSheet.create({
     color: colors.text_dark,
   },
   linearGradient: {
-    height: '77%',
-    top: '40%',
+    height: '83%',
+    top: '25%',
     width: '98%',
     borderRadius: 75,
     alignSelf: 'center',
@@ -136,11 +143,14 @@ const styles = StyleSheet.create({
   },
   toggleGroup: {
     justifyContent: 'center',
-    marginBottom: 10,
+    alignSelf: 'center',
+    top: '10%',
+    zIndex: 1,
+    // marginVertical: 10,
   },
 
   toggle1: {
-    borderRadius: 70,
+    width: 100,
     backgroundColor: '#60715B',
     borderColor: '#60715B',
   },
