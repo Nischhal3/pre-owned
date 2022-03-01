@@ -13,6 +13,7 @@ import {
   View,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
+import ReadMore from 'react-native-read-more-text';
 
 // Import from Library UI Kitten
 import {Card, Divider, Layout, Text} from '@ui-kitten/components';
@@ -174,13 +175,18 @@ const ProductDetail = ({route, navigation}) => {
               <Text category="s1" style={styles.detail}>
                 Price & Details
               </Text>
-              <Text
-                style={styles.detailDescription}
-                category="c1"
-                numberOfLines={4}
-              >
-                {file.description}
-              </Text>
+              <Layout style={styles.readMore}>
+                <ReadMore numberOfLines={1}>
+                  <Text
+                    style={styles.detailDescription}
+                    category="c1"
+                    numberOfLines={4}
+                  >
+                    {file.description}
+                  </Text>
+                </ReadMore>
+              </Layout>
+
               <Divider style={{backgroundColor: colors.lightGrey}} />
               <Text category="s1" style={styles.detail}>
                 Send the Seller a message
@@ -230,8 +236,6 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontSize: 14,
     fontFamily: 'Karla',
-    paddingBottom: 15,
-    paddingLeft: 15,
   },
   image: {
     width: '100%',
@@ -251,12 +255,27 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 150,
   },
+
+  readMore: {
+    width: '90%',
+    paddingTop: 5,
+    paddingBottom: 15,
+    paddingLeft: 15,
+    backgroundColor: 'transparent',
+  },
+  safeView: {
+    flex: 1,
+    backgroundColor: colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   shadowProp: {
     shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+
   textbox: {
     flexDirection: 'column',
     flex: 7,
@@ -272,13 +291,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     fontWeight: '500',
     alignSelf: 'center',
-  },
-
-  safeView: {
-    flex: 1,
-    backgroundColor: colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 

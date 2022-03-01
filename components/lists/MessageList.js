@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
 
-  title: {alignSelf: 'center', fontFamily: 'Karla_700Bold'},
+  title: {alignSelf: 'center', fontFamily: 'Karla_700Bold', marginVertical: 15},
 });
 
 MessageList.propTypes = {

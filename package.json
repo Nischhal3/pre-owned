@@ -42,6 +42,7 @@
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^2.1.1",
     "react-native-image-gradient": "^2.2.5",
+    "react-native-read-more-text": "^1.1.2",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-shadow-2": "^6.0.3",
