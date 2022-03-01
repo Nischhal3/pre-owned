@@ -14,14 +14,7 @@ import {
 import {LinearGradient} from 'expo-linear-gradient';
 
 // Ui Kitten
-import {
-  Card,
-  Layout,
-  ButtonGroup,
-  Button,
-  Icon,
-  Text,
-} from '@ui-kitten/components';
+import {Card, Layout, ButtonGroup, Button, Icon} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
@@ -44,7 +37,7 @@ const Login = () => {
         >
           <Image
             style={styles.backgroundImg}
-            source={require('../assets/backgrounds/loginbackground.jpg')}
+            source={require('../assets/backgrounds/loginbackground.png')}
           />
 
           <Layout style={styles.iconGroup}>
@@ -112,7 +105,7 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   container: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.background,
   },
   iconGroup: {
     position: 'absolute',
