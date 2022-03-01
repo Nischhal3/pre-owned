@@ -32,7 +32,7 @@ const Login = () => {
   const {formToggle, setFormToggle} = useContext(MainContext);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <TouchableOpacity
         style={{flex: 1}}
         activeOpacity={1}
@@ -44,7 +44,7 @@ const Login = () => {
         >
           <Image
             style={styles.backgroundImg}
-            source={require('../assets/backgrounds/login3.jpg')}
+            source={require('../assets/backgrounds/loginbackground.jpg')}
           />
 
           <Layout style={styles.iconGroup}>
@@ -53,7 +53,7 @@ const Login = () => {
             <Icon name="twitter" style={styles.singleIcon} />
           </Layout>
           <LinearGradient
-            colors={[colors.primary, '#c37032']}
+            colors={['transparent', colors.btnBackground]}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}
             style={styles.linearGradient}
@@ -94,9 +94,10 @@ const Login = () => {
 const styles = StyleSheet.create({
   backgroundImg: {
     position: 'absolute',
-    width: 450,
-    height: 320,
-    borderBottomLeftRadius: 150,
+    width: '100%',
+    height: '39%',
+    top: -35,
+    // borderBottomLeftRadius: 150,
   },
   card: {
     backgroundColor: colors.primary,
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     height: '83%',
     top: '25%',
-    width: '98%',
+    width: '100%',
     borderRadius: 75,
     alignSelf: 'center',
     overflow: 'scroll',
