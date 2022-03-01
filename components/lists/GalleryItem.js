@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform, View} from 'react-native';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../../utils/url';
 import ImageWithOverlay from '../elements/ImageWithOverlay';
 import ImageDetail from '../ImageDetail';
-import {Text} from '@ui-kitten/components';
+import {Card, Text} from '@ui-kitten/components';
 import moment from 'moment';
 import colors from '../../utils/colors';
 
@@ -15,6 +15,7 @@ const GalleryItemHorizontal = ({navigation, singleItem}) => {
       onPress={() => {
         navigation.navigate('Product Detail', {file: singleItem});
       }}
+      style={{padding: 4}}
     >
       <ImageWithOverlay
         source={{uri: uploadsUrl + singleItem.thumbnails.w320}}
@@ -61,9 +62,21 @@ const styles = StyleSheet.create({
   GalleryImageHorizontal: {
     borderRadius: 10,
     marginEnd: 10,
-    marginBottom: 15,
+    marginBottom: 18,
     width: 280,
     height: 180,
+
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.text_dark,
+        shadowOffset: {width: -4, height: 4},
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
   },
 
   GalleryImageVertical: {
@@ -73,6 +86,10 @@ const styles = StyleSheet.create({
       ios: {
         width: 350,
         height: 220,
+        shadowColor: colors.text_dark,
+        shadowOffset: {width: -4, height: 4},
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
       },
       android: {
         width: 320,
@@ -84,14 +101,15 @@ const styles = StyleSheet.create({
   GalleryTextBoxHorizontal: {
     position: 'absolute',
     backgroundColor: null,
-    marginStart: 15,
-    top: 120,
+    marginStart: '5%',
+    top: '65%',
+    elevation: 7,
   },
 
   GalleryTextBoxVertical: {
     position: 'absolute',
     backgroundColor: null,
-    marginStart: 15,
+    marginStart: '5%',
 
     ...Platform.select({
       ios: {
@@ -107,15 +125,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 14,
     fontFamily: 'Karla_400Regular',
-    margin: 15,
+    margin: '5%',
     color: colors.text_light,
 
     ...Platform.select({
       ios: {
-        marginTop: '44%',
+        marginTop: '40%',
       },
       android: {
-        marginTop: '40%',
+        marginTop: '33%',
       },
     }),
   },
