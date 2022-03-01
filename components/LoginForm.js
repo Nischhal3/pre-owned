@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 100,
     alignSelf: 'flex-end',
+    fontFamily: 'Karla_700Bold',
   },
   textWelcome: {
     top: Platform.OS === 'android' ? '-15%' : '-20%',

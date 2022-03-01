@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Layout, Select, SelectItem, IndexPath} from '@ui-kitten/components';
 import {CategoryIcon} from './elements/Icons';
 import {useFocusEffect} from '@react-navigation/native';
+import {colors} from '../utils';
 
 const CategoryPicker = ({setCategory}) => {
   // categories selection
@@ -28,7 +29,7 @@ const CategoryPicker = ({setCategory}) => {
   );
 
   return (
-    <Layout level="1">
+    <Layout level="1" style={{marginTop: 10, backgroundColor: colors.primary}}>
       <Select
         // label="Category"
         caption="Choose a category for your product"

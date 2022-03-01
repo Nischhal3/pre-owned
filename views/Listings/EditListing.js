@@ -113,16 +113,15 @@ const EditListing = ({navigation, route}) => {
               render={({field: {onChange, onBlur, value}}) => (
                 <Input
                   label="Description"
-                  style={{
-                    margin: 10,
-                    width: 250,
-                    marginBottom: 30,
-                  }}
+                  style={styles.input}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
                   autoCapitalize="none"
                   placeholder="Description"
+                  multiline={true}
+                  textStyle={{minHeight: 96}}
+                  textAlignVertical= "top"
                 />
               )}
               name="description"
@@ -148,19 +147,23 @@ const EditListing = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  button: {marginTop: 20},
+  button: {
+    width: '50%',
+    marginTop: 20,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.container,
   },
   card: {
     top: '10%',
+    width: 350,
     height: 600,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.container,
+    backgroundColor: colors.primary,
   },
   image: {
     width: 250,
@@ -168,10 +171,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     aspectRatio: 1,
     marginBottom: 15,
+    resizeMode: 'contain',
   },
   input: {
-    margin: 10,
-    width: 250,
+    marginTop: 10,
+    width: '100%',
   },
 });
 

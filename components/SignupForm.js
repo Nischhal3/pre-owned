@@ -311,6 +311,7 @@ const styles = StyleSheet.create({
     padding: 5,
     fontWeight: '500',
     fontSize: 14,
+    fontFamily: 'Karla_400Regular',
   },
   textWelcome: {
     top: '-15%',
