@@ -1,9 +1,7 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Button,
   Card,
-  CheckBox,
   Icon,
   Input,
   Layout,
@@ -18,7 +16,6 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
-import {useFocusEffect} from '@react-navigation/native';
 import {AppButton} from '../components/elements/AppButton';
 
 const Search = ({navigation}) => {

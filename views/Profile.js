@@ -1,22 +1,19 @@
+// Import from React and library
 import React, {useContext, useEffect, useState} from 'react';
 import {Image, StyleSheet, ActivityIndicator} from 'react-native';
-import {
-  Card,
-  Layout,
-  Button,
-  Text,
-  Avatar,
-  Divider,
-} from '@ui-kitten/components';
+import PropTypes from 'prop-types';
+
+// Import from UI Kitten library
+import {Layout, Text, Avatar} from '@ui-kitten/components';
+
+// Import from files
 import {MainContext} from '../contexts/MainContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../utils/colors';
 import {uploadsUrl} from '../utils/url';
-import {getFilesByTag, useFavourite, useMedia} from '../hooks/MediaHooks';
+import {getFilesByTag} from '../hooks/MediaHooks';
 import {getUserById} from '../hooks/ApiHooks';
-import PropTypes from 'prop-types';
 import {ProfileSeparator} from '../components/elements/ItemSeparator';
-import {getToken} from '../hooks/CommonFunction';
+import Statistics from '../components/elements/ProfileStatistics';
 
 const Profile = ({route}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
@@ -24,31 +21,6 @@ const Profile = ({route}) => {
   const [hasAvatar, setHasAvatar] = useState(false);
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
-  const {mediaArray} = useMedia();
-  const {getFavourtiesList} = useFavourite();
-  const [favourites, setFavourites] = useState([]);
-  const {updateFavourite} = useContext(MainContext);
-
-  // Show user count for user posts
-  const myPosts = mediaArray.filter(
-    (item) => item.user_id === userProfile.user_id
-  );
-
-  // Get count for posts liked by user
-  const myLikes = async () => {
-    const token = await getToken();
-    const response = await getFavourtiesList(token);
-    setFavourites(response);
-  };
-
-  useEffect(() => {
-    myLikes();
-  }, [favourites]);
-
-  const logout = async () => {
-    AsyncStorage.clear();
-    setIsLoggedIn(false);
-  };
 
   const fetchAvatar = async () => {
     try {
@@ -99,20 +71,7 @@ const Profile = ({route}) => {
         )}
         <ProfileSeparator />
       </Layout>
-
-      <Layout style={styles.statisticsWrapper}>
-        <Text style={styles.activity}>Activity</Text>
-        <Layout style={styles.icons}>
-          <Image source={require('../assets/icons/box_1mdpi.png')} />
-          <Image source={require('../assets/icons/heart_1mdpi.png')} />
-          <Image source={require('../assets/icons/bubble_1mdpi.png')} />
-        </Layout>
-        <Layout style={styles.calculations}>
-          <Text style={styles.numbers}>{myPosts.length}</Text>
-          <Text style={styles.numbers}>{favourites.length}</Text>
-          <Text style={styles.numbers}>3</Text>
-        </Layout>
-      </Layout>
+      <Statistics />
     </Layout>
   );
 };
@@ -151,35 +110,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     maxWidth: '80%',
     fontFamily: 'Karla_400Regular',
-  },
-  statisticsWrapper: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: colors.background,
-  },
-  activity: {
-    flex: 1,
-    fontSize: 18,
-    fontFamily: 'Karla_700Bold',
-    marginTop: '5%',
-    alignSelf: 'center',
-  },
-  icons: {
-    flex: 3,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    backgroundColor: colors.background,
-  },
-  calculations: {
-    flex: 1,
-    flexDirection: 'row',
-    bottom: '8%',
-    justifyContent: 'space-evenly',
-    backgroundColor: colors.background,
-  },
-  numbers: {
-    marginHorizontal: '10%',
-    fontFamily: 'Karla_700Bold',
   },
 });
 

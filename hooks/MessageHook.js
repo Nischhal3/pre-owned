@@ -28,4 +28,14 @@ const deleteMessage = async (msgId, token) => {
   return await fetchData(`${baseUrl}comments/${msgId}`, options);
 };
 
-export {postMessage, getMessagesByFileId, deleteMessage};
+const getMessagesList = async (token) => {
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+  };
+  return await fetchData(`${baseUrl}comments`, options);
+};
+
+export {postMessage, getMessagesByFileId, deleteMessage, getMessagesList};
