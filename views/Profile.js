@@ -22,7 +22,7 @@ const Profile = ({route}) => {
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
 
-  console.log('Proile user', userIdParam);
+  console.log('Proile user', user.user_id);
   // Fetching avatar
   const fetchAvatar = async () => {
     try {
