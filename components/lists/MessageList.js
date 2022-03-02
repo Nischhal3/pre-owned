@@ -193,7 +193,6 @@ const MessageList = ({fileId, showMessages = false}) => {
                   renderItem={({item}) => (
                     <ListDetail
                       showMessages={true}
-                      image={{uri: avatar}}
                       renderRightActions={() => (
                         <DeleteAction
                           message={item}
