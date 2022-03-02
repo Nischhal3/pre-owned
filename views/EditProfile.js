@@ -151,16 +151,32 @@ const EditProfile = ({navigation}) => {
           <Shadow>
             <Layout style={styles.layout}>
               <TouchableOpacity onPress={pickImage}>
-                <AppButton
-                  appBtnStyle={styles.editBtn}
-                  onPress={pickImage}
-                  accessoryLeft={<Icon name="edit-2" fill={colors.text_dark} />}
-                />
+                {!imageSelected ? (
+                  <AppButton
+                    appBtnStyle={styles.editBtn}
+                    onPress={pickImage}
+                    accessoryLeft={
+                      <Icon name="camera-outline" fill={colors.mediumGrey} />
+                    }
+                  />
+                ) : null}
+
                 <Avatar
                   style={styles.avatar}
                   source={{uri: avatar}}
                   shape="round"
                 />
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    marginTop: '2%',
+                    fontSize: 14,
+                    fontFamily: 'Karla',
+                    color: colors.mediumGrey,
+                  }}
+                >
+                  Change profile picture
+                </Text>
               </TouchableOpacity>
               <Layout style={styles.form}>
                 <Controller
@@ -328,7 +344,6 @@ const EditProfile = ({navigation}) => {
                       'Save'
                     )
                   }
-                  disabled={!imageSelected}
                 />
               </Layout>
             </Layout>
@@ -358,8 +373,8 @@ const styles = StyleSheet.create({
   editBtn: {
     zIndex: 1,
     position: 'absolute',
-    marginTop: 20,
-    left: 50,
+    marginTop: '20%',
+    marginLeft: '50%',
     backgroundColor: 'transparent',
     borderColor: 'transparent',
   },
