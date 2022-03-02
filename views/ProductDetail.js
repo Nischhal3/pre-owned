@@ -11,12 +11,15 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Modal,
+  TouchableOpacity,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import ReadMore from 'react-native-read-more-text';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 // Import from Library UI Kitten
-import {Card, Divider, Layout, Text} from '@ui-kitten/components';
+import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
@@ -28,6 +31,8 @@ import {MessageList} from '../components/lists';
 import LottieView from 'lottie-react-native';
 import {GlobalStyles} from '../utils';
 import UserItem from '../components/elements/UserItem';
+import {AppButton} from '../components/elements/AppButton';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const ProductDetail = ({route, navigation}) => {
   const {file} = route.params;
@@ -44,23 +49,32 @@ const ProductDetail = ({route, navigation}) => {
   const animation = React.useRef(null);
   const isFirstRun = React.useRef(true);
 
-  // fetch Avatar
-  // const fetchAvatar = async () => {
-  //   try {
-  //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
-  //     if (avatarList.length === 0) {
-  //       return;
-  //     }
-  //     const avatar = avatarList.pop();
-  //     setAvatar(uploadsUrl + avatar.filename);
-  //     console.log('single.js avatar', avatar);
-  //   } catch (e) {
-  //     console.error(e.message);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchAvatar();
-  // }, []);
+  // image zoom in view in modal
+  const [visible, setVisible] = useState(false);
+  const images = [
+    {
+      url: uploadsUrl + file.filename,
+      width: '100%',
+      height: undefined,
+    },
+  ];
+  // // fetch Avatar
+  // // const fetchAvatar = async () => {
+  // //   try {
+  // //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
+  // //     if (avatarList.length === 0) {
+  // //       return;
+  // //     }
+  // //     const avatar = avatarList.pop();
+  // //     setAvatar(uploadsUrl + avatar.filename);
+  // //     console.log('single.js avatar', avatar);
+  // //   } catch (e) {
+  // //     console.error(e.message);
+  // //   }
+  // // };
+  // // useEffect(() => {
+  // //   fetchAvatar();
+  // // }, []);
 
   // add to favourite
   const fetchLikes = async () => {
@@ -126,10 +140,24 @@ const ProductDetail = ({route, navigation}) => {
   return (
     <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
       <ScrollView>
-        <Image
-          style={styles.image}
-          source={{uri: uploadsUrl + file.filename}}
-        />
+        <TouchableOpacity onPress={() => setVisible(true)}>
+          <Image
+            style={styles.image}
+            source={{uri: uploadsUrl + file.filename}}
+          />
+        </TouchableOpacity>
+        <Modal
+          visible={visible}
+          transparent={true}
+          onBackdropPress={() => setVisible(false)}
+        >
+          <AppButton
+            appBtnStyle={styles.closeBtn}
+            onPress={() => setVisible(false)}
+            accessoryLeft={<Icon name="close-outline" />}
+          />
+          <ImageViewer imageUrls={images} />
+        </Modal>
         <View style={styles.boxShadow}>
           <Shadow distance={7}>
             <Card style={styles.card}>
@@ -221,7 +249,17 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: colors.primary,
   },
-
+  closeBtn: {
+    zIndex: 1,
+    width: 40,
+    height: 10,
+    position: 'absolute',
+    marginTop: 100,
+    // right: 5,
+    alignSelf: 'flex-end',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+  },
   detail: {
     fontFamily: 'Karla_700Bold',
     fontSize: 16,
