@@ -1,5 +1,5 @@
 // Import from React
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Alert,
@@ -31,6 +31,7 @@ import {GlobalStyles} from '../utils';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
 import * as ImagePicker from 'expo-image-picker';
 import {Card} from 'react-native-elements';
+import {useFocusEffect} from '@react-navigation/native';
 
 const EditProfile = ({navigation}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
@@ -44,6 +45,7 @@ const EditProfile = ({navigation}) => {
     handleSubmit,
     formState: {errors},
     getValues,
+    setValue,
   } = useForm({
     defaultValues: {
       username: user.username,
@@ -124,6 +126,23 @@ const EditProfile = ({navigation}) => {
       setAvatar(uploadDefaultUri);
     }
   };
+
+  const reset = () => {
+    setAvatar(uploadDefaultUri);
+    setImageSelected(false);
+    setValue('username', user.username);
+    setValue('email', user.email);
+    setValue('password', '');
+    setValue('confirmPassword', '');
+    setValue('full_name', user.full_name);
+  };
+
+  // Resets form user if off from this view
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset();
+    }, [])
+  );
 
   return (
     <ScrollView>

@@ -19,18 +19,16 @@ const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
   const {user, updateAvatar} = useContext(MainContext);
   const [avatar, setAvatar] = useState(uploadDefaultUri);
-  const userIdParam = route.params?.profileParam;
+  const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
 
-  const currentUser = userIdParam === undefined ? user.user_id : userIdParam;
-  console.log('user', currentUser);
-
+  console.log('Proile user', userIdParam);
   // Fetching avatar
   const fetchAvatar = async () => {
     try {
-      const info = await getUserById(currentUser);
+      const info = await getUserById(userIdParam);
       setUserProfile(info);
-      await getAvatar(currentUser, setAvatar);
+      await getAvatar(userIdParam, setAvatar);
     } catch (error) {
       console.log('Profile avatar', error.message);
     }
