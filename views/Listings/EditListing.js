@@ -11,14 +11,16 @@ import {
   TouchableOpacity,
   Keyboard,
   Platform,
+  View,
 } from 'react-native';
+import {Shadow} from 'react-native-shadow-2';
 
 // Import from UI KItten Library
 import {Card, Input} from '@ui-kitten/components';
 
 // Import from files
 import {getToken} from '../../hooks/CommonFunction';
-import {putMedia, useMedia} from '../../hooks/MediaHooks';
+import {putMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {uploadsUrl} from '../../utils/url';
 import {colors} from '../../utils';
@@ -67,8 +69,10 @@ const EditListing = ({navigation, route}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : ''}
     >
       <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
-        <Card style={styles.card}>
-          <ScrollView>
+      <ScrollView>
+      <View style={styles.boxShadow}>
+          <Shadow>
+          <Card style={styles.card}>
             <Image
               source={{uri: uploadsUrl + file.filename}}
               style={styles.image}
@@ -139,8 +143,10 @@ const EditListing = ({navigation, route}) => {
               onSubmit={onSubmit}
               text="Save changes"
             />
-          </ScrollView>
         </Card>
+        </Shadow>
+        </View>
+        </ScrollView>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
@@ -151,6 +157,13 @@ const styles = StyleSheet.create({
     width: '50%',
     marginTop: 20,
   },
+  boxShadow: {
+    marginTop: '10%',
+    marginVertical: 15,
+    marginHorizontal: 20,
+    alignSelf: 'center',
+    padding: 0,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-start',
@@ -158,12 +171,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.container,
   },
   card: {
-    top: '10%',
     width: 350,
     height: 600,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.primary,
+    borderRadius: 35,
   },
   image: {
     width: 250,

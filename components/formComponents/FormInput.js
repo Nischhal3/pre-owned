@@ -15,7 +15,7 @@ const FormInput = (props) => {
       secureTextEntry={props.textEntry}
       multiline={props.multiline}
       textStyle={props.textStyle}
-      textAlignVertical="top"
+      textAlignVertical={props.align ? props.align : null}
     />
   );
 };

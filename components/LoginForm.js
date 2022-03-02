@@ -12,7 +12,7 @@ import ErrorMessage from './elements/ErrorMessage';
 import {colors} from '../utils';
 
 const LoginForm = () => {
-  const {setIsLoggedIn, setUser, setUserId} = useContext(MainContext);
+  const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {
     control,
     handleSubmit,

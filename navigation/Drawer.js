@@ -1,20 +1,17 @@
 import React, {useContext} from 'react';
-import {Alert, SafeAreaView} from 'react-native';
+import {Alert} from 'react-native';
 import {
-  BottomNavigation,
-  BottomNavigationTab,
   Icon,
   Drawer,
   DrawerItem,
-  IndexPath,
 } from '@ui-kitten/components';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import Favourite from '../../views/Favourite';
-import Profile from '../../views/Profile';
-import EditProfile from '../../views/EditProfile';
-import {MainContext} from '../../contexts/MainContext';
+import Favourite from '../views/Favourite';
+import Profile from '../views/Profile';
+import EditProfile from '../views/EditProfile';
+import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {MyListings} from '../../views/Listings';
+import {MyListings} from '../views/Listings';
 
 const Menu = createDrawerNavigator();
 
@@ -33,10 +30,7 @@ const MenuContent = ({navigation, page}) => {
     ]);
   };
   return (
-    <Drawer
-    // selectedIndex={new IndexPath(state.index)}
-    // onSelect={(index) => navigation.navigate(state.routeNames[index.row])}
-    >
+    <Drawer>
       <DrawerItem
         title="Profile"
         accessoryLeft={<Icon name="person-outline" />}
@@ -58,7 +52,6 @@ const MenuContent = ({navigation, page}) => {
           navigation.navigate('My Favorites', {file: page});
         }}
       />
-
       <DrawerItem
         title="My Listings"
         accessoryLeft={<Icon name="list-outline" />}
@@ -76,7 +69,7 @@ const MenuContent = ({navigation, page}) => {
 };
 
 const MenuNavigator = () => (
-  <Menu.Navigator drawerContent={(props) => <MenuContent {...props} />}>
+  <Menu.Navigator drawerContent={(props) => <MenuContent {...props} />} initialRouteName="Profile" defaultStatus='closed'>
     <Menu.Screen
       name="Profile"
       component={Profile}

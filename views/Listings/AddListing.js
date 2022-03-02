@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   SafeAreaView,
+  View,
 } from 'react-native';
 import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
@@ -23,7 +24,6 @@ import colors from '../../utils/colors';
 import {appId} from '../../utils/url';
 import {getToken} from '../../hooks/CommonFunction';
 import {postMedia, postTag} from '../../hooks/MediaHooks';
-import {TouchableHighlight} from 'react-native-gesture-handler';
 import {Shadow} from 'react-native-shadow-2';
 
 const AddListing = ({navigation}) => {
@@ -31,7 +31,7 @@ const AddListing = ({navigation}) => {
   const [image, setImage] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
-  const {update, setUpdate, loading, setLoading, media, setMedia} =
+  const {update, setUpdate, loading, setLoading} =
     useContext(MainContext);
   const [category, setCategory] = useState('');
 
@@ -55,7 +55,6 @@ const AddListing = ({navigation}) => {
       allowsEditing: true,
       quality: 0.5,
     });
-    // console.log('Picke image', result);
     if (!result.cancelled) {
       setImage(result.uri);
       setImageSelected(true);
@@ -79,14 +78,12 @@ const AddListing = ({navigation}) => {
     let fileExtension = filename.split('.').pop();
 
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
-    // console.log('Extension', fileExtension);
 
     formData.append('file', {
       uri: image,
       name: filename,
       type: type + '/' + fileExtension,
     });
-    // console.log('formData', formData);
 
     try {
       const token = await getToken();
@@ -143,6 +140,8 @@ const AddListing = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <ScrollView style={styles.container}>
+        <View style={styles.boxShadow}>
+          {/* <Shadow> */}
           <Card containerStyle={styles.card}>
             <Layout style={styles.selectImgWrap}>
               <Text style={styles.selectImgText}>Select an image</Text>
@@ -218,6 +217,7 @@ const AddListing = ({navigation}) => {
                   textEntry={false}
                   multiline={true}
                   textStyle={{minHeight: 96}}
+                  align="top"
                 />
               )}
               name="description"
@@ -249,6 +249,8 @@ const AddListing = ({navigation}) => {
               style={styles.uploadBtn}
             />
           </Card>
+          {/* </Shadow> */}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -258,11 +260,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  boxShadow: {
+    marginVertical: 15,
+    marginHorizontal: 20,
+    alignSelf: 'center',
+  },
+  shadowProp: {
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
   card: {
-    marginTop: '5%',
     justifyContent: 'center',
     borderRadius: 30,
     backgroundColor: colors.primary,
+    margin: 0,
   },
   selectImgWrap: {
     height: 250,

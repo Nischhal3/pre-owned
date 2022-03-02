@@ -9,7 +9,6 @@ import {
   Card,
 } from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
-// import {useUser} from '../hooks/ApiHooks';
 import {checkUserName, signUp} from '../hooks/ApiHooks';
 import {PropTypes} from 'prop-types';
 import FormInput from './formComponents/FormInput';
@@ -21,8 +20,6 @@ const SignupForm = ({setFormToggle}) => {
   // for checkbox
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
-  // Api
-  // const {signupUser, checkUsername} = useUser();
 
   const {
     control,
@@ -129,8 +126,6 @@ const SignupForm = ({setFormToggle}) => {
             onChange={onChange}
             value={value}
             textEntry={false}
-            // Error message not working ?
-            // errorMessage={errors.email && errors.email.message}
           />
         )}
         name="email"

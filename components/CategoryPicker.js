@@ -31,7 +31,6 @@ const CategoryPicker = ({setCategory}) => {
   return (
     <Layout level="1" style={{marginTop: 10, backgroundColor: colors.primary}}>
       <Select
-        // label="Category"
         caption="Choose a category for your product"
         captionTextStyle={{margin: 10}}
         placeholder="Select category"
