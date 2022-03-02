@@ -5,13 +5,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import GlobalStyles from '../utils/GlobalStyles';
 import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
-import Profile from '../views/Profile';
 import {MainContext} from '../contexts/MainContext';
 import ProductDetail from '../views/ProductDetail';
 import PopularNow from '../views/PopularNow';
 import AllProducts from '../views/AllProducts';
 import TabScreen from '../components/navComponents/Bottom';
 import {EditListing} from '../views/Listings';
+import Profile from '../views/Profile';
 
 const Stack = createNativeStackNavigator();
 

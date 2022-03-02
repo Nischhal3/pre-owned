@@ -1,13 +1,18 @@
+// Import from react
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Platform, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import {Shadow} from 'react-native-shadow-2';
+
+// Import from UI Kitten
+import {Text} from '@ui-kitten/components';
+
+// Import from files
 import {uploadsUrl} from '../../utils/url';
 import ImageWithOverlay from '../elements/ImageWithOverlay';
 import ImageDetail from '../ImageDetail';
-import {Card, Text} from '@ui-kitten/components';
-import moment from 'moment';
 import colors from '../../utils/colors';
-import {Shadow} from 'react-native-shadow-2';
 
 // Single item for explore horizontal list
 const GalleryItemHorizontal = ({navigation, singleItem}) => {
@@ -34,7 +39,6 @@ const GalleryItemHorizontal = ({navigation, singleItem}) => {
 
 // Single item for explore vertical list
 const GalleryItemVertical = ({navigation, singleItem, displayText}) => {
-  // console.log(singleItem);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -90,14 +94,14 @@ const styles = StyleSheet.create({
   GalleryTextBoxHorizontal: {
     position: 'absolute',
     backgroundColor: null,
-    marginStart: '5%',
-    top: '65%',
+    marginStart: '10%',
+    top: '72%',
   },
 
   GalleryTextBoxVertical: {
     position: 'absolute',
     backgroundColor: null,
-    marginStart: '5%',
+    marginStart: '7%',
 
     ...Platform.select({
       ios: {
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 14,
     fontFamily: 'Karla_400Regular',
-    margin: '5%',
+    marginStart: '7%',
     color: colors.text_light,
 
     ...Platform.select({

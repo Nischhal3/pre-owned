@@ -13,7 +13,7 @@ import {getMessagesList} from '../../hooks/MessageHook';
 import {MainContext} from '../../contexts/MainContext';
 
 const Statistics = () => {
-  const {setIsLoggedIn, user} = useContext(MainContext);
+  const {user} = useContext(MainContext);
   const {mediaArray} = useMedia();
   const {getFavourtiesList} = useFavourite();
   const [favourites, setFavourites] = useState([]);
@@ -39,7 +39,7 @@ const Statistics = () => {
     setMessages(response);
   };
 
-  // update statistics viewsr
+  // update statistics views
   useEffect(() => {
     myLikes();
     myMessages();
