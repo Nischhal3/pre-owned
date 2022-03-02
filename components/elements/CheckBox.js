@@ -1,6 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {Button, CheckBox, Layout, Text} from '@ui-kitten/components';
+// Import from React & libraries
+import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
+
+// Import from UI Kitten
+import {CheckBox, Layout} from '@ui-kitten/components';
+
+// Import from files
 import colors from '../../utils/colors';
 
 // Filter categories
@@ -14,11 +20,10 @@ const categoryNames = [
 ];
 
 const ModalCheckBox = ({setItemPosition, setIsChecked, isChecked}) => {
+  // new array to store values if checkbox is checked
   const [checkedState, setCheckedState] = useState(
     new Array(categoryNames.length).fill(false)
   );
-
-  console.log(checkedState);
 
   // Handle checkBox state on click
   const handleOnChange = (position) => {
@@ -33,8 +38,6 @@ const ModalCheckBox = ({setItemPosition, setIsChecked, isChecked}) => {
       console.log('Filter update failed', e);
     }
   };
-
-  // console.log(checkedState);
 
   return (
     <Layout style={{backgroundColor: colors.primary}}>
@@ -53,6 +56,12 @@ const ModalCheckBox = ({setItemPosition, setIsChecked, isChecked}) => {
       })}
     </Layout>
   );
+};
+
+ModalCheckBox.propTypes = {
+  setItemPosition: PropTypes.func,
+  setIsChecked: PropTypes.func,
+  isChecked: PropTypes.number,
 };
 
 const styles = StyleSheet.create({

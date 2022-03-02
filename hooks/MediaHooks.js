@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
-import {appId, baseUrl} from '../utils/url';
+import {appId, baseUrl, uploadsUrl} from '../utils/url';
 import {fetchData, fetchFromMedia} from './CommonFunction';
 
 const useMedia = () => {
@@ -178,6 +178,19 @@ const useFavourite = () => {
   };
 };
 
+const getAvatar = async (userId, setAvatar) => {
+  try {
+    const avatarArray = await getFilesByTag('pre_owned_avatar_' + userId);
+    const fetchedAvatar = avatarArray.pop();
+
+    if (fetchedAvatar !== null) {
+      setAvatar(uploadsUrl + fetchedAvatar.filename);
+    }
+  } catch (error) {
+    console.log('Avatar message', error.message);
+  }
+};
+
 export {
   getFilesByTag,
   postMedia,
@@ -187,4 +200,5 @@ export {
   postTag,
   useMedia,
   useFavourite,
+  getAvatar,
 };

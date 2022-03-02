@@ -65,7 +65,8 @@ const Favourite = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: '5%',
+    paddingBottom: '10%',
   },
 });
 export default Favourite;

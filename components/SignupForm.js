@@ -61,7 +61,7 @@ const SignupForm = ({setFormToggle}) => {
       <Text
         category="h5"
         style={{
-          top: Platform.OS === 'android' ? '-17%' : '-19%',
+          top: Platform.OS === 'android' ? '-17%' : '-15%',
           textAlign: 'center',
           fontFamily: 'Karla_700Bold',
         }}
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla_400Regular',
   },
   textWelcome: {
-    top: '-15%',
+    top: '-13%',
     textAlign: 'center',
     fontFamily: 'Karla',
     fontSize: 16,

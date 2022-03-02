@@ -1,5 +1,10 @@
+// Import from react & library
 import {SafeAreaView, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import {ScrollView} from 'react-native-gesture-handler';
+
+// Import from UI Kitten library
 import {
   Card,
   Icon,
@@ -9,11 +14,11 @@ import {
   Modal,
   Text,
 } from '@ui-kitten/components';
+
+// Import from files
 import {useMedia} from '../hooks/MediaHooks';
 import colors from '../utils/colors';
-import PropTypes from 'prop-types';
 import {FilterIcon, SearchIcon} from '../components/elements/Icons';
-import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
 import {AppButton} from '../components/elements/AppButton';
@@ -71,13 +76,6 @@ const Search = ({navigation}) => {
   useEffect(() => {
     setSearch('');
   }, [isChecked]);
-
-  // We need to add it ?
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     return () => reset();
-  //   }, [])
-  // );
 
   return (
     <SafeAreaView
@@ -142,7 +140,11 @@ const Search = ({navigation}) => {
               >
                 <AppButton
                   title="Apply Filter"
-                  appBtnStyle={{marginTop: 20, width: 180, alignSelf: 'center'}}
+                  appBtnStyle={{
+                    marginTop: '5%',
+                    width: 185,
+                    alignSelf: 'center',
+                  }}
                   onPress={() => setVisible(false)}
                 />
               </Layout>
@@ -154,15 +156,18 @@ const Search = ({navigation}) => {
         title="Filter"
         accessoryRight={<Icon name="close" />}
         appBtnStyle={{
-          marginTop: -10,
-          width: 100,
-          height: 40,
+          marginTop: '-2%',
+          width: '30%',
+          height: '5%',
           alignSelf: 'flex-end',
-          paddingVertical: 5,
+          paddingVertical: '2%',
         }}
         onPress={reset}
       />
-      <ScrollView style={styles.searchImageContainer}>
+      <ScrollView
+        style={styles.searchImageContainer}
+        contentContainerStyle={{alignItems: 'center'}}
+      >
         {search !== '' ? (
           filteredData.map((item) => (
             <GalleryItemVertical
@@ -182,7 +187,7 @@ const Search = ({navigation}) => {
             />
           ))
         ) : (
-          <Text>Search.js - Please add some text and apply styling here</Text>
+          <Text>Search</Text>
         )}
       </ScrollView>
     </SafeAreaView>
@@ -192,17 +197,17 @@ const Search = ({navigation}) => {
 const styles = StyleSheet.create({
   searchImageContainer: {
     flex: 1,
-    alignSelf: 'center',
-    marginTop: 20,
+    width: '100%',
+    marginTop: '5%',
     backgroundColor: colors.background,
   },
   searchField: {
     flex: 10,
     borderRadius: 15,
-    margin: 5,
+    margin: '2%',
   },
   modalContainer: {
-    minHeight: 70,
+    minHeight: '10%',
   },
   modalBackdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',

@@ -14,14 +14,7 @@ import {
 import {LinearGradient} from 'expo-linear-gradient';
 
 // Ui Kitten
-import {
-  Card,
-  Layout,
-  ButtonGroup,
-  Button,
-  Icon,
-  Text,
-} from '@ui-kitten/components';
+import {Card, ButtonGroup, Button} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
@@ -32,7 +25,7 @@ const Login = () => {
   const {formToggle, setFormToggle} = useContext(MainContext);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <TouchableOpacity
         style={{flex: 1}}
         activeOpacity={1}
@@ -44,16 +37,11 @@ const Login = () => {
         >
           <Image
             style={styles.backgroundImg}
-            source={require('../assets/backgrounds/login3.jpg')}
+            source={require('../assets/backgrounds/loginbackground.png')}
           />
 
-          <Layout style={styles.iconGroup}>
-            <Icon name="google" style={styles.singleIcon} />
-            <Icon name="facebook" style={styles.singleIcon} />
-            <Icon name="twitter" style={styles.singleIcon} />
-          </Layout>
           <LinearGradient
-            colors={[colors.primary, '#c37032']}
+            colors={['transparent', colors.btnBackground]}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}
             style={styles.linearGradient}
@@ -94,9 +82,10 @@ const Login = () => {
 const styles = StyleSheet.create({
   backgroundImg: {
     position: 'absolute',
-    width: 450,
-    height: 320,
-    borderBottomLeftRadius: 150,
+    width: '100%',
+    height: '41%',
+    top: -35,
+    // borderBottomLeftRadius: 150,
   },
   card: {
     backgroundColor: colors.primary,
@@ -111,7 +100,7 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   container: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.background,
   },
   iconGroup: {
     position: 'absolute',
@@ -128,9 +117,9 @@ const styles = StyleSheet.create({
     color: colors.text_dark,
   },
   linearGradient: {
-    height: '83%',
+    height: '85%',
     top: '25%',
-    width: '98%',
+    width: '99%',
     borderRadius: 75,
     alignSelf: 'center',
     overflow: 'scroll',
@@ -144,9 +133,9 @@ const styles = StyleSheet.create({
   toggleGroup: {
     justifyContent: 'center',
     alignSelf: 'center',
-    top: Platform.OS === 'android' ? '7%' : '5%',
+    top: '2%',
     zIndex: 1,
-    // marginVertical: 10,
+    borderRadius: 19,
   },
 
   toggle1: {

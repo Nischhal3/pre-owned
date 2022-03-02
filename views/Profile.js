@@ -9,40 +9,33 @@ import {Layout, Text, Avatar} from '@ui-kitten/components';
 // Import from files
 import {MainContext} from '../contexts/MainContext';
 import colors from '../utils/colors';
-import {uploadsUrl} from '../utils/url';
-import {getFilesByTag} from '../hooks/MediaHooks';
+import {getAvatar} from '../hooks/MediaHooks';
 import {getUserById} from '../hooks/ApiHooks';
 import {ProfileSeparator} from '../components/elements/ItemSeparator';
 import Statistics from '../components/elements/ProfileStatistics';
+import assetAvatar from '../assets/backgrounds/Avatar.png';
 
 const Profile = ({route}) => {
-  const {setIsLoggedIn, user} = useContext(MainContext);
-  const [avatar, setAvatar] = useState();
-  const [hasAvatar, setHasAvatar] = useState(false);
+  const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
+  const {user, updateAvatar} = useContext(MainContext);
+  const [avatar, setAvatar] = useState(uploadDefaultUri);
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
 
+  // Fetching avatar
   const fetchAvatar = async () => {
     try {
       const info = await getUserById(userIdParam);
       setUserProfile(info);
-      const avatarArray = await getFilesByTag('avatar_' + userIdParam);
-      const avatar = avatarArray.pop();
-      setAvatar(uploadsUrl + avatar.filename);
-      if (avatar != null) {
-        setHasAvatar(true);
-      }
+      await getAvatar(userIdParam, setAvatar);
     } catch (error) {
-      console.log(error.message);
+      console.log('Profile avatar', error.message);
     }
   };
 
   useEffect(() => {
     fetchAvatar();
-    // console.log('profile', user);
-    // console.log("param", userIdParam);
-    // console.log("user", userProfile);
-  }, []);
+  }, [updateAvatar]);
 
   return (
     <Layout style={styles.container}>
@@ -52,15 +45,7 @@ const Profile = ({route}) => {
         PlaceholderContent={<ActivityIndicator />}
       />
       <Layout style={styles.profileWrapper}>
-        {hasAvatar ? (
-          <Avatar style={styles.avatar} source={{uri: avatar}} shape="round" />
-        ) : (
-          <Avatar
-            style={styles.avatar}
-            source={require('../assets/backgrounds/Avatar.png')}
-            shape="round"
-          />
-        )}
+        <Avatar style={styles.avatar} source={{uri: avatar}} shape="round" />
         <Text style={styles.username}>{userProfile.username}</Text>
         <ProfileSeparator />
         <Text style={styles.bio}>Bio</Text>
@@ -115,6 +100,7 @@ const styles = StyleSheet.create({
 
 Profile.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.any,
 };
 
 export default Profile;

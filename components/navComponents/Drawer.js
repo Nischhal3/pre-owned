@@ -9,7 +9,6 @@ import {
   IndexPath,
 } from '@ui-kitten/components';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import Message from '../../views/Message';
 import Favourite from '../../views/Favourite';
 import Profile from '../../views/Profile';
 import EditProfile from '../../views/EditProfile';
@@ -59,13 +58,7 @@ const MenuContent = ({navigation, page}) => {
           navigation.navigate('My Favorites', {file: page});
         }}
       />
-      <DrawerItem
-        title="My Messages"
-        accessoryLeft={<Icon name="message-circle-outline" />}
-        onPress={() => {
-          navigation.navigate('My Messages', {file: page});
-        }}
-      />
+
       <DrawerItem
         title="My Listings"
         accessoryLeft={<Icon name="list-outline" />}
@@ -99,11 +92,7 @@ const MenuNavigator = () => (
       component={Favourite}
       options={{headerTitleAlign: 'center'}}
     />
-    <Menu.Screen
-      name="My Messages"
-      component={Message}
-      options={{headerTitleAlign: 'center'}}
-    />
+
     <Menu.Screen
       name="My Listings"
       component={MyListings}

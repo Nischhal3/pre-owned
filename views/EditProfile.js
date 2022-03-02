@@ -1,5 +1,5 @@
 // Import from React
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   StyleSheet,
   Alert,
@@ -7,35 +7,43 @@ import {
   View,
   ScrollView,
   Platform,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {PropTypes} from 'prop-types';
 
 // Import from UI Kitten Library
-import {Text, Layout, Avatar} from '@ui-kitten/components';
+import {Text, Layout, Avatar, Icon} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 
 // Import from files
 import FormInput from '../components/formComponents/FormInput';
-import {FormButton} from '../components/elements/AppButton';
+import {AppButton, FormButton} from '../components/elements/AppButton';
 import colors from '../utils/colors';
 import {checkUserName, updateUser} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import {getToken} from '../hooks/CommonFunction';
-import {uploadsUrl} from '../utils/url';
-import {getFilesByTag} from '../hooks/MediaHooks';
+import {postMedia, postTag} from '../hooks/MediaHooks';
 import {Shadow} from 'react-native-shadow-2';
 import {GlobalStyles} from '../utils';
+import assetAvatar from '../assets/backgrounds/Avatar.png';
+import * as ImagePicker from 'expo-image-picker';
+import {useFocusEffect} from '@react-navigation/native';
 
 const EditProfile = ({navigation}) => {
-  const {user, setUser} = useContext(MainContext);
-  const [avatar, setAvatar] = useState();
-  const [hasAvatar, setHasAvatar] = useState(false);
-
+  const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
+  const {user, setUser, loading, setLoading, updateAvatar, setUpdateAvatar} =
+    useContext(MainContext);
+  const [avatar, setAvatar] = useState(uploadDefaultUri);
+  const [imageSelected, setImageSelected] = useState(false);
+  const [type, setType] = useState('image');
   const {
     control,
     handleSubmit,
     formState: {errors},
     getValues,
+    setValue,
   } = useForm({
     defaultValues: {
       username: user.username,
@@ -47,88 +55,113 @@ const EditProfile = ({navigation}) => {
     mode: 'onBlur',
   });
 
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 0.5,
+    });
+
+    if (!result.cancelled) {
+      setAvatar(result.uri);
+      setImageSelected(true);
+      setType(result.type);
+    }
+  };
+
   const onSubmit = async (data) => {
+    setImageSelected(false);
+    setLoading(true);
     try {
       delete data.confirmPassword;
 
       if (data.password === '') {
         delete data.password;
       }
+
+      data.user_id = user.user_id;
+
+      const filename = avatar.split('/').pop();
+      let fileExtension = filename.split('.').pop();
+      fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
+
+      const formData = new FormData();
+
+      formData.append('file', {
+        uri: avatar,
+        name: filename,
+        type: type + '/' + fileExtension,
+      });
+
       const userToken = await getToken();
       const response = await updateUser(data, userToken);
 
-      if (response) {
+      const avatarResponse = await postMedia(formData, userToken);
+      const tagResponse = await postTag(
+        {
+          file_id: avatarResponse.file_id,
+          tag: `pre_owned_avatar_${user.user_id}`,
+        },
+        userToken
+      );
+
+      if (response && tagResponse) {
         delete data.password;
         setUser(data);
+        setLoading(false);
+        setUpdateAvatar(updateAvatar + 1);
         Alert.alert('Profile Details', 'Updated successfully.', [
           {
             text: 'Ok',
             onPress: () => {
               navigation.navigate('Profile');
-              console.log('after edit', user);
+              setAvatar(uploadDefaultUri);
             },
           },
         ]);
       }
     } catch (error) {
-      console.error(error);
+      console.error('Edit profile', error);
+      setLoading(false);
+      setAvatar(uploadDefaultUri);
     }
   };
 
-  const fetchAvatar = async () => {
-    console.log('edit avatar user', user);
-    try {
-      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
-      const avatar = avatarArray.pop();
-      setAvatar(uploadsUrl + avatar.filename);
-      if (avatar != null) {
-        setHasAvatar(true);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+  const reset = () => {
+    setAvatar(uploadDefaultUri);
+    setImageSelected(false);
+    setValue('username', user.username);
+    setValue('email', user.email);
+    setValue('password', '');
+    setValue('confirmPassword', '');
+    setValue('full_name', user.full_name);
   };
 
-  const updateAvatar = async (mediaId) => {
-    const data = {
-      file_id: mediaId,
-      tag: 'avatar_' + user.user_id,
-    };
-    try {
-      const result = await postTag(
-        data,
-        'correct token should be here to use this'
-      );
-      console.log(result);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchAvatar();
-    // updateAvatar();
-  }, []);
+  // Resets form user if off from this view
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset();
+    }, [])
+  );
 
   return (
-    <ScrollView>
-      <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+      <ScrollView>
         <View style={styles.boxShadow}>
           <Shadow>
             <Layout style={styles.layout}>
-              {hasAvatar ? (
+              <TouchableOpacity onPress={pickImage}>
+                <AppButton
+                  appBtnStyle={styles.editBtn}
+                  onPress={pickImage}
+                  accessoryLeft={<Icon name="edit-2" fill={colors.text_dark} />}
+                />
                 <Avatar
                   style={styles.avatar}
                   source={{uri: avatar}}
                   shape="round"
                 />
-              ) : (
-                <Avatar
-                  style={styles.avatar}
-                  source={require('../assets/backgrounds/Avatar.png')}
-                  shape="round"
-                />
-              )}
+              </TouchableOpacity>
               <Layout style={styles.form}>
                 <Controller
                   control={control}
@@ -207,11 +240,6 @@ const EditProfile = ({navigation}) => {
                   rules={{
                     required: {value: false, message: 'This is required'},
                     pattern: {
-                      /**
-                       *  Password criteria
-                       *  Minimum length 8 , atlease 1 digit
-                       *  Atleast 1 upper case of lower case character
-                       */
                       value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
                       message: 'Min 8, Uppercase & Number',
                     },
@@ -271,13 +299,6 @@ const EditProfile = ({navigation}) => {
 
                 <Controller
                   control={control}
-                  // rules={{
-                  //   required: {value: true, message: 'This is required.'},
-                  //   pattern: {
-                  //     value: /\S+@\S+\.\S+$/,
-                  //     message: 'Description',
-                  //   },
-                  // }}
                   render={({field: {onChange, onBlur, value}}) => (
                     <FormInput
                       style={styles.input}
@@ -296,14 +317,25 @@ const EditProfile = ({navigation}) => {
                   style={styles.button}
                   handleSubmit={handleSubmit}
                   onSubmit={onSubmit}
-                  text="Save"
+                  text={
+                    loading ? (
+                      <ActivityIndicator
+                        animating={loading}
+                        color={colors.text_light}
+                        size="large"
+                      />
+                    ) : (
+                      'Save'
+                    )
+                  }
+                  disabled={!imageSelected}
                 />
               </Layout>
             </Layout>
           </Shadow>
         </View>
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -318,10 +350,18 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    top: Platform.OS === 'ios' ? '10%' : 0,
+    top: Platform.OS === 'ios' ? '5%' : 0,
   },
   button: {
     marginTop: 20,
+  },
+  editBtn: {
+    zIndex: 1,
+    position: 'absolute',
+    marginTop: 20,
+    left: 50,
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
   },
   form: {
     backgroundColor: colors.primary,
@@ -329,13 +369,19 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
+    borderRadius: 4,
+    // borderColor: 'transparent',
+    backgroundColor: colors.container,
   },
   layout: {
     backgroundColor: colors.primary,
     width: 350,
     paddingBottom: 30,
     alignSelf: 'center',
-    borderRadius: 20,
+    borderRadius: 15,
+  },
+  safeView: {
+    backgroundColor: colors.background,
   },
 });
 
