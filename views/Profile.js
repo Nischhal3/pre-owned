@@ -9,8 +9,7 @@ import {Layout, Text, Avatar} from '@ui-kitten/components';
 // Import from files
 import {MainContext} from '../contexts/MainContext';
 import colors from '../utils/colors';
-import {uploadsUrl} from '../utils/url';
-import {getAvatar, getFilesByTag} from '../hooks/MediaHooks';
+import {getAvatar} from '../hooks/MediaHooks';
 import {getUserById} from '../hooks/ApiHooks';
 import {ProfileSeparator} from '../components/elements/ItemSeparator';
 import Statistics from '../components/elements/ProfileStatistics';
@@ -18,16 +17,20 @@ import assetAvatar from '../assets/backgrounds/Avatar.png';
 
 const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
-  const {setIsLoggedIn, user, updateAvatar} = useContext(MainContext);
+  const {user, updateAvatar} = useContext(MainContext);
   const [avatar, setAvatar] = useState(uploadDefaultUri);
-  const userIdParam = route.params?.profileParam ?? user.user_id;
+  const userIdParam = route.params?.profileParam;
   const [userProfile, setUserProfile] = useState({});
 
+  const currentUser = userIdParam === undefined ? user.user_id : userIdParam;
+  console.log('user', currentUser);
+
+  // Fetching avatar
   const fetchAvatar = async () => {
     try {
-      const info = await getUserById(userIdParam);
+      const info = await getUserById(currentUser);
       setUserProfile(info);
-      await getAvatar(userIdParam, setAvatar);
+      await getAvatar(currentUser, setAvatar);
     } catch (error) {
       console.log('Profile avatar', error.message);
     }

@@ -39,7 +39,6 @@ const EditProfile = ({navigation}) => {
   const [avatar, setAvatar] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
-
   const {
     control,
     handleSubmit,
@@ -105,7 +104,6 @@ const EditProfile = ({navigation}) => {
       );
 
       if (response && tagResponse) {
-        console.log('Tag', tagResponse);
         delete data.password;
         setUser(data);
         setLoading(false);
@@ -115,7 +113,6 @@ const EditProfile = ({navigation}) => {
             text: 'Ok',
             onPress: () => {
               navigation.navigate('Profile');
-              console.log('after edit', user);
               setAvatar(uploadDefaultUri);
             },
           },
