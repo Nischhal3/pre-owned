@@ -81,6 +81,8 @@ const EditProfile = ({navigation}) => {
         delete data.password;
       }
 
+      data.user_id = user.user_id;
+
       const filename = avatar.split('/').pop();
       let fileExtension = filename.split('.').pop();
       fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;

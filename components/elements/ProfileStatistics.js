@@ -35,11 +35,11 @@ const Statistics = () => {
   const myMessages = async () => {
     const token = await getToken();
     const response = await getMessagesList(token);
-    console.log(response);
+    // console.log(response);
     setMessages(response);
   };
 
-  // update statistics views
+  // update statistics viewsr
   useEffect(() => {
     myLikes();
     myMessages();
