@@ -117,9 +117,9 @@ const styles = StyleSheet.create({
     color: colors.text_dark,
   },
   linearGradient: {
-    height: '86%',
+    height: '85%',
     top: '25%',
-    width: '100%',
+    width: '99%',
     borderRadius: 75,
     alignSelf: 'center',
     overflow: 'scroll',
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   toggleGroup: {
     justifyContent: 'center',
     alignSelf: 'center',
-    top: Platform.OS === 'android' ? '7%' : '5%',
+    top: '2%',
     zIndex: 1,
     borderRadius: 19,
   },
