@@ -13,7 +13,11 @@ const ImageWithOverlay = ({source, style}) => {
     >
       <LinearGradient
         colors={['transparent', 'rgba(0,0,0.5,0.5)']}
-        style={{flex: 1, justifyContent: 'center', borderRadius: 15}}
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          borderRadius: 15,
+        }}
       ></LinearGradient>
     </ImageBackground>
   );

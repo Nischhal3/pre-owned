@@ -162,7 +162,10 @@ const Search = ({navigation}) => {
         }}
         onPress={reset}
       />
-      <ScrollView style={styles.searchImageContainer}>
+      <ScrollView
+        style={styles.searchImageContainer}
+        contentContainerStyle={{alignItems: 'center'}}
+      >
         {search !== '' ? (
           filteredData.map((item) => (
             <GalleryItemVertical
@@ -182,7 +185,7 @@ const Search = ({navigation}) => {
             />
           ))
         ) : (
-          <Text>Search.js - Please add some text and apply styling here</Text>
+          <Text>Search</Text>
         )}
       </ScrollView>
     </SafeAreaView>
@@ -192,8 +195,8 @@ const Search = ({navigation}) => {
 const styles = StyleSheet.create({
   searchImageContainer: {
     flex: 1,
-    alignSelf: 'center',
-    marginTop: 20,
+    width: '100%',
+    marginTop: '5%',
     backgroundColor: colors.background,
   },
   searchField: {
