@@ -40,11 +40,11 @@ const Login = () => {
             source={require('../assets/backgrounds/loginbackground.png')}
           />
 
-          <Layout style={styles.iconGroup}>
+          {/* <Layout style={styles.iconGroup}>
             <Icon name="google" style={styles.singleIcon} />
             <Icon name="facebook" style={styles.singleIcon} />
             <Icon name="twitter" style={styles.singleIcon} />
-          </Layout>
+          </Layout> */}
           <LinearGradient
             colors={['transparent', colors.btnBackground]}
             start={{x: 0, y: 0}}
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   backgroundImg: {
     position: 'absolute',
     width: '100%',
-    height: '39%',
+    height: '41%',
     top: -35,
     // borderBottomLeftRadius: 150,
   },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     color: colors.text_dark,
   },
   linearGradient: {
-    height: '83%',
+    height: '86%',
     top: '25%',
     width: '100%',
     borderRadius: 75,
