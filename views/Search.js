@@ -1,6 +1,6 @@
 // Import from react & library
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -22,6 +22,7 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
 import {AppButton} from '../components/elements/AppButton';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Search = ({navigation}) => {
   const {mediaArray, home, electronics, clothing, sports, gaming, others} =
@@ -80,6 +81,11 @@ const Search = ({navigation}) => {
     setSearch('');
   }, [isChecked]);
 
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset();
+    }, [])
+  );
   return (
     <SafeAreaView
       style={{
