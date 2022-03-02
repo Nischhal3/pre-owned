@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: colors.primary,
-    borderRadius: 45,
+    borderRadius: 30,
     alignSelf: 'center',
     width: 335,
   },

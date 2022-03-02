@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla_400Regular',
     top: 0,
     bottom: 5,
-    right: 40,
+    right: 44,
     lineHeight: 20,
   },
   description: {
