@@ -83,7 +83,7 @@ const EditProfile = ({navigation}) => {
 
       const filename = avatar.split('/').pop();
       let fileExtension = filename.split('.').pop();
-      fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
+      fileExtension === 'jpg' ? 'jpeg' : fileExtension;
 
       const formData = new FormData();
 
@@ -115,7 +115,7 @@ const EditProfile = ({navigation}) => {
             text: 'Ok',
             onPress: () => {
               navigation.navigate('Profile');
-              setAvatar(uploadDefaultUri);
+              setImageSelected(true);
             },
           },
         ]);
@@ -128,8 +128,7 @@ const EditProfile = ({navigation}) => {
   };
 
   const reset = () => {
-    setAvatar(uploadDefaultUri);
-    setImageSelected(false);
+    setImageSelected(true);
     setValue('username', user.username);
     setValue('email', user.email);
     setValue('password', '');
@@ -344,6 +343,7 @@ const EditProfile = ({navigation}) => {
                       'Save'
                     )
                   }
+                  disabled={!imageSelected}
                 />
               </Layout>
             </Layout>
