@@ -6,7 +6,7 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
@@ -24,12 +24,9 @@ import FormInput from '../../components/formComponents/FormInput';
 import colors from '../../utils/colors';
 import {appId} from '../../utils/url';
 import {getToken} from '../../hooks/CommonFunction';
-import {getFilesByTag, postMedia, postTag} from '../../hooks/MediaHooks';
+import {postMedia, postTag} from '../../hooks/MediaHooks';
 
 const AddListing = ({navigation}) => {
-  // const [image, setImage] = useState(
-  //   'https://place-hold.it/300x200&text=Choose'
-  // );
   const uploadDefaultUri = Image.resolveAssetSource(uploadDefault).uri;
   const [image, setImage] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
@@ -96,6 +93,7 @@ const AddListing = ({navigation}) => {
       const response = await postMedia(formData, token);
       console.log('Media upload', response);
 
+      // Sending data to different category
       const tagResponse = await postTag(
         {file_id: response.file_id, tag: `${appId}_${category}`},
         token

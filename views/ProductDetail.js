@@ -11,11 +11,15 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Modal,
+  TouchableOpacity,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
+import ReadMore from 'react-native-read-more-text';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 // Import from Library UI Kitten
-import {Card, Divider, Layout, Text} from '@ui-kitten/components';
+import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
@@ -27,41 +31,50 @@ import {MessageList} from '../components/lists';
 import LottieView from 'lottie-react-native';
 import {GlobalStyles} from '../utils';
 import UserItem from '../components/elements/UserItem';
+import {AppButton} from '../components/elements/AppButton';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const ProductDetail = ({route, navigation}) => {
   const {file} = route.params;
   const [avatar, setAvatar] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
-
-  // fetch Avatar
-  // const fetchAvatar = async () => {
-  //   try {
-  //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
-  //     if (avatarList.length === 0) {
-  //       return;
-  //     }
-  //     const avatar = avatarList.pop();
-  //     setAvatar(uploadsUrl + avatar.filename);
-  //     console.log('single.js avatar', avatar);
-  //   } catch (e) {
-  //     console.error(e.message);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchAvatar();
-  // }, []);
-
-  // favorite
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
     useFavourite();
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
-  const {user} = useContext(MainContext);
+  const {user, updateFavourite, setUpdateFavourite} = useContext(MainContext);
   const [name, setName] = useState('');
   // favorite animation
   const animation = React.useRef(null);
   const isFirstRun = React.useRef(true);
+
+  // image zoom in view in modal
+  const [visible, setVisible] = useState(false);
+  const images = [
+    {
+      url: uploadsUrl + file.filename,
+      width: '100%',
+      height: undefined,
+    },
+  ];
+  // // fetch Avatar
+  // // const fetchAvatar = async () => {
+  // //   try {
+  // //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
+  // //     if (avatarList.length === 0) {
+  // //       return;
+  // //     }
+  // //     const avatar = avatarList.pop();
+  // //     setAvatar(uploadsUrl + avatar.filename);
+  // //     console.log('single.js avatar', avatar);
+  // //   } catch (e) {
+  // //     console.error(e.message);
+  // //   }
+  // // };
+  // // useEffect(() => {
+  // //   fetchAvatar();
+  // // }, []);
 
   // add to favourite
   const fetchLikes = async () => {
@@ -83,7 +96,10 @@ const ProductDetail = ({route, navigation}) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const response = await postFavourite(file.file_id, token);
-      response && setUserLike(true);
+      if (response) {
+        setUpdateFavourite(updateFavourite + 1);
+        setUserLike(true);
+      }
     } catch (e) {
       console.error('Add Like error', e);
     }
@@ -92,7 +108,10 @@ const ProductDetail = ({route, navigation}) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const response = await deleteFavourite(file.file_id, token);
-      response && setUserLike(false);
+      if (response) {
+        setUpdateFavourite(updateFavourite + 1);
+        setUserLike(false);
+      }
     } catch (e) {
       console.error('Remove Like error', e);
     }
@@ -121,12 +140,26 @@ const ProductDetail = ({route, navigation}) => {
   return (
     <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
       <ScrollView>
-        <Image
-          style={styles.image}
-          source={{uri: uploadsUrl + file.filename}}
-        />
+        <TouchableOpacity onPress={() => setVisible(true)}>
+          <Image
+            style={styles.image}
+            source={{uri: uploadsUrl + file.filename}}
+          />
+        </TouchableOpacity>
+        <Modal
+          visible={visible}
+          transparent={true}
+          onBackdropPress={() => setVisible(false)}
+        >
+          <AppButton
+            appBtnStyle={styles.closeBtn}
+            onPress={() => setVisible(false)}
+            accessoryLeft={<Icon name="close-outline" />}
+          />
+          <ImageViewer imageUrls={images} />
+        </Modal>
         <View style={styles.boxShadow}>
-          <Shadow distance={15}>
+          <Shadow distance={7}>
             <Card style={styles.card}>
               <Layout style={styles.container}>
                 <Text style={styles.title}>{file.title}</Text>
@@ -170,13 +203,18 @@ const ProductDetail = ({route, navigation}) => {
               <Text category="s1" style={styles.detail}>
                 Price & Details
               </Text>
-              <Text
-                style={styles.detailDescription}
-                category="c1"
-                numberOfLines={4}
-              >
-                {file.description}
-              </Text>
+              <Layout style={styles.readMore}>
+                <ReadMore numberOfLines={1}>
+                  <Text
+                    style={styles.detailDescription}
+                    category="c1"
+                    numberOfLines={4}
+                  >
+                    {file.description}
+                  </Text>
+                </ReadMore>
+              </Layout>
+
               <Divider style={{backgroundColor: colors.lightGrey}} />
               <Text category="s1" style={styles.detail}>
                 Send the Seller a message
@@ -193,13 +231,15 @@ const ProductDetail = ({route, navigation}) => {
 const styles = StyleSheet.create({
   boxShadow: {
     marginVertical: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: 20,
+    alignSelf: 'center',
   },
   card: {
     backgroundColor: colors.primary,
     borderRadius: 45,
-    width: Platform.OS === 'android' ? 350 : 370,
+    alignSelf: 'center',
+    width: 360,
+    // width: Platform.OS === 'android' ? 350 : 370,
   },
   container: {
     flexDirection: 'row',
@@ -209,7 +249,17 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: colors.primary,
   },
-
+  closeBtn: {
+    zIndex: 1,
+    width: 40,
+    height: 10,
+    position: 'absolute',
+    marginTop: 100,
+    // right: 5,
+    alignSelf: 'flex-end',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+  },
   detail: {
     fontFamily: 'Karla_700Bold',
     fontSize: 16,
@@ -224,8 +274,6 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontSize: 14,
     fontFamily: 'Karla',
-    paddingBottom: 15,
-    paddingLeft: 15,
   },
   image: {
     width: '100%',
@@ -245,12 +293,27 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 150,
   },
+
+  readMore: {
+    width: '90%',
+    paddingTop: 5,
+    paddingBottom: 15,
+    paddingLeft: 15,
+    backgroundColor: 'transparent',
+  },
+  safeView: {
+    flex: 1,
+    backgroundColor: colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   shadowProp: {
     shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+
   textbox: {
     flexDirection: 'column',
     flex: 7,
@@ -258,7 +321,6 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: colors.container,
   },
   title: {
     fontFamily: 'Karla_700Bold',
@@ -267,13 +329,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     fontWeight: '500',
     alignSelf: 'center',
-  },
-  // userContainer: {
-
-  // },
-  safeView: {
-    flex: 1,
-    backgroundColor: colors.background,
   },
 });
 

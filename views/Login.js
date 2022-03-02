@@ -7,92 +7,142 @@ import {
   Keyboard,
   Platform,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
-import {Card, Layout, ButtonGroup, Button} from '@ui-kitten/components';
+
+// Linear gradient
+import {LinearGradient} from 'expo-linear-gradient';
+
+// Ui Kitten
+import {Card, Layout, ButtonGroup, Button, Icon} from '@ui-kitten/components';
+
+// Import from files
 import colors from '../utils/colors';
 import {MainContext} from '../contexts/MainContext';
 import {LoginForm, SignupForm} from '../components';
 
 const Login = () => {
-  // const [formToggle, setFormToggle] = useState(true);
   const {formToggle, setFormToggle} = useContext(MainContext);
 
   return (
-    <TouchableOpacity
-      style={{flex: 1}}
-      activeOpacity={1}
-      onPress={() => Keyboard.dismiss()}
-    >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : ''}
-        style={styles.container}
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
+      <TouchableOpacity
+        style={{flex: 1}}
+        activeOpacity={1}
+        onPress={() => Keyboard.dismiss()}
       >
-        <Layout style={styles.layout}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : ''}
+          style={styles.container}
+        >
           <Image
             style={styles.backgroundImg}
-            source={require('../assets/backgrounds/LoginBG.png')}
+            source={require('../assets/backgrounds/loginbackground.png')}
           />
-          <Card style={styles.cardContainer}>
-            <ButtonGroup
-              style={styles.toggleGroup}
-              selectedIndex={formToggle ? 0 : 1}
-            >
-              <Button
-                style={formToggle ? styles.toggle2 : styles.toggle1}
-                onPress={() => setFormToggle(true)}
+
+          <Layout style={styles.iconGroup}>
+            <Icon name="google" style={styles.singleIcon} />
+            <Icon name="facebook" style={styles.singleIcon} />
+            <Icon name="twitter" style={styles.singleIcon} />
+          </Layout>
+          <LinearGradient
+            colors={['transparent', colors.btnBackground]}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 1}}
+            style={styles.linearGradient}
+          >
+            <Card style={styles.cardContainer}>
+              <ButtonGroup
+                style={styles.toggleGroup}
+                selectedIndex={formToggle ? 0 : 1}
               >
-                Log In
-              </Button>
-              <Button
-                style={formToggle ? styles.toggle1 : styles.toggle2}
-                onPress={() => setFormToggle(false)}
-              >
-                Sign Up
-              </Button>
-            </ButtonGroup>
-            {formToggle ? (
-              <Card style={styles.card}>
+                <Button
+                  style={formToggle ? styles.toggle2 : styles.toggle1}
+                  onPress={() => setFormToggle(true)}
+                >
+                  Log In
+                </Button>
+                <Button
+                  style={formToggle ? styles.toggle1 : styles.toggle2}
+                  onPress={() => setFormToggle(false)}
+                >
+                  Sign Up
+                </Button>
+              </ButtonGroup>
+              {formToggle ? (
                 <LoginForm setFormToggle={setFormToggle} />
-              </Card>
-            ) : (
-              <Card style={styles.card}>
+              ) : (
                 <ScrollView>
                   <SignupForm setFormToggle={setFormToggle} />
                 </ScrollView>
-              </Card>
-            )}
-          </Card>
-        </Layout>
-      </KeyboardAvoidingView>
-    </TouchableOpacity>
+              )}
+            </Card>
+          </LinearGradient>
+        </KeyboardAvoidingView>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.container,
-  },
   backgroundImg: {
     position: 'absolute',
-    top: 0,
-  },
-  cardContainer: {
-    top: '40%',
     width: '100%',
-    height: '100%',
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-    borderRadius: 30,
+    height: '39%',
+    top: -35,
+    // borderBottomLeftRadius: 150,
   },
   card: {
     backgroundColor: colors.primary,
-    borderColor: colors.primary,
+  },
+
+  cardContainer: {
+    borderRadius: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    flex: 1,
+    margin: 3,
+  },
+  container: {
+    backgroundColor: colors.background,
+  },
+  iconGroup: {
+    position: 'absolute',
+    top: '112%',
+    width: 200,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: 10,
+    color: colors.text_dark,
+  },
+  linearGradient: {
+    height: '83%',
+    top: '25%',
+    width: '100%',
+    borderRadius: 75,
+    alignSelf: 'center',
+    overflow: 'scroll',
+  },
+
+  singleIcon: {
+    width: 25,
+    height: 25,
+    tintColor: colors.btnBackground,
   },
   toggleGroup: {
     justifyContent: 'center',
-    marginBottom: 10,
+    alignSelf: 'center',
+    top: Platform.OS === 'android' ? '7%' : '5%',
+    zIndex: 1,
+    // marginVertical: 10,
   },
+
   toggle1: {
     width: 100,
     backgroundColor: '#60715B',
@@ -102,12 +152,6 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
-    color: colors.text_dark,
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: 10,
-    color: colors.text_dark,
   },
 });
 

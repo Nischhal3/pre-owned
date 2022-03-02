@@ -1,9 +1,7 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Button,
   Card,
-  CheckBox,
   Icon,
   Input,
   Layout,
@@ -18,7 +16,6 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
-import {useFocusEffect} from '@react-navigation/native';
 import {AppButton} from '../components/elements/AppButton';
 
 const Search = ({navigation}) => {
@@ -161,10 +158,14 @@ const Search = ({navigation}) => {
           width: 100,
           height: 40,
           alignSelf: 'flex-end',
+          paddingVertical: 5,
         }}
         onPress={reset}
       />
-      <ScrollView style={styles.searchImageContainer}>
+      <ScrollView
+        style={styles.searchImageContainer}
+        contentContainerStyle={{alignItems: 'center'}}
+      >
         {search !== '' ? (
           filteredData.map((item) => (
             <GalleryItemVertical
@@ -184,7 +185,7 @@ const Search = ({navigation}) => {
             />
           ))
         ) : (
-          <Text>Hello</Text>
+          <Text>Search</Text>
         )}
       </ScrollView>
     </SafeAreaView>
@@ -194,8 +195,8 @@ const Search = ({navigation}) => {
 const styles = StyleSheet.create({
   searchImageContainer: {
     flex: 1,
-    alignSelf: 'center',
-    marginTop: 20,
+    width: '100%',
+    marginTop: '5%',
     backgroundColor: colors.background,
   },
   searchField: {

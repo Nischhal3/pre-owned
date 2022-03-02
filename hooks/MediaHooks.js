@@ -6,7 +6,6 @@ import {fetchData, fetchFromMedia} from './CommonFunction';
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update} = useContext(MainContext);
-  const [loading, setLoading] = useState(false);
 
   // Category items
   const [home, setHome] = useState([]);
@@ -36,35 +35,22 @@ const useMedia = () => {
       const othersMedia = await getFilesByTag(othersTag);
 
       // Storing items by category
-      await fetchFromMedia(allMedia, setMediaArray);
-      await fetchFromMedia(homeMedia, setHome);
-      await fetchFromMedia(electronicsMedia, setElectornics);
-      await fetchFromMedia(clothingMedia, setClothing);
-      await fetchFromMedia(sportsMedia, setSports);
-      await fetchFromMedia(gamingMedia, setGaming);
-      await fetchFromMedia(othersMedia, setOthers);
+      const allMediaCategory = await fetchFromMedia(allMedia);
+      const homeCategory = await fetchFromMedia(homeMedia);
+      const electronicsCategory = await fetchFromMedia(electronicsMedia);
+      const clothingCategory = await fetchFromMedia(clothingMedia);
+      const sportsCategory = await fetchFromMedia(sportsMedia);
+      const gamingCategory = await fetchFromMedia(gamingMedia);
+      const othersCategory = await fetchFromMedia(othersMedia);
 
-      // Storing items by category
-      // const allMediaCategory = await fetchFromMedia(allMedia, setMediaArray);
-      // const homeCategory = await fetchFromMedia(homeMedia, setHome);
-      // const electronicsCategory = await fetchFromMedia(
-      //   electronicsMedia,
-      //   setElectornics
-      // );
-      // const clothingCategory = await fetchFromMedia(clothingMedia, setClothing);
-      // const sportsCategory = await fetchFromMedia(sportsMedia, setSports);
-      // const gamingCategory = await fetchFromMedia(gamingMedia, setGaming);
-      // const othersCategory = await fetchFromMedia(othersMedia, setOthers);
+      setMediaArray(allMediaCategory);
+      setHome(homeCategory);
+      setElectornics(electronicsCategory);
+      setClothing(clothingCategory);
+      setSports(sportsCategory);
+      setGaming(gamingCategory);
+      setOthers(othersCategory);
 
-      // // Storing all the media category in single array
-      // setMediaArray([
-      //   ...homeCategory,
-      //   ...electronicsCategory,
-      //   ...clothingCategory,
-      //   ...sportsCategory,
-      //   ...gamingCategory,
-      //   ...othersCategory,
-      // ]);
       //console.log('Length', mediaArray.length);
     } catch (error) {
       console.log('Error', error);
@@ -103,35 +89,6 @@ const postMedia = async (formData, token) => {
   return response;
 };
 
-// Messages (comment)
-const useMessage = () => {
-  const getMessagesByFileId = async (fileId) => {
-    return await fetchData(`${baseUrl}comments/file/${fileId}`);
-  };
-
-  const postMessage = async (message, token) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      },
-      body: JSON.stringify(message),
-    };
-
-    return await fetchData(`${baseUrl}comments`, options);
-  };
-  const deleteMessage = async (msgId) => {
-    const options = {
-      method: 'DELETE',
-      // headers: {'x-access-token': token},
-    };
-    return await fetchData(`${baseUrl}/comments/${msgId}`, options);
-  };
-
-  return {deleteMessage, getMessagesByFileId, postMessage};
-};
-
 const putMedia = async (data, token, fileId) => {
   const options = {
     method: 'PUT',
@@ -152,6 +109,11 @@ const deleteMedia = async (fileId, token) => {
   return await fetchData(`${baseUrl}media/${fileId}`, options);
 };
 
+const getMediaById = async (fileId) => {
+  return await fetchData(`${baseUrl}media/${fileId}`);
+};
+
+// Use tag for avatar
 const postTag = async (tagData, token) => {
   const options = {
     method: 'POST',
@@ -182,6 +144,7 @@ const useFavourite = () => {
     };
     return await fetchData(`${baseUrl}favourites`, options);
   };
+
   const getFavourtiesByFileId = async (fileId) => {
     return await fetchData(`${baseUrl}favourites/file/${fileId}`);
   };
@@ -196,7 +159,23 @@ const useFavourite = () => {
     };
     return await fetchData(`${baseUrl}favourites/file/${fileId}`, options);
   };
-  return {postFavourite, deleteFavourite, getFavourtiesByFileId};
+
+  const getFavourtiesList = async (token) => {
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+    };
+    return await fetchData(`${baseUrl}favourites`, options);
+  };
+
+  return {
+    postFavourite,
+    deleteFavourite,
+    getFavourtiesByFileId,
+    getFavourtiesList,
+  };
 };
 
 export {
@@ -204,8 +183,8 @@ export {
   postMedia,
   putMedia,
   deleteMedia,
+  getMediaById,
   postTag,
   useMedia,
-  useMessage,
   useFavourite,
 };

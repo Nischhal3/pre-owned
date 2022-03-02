@@ -41,7 +41,9 @@ const GalleryListVertical = ({navigation}) => {
     <List
       style={{backgroundColor: colors.background}}
       data={showFirstFive}
-      contentContainerStyle={{alignItems: 'center'}}
+      contentContainerStyle={{
+        alignItems: 'center',
+      }}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (

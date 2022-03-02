@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, Alert} from 'react-native';
+import {StyleSheet, Alert, Platform} from 'react-native';
 import {
-  Input,
   Button,
   Text,
   Layout,
-  Icon,
   CheckBox,
   Modal,
   Card,
@@ -20,10 +18,10 @@ import ErrorMessage from './elements/ErrorMessage';
 import {colors} from '../utils';
 
 const SignupForm = ({setFormToggle}) => {
-  //for checkbox
+  // for checkbox
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
-  //Api
+  // Api
   // const {signupUser, checkUsername} = useUser();
 
   const {
@@ -60,6 +58,19 @@ const SignupForm = ({setFormToggle}) => {
 
   return (
     <Layout style={styles.layout}>
+      <Text
+        category="h5"
+        style={{
+          top: Platform.OS === 'android' ? '-17%' : '-19%',
+          textAlign: 'center',
+          fontFamily: 'Karla_700Bold',
+        }}
+      >
+        Create account
+      </Text>
+      <Text category="s1" style={styles.textWelcome}>
+        Find the stuffs in need or earn some extra income now
+      </Text>
       <Controller
         control={control}
         rules={{
@@ -197,14 +208,9 @@ const SignupForm = ({setFormToggle}) => {
         checked={checked}
         onChange={(nextChecked) => setChecked(nextChecked)}
       >
-        <Button
-          style={styles.Terms}
-          onPress={() => setVisible(true)}
-          status="warning"
-          appearance="ghost"
-        >
+        <Text style={styles.Terms} onPress={() => setVisible(true)}>
           I accept Terms and Condition
-        </Button>
+        </Text>
         <Modal
           visible={visible}
           backdropStyle={styles.backdrop}
@@ -263,34 +269,42 @@ const SignupForm = ({setFormToggle}) => {
 };
 
 const styles = StyleSheet.create({
-  layout: {
-    height: 350,
+  backdrop: {
     backgroundColor: colors.primary,
-    borderColor: colors.primary,
   },
-  input: {
-    marginBottom: 10,
+  button: {
+    top: '-2%',
+    bottom: 30,
   },
   confirmInput: {
     marginBottom: 0,
   },
   checkBox: {
+    marginTop: 30,
     marginBottom: 30,
     marginLeft: 10,
-  },
-  Terms: {
-    textAlign: 'left',
-  },
-  backdrop: {
-    backgroundColor: colors.primary,
   },
   dismissBtn: {
     marginTop: 20,
     borderRadius: 15,
   },
+  input: {
+    marginBottom: 10,
+  },
   modal: {
     margin: 10,
     borderRadius: 15,
+  },
+  layout: {
+    marginTop: '35%',
+    height: 350,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+    bottom: 20,
+  },
+  Terms: {
+    textAlign: 'left',
+    fontFamily: 'Karla_700Bold',
   },
   text: {
     lineHeight: 21,
@@ -298,8 +312,13 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 14,
   },
-  button: {
-    marginTop: 10,
+  textWelcome: {
+    top: '-15%',
+    textAlign: 'center',
+    fontFamily: 'Karla',
+    fontSize: 16,
+    paddingHorizontal: 10,
+    marginBottom: -30,
   },
 });
 
