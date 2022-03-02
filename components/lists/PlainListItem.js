@@ -1,6 +1,6 @@
 // Import from React and library
 import React, {useContext} from 'react';
-import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten Library
@@ -18,11 +18,10 @@ import {
 import {PointRightArrow} from '../elements/Icons';
 import {uploadsUrl} from '../../utils/url';
 import moment from 'moment';
-import {deleteMedia, useMedia} from '../../hooks/MediaHooks';
+import {deleteMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {getToken} from '../../hooks/CommonFunction';
 import {colors} from '../../utils';
-import {Shadow} from 'react-native-shadow-2';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
   },
   displayTime: {
     flex: 2,
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: 'Karla_400Regular',
     alignSelf: 'center',
     lineHeight: 20,

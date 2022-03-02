@@ -1,9 +1,14 @@
+// Import from react & libraries
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Divider, List} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
-import colors from '../utils/colors';
 import PropTypes from 'prop-types';
+
+// Import from UI Kitten library
+import {List} from '@ui-kitten/components';
+
+// Import from files
+import colors from '../utils/colors';
 import {useMedia} from '../hooks/MediaHooks';
 import {PlainListItem} from '../components/lists';
 import {ItemSeparator} from '../components/elements/ItemSeparator';
@@ -36,7 +41,8 @@ const AllProducts = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: '5%',
+    paddingBottom: '10%',
   },
 });
 

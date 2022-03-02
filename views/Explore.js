@@ -1,12 +1,17 @@
-import {Button, Layout} from '@ui-kitten/components';
+// Import from react & libraries
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
+
+// Import from UI Kitten library
+import {Button, Layout} from '@ui-kitten/components';
+
+// Import from files
 import {
   GalleryListHorizontal,
   GalleryListVertical,
 } from '../components/ExploreList';
 import colors from '../utils/colors';
-import PropTypes from 'prop-types';
 import {PointRightArrow} from '../components/elements/Icons';
 
 // Return explore screen
