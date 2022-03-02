@@ -112,7 +112,7 @@ const EditProfile = ({navigation}) => {
 
   return (
     <ScrollView>
-      <SafeAreaView style={GlobalStyles.AndroidSafeArea}>
+      <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
         <View style={styles.boxShadow}>
           <Shadow>
             <Layout style={styles.layout}>
@@ -329,13 +329,19 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
+    borderRadius: 0,
+    borderColor: 'transparent',
+    backgroundColor: colors.container,
   },
   layout: {
     backgroundColor: colors.primary,
     width: 350,
     paddingBottom: 30,
     alignSelf: 'center',
-    borderRadius: 20,
+    borderRadius: 15,
+  },
+  safeView: {
+    backgroundColor: colors.background,
   },
 });
 
