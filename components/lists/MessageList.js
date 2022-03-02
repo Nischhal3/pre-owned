@@ -47,7 +47,6 @@ const MessageList = ({fileId, showMessages = false}) => {
 
   // display messages from latest to oldest
   messages.sort((a, b) => a.time_added < b.time_added);
-
   const {
     control,
     handleSubmit,
@@ -99,7 +98,7 @@ const MessageList = ({fileId, showMessages = false}) => {
         ]);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -232,7 +231,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: 'Karla',
     borderColor: colors.stroke,
-    borderRadius: 10,
+    borderRadius: 7,
     backgroundColor: colors.container,
   },
   sendBtn: {
@@ -240,13 +239,14 @@ const styles = StyleSheet.create({
     height: 50,
     alignSelf: 'flex-end',
     marginBottom: 15,
+    marginTop: 10,
     right: 10,
   },
   messageBtn: {
     alignSelf: 'flex-start',
-    marginTop: '-20%',
+    marginTop: '-22%',
     marginBottom: 20,
-    left: '-10%',
+    left: '-8%',
   },
   modal: {top: '10%', width: 380},
   messagesContainer: {
@@ -255,6 +255,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 700,
     backgroundColor: colors.primary,
+    width: '98%',
   },
   noMessageContainer: {
     backgroundColor: 'transparent',

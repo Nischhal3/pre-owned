@@ -1,5 +1,5 @@
 // Import from React
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   StyleSheet,
   Alert,
@@ -14,23 +14,21 @@ import {
 import {PropTypes} from 'prop-types';
 
 // Import from UI Kitten Library
-import {Text, Layout, Avatar} from '@ui-kitten/components';
+import {Text, Layout, Avatar, Icon} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 
 // Import from files
 import FormInput from '../components/formComponents/FormInput';
-import {FormButton} from '../components/elements/AppButton';
+import {AppButton, FormButton} from '../components/elements/AppButton';
 import colors from '../utils/colors';
 import {checkUserName, updateUser} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import {getToken} from '../hooks/CommonFunction';
-import {uploadsUrl} from '../utils/url';
-import {getFilesByTag, postMedia, postTag} from '../hooks/MediaHooks';
+import {postMedia, postTag} from '../hooks/MediaHooks';
 import {Shadow} from 'react-native-shadow-2';
 import {GlobalStyles} from '../utils';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
 import * as ImagePicker from 'expo-image-picker';
-import {Card} from 'react-native-elements';
 import {useFocusEffect} from '@react-navigation/native';
 
 const EditProfile = ({navigation}) => {
@@ -153,6 +151,11 @@ const EditProfile = ({navigation}) => {
           <Shadow>
             <Layout style={styles.layout}>
               <TouchableOpacity onPress={pickImage}>
+                <AppButton
+                  appBtnStyle={styles.editBtn}
+                  onPress={pickImage}
+                  accessoryLeft={<Icon name="edit-2" fill={colors.text_dark} />}
+                />
                 <Avatar
                   style={styles.avatar}
                   source={{uri: avatar}}
@@ -237,11 +240,6 @@ const EditProfile = ({navigation}) => {
                   rules={{
                     required: {value: false, message: 'This is required'},
                     pattern: {
-                      /**
-                       *  Password criteria
-                       *  Minimum length 8 , atlease 1 digit
-                       *  Atleast 1 upper case of lower case character
-                       */
                       value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
                       message: 'Min 8, Uppercase & Number',
                     },
@@ -301,13 +299,6 @@ const EditProfile = ({navigation}) => {
 
                 <Controller
                   control={control}
-                  // rules={{
-                  //   required: {value: true, message: 'This is required.'},
-                  //   pattern: {
-                  //     value: /\S+@\S+\.\S+$/,
-                  //     message: 'Description',
-                  //   },
-                  // }}
                   render={({field: {onChange, onBlur, value}}) => (
                     <FormInput
                       style={styles.input}
@@ -363,6 +354,14 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
+  },
+  editBtn: {
+    zIndex: 1,
+    position: 'absolute',
+    marginTop: 20,
+    left: 50,
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
   },
   form: {
     backgroundColor: colors.primary,

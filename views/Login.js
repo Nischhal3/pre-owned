@@ -14,7 +14,7 @@ import {
 import {LinearGradient} from 'expo-linear-gradient';
 
 // Ui Kitten
-import {Card, Layout, ButtonGroup, Button, Icon} from '@ui-kitten/components';
+import {Card, ButtonGroup, Button} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
@@ -40,11 +40,6 @@ const Login = () => {
             source={require('../assets/backgrounds/loginbackground.png')}
           />
 
-          {/* <Layout style={styles.iconGroup}>
-            <Icon name="google" style={styles.singleIcon} />
-            <Icon name="facebook" style={styles.singleIcon} />
-            <Icon name="twitter" style={styles.singleIcon} />
-          </Layout> */}
           <LinearGradient
             colors={['transparent', colors.btnBackground]}
             start={{x: 0, y: 0}}
@@ -140,7 +135,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     top: Platform.OS === 'android' ? '7%' : '5%',
     zIndex: 1,
-    // marginVertical: 10,
+    borderRadius: 19,
   },
 
   toggle1: {
