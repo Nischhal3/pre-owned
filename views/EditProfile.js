@@ -172,7 +172,7 @@ const EditProfile = ({navigation}) => {
                     marginTop: '2%',
                     fontSize: 14,
                     fontFamily: 'Karla',
-                    color: colors.mediumGrey,
+                    color: colors.text_dark,
                   }}
                 >
                   Change profile picture
