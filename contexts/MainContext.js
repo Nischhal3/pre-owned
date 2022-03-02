@@ -12,6 +12,7 @@ const MainProvider = ({children}) => {
   const [updateMessage, setUpdateMessage] = useState(0);
   const [media, setMedia] = useState([]);
   const [updateFavourite, setUpdateFavourite] = useState(0);
+  const [updateAvatar, setUpdateAvatar] = useState(0);
 
   return (
     <MainContext.Provider
@@ -32,6 +33,8 @@ const MainProvider = ({children}) => {
         setMedia,
         updateFavourite,
         setUpdateFavourite,
+        updateAvatar,
+        setUpdateAvatar,
       }}
     >
       {children}
