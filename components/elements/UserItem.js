@@ -22,7 +22,7 @@ const UserItem = ({title, description, onPress, image}) => {
 const styles = StyleSheet.create({
   arrowIcon: {
     backgroundColor: 'transparent',
-    right: Platform.OS === 'android' ? 56 : 30,
+    right: Platform.OS === 'android' ? 70 : 65,
     bottom: '17%',
     padding: 0,
   },

@@ -219,8 +219,9 @@ const ProductDetail = ({route, navigation}) => {
               <Text category="s1" style={styles.detail}>
                 Send the Seller a message
               </Text>
-
-              <MessageList fileId={file.file_id} />
+              <ScrollView>
+                <MessageList fileId={file.file_id} />
+              </ScrollView>
             </Card>
           </Shadow>
         </View>
@@ -238,8 +239,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 45,
     alignSelf: 'center',
-    width: 360,
-    // width: Platform.OS === 'android' ? 350 : 370,
+    width: 335,
   },
   container: {
     flexDirection: 'row',
@@ -255,7 +255,6 @@ const styles = StyleSheet.create({
     height: 10,
     position: 'absolute',
     marginTop: 100,
-    // right: 5,
     alignSelf: 'flex-end',
     backgroundColor: 'transparent',
     borderColor: 'transparent',
@@ -279,6 +278,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 280,
     marginBottom: 10,
+    alignSelf: 'center',
   },
   price: {
     color: colors.text_dark,
