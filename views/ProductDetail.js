@@ -23,7 +23,7 @@ import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
-import {getAvatar, useFavourite} from '../hooks/MediaHooks';
+import {getAvatar, useFavourite, useMedia} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
@@ -46,6 +46,8 @@ const ProductDetail = ({route, navigation}) => {
   const {user, updateFavourite, setUpdateFavourite, updateAvatar} =
     useContext(MainContext);
   const [name, setName] = useState('');
+  const {mediaArray} = useMedia();
+
   // favorite animation
   const animation = React.useRef(null);
   const isFirstRun = React.useRef(true);
@@ -59,23 +61,6 @@ const ProductDetail = ({route, navigation}) => {
       height: undefined,
     },
   ];
-  // // fetch Avatar
-  // // const fetchAvatar = async () => {
-  // //   try {
-  // //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
-  // //     if (avatarList.length === 0) {
-  // //       return;
-  // //     }
-  // //     const avatar = avatarList.pop();
-  // //     setAvatar(uploadsUrl + avatar.filename);
-  // //     console.log('single.js avatar', avatar);
-  // //   } catch (e) {
-  // //     console.error(e.message);
-  // //   }
-  // // };
-  // // useEffect(() => {
-  // //   fetchAvatar();
-  // // }, []);
 
   // add to favourite
   const fetchLikes = async () => {
@@ -138,6 +123,9 @@ const ProductDetail = ({route, navigation}) => {
     userLike ? await unlike() : addLike();
   };
 
+  const userMedia = mediaArray.filter((item) => item.user_id === file.user_id);
+
+  // Fetching avatar
   const fetchAvatar = async () => {
     await getAvatar(file.user_id, setAvatar);
   };
@@ -205,7 +193,7 @@ const ProductDetail = ({route, navigation}) => {
                 }}
                 image={{uri: avatar}}
                 title={name}
-                description="5 Listings"
+                description={`${userMedia.length} Listings`}
               />
               <Divider style={{backgroundColor: colors.lightGrey}} />
 
