@@ -34,6 +34,7 @@ const GalleryListHorizontal = ({navigation}) => {
 // Return a vertical gallery list
 const GalleryListVertical = ({navigation}) => {
   const {mediaArray} = useMedia();
+  mediaArray.sort((a, b) => a.favCount < b.favCount);
   const showFirstFive = mediaArray.slice(0, 5);
 
   // console.log('Explorer', mediaArray);

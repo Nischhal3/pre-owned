@@ -85,6 +85,7 @@ const ProductDetail = ({route, navigation}) => {
       if (response) {
         setUpdateFavourite(updateFavourite + 1);
         setUserLike(true);
+        setUpdate(update + 1);
       }
     } catch (e) {
       console.error('Add Like error', e);
@@ -97,6 +98,7 @@ const ProductDetail = ({route, navigation}) => {
       if (response) {
         setUpdateFavourite(updateFavourite + 1);
         setUserLike(false);
+        setUpdate(update + 1);
       }
     } catch (e) {
       console.error('Remove Like error', e);
