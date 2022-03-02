@@ -23,7 +23,7 @@ import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
-import {useFavourite} from '../hooks/MediaHooks';
+import {getAvatar, useFavourite, useMedia} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
@@ -33,18 +33,21 @@ import {GlobalStyles} from '../utils';
 import UserItem from '../components/elements/UserItem';
 import {AppButton} from '../components/elements/AppButton';
 // import {TouchableOpacity} from 'react-native-gesture-handler';
+import assetAvatar from '../assets/backgrounds/Avatar.png';
 
 const ProductDetail = ({route, navigation}) => {
   const {file} = route.params;
-  const [avatar, setAvatar] = useState(
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-  );
+  const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
+  const [avatar, setAvatar] = useState(uploadDefaultUri);
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
     useFavourite();
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
-  const {user, updateFavourite, setUpdateFavourite} = useContext(MainContext);
+  const {user, updateFavourite, setUpdateFavourite, updateAvatar} =
+    useContext(MainContext);
   const [name, setName] = useState('');
+  const {mediaArray} = useMedia();
+
   // favorite animation
   const animation = React.useRef(null);
   const isFirstRun = React.useRef(true);
@@ -58,23 +61,6 @@ const ProductDetail = ({route, navigation}) => {
       height: undefined,
     },
   ];
-  // // fetch Avatar
-  // // const fetchAvatar = async () => {
-  // //   try {
-  // //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
-  // //     if (avatarList.length === 0) {
-  // //       return;
-  // //     }
-  // //     const avatar = avatarList.pop();
-  // //     setAvatar(uploadsUrl + avatar.filename);
-  // //     console.log('single.js avatar', avatar);
-  // //   } catch (e) {
-  // //     console.error(e.message);
-  // //   }
-  // // };
-  // // useEffect(() => {
-  // //   fetchAvatar();
-  // // }, []);
 
   // add to favourite
   const fetchLikes = async () => {
@@ -137,6 +123,17 @@ const ProductDetail = ({route, navigation}) => {
     userLike ? await unlike() : addLike();
   };
 
+  const userMedia = mediaArray.filter((item) => item.user_id === file.user_id);
+
+  // Fetching avatar
+  const fetchAvatar = async () => {
+    await getAvatar(file.user_id, setAvatar);
+  };
+
+  useEffect(() => {
+    fetchAvatar();
+  }, [updateAvatar]);
+
   return (
     <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
       <ScrollView>
@@ -196,7 +193,7 @@ const ProductDetail = ({route, navigation}) => {
                 }}
                 image={{uri: avatar}}
                 title={name}
-                description="5 Listings"
+                description={`${userMedia.length} Listings`}
               />
               <Divider style={{backgroundColor: colors.lightGrey}} />
 
