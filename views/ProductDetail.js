@@ -32,7 +32,6 @@ import LottieView from 'lottie-react-native';
 import {GlobalStyles} from '../utils';
 import UserItem from '../components/elements/UserItem';
 import {AppButton} from '../components/elements/AppButton';
-// import {TouchableOpacity} from 'react-native-gesture-handler';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
 
 const ProductDetail = ({route, navigation}) => {

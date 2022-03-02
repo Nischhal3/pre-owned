@@ -29,7 +29,6 @@ export default StyleSheet.create({
   },
   input: {
     borderRadius: 10,
-
     backgroundColor: colors.text_light,
   },
 });

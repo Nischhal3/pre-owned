@@ -1,14 +1,22 @@
 import React, {useContext} from 'react';
 import {Platform, StyleSheet} from 'react-native';
-import {Text, Layout} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
-import {login} from '../hooks/ApiHooks';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PropTypes} from 'prop-types';
-import {MainContext} from '../contexts/MainContext';
+
+// Import from Ui Kitten Library
+import {Text, Layout} from '@ui-kitten/components';
+
+// Import app components
 import FormInput from './formComponents/FormInput';
 import {FormButton} from './elements/AppButton';
 import ErrorMessage from './elements/ErrorMessage';
+
+// Api import
+import {login} from '../hooks/ApiHooks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
+
+// Styling import
 import {colors} from '../utils';
 
 const LoginForm = () => {

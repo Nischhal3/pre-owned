@@ -1,16 +1,22 @@
 import React, {useContext} from 'react';
 import {Alert} from 'react-native';
+import {MainContext} from '../contexts/MainContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// UI kitten library import
 import {
   Icon,
   Drawer,
   DrawerItem,
 } from '@ui-kitten/components';
+
+// Drawer navigation import
 import {createDrawerNavigator} from '@react-navigation/drawer';
+
+// views import
 import Favourite from '../views/Favourite';
 import Profile from '../views/Profile';
 import EditProfile from '../views/EditProfile';
-import {MainContext} from '../contexts/MainContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MyListings} from '../views/Listings';
 
 const Menu = createDrawerNavigator();

@@ -1,9 +1,17 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
-import {colors} from '../utils';
-import {getMediaById, useFavourite} from '../hooks/MediaHooks';
-import {getToken} from '../hooks/CommonFunction';
+
+// Import from UI Kitten Library
 import {List} from '@ui-kitten/components';
+
+// Styling import
+import {colors} from '../utils';
+
+// Api import
+import {getMediaById, useFavourite} from '../hooks/MediaHooks';
+
+// Import from files
+import {getToken} from '../hooks/CommonFunction';
 import {PlainListItem} from '../components/lists';
 import {ItemSeparator} from '../components/elements/ItemSeparator';
 import {MainContext} from '../contexts/MainContext';

@@ -1,5 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, Alert, Platform} from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
+import {PropTypes} from 'prop-types';
+
+// Import from ui Kitten Library
 import {
   Button,
   Text,
@@ -8,16 +12,20 @@ import {
   Modal,
   Card,
 } from '@ui-kitten/components';
-import {useForm, Controller} from 'react-hook-form';
+
+// Api import
 import {checkUserName, signUp} from '../hooks/ApiHooks';
-import {PropTypes} from 'prop-types';
+
+// App component import
 import FormInput from './formComponents/FormInput';
 import {FormButton} from './elements/AppButton';
 import ErrorMessage from './elements/ErrorMessage';
+
+// Styling import
 import {colors} from '../utils';
 
 const SignupForm = ({setFormToggle}) => {
-  // for checkbox
+  // Terms checkbox
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
 

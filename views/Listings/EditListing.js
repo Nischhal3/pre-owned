@@ -26,6 +26,7 @@ import {uploadsUrl} from '../../utils/url';
 import {colors} from '../../utils';
 import {FormButton} from '../../components/elements/AppButton';
 import ErrorMessage from '../../components/elements/ErrorMessage';
+import FormInput from '../../components/formComponents/FormInput';
 
 const EditListing = ({navigation, route}) => {
   const {file} = route.params;
@@ -91,7 +92,7 @@ const EditListing = ({navigation, route}) => {
                 },
               }}
               render={({field: {onChange, onBlur, value}}) => (
-                <Input
+                <FormInput
                   label="Title"
                   style={styles.input}
                   onBlur={onBlur}
@@ -115,7 +116,7 @@ const EditListing = ({navigation, route}) => {
                 required: {value: true, message: 'This is required.'},
               }}
               render={({field: {onChange, onBlur, value}}) => (
-                <Input
+                <FormInput
                   label="Description"
                   style={styles.input}
                   onBlur={onBlur}
@@ -125,7 +126,7 @@ const EditListing = ({navigation, route}) => {
                   placeholder="Description"
                   multiline={true}
                   textStyle={{minHeight: 96}}
-                  textAlignVertical= "top"
+                  align="top"
                 />
               )}
               name="description"
