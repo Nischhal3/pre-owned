@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
-import {appId, baseUrl} from '../utils/url';
+import {appId, baseUrl, uploadsUrl} from '../utils/url';
 import {fetchData, fetchFromMedia} from './CommonFunction';
 
 const useMedia = () => {
