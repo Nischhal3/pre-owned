@@ -102,15 +102,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.background,
   },
-  iconGroup: {
-    position: 'absolute',
-    top: '112%',
-    width: 200,
-    flexDirection: 'row',
-    backgroundColor: 'transparent',
-    justifyContent: 'space-between',
-    alignSelf: 'center',
-  },
+
   header: {
     textAlign: 'center',
     marginBottom: 10,
@@ -119,23 +111,18 @@ const styles = StyleSheet.create({
   linearGradient: {
     height: '85%',
     top: '25%',
-    width: '99%',
+    width: '98%',
     borderRadius: 75,
     alignSelf: 'center',
     overflow: 'scroll',
   },
 
-  singleIcon: {
-    width: 25,
-    height: 25,
-    tintColor: colors.btnBackground,
-  },
   toggleGroup: {
     justifyContent: 'center',
     alignSelf: 'center',
-    top: '5%',
+    top: '10%',
     zIndex: 1,
-    borderRadius: 19,
+    borderRadius: 20,
   },
 
   toggle1: {
