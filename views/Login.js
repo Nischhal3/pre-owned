@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   toggleGroup: {
     justifyContent: 'center',
     alignSelf: 'center',
-    top: '2%',
+    top: '5%',
     zIndex: 1,
     borderRadius: 19,
   },
