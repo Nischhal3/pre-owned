@@ -1,6 +1,12 @@
 // Import from React
-import React, {useContext, useState} from 'react';
-import {StyleSheet, TouchableHighlight, Platform, Alert} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  TouchableHighlight,
+  Platform,
+  Alert,
+  Image,
+} from 'react-native';
 import moment from 'moment';
 // Import from UI Kitten Library
 import {Avatar, Button, Icon, Layout, Text} from '@ui-kitten/components';
@@ -12,6 +18,8 @@ import {getToken} from '../../hooks/CommonFunction';
 import {deleteMessage} from '../../hooks/MessageHook';
 import {MainContext} from '../../contexts/MainContext';
 import ReadMore from 'react-native-read-more-text';
+import assetAvatar from '../../assets/backgrounds/Avatar.png';
+import {getAvatar} from '../../hooks/MediaHooks';
 
 // now in use: ProductDetail.js, Messages
 const ListDetail = ({
@@ -25,6 +33,9 @@ const ListDetail = ({
   setUpdateMessage,
   updateMessage,
 }) => {
+  const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
+  const [avatar, setAvatar] = useState(uploadDefaultUri);
+  const {updateAvatar} = useContext(MainContext);
   // Can't use MainContext here ?
   // const {updateMessage, setUpdateMessage} = useContext(MainContext);
   const handleDelete = () => {
@@ -49,12 +60,20 @@ const ListDetail = ({
     ]);
   };
 
+  const fetchAvatar = async () => {
+    await getAvatar(message.user_id, setAvatar);
+  };
+
+  useEffect(() => {
+    fetchAvatar();
+  }, [updateAvatar]);
+
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.text_light}>
         <Layout style={styles.container}>
           {IconComponent}
-          {image && <Avatar style={styles.image} source={image} />}
+          <Avatar style={styles.image} source={{uri: avatar}} />
           <Layout style={styles.detailsContainer}>
             <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
               {message.username}
