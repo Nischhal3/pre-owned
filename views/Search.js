@@ -31,22 +31,24 @@ const Search = ({navigation}) => {
   const [itemPosition, setItemPosition] = useState();
   const [search, setSearch] = useState('');
   const [isChecked, setIsChecked] = useState(0);
+  const [data, setData] = useState([]);
 
-  // Storing category values to data depending upon which check-box is clicked
-  const data =
+  const getData = () => {
+    // Storing category values to data depending upon which check-box is clicked
     itemPosition === 0
-      ? home
+      ? setData(home)
       : itemPosition === 1
-      ? electronics
+      ? setData(electronics)
       : itemPosition === 2
-      ? clothing
+      ? setData(clothing)
       : itemPosition === 3
-      ? sports
+      ? setData(sports)
       : itemPosition === 4
-      ? gaming
+      ? setData(gaming)
       : itemPosition === 5
-      ? others
-      : null;
+      ? setData(others)
+      : setData(null);
+  };
 
   // update filtered list
   const searchProduct = (textToSearch) => {
@@ -69,6 +71,7 @@ const Search = ({navigation}) => {
   const reset = () => {
     setVisible(false);
     setItemPosition(null);
+    setData(null);
     setSearch('');
   };
 
@@ -145,7 +148,10 @@ const Search = ({navigation}) => {
                     width: 185,
                     alignSelf: 'center',
                   }}
-                  onPress={() => setVisible(false)}
+                  onPress={() => {
+                    setVisible(false);
+                    getData();
+                  }}
                 />
               </Layout>
             </Card>
