@@ -5,6 +5,8 @@ import {
   StyleSheet,
   Image,
   SafeAreaView,
+  View,
+  Platform,
 } from 'react-native';
 import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
@@ -12,8 +14,7 @@ import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import {useFocusEffect} from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import {Card} from 'react-native-elements'
-import {Text, Icon, Layout,} from '@ui-kitten/components';
+import {Text, Icon, Layout, Card, Avatar} from '@ui-kitten/components';
 import {AppButton, FormButton} from '../../components/elements/AppButton';
 import {MainContext} from '../../contexts/MainContext';
 import uploadDefault from '../../assets/brand/upload.png';
@@ -25,6 +26,7 @@ import {getToken} from '../../hooks/CommonFunction';
 import {postMedia, postTag} from '../../hooks/MediaHooks';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import {Shadow} from 'react-native-shadow-2';
+import {GlobalStyles} from '../../utils';
 
 const AddListing = ({navigation}) => {
   const uploadDefaultUri = Image.resolveAssetSource(uploadDefault).uri;
@@ -141,127 +143,149 @@ const AddListing = ({navigation}) => {
   );
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
-      <ScrollView style={styles.container}>
-          <Card containerStyle={styles.card}>
-            <Layout style={styles.selectImgWrap}>
-              <Text style={styles.selectImgText}>Select an image</Text>
-              <Icon style={styles.icon} fill={colors.mediumGrey} name='arrowhead-down-outline' />
-              {type === 'image' ? (
-                <Card.Image
-                  source={{uri: image}}
-                  style={styles.image}
-                  onPress={pickImage}
+    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+      <ScrollView>
+        <View style={styles.boxShadow}>
+          <Shadow distance={7}>
+            <Card style={styles.card}>
+              <Layout style={styles.selectImgWrap}>
+                <Text style={styles.selectImgText}>Select an image</Text>
+                <Icon
+                  style={styles.icon}
+                  fill={colors.mediumGrey}
+                  name="arrowhead-down-outline"
                 />
-              ) : (
-                <Video
-                  source={{uri: image}}
-                  style={styles.image}
-                  useNativeControls={true}
-                  resizeMode="cover"
-                  onError={(err) => {
-                    console.error('video', err);
-                  }}
-                />
-              )}
-            </Layout>
-            <AppButton
-              appBtnStyle={styles.clearBtn}
-              onPress={reset}
-              accessoryLeft={<Icon name="refresh-outline" />}
-            />
-            <Controller
-              control={control}
-              rules={{
-                required: {value: true, message: 'This field cannot be empty.'},
-                minLength: {
-                  value: 3,
-                  message: 'Title has to be at least 3 characters.',
-                },
-                maxLength: {
-                  value: 20,
-                  message: 'Title has to be at most 20 characters.',
-                },
-              }}
-              render={({field: {onChange, onBlur, value}}) => (
-                <FormInput
-                  style={styles.inputStyle}
-                  name="What's your product?"
-                  onBlur={onBlur}
-                  onChange={onChange}
-                  value={value}
-                  textEntry={false}
-                />
-              )}
-              name="title"
-            />
-            {errors.title && (
-              <Text status="danger">{errors.title && errors.title.message} </Text>
-            )}
-
-            <Controller
-              control={control}
-              rules={{
-                required: {value: true, message: 'Please specify your product with a price.'},
-                minLength: {
-                  value: 5,
-                  message: 'Description has to be at least 10 characters.',
-                },
-              }}
-              render={({field: {onChange, onBlur, value}}) => (
-                <FormInput
-                  style={styles.inputStyle}
-                  name="Descripe your product and give it a price"
-                  onBlur={onBlur}
-                  onChange={onChange}
-                  value={value}
-                  textEntry={false}
-                  multiline={true}
-                  textStyle={{minHeight: 96}}
-                />
-              )}
-              name="description"
-            />
-
-            {errors.description && (
-              <Text status="danger">
-                {errors.description && errors.description.message}{' '}
-              </Text>
-            )}
-
-            <CategoryPicker setCategory={setCategory} />
-
-            <FormButton
-              handleSubmit={handleSubmit}
-              onSubmit={onSubmit}
-              text={
-                loading ? (
-                  <ActivityIndicator
-                    animating={loading}
-                    color={colors.text_light}
-                    size="large"
+                {type === 'image' ? (
+                  <Image
+                    source={{uri: image}}
+                    style={styles.image}
+                    onPress={pickImage}
                   />
                 ) : (
-                  'Upload'
-                )
-              }
-              disabled={!imageSelected}
-              style={styles.uploadBtn}
-            />
-          </Card>
+                  <Video
+                    source={{uri: image}}
+                    style={styles.image}
+                    useNativeControls={true}
+                    resizeMode="cover"
+                    onError={(err) => {
+                      console.error('video', err);
+                    }}
+                  />
+                )}
+              </Layout>
+              <AppButton
+                appBtnStyle={styles.clearBtn}
+                onPress={reset}
+                accessoryLeft={<Icon name="refresh-outline" />}
+              />
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: 'This field cannot be empty.',
+                  },
+                  minLength: {
+                    value: 3,
+                    message: 'Title has to be at least 3 characters.',
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: 'Title has to be at most 20 characters.',
+                  },
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <FormInput
+                    style={styles.inputStyle}
+                    name="What's your product?"
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    textEntry={false}
+                  />
+                )}
+                name="title"
+              />
+              {errors.title && (
+                <Text status="danger">
+                  {errors.title && errors.title.message}{' '}
+                </Text>
+              )}
+
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: 'Please specify your product with a price.',
+                  },
+                  minLength: {
+                    value: 5,
+                    message: 'Description has to be at least 10 characters.',
+                  },
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <FormInput
+                    style={styles.inputStyle}
+                    name="Descripe your product and give it a price"
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    textEntry={false}
+                    multiline={true}
+                    textStyle={{minHeight: 96}}
+                  />
+                )}
+                name="description"
+              />
+
+              {errors.description && (
+                <Text status="danger">
+                  {errors.description && errors.description.message}{' '}
+                </Text>
+              )}
+
+              <CategoryPicker setCategory={setCategory} />
+
+              <FormButton
+                handleSubmit={handleSubmit}
+                onSubmit={onSubmit}
+                text={
+                  loading ? (
+                    <ActivityIndicator
+                      animating={loading}
+                      color={colors.text_light}
+                      size="large"
+                    />
+                  ) : (
+                    'Upload'
+                  )
+                }
+                disabled={!imageSelected}
+                style={styles.uploadBtn}
+              />
+            </Card>
+          </Shadow>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  boxShadow: {
+    marginTop: '5%',
+    marginBottom: 15,
+    marginHorizontal: 15,
+    alignSelf: 'center',
+  },
   container: {
     flex: 1,
   },
   card: {
-    marginTop: '5%',
-    justifyContent: 'center',
-    borderRadius: 30,
+    alignSelf: 'center',
+    width: '100%',
+    borderRadius: 20,
     backgroundColor: colors.primary,
   },
   selectImgWrap: {
@@ -271,6 +295,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   selectImgText: {
+    top: 20,
     width: '100%',
     textAlign: 'center',
     alignSelf: 'center',
@@ -279,6 +304,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
+    top: 20,
     alignSelf: 'center',
     marginBottom: 10,
   },
@@ -293,15 +319,22 @@ const styles = StyleSheet.create({
     width: 40,
     height: 10,
     position: 'absolute',
-    marginTop: -5,
+    top: '10%',
+    right: '-2%',
     alignSelf: 'flex-end',
   },
   inputStyle: {
     marginTop: 10,
   },
   uploadBtn: {
-    width: '30%',
+    width: '50%',
     marginTop: 25,
+  },
+  safeView: {
+    flex: 1,
+    backgroundColor: colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 AddListing.propTypes = {
