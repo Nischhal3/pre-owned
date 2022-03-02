@@ -111,8 +111,8 @@ const EditProfile = ({navigation}) => {
   }, []);
 
   return (
-    <ScrollView>
-      <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+      <ScrollView>
         <View style={styles.boxShadow}>
           <Shadow>
             <Layout style={styles.layout}>
@@ -302,8 +302,8 @@ const EditProfile = ({navigation}) => {
             </Layout>
           </Shadow>
         </View>
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    top: Platform.OS === 'ios' ? '10%' : 0,
+    top: Platform.OS === 'ios' ? '5%' : 0,
   },
   button: {
     marginTop: 20,
@@ -329,8 +329,8 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
-    borderRadius: 0,
-    borderColor: 'transparent',
+    borderRadius: 4,
+    // borderColor: 'transparent',
     backgroundColor: colors.container,
   },
   layout: {

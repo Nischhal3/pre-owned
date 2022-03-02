@@ -104,6 +104,7 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
 const styles = StyleSheet.create({
   buttonGroup: {
     flex: 3.5,
+    right: 5,
     width: 100,
     alignSelf: 'center',
   },
