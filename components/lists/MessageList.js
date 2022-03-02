@@ -232,6 +232,8 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: 'Karla',
     borderColor: colors.stroke,
+    borderRadius: 10,
+    backgroundColor: colors.container,
   },
   sendBtn: {
     width: 100,
