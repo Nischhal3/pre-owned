@@ -43,7 +43,8 @@ const ProductDetail = ({route, navigation}) => {
     useFavourite();
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
-  const {user, updateFavourite, setUpdateFavourite} = useContext(MainContext);
+  const {user, updateFavourite, setUpdateFavourite, update, setUpdate} =
+    useContext(MainContext);
   const [name, setName] = useState('');
   // favorite animation
   const animation = React.useRef(null);
@@ -99,6 +100,7 @@ const ProductDetail = ({route, navigation}) => {
       if (response) {
         setUpdateFavourite(updateFavourite + 1);
         setUserLike(true);
+        setUpdate(update + 1);
       }
     } catch (e) {
       console.error('Add Like error', e);
@@ -111,6 +113,7 @@ const ProductDetail = ({route, navigation}) => {
       if (response) {
         setUpdateFavourite(updateFavourite + 1);
         setUserLike(false);
+        setUpdate(update + 1);
       }
     } catch (e) {
       console.error('Remove Like error', e);
