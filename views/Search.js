@@ -33,8 +33,21 @@ const Search = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [isChecked, setIsChecked] = useState(0);
   const [data, setData] = useState([]);
+  const [categoryTitle, setCateogryTitle] = useState('');
+
+  // Filter categories
+  const categoryNames = [
+    {category: 'Home & Living'},
+    {category: 'Electronics'},
+    {category: 'Clothing '},
+    {category: 'Sports'},
+    {category: 'Gaming & Accessories'},
+    {category: 'Others'},
+  ];
 
   const getData = () => {
+    setCateogryTitle(categoryNames[itemPosition].category);
+
     // Storing category values to data depending upon which check-box is clicked
     itemPosition === 0
       ? setData(home)
@@ -54,6 +67,9 @@ const Search = ({navigation}) => {
   // update filtered list
   const searchProduct = (textToSearch) => {
     setSearch(textToSearch);
+    setCateogryTitle('');
+    setData(null);
+
     try {
       if (textToSearch === '') {
         setFilteredData([]);
@@ -74,6 +90,7 @@ const Search = ({navigation}) => {
     setItemPosition(null);
     setData(null);
     setSearch('');
+    setCateogryTitle('');
   };
 
   // Setting search to empty string when filter check-box is clicked
@@ -140,6 +157,7 @@ const Search = ({navigation}) => {
                 Categories
               </Text>
               <ModalCheckBox
+                categoryNames={categoryNames}
                 setItemPosition={setItemPosition}
                 setIsChecked={setIsChecked}
                 isChecked={isChecked}
@@ -164,6 +182,8 @@ const Search = ({navigation}) => {
           </Modal>
         </Layout>
       </ListItem>
+
+      <Text>{categoryTitle}</Text>
       <AppButton
         title="Filter"
         accessoryRight={<Icon name="close" />}
