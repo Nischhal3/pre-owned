@@ -23,6 +23,7 @@ export default StyleSheet.create({
     height: 50,
     borderRadius: 20,
     alignSelf: 'center',
+    textAlign: 'center',
     fontFamily: 'Karla_700Bold',
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,

@@ -16,6 +16,7 @@ const FormInput = (props) => {
       multiline={props.multiline}
       textStyle={props.textStyle}
       textAlignVertical={props.align ? props.align : null}
+      label={props.label}
     />
   );
 };
