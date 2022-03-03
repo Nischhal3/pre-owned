@@ -34,8 +34,9 @@ import UserItem from '../components/elements/UserItem';
 import {AppButton} from '../components/elements/AppButton';
 // import {TouchableOpacity} from 'react-native-gesture-handler';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
-const LikeComponent = ({file}) => {
+const LikeComponent = ({file, favList}) => {
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
   const {
@@ -120,23 +121,34 @@ const LikeComponent = ({file}) => {
       onPress={onSubmit}
       style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
     >
-      <LottieView
-        ref={animation}
-        source={require('../assets/icons/like-animation.json')}
-        autoPlay={false}
-        loop={false}
-        style={{width: 60, height: 60, right: -5}}
-      />
-      <Text
-        category="s1"
-        style={{
-          right: Platform.OS === 'android' ? '25%' : '17%',
-          bottom: 10,
-          fontSize: 14,
-        }}
-      >
-        {likes.length}
-      </Text>
+      {!favList ? (
+        <>
+          <LottieView
+            ref={animation}
+            source={require('../assets/icons/like-animation.json')}
+            autoPlay={false}
+            loop={false}
+            style={{width: 60, height: 60, right: -5}}
+          />
+          <Text
+            category="s1"
+            style={{
+              right: Platform.OS === 'android' ? '25%' : '17%',
+              bottom: 10,
+              fontSize: 14,
+            }}
+          >
+            {likes.length}
+          </Text>
+        </>
+      ) : (
+        <MaterialCommunityIcons
+          name={userLike ? 'heart' : 'heart-outline'}
+          size={32}
+          style={{right: 10}}
+          color={userLike ? 'red' : 'black'}
+        />
+      )}
     </Pressable>
   );
 };

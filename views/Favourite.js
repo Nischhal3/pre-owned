@@ -4,7 +4,7 @@ import {colors} from '../utils';
 import {getMediaById, useFavourite} from '../hooks/MediaHooks';
 import {getToken} from '../hooks/CommonFunction';
 import {List} from '@ui-kitten/components';
-import {PlainListItem} from '../components/lists';
+import {FavouriteList, PlainListItem} from '../components/lists';
 import {ItemSeparator} from '../components/elements/ItemSeparator';
 import {MainContext} from '../contexts/MainContext';
 
@@ -51,7 +51,7 @@ const Favourite = ({navigation}) => {
         ItemSeparatorComponent={ItemSeparator}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <PlainListItem
+          <FavouriteList
             navigation={navigation}
             singleItem={item}
             displayText={true}
