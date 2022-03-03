@@ -10,6 +10,7 @@ import {
 import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useFocusEffect} from '@react-navigation/native';
 
 // Import from UI Kitten library
 import {
@@ -29,7 +30,6 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
 import {AppButton} from '../components/elements/AppButton';
-import {useFocusEffect} from '@react-navigation/native';
 import NoSearchResultsIcon from '../assets/icons/searching.svg';
 import StartSearchIcon from '../assets/icons/startSearch.svg';
 
