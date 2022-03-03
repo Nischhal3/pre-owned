@@ -43,10 +43,8 @@ import SVGIcon from '../../assets/icons/no-message.svg';
 import {getMessagesByFileId, postMessage} from '../../hooks/MessageHook';
 
 const MessageList = ({fileId, showMessages = false}) => {
-  // const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
 
   const {user, updateMessage, setUpdateMessage} = useContext(MainContext);
-  // const [senderName, setSenderName] = useState('');
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
   const [avatar, setAvatar] = useState(
@@ -144,6 +142,7 @@ const MessageList = ({fileId, showMessages = false}) => {
               textEntry={false}
               multiline={true}
               textStyle={{minHeight: 72}}
+              align="top"
             />
           )}
           name="message"
