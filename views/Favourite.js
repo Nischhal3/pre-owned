@@ -54,8 +54,8 @@ const Favourite = ({navigation}) => {
           <FavouriteList
             navigation={navigation}
             singleItem={item}
-            displayText={true}
-            showMyMedia={false}
+           
+           
           />
         )}
       />
