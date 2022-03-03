@@ -13,7 +13,6 @@ const Favourite = ({navigation}) => {
   const [favorites, setFavourites] = useState([]);
   const [favoriteList, setFavouriteList] = useState([]);
   const {updateFavourite} = useContext(MainContext);
-
   // Fetching  user favourite list
   const list = async () => {
     const token = await getToken();
@@ -51,12 +50,7 @@ const Favourite = ({navigation}) => {
         ItemSeparatorComponent={ItemSeparator}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <FavouriteList
-            navigation={navigation}
-            singleItem={item}
-           
-           
-          />
+          <FavouriteList navigation={navigation} singleItem={item} />
         )}
       />
     </SafeAreaView>

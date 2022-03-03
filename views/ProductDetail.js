@@ -129,7 +129,7 @@ const ProductDetail = ({route, navigation}) => {
                     {likes.length}
                   </Text>
                 </Pressable> */}
-                <LikeComponent file={file} />
+                <LikeComponent file={file} heartAnimation={true} />
               </Layout>
 
               <Divider style={{backgroundColor: colors.lightGrey}} />

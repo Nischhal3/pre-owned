@@ -15,16 +15,13 @@ import {
 } from '@ui-kitten/components';
 
 // Import from files
-
-import moment from 'moment';
-import {Shadow} from 'react-native-shadow-2';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils';
 import {uploadsUrl} from '../../utils/url';
-import {PointRightArrow} from '../elements/Icons';
-import LikeComponent from '../LikeComponent';
+import {LikeComponent} from '../index';
+
 // SingleItem for vertical lists
-const FavouriteList = ({navigation, singleItem, displayText, showMyMedia}) => {
+const FavouriteList = ({navigation, singleItem}) => {
   const {update, setUpdate} = useContext(MainContext);
 
   return (
@@ -42,18 +39,14 @@ const FavouriteList = ({navigation, singleItem, displayText, showMyMedia}) => {
           source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         />
       </Layout>
-      <Layout style={styles.titleBox}>
-        <Text numberOfLines={1} style={styles.title}>
-          {singleItem.title}
-        </Text>
-      </Layout>
-
-      <Text style={styles.displayTime}>
-        {/* {moment(singleItem.username).format('DD.MM.YYYY hh:mm a')} */}
-        Post by {singleItem.user_id}
+      {/* <Layout style={styles.titleBox}> */}
+      <Text numberOfLines={1} style={styles.title}>
+        {singleItem.title}
       </Text>
+      {/* </Layout> */}
 
-      <LikeComponent />
+      <Text style={styles.username}>Post by {singleItem.user_id}</Text>
+      <LikeComponent file={singleItem} heartAnimation={false} />
     </TouchableOpacity>
   );
 };
@@ -64,8 +57,8 @@ const styles = StyleSheet.create({
     width: 100,
     alignSelf: 'center',
   },
-  displayTime: {
-    flex: 2,
+  username: {
+    flex: 3,
     fontSize: 12,
     fontFamily: 'Karla_400Regular',
     alignSelf: 'center',
@@ -86,18 +79,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.box,
     left: 10,
   },
-  titleBox: {
-    flex: 6,
-    backgroundColor: colors.box,
-    alignSelf: 'center',
-    marginStart: 15,
-  },
+  // titleBox: {
+  //   flex: 6,
+  //   backgroundColor: 'transparent',
+  //   alignSelf: 'center',
+  // },
   title: {
     fontSize: 16,
     marginBottom: 5,
     fontFamily: 'Karla_700Bold',
     alignSelf: 'center',
     width: 170,
+    marginStart: 25,
   },
   row: {
     flexDirection: 'row',
