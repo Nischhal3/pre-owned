@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '41%',
     top: -35,
-    // borderBottomLeftRadius: 150,
   },
   card: {
     backgroundColor: colors.primary,
@@ -122,16 +121,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     top: '10%',
     zIndex: 1,
+
     borderRadius: 20,
   },
 
   toggle1: {
-    width: 100,
+    width: 120,
+    height: 50,
     backgroundColor: '#60715B',
     borderColor: '#60715B',
   },
   toggle2: {
-    width: 100,
+    width: 120,
+    height: 50,
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
   },
