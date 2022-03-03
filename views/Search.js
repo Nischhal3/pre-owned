@@ -1,5 +1,12 @@
 // Import from react & library
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -23,6 +30,8 @@ import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
 import {AppButton} from '../components/elements/AppButton';
 import {useFocusEffect} from '@react-navigation/native';
+import NoSearchResultsIcon from '../assets/icons/searching.svg';
+import StartSearchIcon from '../assets/icons/startSearch.svg';
 
 const Search = ({navigation}) => {
   const {mediaArray, home, electronics, clothing, sports, gaming, others} =
@@ -111,117 +120,170 @@ const Search = ({navigation}) => {
         backgroundColor: colors.background,
       }}
     >
-      <ListItem
-        style={{
-          flexDirection: 'row',
-          width: '100%',
-          backgroundColor: colors.background,
-        }}
+      <TouchableOpacity
+        style={{flex: 1}}
+        activeOpacity={1}
+        onPress={() => Keyboard.dismiss()}
       >
-        <Input
-          value={search}
-          placeholder="Search..."
-          style={styles.searchField}
-          accessoryLeft={SearchIcon}
-          onChangeText={(text) => searchProduct(text)}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : ''}
         />
         <ListItem
-          accessoryRight={FilterIcon}
-          onPress={() => setVisible(true)}
-          style={{flex: 1, backgroundColor: null}}
-        />
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            backgroundColor: colors.background,
+          }}
+        >
+          <Input
+            value={search}
+            placeholder="Search..."
+            style={styles.searchField}
+            accessoryLeft={SearchIcon}
+            onChangeText={(text) => searchProduct(text)}
+          />
+          <ListItem
+            accessoryRight={FilterIcon}
+            onPress={() => setVisible(true)}
+            style={{flex: 1, backgroundColor: null}}
+          />
 
-        <Layout style={styles.modalContainer}>
-          <Modal
-            visible={visible}
-            backdropStyle={styles.modalBackdrop}
-            onBackdropPress={() => setVisible(false)}
-          >
-            <Card
-              disabled={true}
-              style={{
-                height: '100%',
-                width: '100%',
-                borderRadius: 15,
-                backgroundColor: colors.primary,
-              }}
+          <Layout style={styles.modalContainer}>
+            <Modal
+              visible={visible}
+              backdropStyle={styles.modalBackdrop}
+              onBackdropPress={() => setVisible(false)}
             >
-              <Text
+              <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : ''}
+              />
+              <Card
+                disabled={true}
                 style={{
-                  fontFamily: 'Karla_700Bold',
-                  alignSelf: 'center',
-                  marginBottom: 20,
-                  fontSize: 22,
+                  height: '100%',
+                  width: '100%',
+                  borderRadius: 15,
+                  backgroundColor: colors.primary,
                 }}
               >
-                Categories
-              </Text>
-              <ModalCheckBox
-                categoryNames={categoryNames}
-                setItemPosition={setItemPosition}
-                setIsChecked={setIsChecked}
-                isChecked={isChecked}
-              />
-              <Layout
-                style={{flexDirection: 'row', backgroundColor: 'transparent'}}
-              >
-                <AppButton
-                  title="Apply Filter"
-                  appBtnStyle={{
-                    marginTop: '5%',
-                    width: 185,
+                <Text
+                  style={{
+                    fontFamily: 'Karla_700Bold',
                     alignSelf: 'center',
+                    marginBottom: 20,
+                    fontSize: 22,
                   }}
-                  onPress={() => {
-                    setVisible(false);
-                    getData();
-                  }}
+                >
+                  Categories
+                </Text>
+                <ModalCheckBox
+                  categoryNames={categoryNames}
+                  setItemPosition={setItemPosition}
+                  setIsChecked={setIsChecked}
+                  isChecked={isChecked}
                 />
-              </Layout>
-            </Card>
-          </Modal>
-        </Layout>
-      </ListItem>
+                <Layout
+                  style={{flexDirection: 'row', backgroundColor: 'transparent'}}
+                >
+                  <AppButton
+                    title="Apply Filter"
+                    appBtnStyle={{
+                      marginTop: '5%',
+                      width: 185,
+                      alignSelf: 'center',
+                    }}
+                    onPress={() => {
+                      setVisible(false);
+                      getData();
+                    }}
+                  />
+                </Layout>
+              </Card>
+            </Modal>
+          </Layout>
+        </ListItem>
 
-      <Text>{categoryTitle}</Text>
-      <AppButton
-        title="Filter"
-        accessoryRight={<Icon name="close" />}
-        appBtnStyle={{
-          marginTop: '-2%',
-          width: '30%',
-          height: '5%',
-          alignSelf: 'flex-end',
-          paddingVertical: '2%',
-        }}
-        onPress={reset}
-      />
-      <ScrollView
-        style={styles.searchImageContainer}
-        contentContainerStyle={{alignItems: 'center'}}
-      >
-        {search !== '' ? (
-          filteredData.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
-        ) : data !== null ? (
-          data.map((item) => (
-            <GalleryItemVertical
-              navigation={navigation}
-              singleItem={item}
-              key={item.file_id}
-              displayText={true}
-            />
-          ))
+        {categoryTitle === '' ? (
+          <AppButton
+            title="No filter set"
+            appBtnStyle={{
+              marginTop: '-2%',
+              width: '40%',
+              height: '5%',
+              alignSelf: 'center',
+              paddingVertical: '2%',
+              paddingHorizontal: '5%',
+            }}
+          />
         ) : (
-          <Text>Search</Text>
+          <AppButton
+            title={`${categoryTitle}`}
+            accessoryRight={<Icon name="close" />}
+            appBtnStyle={{
+              marginTop: '-2%',
+              width: '40%',
+              height: '5%',
+              alignSelf: 'center',
+              paddingVertical: '2%',
+              paddingHorizontal: '5%',
+            }}
+            onPress={reset}
+          />
         )}
-      </ScrollView>
+
+        <ScrollView
+          style={styles.searchImageContainer}
+          contentContainerStyle={{alignItems: 'center'}}
+        >
+          {search !== '' ? (
+            filteredData.map((item) => (
+              <GalleryItemVertical
+                navigation={navigation}
+                singleItem={item}
+                key={item.file_id}
+                displayText={true}
+              />
+            ))
+          ) : data !== null ? (
+            data.map((item) => (
+              <GalleryItemVertical
+                navigation={navigation}
+                singleItem={item}
+                key={item.file_id}
+                displayText={true}
+              />
+            ))
+          ) : (
+            <Text>{''}</Text>
+          )}
+          {(filteredData.length === 0 && search !== '') ||
+          (categoryTitle !== '' && data.length === 0) ? (
+            <Layout
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <NoSearchResultsIcon width="120" height="120" />
+              <Text
+                style={{
+                  fontSize: 24,
+                  color: colors.mediumGrey,
+                  fontFamily: 'Karla_700Bold',
+                  alignSelf: 'center',
+                }}
+              >
+                No match!
+              </Text>
+            </Layout>
+          ) : categoryTitle === '' && search.length === 0 ? (
+            <StartSearchIcon width="150" height="150" />
+          ) : (
+            <Text>{''}</Text>
+          )}
+        </ScrollView>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
