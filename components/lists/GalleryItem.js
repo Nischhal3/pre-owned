@@ -53,10 +53,6 @@ const GalleryItemVertical = ({navigation, singleItem, displayText}) => {
           style={styles.GalleryImageVertical}
         />
       </Shadow>
-      <ImageDetail
-        style={styles.GalleryTextBoxVertical}
-        title={singleItem.title}
-      />
       {displayText === true ? (
         <Text style={styles.displayTime}>
           {moment(singleItem.time_added).format('DD.MM.YYYY hh:mm a')}
@@ -64,6 +60,10 @@ const GalleryItemVertical = ({navigation, singleItem, displayText}) => {
       ) : (
         <Text style={styles.displayTime}>{''}</Text>
       )}
+      <ImageDetail
+        style={styles.GalleryTextBoxVertical}
+        title={singleItem.title}
+      />
     </TouchableOpacity>
   );
 };
@@ -122,10 +122,10 @@ const styles = StyleSheet.create({
 
     ...Platform.select({
       ios: {
-        marginTop: '45%',
+        marginTop: 160,
       },
       android: {
-        marginTop: '35%',
+        marginTop: 130,
       },
     }),
   },
