@@ -83,7 +83,7 @@ const EditProfile = ({navigation}) => {
 
       const filename = avatar.split('/').pop();
       let fileExtension = filename.split('.').pop();
-      fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
+      fileExtension === 'jpg' ? 'jpeg' : fileExtension;
 
       const formData = new FormData();
 
@@ -115,7 +115,7 @@ const EditProfile = ({navigation}) => {
             text: 'Ok',
             onPress: () => {
               navigation.navigate('Profile');
-              setAvatar(uploadDefaultUri);
+              setImageSelected(true);
             },
           },
         ]);
@@ -128,8 +128,7 @@ const EditProfile = ({navigation}) => {
   };
 
   const reset = () => {
-    setAvatar(uploadDefaultUri);
-    setImageSelected(false);
+    setImageSelected(true);
     setValue('username', user.username);
     setValue('email', user.email);
     setValue('password', '');
@@ -151,16 +150,32 @@ const EditProfile = ({navigation}) => {
           <Shadow>
             <Layout style={styles.layout}>
               <TouchableOpacity onPress={pickImage}>
-                <AppButton
-                  appBtnStyle={styles.editBtn}
-                  onPress={pickImage}
-                  accessoryLeft={<Icon name="edit-2" fill={colors.text_dark} />}
-                />
+                {!imageSelected ? (
+                  <AppButton
+                    appBtnStyle={styles.editBtn}
+                    onPress={pickImage}
+                    accessoryLeft={
+                      <Icon name="camera-outline" fill={colors.mediumGrey} />
+                    }
+                  />
+                ) : null}
+
                 <Avatar
                   style={styles.avatar}
                   source={{uri: avatar}}
                   shape="round"
                 />
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    marginTop: '2%',
+                    fontSize: 14,
+                    fontFamily: 'Karla',
+                    color: colors.text_dark,
+                  }}
+                >
+                  Change profile picture
+                </Text>
               </TouchableOpacity>
               <Layout style={styles.form}>
                 <Controller
@@ -358,8 +373,8 @@ const styles = StyleSheet.create({
   editBtn: {
     zIndex: 1,
     position: 'absolute',
-    marginTop: 20,
-    left: 50,
+    marginTop: '20%',
+    marginLeft: '50%',
     backgroundColor: 'transparent',
     borderColor: 'transparent',
   },

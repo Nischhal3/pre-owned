@@ -58,19 +58,14 @@ const SignupForm = ({setFormToggle}) => {
 
   return (
     <Layout style={styles.layout}>
-      <Text
-        category="h5"
-        style={{
-          top: Platform.OS === 'android' ? '-17%' : '-15%',
-          textAlign: 'center',
-          fontFamily: 'Karla_700Bold',
-        }}
-      >
-        Create account
-      </Text>
-      <Text category="s1" style={styles.textWelcome}>
-        Find the stuffs in need or earn some extra income now
-      </Text>
+      <Layout style={styles.textContainer}>
+        <Text category="h5" style={styles.titleRegister}>
+          Create account
+        </Text>
+        <Text category="s1" style={styles.textWelcome}>
+          Find the stuffs in need or earn some extra income now
+        </Text>
+      </Layout>
       <Controller
         control={control}
         rules={{
@@ -296,8 +291,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   layout: {
-    marginTop: '35%',
-    height: 350,
+    marginTop: '15%',
+    height: '100%',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
     bottom: 20,
@@ -313,12 +308,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   textWelcome: {
-    top: '-13%',
+    // top: '-13%',
     textAlign: 'center',
     fontFamily: 'Karla',
     fontSize: 16,
     paddingHorizontal: 10,
     marginBottom: -30,
+  },
+  titleRegister: {
+    // top: Platform.OS === 'android' ? '-17%' : '-15%',
+    textAlign: 'center',
+    fontFamily: 'Karla_700Bold',
+  },
+  textContainer: {
+    backgroundColor: 'transparent',
+    marginTop: '10%',
+    marginBottom: '12%',
   },
 });
 
