@@ -62,11 +62,11 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
           source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         />
       </Layout>
-      <Layout style={styles.titleBox}>
-        <Text numberOfLines={1} style={styles.title}>
-          {singleItem.title}
-        </Text>
-      </Layout>
+      {/* <Layout style={styles.titleBox}> */}
+      <Text numberOfLines={1} style={styles.title}>
+        {singleItem.title}
+      </Text>
+      {/* </Layout> */}
       {displayText === true ? (
         <Text style={styles.displayTime}>
           {moment(singleItem.time_added).format('DD.MM.YYYY hh:mm a')}
@@ -103,8 +103,7 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
 const styles = StyleSheet.create({
   buttonGroup: {
     flex: 3.5,
-    right: 5,
-    width: 100,
+    right: '5%',
     alignSelf: 'center',
   },
   displayTime: {
@@ -133,14 +132,15 @@ const styles = StyleSheet.create({
     flex: 6,
     backgroundColor: colors.box,
     alignSelf: 'center',
-    marginStart: 15,
+    paddingStart: '10%',
   },
   title: {
     fontSize: 16,
     marginBottom: 5,
     fontFamily: 'Karla_700Bold',
     alignSelf: 'center',
-    width: 170,
+    width: '50%',
+    paddingHorizontal: 30,
   },
   row: {
     flexDirection: 'row',

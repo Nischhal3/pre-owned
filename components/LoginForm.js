@@ -45,19 +45,14 @@ const LoginForm = () => {
 
   return (
     <Layout style={styles.layout}>
-      <Text
-        category="h5"
-        style={{
-          top: Platform.OS === 'android' ? '-20%' : '-25%',
-          textAlign: 'center',
-          fontFamily: 'Karla_700Bold',
-        }}
-      >
-        Welcome back
-      </Text>
-      <Text category="s1" style={styles.textWelcome}>
-        Use your credentials below and login to your account
-      </Text>
+      <Layout style={styles.textContainer}>
+        <Text category="h5" style={styles.titleWelcome}>
+          Welcome back
+        </Text>
+        <Text category="s1" style={styles.textWelcome}>
+          Use your credentials below and login to your account
+        </Text>
+      </Layout>
       <Controller
         control={control}
         rules={{
@@ -124,8 +119,8 @@ const styles = StyleSheet.create({
     width: 300,
   },
   layout: {
-    marginTop: '35%',
-    height: undefined,
+    marginTop: '15%',
+    height: '85%',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
@@ -136,12 +131,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla_700Bold',
   },
   textWelcome: {
-    top: Platform.OS === 'android' ? '-15%' : '-20%',
     textAlign: 'center',
     fontFamily: 'Karla',
     fontSize: 16,
-    paddingHorizontal: 10,
-    marginBottom: -20,
+  },
+  titleWelcome: {
+    textAlign: 'center',
+    fontFamily: 'Karla_700Bold',
+  },
+  textContainer: {
+    backgroundColor: 'transparent',
+    marginVertical: '5%',
   },
 });
 

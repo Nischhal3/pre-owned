@@ -9,17 +9,12 @@ import {CheckBox, Layout} from '@ui-kitten/components';
 // Import from files
 import colors from '../../utils/colors';
 
-// Filter categories
-const categoryNames = [
-  {category: 'Home & Living'},
-  {category: 'Electronics'},
-  {category: 'Clothing '},
-  {category: 'Sports'},
-  {category: 'Gaming & Accessories'},
-  {category: 'Others'},
-];
-
-const ModalCheckBox = ({setItemPosition, setIsChecked, isChecked}) => {
+const ModalCheckBox = ({
+  categoryNames,
+  setItemPosition,
+  setIsChecked,
+  isChecked,
+}) => {
   // new array to store values if checkbox is checked
   const [checkedState, setCheckedState] = useState(
     new Array(categoryNames.length).fill(false)
@@ -29,6 +24,7 @@ const ModalCheckBox = ({setItemPosition, setIsChecked, isChecked}) => {
   const handleOnChange = (position) => {
     setIsChecked(isChecked + 1);
     setItemPosition(position);
+
     try {
       const updatedCheckedState = checkedState.map((item, index) =>
         index === position ? true : false

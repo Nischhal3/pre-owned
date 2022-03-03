@@ -1,6 +1,6 @@
 // Import from react & library
 import {SafeAreaView, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -22,6 +22,7 @@ import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
 import {AppButton} from '../components/elements/AppButton';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Search = ({navigation}) => {
   const {mediaArray, home, electronics, clothing, sports, gaming, others} =
@@ -31,26 +32,44 @@ const Search = ({navigation}) => {
   const [itemPosition, setItemPosition] = useState();
   const [search, setSearch] = useState('');
   const [isChecked, setIsChecked] = useState(0);
+  const [data, setData] = useState([]);
+  const [categoryTitle, setCateogryTitle] = useState('');
 
-  // Storing category values to data depending upon which check-box is clicked
-  const data =
+  // Filter categories
+  const categoryNames = [
+    {category: 'Home & Living'},
+    {category: 'Electronics'},
+    {category: 'Clothing '},
+    {category: 'Sports'},
+    {category: 'Gaming & Accessories'},
+    {category: 'Others'},
+  ];
+
+  const getData = () => {
+    setCateogryTitle(categoryNames[itemPosition].category);
+
+    // Storing category values to data depending upon which check-box is clicked
     itemPosition === 0
-      ? home
+      ? setData(home)
       : itemPosition === 1
-      ? electronics
+      ? setData(electronics)
       : itemPosition === 2
-      ? clothing
+      ? setData(clothing)
       : itemPosition === 3
-      ? sports
+      ? setData(sports)
       : itemPosition === 4
-      ? gaming
+      ? setData(gaming)
       : itemPosition === 5
-      ? others
-      : null;
+      ? setData(others)
+      : setData(null);
+  };
 
   // update filtered list
   const searchProduct = (textToSearch) => {
     setSearch(textToSearch);
+    setCateogryTitle('');
+    setData(null);
+
     try {
       if (textToSearch === '') {
         setFilteredData([]);
@@ -69,7 +88,9 @@ const Search = ({navigation}) => {
   const reset = () => {
     setVisible(false);
     setItemPosition(null);
+    setData(null);
     setSearch('');
+    setCateogryTitle('');
   };
 
   // Setting search to empty string when filter check-box is clicked
@@ -77,6 +98,11 @@ const Search = ({navigation}) => {
     setSearch('');
   }, [isChecked]);
 
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset();
+    }, [])
+  );
   return (
     <SafeAreaView
       style={{
@@ -131,6 +157,7 @@ const Search = ({navigation}) => {
                 Categories
               </Text>
               <ModalCheckBox
+                categoryNames={categoryNames}
                 setItemPosition={setItemPosition}
                 setIsChecked={setIsChecked}
                 isChecked={isChecked}
@@ -145,13 +172,18 @@ const Search = ({navigation}) => {
                     width: 185,
                     alignSelf: 'center',
                   }}
-                  onPress={() => setVisible(false)}
+                  onPress={() => {
+                    setVisible(false);
+                    getData();
+                  }}
                 />
               </Layout>
             </Card>
           </Modal>
         </Layout>
       </ListItem>
+
+      <Text>{categoryTitle}</Text>
       <AppButton
         title="Filter"
         accessoryRight={<Icon name="close" />}

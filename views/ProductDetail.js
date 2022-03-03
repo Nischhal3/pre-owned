@@ -13,6 +13,8 @@ import {
   View,
   Modal,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import ReadMore from 'react-native-read-more-text';
@@ -42,8 +44,14 @@ const ProductDetail = ({route, navigation}) => {
     useFavourite();
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
-  const {user, updateFavourite, setUpdateFavourite, updateAvatar} =
-    useContext(MainContext);
+  const {
+    user,
+    updateFavourite,
+    setUpdateFavourite,
+    updateAvatar,
+    update,
+    setUpdate,
+  } = useContext(MainContext);
   const [name, setName] = useState('');
   const {mediaArray} = useMedia();
 
@@ -136,95 +144,109 @@ const ProductDetail = ({route, navigation}) => {
   }, [updateAvatar]);
 
   return (
-    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
-      <ScrollView>
-        <TouchableOpacity onPress={() => setVisible(true)}>
-          <Image
-            style={styles.image}
-            source={{uri: uploadsUrl + file.filename}}
-          />
-        </TouchableOpacity>
-        <Modal
-          visible={visible}
-          transparent={true}
-          onBackdropPress={() => setVisible(false)}
+    <ScrollView>
+      <TouchableOpacity
+        style={styles.safeView}
+        activeOpacity={1}
+        onPress={() => Keyboard.dismiss()}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : ''}
+          style={{flex: 1}}
         >
-          <AppButton
-            appBtnStyle={styles.closeBtn}
-            onPress={() => setVisible(false)}
-            accessoryLeft={<Icon name="close-outline" />}
-          />
-          <ImageViewer imageUrls={images} />
-        </Modal>
-        <View style={styles.boxShadow}>
-          <Shadow distance={7}>
-            <Card style={styles.card}>
-              <Layout style={styles.container}>
-                <Text style={styles.title}>{file.title}</Text>
+          <TouchableOpacity onPress={() => setVisible(true)}>
+            <Image
+              style={styles.image}
+              source={{uri: uploadsUrl + file.filename}}
+            />
+          </TouchableOpacity>
+          <Modal
+            visible={visible}
+            transparent={true}
+            onBackdropPress={() => setVisible(false)}
+          >
+            <AppButton
+              appBtnStyle={styles.closeBtn}
+              onPress={() => setVisible(false)}
+              accessoryLeft={<Icon name="close-outline" />}
+            />
+            <ImageViewer imageUrls={images} />
+          </Modal>
+          <View style={styles.boxShadow}>
+            <Shadow distance={7}>
+              <Card style={styles.card}>
+                <Layout style={styles.container}>
+                  <Text style={styles.title}>{file.title}</Text>
 
-                <Pressable
-                  onPress={onSubmit}
-                  style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
-                >
-                  <LottieView
-                    ref={animation}
-                    source={require('../assets/icons/like-animation.json')}
-                    autoPlay={false}
-                    loop={false}
-                    style={{width: 60, height: 60, right: -5}}
-                  />
-                  <Text
-                    category="s1"
+                  <Pressable
+                    onPress={onSubmit}
                     style={{
-                      right: Platform.OS === 'android' ? '25%' : '17%',
-                      bottom: 10,
-                      fontSize: 14,
+                      justifyContent: 'flex-end',
+                      alignItems: 'flex-end',
                     }}
                   >
-                    {likes.length}
-                  </Text>
-                </Pressable>
-              </Layout>
+                    <LottieView
+                      ref={animation}
+                      source={require('../assets/icons/like-animation.json')}
+                      autoPlay={false}
+                      loop={false}
+                      style={{width: 60, height: 60, right: -5}}
+                    />
+                    <Text
+                      category="s1"
+                      style={{
+                        right: Platform.OS === 'android' ? '25%' : '17%',
+                        bottom: 10,
+                        fontSize: 14,
+                      }}
+                    >
+                      {likes.length}
+                    </Text>
+                  </Pressable>
+                </Layout>
 
-              <Divider style={{backgroundColor: colors.lightGrey}} />
+                <Divider style={{backgroundColor: colors.lightGrey}} />
 
-              <UserItem
-                onPress={() => {
-                  navigation.navigate('Profile', {profileParam: file.user_id});
-                }}
-                image={{uri: avatar}}
-                title={name}
-                description={`${userMedia.length} Listings`}
-              />
-              <Divider style={{backgroundColor: colors.lightGrey}} />
+                <UserItem
+                  onPress={() => {
+                    navigation.navigate('Profile', {
+                      profileParam: file.user_id,
+                    });
+                  }}
+                  image={{uri: avatar}}
+                  title={name}
+                  description={`${userMedia.length} Listings`}
+                />
+                <Divider style={{backgroundColor: colors.lightGrey}} />
 
-              <Text category="s1" style={styles.detail}>
-                Price & Details
-              </Text>
-              <Layout style={styles.readMore}>
-                <ReadMore numberOfLines={1}>
-                  <Text
-                    style={styles.detailDescription}
-                    category="c1"
-                    numberOfLines={4}
-                  >
-                    {file.description}
-                  </Text>
-                </ReadMore>
-              </Layout>
+                <Text category="s1" style={styles.detail}>
+                  Price & Details
+                </Text>
+                <Layout style={styles.readMore}>
+                  <ReadMore numberOfLines={1}>
+                    <Text
+                      style={styles.detailDescription}
+                      category="c1"
+                      numberOfLines={4}
+                    >
+                      {file.description}
+                    </Text>
+                  </ReadMore>
+                </Layout>
 
-              <Divider style={{backgroundColor: colors.lightGrey}} />
-              <Text category="s1" style={styles.detail}>
-                Send the Seller a message
-              </Text>
-              <ScrollView>
-                <MessageList fileId={file.file_id} />
-              </ScrollView>
-            </Card>
-          </Shadow>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+                <Divider style={{backgroundColor: colors.lightGrey}} />
+                <Text category="s1" style={styles.detail}>
+                  Send the Seller a message
+                </Text>
+                <ScrollView>
+                  <MessageList fileId={file.file_id} />
+                </ScrollView>
+              </Card>
+            </Shadow>
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({
@@ -237,7 +259,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 30,
     alignSelf: 'center',
-    width: 335,
+    width: 340,
   },
   container: {
     flexDirection: 'row',
