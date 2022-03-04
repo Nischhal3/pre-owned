@@ -19,7 +19,7 @@ const ImageWithOverlay = ({source, style}) => {
           justifyContent: 'center',
           borderRadius: 15,
         }}
-      ></LinearGradient>
+      />
     </ImageBackground>
   );
 };
