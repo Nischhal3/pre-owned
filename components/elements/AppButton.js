@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Spinner} from '@ui-kitten/components';
+import {Button} from '@ui-kitten/components';
 import {GlobalStyles} from '../../utils';
 import PropTypes from 'prop-types';
 
@@ -42,6 +42,6 @@ FormButton.propTypes = {
   handleSubmit: PropTypes.func,
   onSubmit: PropTypes.func,
   disabled: PropTypes.bool,
-  text: PropTypes.string,
+  text: PropTypes.object,
 };
 export {AppButton, FormButton};

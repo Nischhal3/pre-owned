@@ -62,11 +62,11 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
           source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         />
       </Layout>
-      {/* <Layout style={styles.titleBox}> */}
+
       <Text numberOfLines={1} style={styles.title}>
         {singleItem.title}
       </Text>
-      {/* </Layout> */}
+
       {displayText === true ? (
         <Text style={styles.displayTime}>
           {moment(singleItem.time_added).format('DD.MM.YYYY hh:mm a')}
@@ -102,8 +102,8 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
 
 const styles = StyleSheet.create({
   buttonGroup: {
-    flex: 3.5,
-    right: '5%',
+    flex: 3,
+    right: '2%',
     alignSelf: 'center',
   },
   displayTime: {
