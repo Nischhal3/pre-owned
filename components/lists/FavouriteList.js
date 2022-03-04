@@ -1,27 +1,12 @@
 // Import from React and library
-import React, {useContext, useEffect, useState} from 'react';
-import {
-  Alert,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten Library
-import {
-  Avatar,
-  Button,
-  ButtonGroup,
-  Icon,
-  Layout,
-  ListItem,
-  Text,
-} from '@ui-kitten/components';
+import {Avatar, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
-import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils';
 import {uploadsUrl} from '../../utils/url';
 import {LikeComponent} from '../index';
@@ -74,30 +59,16 @@ const FavouriteList = ({navigation, singleItem}) => {
           <Text style={styles.username}>{itemUser.username}</Text>
         </Layout>
       </TouchableOpacity>
-
       <LikeComponent file={singleItem} heartAnimation={false} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonGroup: {
-    flex: 3.5,
-    width: 100,
-    alignSelf: 'center',
-  },
-  username: {
-    flex: 3,
-    fontSize: 12,
-    fontFamily: 'Karla_400Regular',
-    alignSelf: 'center',
-    right: '-10%',
-    top: '30%',
-  },
   layout: {
-    flex: 2,
-
+    flex: 1,
     marginVertical: 10,
+    marginHorizontal: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -105,8 +76,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     top: '25%',
     fontFamily: 'Karla_400Regular',
+    left: Platform.OS === 'android' ? '-35%' : 0,
     alignSelf: 'flex-end',
-    right: '15%',
+    color: colors.mediumGrey,
+  },
+  username: {
+    flex: 3,
+    fontSize: 12,
+    fontFamily: 'Karla_400Regular',
+    alignSelf: 'center',
+    right: Platform.OS === 'android' ? '5%' : '-30%',
+    top: '30%',
+    color: colors.mediumGrey,
+    fontWeight: 'bold',
   },
   productImage: {
     width: 70,
@@ -120,22 +102,22 @@ const styles = StyleSheet.create({
     flex: 3,
     flexDirection: 'column',
     backgroundColor: 'transparent',
-    right: 30,
+    right: '30%',
   },
   title: {
     fontSize: 16,
     marginBottom: 5,
     fontFamily: 'Karla_700Bold',
     alignSelf: 'center',
-    width: 170,
-    marginStart: 25,
+    width: 150,
+    marginStart: 30,
   },
   row: {
     flexDirection: 'row',
     marginHorizontal: 10,
     marginVertical: -10,
     top: 10,
-    width: '80%',
+    width: Platform.OS === 'ios' ? '85%' : '100%',
   },
 });
 
