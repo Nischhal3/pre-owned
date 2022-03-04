@@ -32,16 +32,16 @@ const FormButton = (props) => {
 AppButton.propTypes = {
   appBtnStyle: PropTypes.object,
   size: PropTypes.object,
-  onPress: PropTypes.object,
-  title: PropTypes.object,
+  onPress: PropTypes.func,
+  title: PropTypes.string,
   accessoryLeft: PropTypes.object,
   accessoryRight: PropTypes.object,
 };
 FormButton.propTypes = {
   style: PropTypes.object,
-  handleSubmit: PropTypes.object,
-  onSubmit: PropTypes.object,
-  disabled: PropTypes.object,
-  text: PropTypes.object,
+  handleSubmit: PropTypes.func,
+  onSubmit: PropTypes.func,
+  disabled: PropTypes.bool,
+  text: PropTypes.string,
 };
 export {AppButton, FormButton};
