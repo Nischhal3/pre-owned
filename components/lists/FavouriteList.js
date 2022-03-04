@@ -1,5 +1,5 @@
 // Import from React and library
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -19,10 +19,21 @@ import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils';
 import {uploadsUrl} from '../../utils/url';
 import {LikeComponent} from '../index';
+import {getUserById} from '../../hooks/ApiHooks';
 
 // SingleItem for vertical lists
 const FavouriteList = ({navigation, singleItem}) => {
   const {update, setUpdate} = useContext(MainContext);
+  const [itemUser, setItemUser] = useState({});
+
+  const getUser = async () => {
+    const user = await getUserById(singleItem.user_id);
+    setItemUser(user);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <TouchableOpacity
@@ -45,7 +56,7 @@ const FavouriteList = ({navigation, singleItem}) => {
       </Text>
       {/* </Layout> */}
 
-      <Text style={styles.username}>Post by {singleItem.user_id}</Text>
+      <Text style={styles.username}>Post by {itemUser.username}</Text>
       <LikeComponent file={singleItem} heartAnimation={false} />
     </TouchableOpacity>
   );

@@ -21,14 +21,8 @@ const LikeComponent = ({file, heartAnimation}) => {
   const [userLike, setUserLike] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const {
-    user,
-    updateFavourite,
-    setUpdateFavourite,
-
-    update,
-    setUpdate,
-  } = useContext(MainContext);
+  const {user, updateFavourite, setUpdateFavourite, update, setUpdate} =
+    useContext(MainContext);
 
   const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
     useFavourite();
@@ -55,8 +49,6 @@ const LikeComponent = ({file, heartAnimation}) => {
       console.error('fetch like error', e);
     }
   };
-
-  console.log('file', likes);
 
   const addLike = async () => {
     setIsDisabled(true);
