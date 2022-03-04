@@ -120,7 +120,7 @@ const SignupForm = ({setFormToggle}) => {
           error={errors?.username}
           message={errors?.username?.message}
         />
-            
+
         <Controller
           control={control}
           rules={{
@@ -139,8 +139,6 @@ const SignupForm = ({setFormToggle}) => {
               onChange={onChange}
               value={value}
               textEntry={false}
-              // Error message not working ?
-              // errorMessage={errors.email && errors.email.message}
             />
           )}
           name="email"

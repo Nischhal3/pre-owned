@@ -75,7 +75,7 @@ const EditListing = ({navigation, route}) => {
           <View style={styles.boxShadow}>
             <Shadow>
               <Card style={styles.card}>
-                <Text style={styles.cardTitle}>ProductDetail</Text>
+                <Text style={styles.cardTitle}>Product Detail</Text>
                 <Image
                   source={{uri: uploadsUrl + file.filename}}
                   style={styles.image}
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Karla_700Bold',
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: Platform.OS === 'android' ? 20 : 10,
   },
   button: {
     width: '55%',
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   boxShadow: {
-    marginTop: '10%',
+    marginTop: Platform.OS === 'android' ? '5%' : '15%',
     marginVertical: 15,
     marginHorizontal: 20,
     alignSelf: 'center',
