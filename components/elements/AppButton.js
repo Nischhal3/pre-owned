@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Spinner} from '@ui-kitten/components';
 import {GlobalStyles} from '../../utils';
+import PropTypes from 'prop-types';
 
 const AppButton = (props) => {
   return (
@@ -28,16 +29,19 @@ const FormButton = (props) => {
   );
 };
 
-const UploadButton = (props, style) => {
-  return (
-    <Button
-      style={[GlobalStyles.formButtonStyle, style]}
-      onPress={props.handleSubmit(props.onSubmit)}
-      accessoryLeft={<Spinner size="small" color="#fff" />}
-    >
-      {props.text}
-    </Button>
-  );
+AppButton.propTypes = {
+  appBtnStyle: PropTypes.object,
+  size: PropTypes.object,
+  onPress: PropTypes.object,
+  title: PropTypes.object,
+  accessoryLeft: PropTypes.object,
+  accessoryRight: PropTypes.object,
 };
-
-export {AppButton, FormButton, UploadButton};
+FormButton.propTypes = {
+  style: PropTypes.object,
+  handleSubmit: PropTypes.object,
+  onSubmit: PropTypes.object,
+  disabled: PropTypes.object,
+  text: PropTypes.object,
+};
+export {AppButton, FormButton};

@@ -42,8 +42,7 @@ const AddListing = ({navigation}) => {
   const [image, setImage] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
-  const {update, setUpdate, loading, setLoading} =
-    useContext(MainContext);
+  const {update, setUpdate, loading, setLoading} = useContext(MainContext);
   const [category, setCategory] = useState('');
 
   const {
@@ -164,10 +163,7 @@ const AddListing = ({navigation}) => {
                 {type === 'image' ? (
                   <>
                     <TouchableOpacity onPress={pickImage}>
-                    <Image
-                      source={{uri: image}}
-                      style={styles.image}
-                    />
+                      <Image source={{uri: image}} style={styles.image} />
                     </TouchableOpacity>
                   </>
                 ) : (
