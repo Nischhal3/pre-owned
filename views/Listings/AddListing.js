@@ -58,7 +58,7 @@ const AddListing = ({navigation}) => {
     mode: 'onBlur',
   });
 
-  //Selecting images
+  // Selecting images
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
