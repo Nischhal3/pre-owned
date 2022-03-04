@@ -19,6 +19,8 @@ import {getToken} from '../hooks/CommonFunction';
 const LikeComponent = ({file, heartAnimation}) => {
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const {
     user,
     updateFavourite,
@@ -34,6 +36,7 @@ const LikeComponent = ({file, heartAnimation}) => {
   // favorite animation
   let animation;
   let isFirstRun;
+
   if (heartAnimation) {
     animation = React.useRef(null);
     isFirstRun = React.useRef(true);
@@ -43,6 +46,7 @@ const LikeComponent = ({file, heartAnimation}) => {
     try {
       const likesData = await getFavourtiesByFileId(file.file_id);
       setLikes(likesData);
+
       likesData.forEach((like) => {
         like.user_id === user.user_id && setUserLike(true);
       });
@@ -52,14 +56,16 @@ const LikeComponent = ({file, heartAnimation}) => {
     }
   };
 
-  console.log('file', file);
+  console.log('file', likes);
 
   const addLike = async () => {
+    setIsDisabled(true);
     try {
       const token = await getToken();
       const response = await postFavourite(file.file_id, token);
 
       if (response) {
+        setIsDisabled(false);
         setUpdateFavourite(updateFavourite + 1);
         setUserLike(true);
         setUpdate(update + 1);
@@ -69,11 +75,14 @@ const LikeComponent = ({file, heartAnimation}) => {
     }
   };
   const unlike = async () => {
+    setIsDisabled(true);
+
     try {
       const token = await getToken();
       const response = await deleteFavourite(file.file_id, token);
 
       if (response) {
+        setIsDisabled(false);
         setUpdateFavourite(updateFavourite + 1);
         setUserLike(false);
         setUpdate(update + 1);
@@ -109,6 +118,7 @@ const LikeComponent = ({file, heartAnimation}) => {
     <Pressable
       onPress={onSubmit}
       style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
+      disabled={isDisabled}
     >
       {heartAnimation ? (
         <>
