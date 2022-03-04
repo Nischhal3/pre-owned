@@ -8,6 +8,8 @@ import {
   Image,
 } from 'react-native';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+
 // Import from UI Kitten Library
 import {Avatar, Button, Icon, Layout, Text} from '@ui-kitten/components';
 import {Swipeable} from 'react-native-gesture-handler';
@@ -23,8 +25,6 @@ import {getAvatar} from '../../hooks/MediaHooks';
 
 // now in use: ProductDetail.js, Messages
 const ListDetail = ({
-  props,
-  image,
   IconComponent,
   renderRightActions,
   showMessages,
@@ -179,5 +179,13 @@ const styles = StyleSheet.create({
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });
-
+ListDetail.propTypes = {
+  IconComponent: PropTypes.object,
+  renderRightActions: PropTypes.object,
+  showMessages: PropTypes.object,
+  message: PropTypes.object,
+  updateMessage: PropTypes.object,
+  setUpdateMessage: PropTypes.object,
+  user: PropTypes.object,
+};
 export default ListDetail;

@@ -7,7 +7,6 @@ import {
   Image,
   Platform,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -31,7 +30,6 @@ import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
 import {MessageList} from '../components/lists';
 import LottieView from 'lottie-react-native';
-import {GlobalStyles} from '../utils';
 import UserItem from '../components/elements/UserItem';
 import {AppButton} from '../components/elements/AppButton';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
