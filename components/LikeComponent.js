@@ -1,7 +1,7 @@
 // Import from react
 import React, {useContext, useEffect, useState} from 'react';
-
-import {Alert, Platform, Pressable} from 'react-native';
+import PropTypes from 'prop-types';
+import {Platform, Pressable} from 'react-native';
 
 // Import from Library UI Kitten
 import {Text} from '@ui-kitten/components';
@@ -10,13 +10,11 @@ import {Text} from '@ui-kitten/components';
 import colors from '../utils/colors';
 import {useFavourite} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
-
 import LottieView from 'lottie-react-native';
-
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {getToken} from '../hooks/CommonFunction';
 
-const LikeComponent = ({file, heartAnimation}) => {
+const LikeComponent = ({file, heartAnimation = true}) => {
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -45,7 +43,6 @@ const LikeComponent = ({file, heartAnimation}) => {
         like.user_id === user.user_id && setUserLike(true);
       });
     } catch (e) {
-      Alert.alert('Error showing likes', 'Close');
       console.error('fetch like error', e);
     }
   };
@@ -74,9 +71,11 @@ const LikeComponent = ({file, heartAnimation}) => {
       const response = await deleteFavourite(file.file_id, token);
 
       if (response) {
-        setIsDisabled(false);
+        if (heartAnimation) {
+          setIsDisabled(false);
+          setUserLike(false);
+        }
         setUpdateFavourite(updateFavourite + 1);
-        setUserLike(false);
         setUpdate(update + 1);
       }
     } catch (e) {
@@ -143,5 +142,8 @@ const LikeComponent = ({file, heartAnimation}) => {
     </Pressable>
   );
 };
-
+LikeComponent.propTypes = {
+  file: PropTypes.object,
+  heartAnimation: PropTypes.bool,
+};
 export default LikeComponent;

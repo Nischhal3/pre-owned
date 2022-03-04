@@ -1,29 +1,19 @@
 // Import from React and library
-import React, {useContext, useEffect, useState} from 'react';
-import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten Library
-import {
-  Avatar,
-  Button,
-  ButtonGroup,
-  Icon,
-  Layout,
-  ListItem,
-  Text,
-} from '@ui-kitten/components';
+import {Avatar, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
-import {MainContext} from '../../contexts/MainContext';
+
 import {colors} from '../../utils';
 import {uploadsUrl} from '../../utils/url';
 import {LikeComponent} from '../index';
 import {getUserById} from '../../hooks/ApiHooks';
 
-// SingleItem for vertical lists
 const FavouriteList = ({navigation, singleItem}) => {
-  const {update, setUpdate} = useContext(MainContext);
   const [itemUser, setItemUser] = useState({});
 
   const getUser = async () => {
@@ -50,13 +40,14 @@ const FavouriteList = ({navigation, singleItem}) => {
           source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         />
       </Layout>
-      {/* <Layout style={styles.titleBox}> */}
       <Text numberOfLines={1} style={styles.title}>
         {singleItem.title}
       </Text>
-      {/* </Layout> */}
 
-      <Text style={styles.username}>Post by {itemUser.username}</Text>
+      <Layout style={styles.user}>
+        <Text style={styles.postTitle}>Post by</Text>
+        <Text style={styles.username}>{itemUser.username}</Text>
+      </Layout>
       <LikeComponent file={singleItem} heartAnimation={false} />
     </TouchableOpacity>
   );
@@ -73,7 +64,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Karla_400Regular',
     alignSelf: 'center',
-    lineHeight: 20,
+    right: '-10%',
+    top: '30%',
   },
   layout: {
     flex: 2,
@@ -81,6 +73,13 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  postTitle: {
+    fontSize: 14,
+    top: '30%',
+    fontFamily: 'Karla_400Regular',
+    alignSelf: 'flex-end',
+    right: '15%',
   },
   productImage: {
     width: 70,
@@ -90,11 +89,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.box,
     left: 10,
   },
-  // titleBox: {
-  //   flex: 6,
-  //   backgroundColor: 'transparent',
-  //   alignSelf: 'center',
-  // },
+  user: {
+    flex: 3,
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    right: 30,
+  },
   title: {
     fontSize: 16,
     marginBottom: 5,
