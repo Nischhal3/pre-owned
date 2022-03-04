@@ -135,7 +135,7 @@ const LikeComponent = ({file, heartAnimation = true}) => {
         <MaterialCommunityIcons
           name={userLike ? 'heart' : 'heart-outline'}
           size={25}
-          style={{right: 20, top: '-35%'}}
+          style={{right: 20, top: '-130%'}}
           color={userLike ? '#ed4b65' : colors.mediumGrey}
         />
       )}

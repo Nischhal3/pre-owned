@@ -4,7 +4,7 @@ import {SafeAreaView, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten
-import {List} from '@ui-kitten/components';
+import {Divider, List} from '@ui-kitten/components';
 
 // Import from files
 import {colors} from '../utils';

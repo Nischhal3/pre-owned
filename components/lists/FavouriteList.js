@@ -1,18 +1,33 @@
 // Import from React and library
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  Alert,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten Library
-import {Avatar, Layout, Text} from '@ui-kitten/components';
+import {
+  Avatar,
+  Button,
+  ButtonGroup,
+  Icon,
+  Layout,
+  ListItem,
+  Text,
+} from '@ui-kitten/components';
 
 // Import from files
-
+import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils';
 import {uploadsUrl} from '../../utils/url';
 import {LikeComponent} from '../index';
 import {getUserById} from '../../hooks/ApiHooks';
 
+// SingleItem for vertical lists
 const FavouriteList = ({navigation, singleItem}) => {
   const [itemUser, setItemUser] = useState({});
 
@@ -26,30 +41,42 @@ const FavouriteList = ({navigation, singleItem}) => {
   }, []);
 
   return (
-    <TouchableOpacity
-      style={styles.row}
-      onPress={() => {
-        navigation.navigate('Product Detail', {file: singleItem});
+    <View
+      style={{
+        flexd: 'row',
+        backgroundColor: colors.box,
+        borderRadius: 7,
+        borderWidth: 1,
+        borderColor: colors.lightGrey,
+        marginHorizontal: 10,
       }}
     >
-      <Layout style={styles.layout}>
-        <Avatar
-          shape="square"
-          size={'giant'}
-          style={styles.productImage}
-          source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
-        />
-      </Layout>
-      <Text numberOfLines={1} style={styles.title}>
-        {singleItem.title}
-      </Text>
+      <TouchableOpacity
+        style={styles.row}
+        onPress={() => {
+          navigation.navigate('Product Detail', {file: singleItem});
+        }}
+      >
+        <Layout style={styles.layout}>
+          <Avatar
+            shape="square"
+            size={'giant'}
+            style={styles.productImage}
+            source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
+          />
+        </Layout>
+        <Text numberOfLines={1} style={styles.title}>
+          {singleItem.title}
+        </Text>
 
-      <Layout style={styles.user}>
-        <Text style={styles.postTitle}>Post by</Text>
-        <Text style={styles.username}>{itemUser.username}</Text>
-      </Layout>
+        <Layout style={styles.user}>
+          <Text style={styles.postTitle}>Post by</Text>
+          <Text style={styles.username}>{itemUser.username}</Text>
+        </Layout>
+      </TouchableOpacity>
+
       <LikeComponent file={singleItem} heartAnimation={false} />
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -69,14 +96,14 @@ const styles = StyleSheet.create({
   },
   layout: {
     flex: 2,
-    flexDirection: 'row',
+
     marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   postTitle: {
     fontSize: 14,
-    top: '30%',
+    top: '25%',
     fontFamily: 'Karla_400Regular',
     alignSelf: 'flex-end',
     right: '15%',
@@ -106,10 +133,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginHorizontal: 10,
-    backgroundColor: colors.box,
-    borderRadius: 7,
-    borderWidth: 1,
-    borderColor: colors.lightGrey,
+    marginVertical: -10,
+    top: 10,
+    width: '80%',
   },
 });
 
