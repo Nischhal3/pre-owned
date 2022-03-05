@@ -5,11 +5,11 @@ import {fetchData, fetchFromMedia} from './CommonFunction';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
-  const {update} = useContext(MainContext);
+  const {update, updateFavourite} = useContext(MainContext);
 
+  // Fetching all media
   const fetchMedia = async () => {
     try {
-      // Fetching items by category
       const media = await getFilesByTag(appId);
       const mediaCategory = await fetchFromMedia(media);
       setMediaArray(mediaCategory);
@@ -18,10 +18,9 @@ const useMedia = () => {
     }
   };
 
+  // Fetching media by category
   const getMediaByCategory = async (category) => {
-    console.log('Category', category);
     try {
-      console.log('Category', category);
       const media = await getFilesByTag(`${appId}_${category}`);
       return await fetchFromMedia(media);
     } catch (error) {
@@ -34,7 +33,7 @@ const useMedia = () => {
   useEffect(() => {
     fetchMedia();
     // return () => {};
-  }, [update]);
+  }, [update, updateFavourite]);
 
   return {
     mediaArray,
