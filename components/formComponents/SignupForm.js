@@ -20,15 +20,15 @@ import {
 } from '@ui-kitten/components';
 
 // Api import
-import {checkUserName, signUp} from '../hooks/ApiHooks';
+import {checkUserName, signUp} from '../../hooks/ApiHooks';
 
 // App component import
-import FormInput from './formComponents/FormInput';
-import {FormButton} from './elements/AppButton';
-import ErrorMessage from './elements/ErrorMessage';
+import FormInput from './FormInput';
+import {FormButton} from '../elements/AppButton';
+import ErrorMessage from '../elements/ErrorMessage';
 
 // Styling import
-import {colors} from '../utils';
+import {colors} from '../../utils';
 
 const SignupForm = ({setFormToggle}) => {
   // Terms checkbox
