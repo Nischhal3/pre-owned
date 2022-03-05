@@ -16,23 +16,13 @@ import {ItemSeparator} from '../components/elements/ItemSeparator';
 // TODO fetch items from server, item fetch to be added in API hooks
 const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
-  const [sortedList, setSortedList] = useState([]);
 
-  // Check favourite count and sort files by value
-  const updateList = () => {
-    const list = mediaArray.sort((a, b) => a.favCount < b.favCount);
-    setSortedList(list);
-  };
-
-  // update when change in array
-  useEffect(() => {
-    updateList();
-  }, [mediaArray]);
+  mediaArray.sort((a, b) => a.favCount < b.favCount);
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <List
-        data={sortedList}
+        data={mediaArray}
         contentContainerStyle={styles.container}
         horizontal={false}
         ItemSeparatorComponent={ItemSeparator}
