@@ -1,25 +1,25 @@
-import {SafeAreaView, StyleSheet} from 'react-native';
+// Import from React
 import React, {useContext, useEffect, useState} from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
 
-// Import from UI Kitten Library
-import {List} from '@ui-kitten/components';
-
-// Styling import
-import {colors} from '../utils';
+// Import from UI Kitten
+import {Divider, List} from '@ui-kitten/components';
 
 // Api import
 import {getMediaById, useFavourite} from '../hooks/MediaHooks';
 
 // Import from files
+import {colors} from '../utils';
 import {getToken} from '../hooks/CommonFunction';
-import {PlainListItem} from '../components/lists';
+import {FavouriteList} from '../components/lists';
 import {ItemSeparator} from '../components/elements/ItemSeparator';
 import {MainContext} from '../contexts/MainContext';
 
 const Favourite = ({navigation}) => {
   const {getFavourtiesList} = useFavourite();
-  const [favorites, setFavourites] = useState([]);
-  const [favoriteList, setFavouriteList] = useState([]);
+  const [favourites, setFavourites] = useState([]);
+  const [favouriteList, setFavouriteList] = useState([]);
   const {updateFavourite} = useContext(MainContext);
 
   // Fetching  user favourite list
@@ -32,11 +32,12 @@ const Favourite = ({navigation}) => {
   // Mapping and storing all the favourites file via file id on the main media list
   const setList = async () => {
     const media = await Promise.all(
-      favorites.map(async (favorite) => {
-        const response = await getMediaById(favorite.file_id);
+      favourites.map(async (favourite) => {
+        const response = await getMediaById(favourite.file_id);
         return response;
       })
     );
+
     setFavouriteList(media);
   };
 
@@ -48,23 +49,18 @@ const Favourite = ({navigation}) => {
   // Updating list whenever there is change in favourite
   useEffect(() => {
     setList();
-  }, [favorites]);
+  }, [favourites]);
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <List
-        data={favoriteList}
+        data={favouriteList}
         contentContainerStyle={styles.container}
         horizontal={false}
         ItemSeparatorComponent={ItemSeparator}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <PlainListItem
-            navigation={navigation}
-            singleItem={item}
-            displayText={true}
-            showMyMedia={false}
-          />
+          <FavouriteList navigation={navigation} singleItem={item} />
         )}
       />
     </SafeAreaView>
@@ -77,4 +73,8 @@ const styles = StyleSheet.create({
     paddingBottom: '10%',
   },
 });
+
+Favourite.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 export default Favourite;

@@ -1,6 +1,12 @@
+// Import from react
 import React, {useCallback, useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
+
+// Import from UI Kitten
 import {Layout, Select, SelectItem, IndexPath} from '@ui-kitten/components';
+
+// Import from files
 import {CategoryIcon} from './elements/Icons';
 import {useFocusEffect} from '@react-navigation/native';
 import {colors} from '../utils';
@@ -86,5 +92,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.text_light,
   }
 });
+
+CategoryPicker.propTypes = {
+  setCategory: PropTypes.func,
+};
 
 export default CategoryPicker;

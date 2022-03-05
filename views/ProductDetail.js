@@ -1,12 +1,10 @@
 // Import from react
 import React, {useContext, useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import {
   Alert,
   Image,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   View,
@@ -24,38 +22,23 @@ import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
-import {getAvatar, useFavourite, useMedia} from '../hooks/MediaHooks';
+import {getAvatar, useMedia} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
 import {MessageList} from '../components/lists';
-import LottieView from 'lottie-react-native';
 import UserItem from '../components/elements/UserItem';
 import {AppButton} from '../components/elements/AppButton';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
+import LikeComponent from '../components/LikeComponent';
 
 const ProductDetail = ({route, navigation}) => {
   const {file} = route.params;
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
   const [avatar, setAvatar] = useState(uploadDefaultUri);
-  const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
-    useFavourite();
-  const [likes, setLikes] = useState([]);
-  const [userLike, setUserLike] = useState(false);
-  const {
-    user,
-    updateFavourite,
-    setUpdateFavourite,
-    updateAvatar,
-    update,
-    setUpdate,
-  } = useContext(MainContext);
+  const {updateAvatar} = useContext(MainContext);
   const [name, setName] = useState('');
   const {mediaArray} = useMedia();
-
-  // favorite animation
-  const animation = React.useRef(null);
-  const isFirstRun = React.useRef(true);
 
   // image zoom in view in modal
   const [visible, setVisible] = useState(false);
@@ -67,68 +50,20 @@ const ProductDetail = ({route, navigation}) => {
     },
   ];
 
-  // add to favourite
-  const fetchLikes = async () => {
+  const getUser = async () => {
     try {
-      const likesData = await getFavourtiesByFileId(file.file_id);
       const userData = await getUserById(file.user_id);
 
       setName(userData.username);
-      setLikes(likesData);
-      likesData.forEach((like) => {
-        like.user_id === user.user_id && setUserLike(true);
-      });
     } catch (e) {
       Alert.alert('Error showing likes', 'Close');
       console.error('fetch like error', e);
     }
   };
-  const addLike = async () => {
-    try {
-      const token = await AsyncStorage.getItem('userToken');
-      const response = await postFavourite(file.file_id, token);
-      if (response) {
-        setUpdateFavourite(updateFavourite + 1);
-        setUserLike(true);
-        setUpdate(update + 1);
-      }
-    } catch (e) {
-      console.error('Add Like error', e);
-    }
-  };
-  const unlike = async () => {
-    try {
-      const token = await AsyncStorage.getItem('userToken');
-      const response = await deleteFavourite(file.file_id, token);
-      if (response) {
-        setUpdateFavourite(updateFavourite + 1);
-        setUserLike(false);
-        setUpdate(update + 1);
-      }
-    } catch (e) {
-      console.error('Remove Like error', e);
-    }
-  };
 
   useEffect(() => {
-    fetchLikes();
-    if (isFirstRun.current) {
-      if (userLike) {
-        animation.current.play(66, 66);
-      } else {
-        animation.current.play(19, 19);
-      }
-      isFirstRun.current = false;
-    } else if (userLike) {
-      animation.current.play(19, 50);
-    } else {
-      animation.current.play(0, 19);
-    }
-  }, [userLike]);
-
-  const onSubmit = async () => {
-    userLike ? await unlike() : addLike();
-  };
+    getUser();
+  }, []);
 
   const userMedia = mediaArray.filter((item) => item.user_id === file.user_id);
 
@@ -176,33 +111,8 @@ const ProductDetail = ({route, navigation}) => {
                 <Layout style={styles.container}>
                   <Text style={styles.title}>{file.title}</Text>
 
-                  <Pressable
-                    onPress={onSubmit}
-                    style={{
-                      justifyContent: 'flex-end',
-                      alignItems: 'flex-end',
-                    }}
-                  >
-                    <LottieView
-                      ref={animation}
-                      source={require('../assets/icons/like-animation.json')}
-                      autoPlay={false}
-                      loop={false}
-                      style={{width: 60, height: 60, right: -5}}
-                    />
-                    <Text
-                      category="s1"
-                      style={{
-                        right: Platform.OS === 'android' ? '25%' : '17%',
-                        bottom: 10,
-                        fontSize: 14,
-                      }}
-                    >
-                      {likes.length}
-                    </Text>
-                  </Pressable>
+                  <LikeComponent file={file} heartAnimation={true} />
                 </Layout>
-
                 <Divider style={{backgroundColor: colors.lightGrey}} />
 
                 <UserItem
@@ -231,7 +141,6 @@ const ProductDetail = ({route, navigation}) => {
                     </Text>
                   </ReadMore>
                 </Layout>
-
                 <Divider style={{backgroundColor: colors.lightGrey}} />
                 <Text category="s1" style={styles.detail}>
                   Send the Seller a message
@@ -247,6 +156,7 @@ const ProductDetail = ({route, navigation}) => {
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   boxShadow: {
     marginVertical: 15,
@@ -257,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 30,
     alignSelf: 'center',
-    width: 340,
+    width: 350,
   },
   container: {
     flexDirection: 'row',

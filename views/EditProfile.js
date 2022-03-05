@@ -212,8 +212,6 @@ const EditProfile = ({navigation}) => {
                   )}
                   name="username"
                 />
-                {/* Need to ask teacher: Not working */}
-                {/* {<ErrorMessage field={errors.username} text={errors.username.message} />} */}
 
                 {errors.username && (
                   <Text status="danger">
@@ -384,9 +382,6 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
-    borderRadius: 4,
-    // borderColor: 'transparent',
-    backgroundColor: colors.container,
   },
   layout: {
     backgroundColor: colors.primary,

@@ -42,6 +42,6 @@ FormButton.propTypes = {
   handleSubmit: PropTypes.func,
   onSubmit: PropTypes.func,
   disabled: PropTypes.bool,
-  text: PropTypes.object,
+  text: PropTypes.string,
 };
 export {AppButton, FormButton};
