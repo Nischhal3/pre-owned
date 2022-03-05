@@ -1,14 +1,22 @@
 import React, {useContext} from 'react';
 import {Platform, StyleSheet} from 'react-native';
-import {Text, Layout} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
-import {login} from '../hooks/ApiHooks';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PropTypes} from 'prop-types';
-import {MainContext} from '../contexts/MainContext';
+
+// Import from Ui Kitten Library
+import {Text, Layout} from '@ui-kitten/components';
+
+// Import app components
 import FormInput from './formComponents/FormInput';
 import {FormButton} from './elements/AppButton';
 import ErrorMessage from './elements/ErrorMessage';
+
+// Api import
+import {login} from '../hooks/ApiHooks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
+
+// Styling import
 import {colors} from '../utils';
 
 const LoginForm = () => {
@@ -37,19 +45,14 @@ const LoginForm = () => {
 
   return (
     <Layout style={styles.layout}>
-      <Text
-        category="h5"
-        style={{
-          top: Platform.OS === 'android' ? '-20%' : '-25%',
-          textAlign: 'center',
-          fontFamily: 'Karla_700Bold',
-        }}
-      >
-        Welcome back
-      </Text>
-      <Text category="s1" style={styles.textWelcome}>
-        Use your credentials below and login to your account
-      </Text>
+      <Layout style={styles.textContainer}>
+        <Text category="h5" style={styles.titleWelcome}>
+          Welcome back
+        </Text>
+        <Text category="s1" style={styles.textWelcome}>
+          Use your credentials below and login to your account
+        </Text>
+      </Layout>
       <Controller
         control={control}
         rules={{
@@ -97,10 +100,8 @@ const LoginForm = () => {
         error={errors?.password}
         message={errors?.password?.message}
       />
-
-      <Text style={styles.password}>Forgot password?</Text>
       <FormButton
-        style={{top: '-15%'}}
+        style={{marginTop: 100}}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         text="Login"
@@ -116,23 +117,23 @@ const styles = StyleSheet.create({
     width: 300,
   },
   layout: {
-    marginTop: '35%',
-    height: undefined,
+    marginTop: '15%',
+    height: '85%',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
-  password: {
-    marginTop: 5,
-    marginBottom: 100,
-    alignSelf: 'flex-end',
-  },
   textWelcome: {
-    top: Platform.OS === 'android' ? '-15%' : '-20%',
     textAlign: 'center',
     fontFamily: 'Karla',
     fontSize: 16,
-    paddingHorizontal: 10,
-    marginBottom: -20,
+  },
+  titleWelcome: {
+    textAlign: 'center',
+    fontFamily: 'Karla_700Bold',
+  },
+  textContainer: {
+    backgroundColor: 'transparent',
+    marginVertical: '5%',
   },
 });
 

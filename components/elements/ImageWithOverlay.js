@@ -1,3 +1,4 @@
+// Import from react
 import React from 'react';
 import {ImageBackground} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';

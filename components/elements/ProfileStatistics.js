@@ -13,7 +13,7 @@ import {getMessagesList} from '../../hooks/MessageHook';
 import {MainContext} from '../../contexts/MainContext';
 
 const Statistics = () => {
-  const {setIsLoggedIn, user} = useContext(MainContext);
+  const {user} = useContext(MainContext);
   const {mediaArray} = useMedia();
   const {getFavourtiesList} = useFavourite();
   const [favourites, setFavourites] = useState([]);
@@ -35,7 +35,7 @@ const Statistics = () => {
   const myMessages = async () => {
     const token = await getToken();
     const response = await getMessagesList(token);
-    console.log(response);
+    // console.log(response);
     setMessages(response);
   };
 

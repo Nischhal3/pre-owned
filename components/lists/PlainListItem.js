@@ -1,6 +1,6 @@
 // Import from React and library
 import React, {useContext} from 'react';
-import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten Library
@@ -18,11 +18,10 @@ import {
 import {PointRightArrow} from '../elements/Icons';
 import {uploadsUrl} from '../../utils/url';
 import moment from 'moment';
-import {deleteMedia, useMedia} from '../../hooks/MediaHooks';
+import {deleteMedia} from '../../hooks/MediaHooks';
 import {MainContext} from '../../contexts/MainContext';
 import {getToken} from '../../hooks/CommonFunction';
 import {colors} from '../../utils';
-import {Shadow} from 'react-native-shadow-2';
 
 // SingleItem for vertical lists
 const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
@@ -63,11 +62,11 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
           source={{uri: uploadsUrl + singleItem.thumbnails.w160}}
         />
       </Layout>
-      <Layout style={styles.titleBox}>
-        <Text numberOfLines={1} style={styles.title}>
-          {singleItem.title}
-        </Text>
-      </Layout>
+
+      <Text numberOfLines={1} style={styles.title}>
+        {singleItem.title}
+      </Text>
+
       {displayText === true ? (
         <Text style={styles.displayTime}>
           {moment(singleItem.time_added).format('DD.MM.YYYY hh:mm a')}
@@ -103,13 +102,13 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
 
 const styles = StyleSheet.create({
   buttonGroup: {
-    flex: 3.5,
-    width: 100,
+    flex: 3,
+    right: '2%',
     alignSelf: 'center',
   },
   displayTime: {
     flex: 2,
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: 'Karla_400Regular',
     alignSelf: 'center',
     lineHeight: 20,
@@ -133,14 +132,15 @@ const styles = StyleSheet.create({
     flex: 6,
     backgroundColor: colors.box,
     alignSelf: 'center',
-    marginStart: 15,
+    paddingStart: '10%',
   },
   title: {
     fontSize: 16,
     marginBottom: 5,
     fontFamily: 'Karla_700Bold',
     alignSelf: 'center',
-    width: 170,
+    width: '50%',
+    paddingHorizontal: 30,
   },
   row: {
     flexDirection: 'row',

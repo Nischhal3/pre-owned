@@ -1,7 +1,15 @@
 // Import from React
-import React, {useContext, useState} from 'react';
-import {StyleSheet, TouchableHighlight, Platform, Alert} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  TouchableHighlight,
+  Platform,
+  Alert,
+  Image,
+} from 'react-native';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+
 // Import from UI Kitten Library
 import {Avatar, Button, Icon, Layout, Text} from '@ui-kitten/components';
 import {Swipeable} from 'react-native-gesture-handler';
@@ -12,11 +20,11 @@ import {getToken} from '../../hooks/CommonFunction';
 import {deleteMessage} from '../../hooks/MessageHook';
 import {MainContext} from '../../contexts/MainContext';
 import ReadMore from 'react-native-read-more-text';
+import assetAvatar from '../../assets/backgrounds/Avatar.png';
+import {getAvatar} from '../../hooks/MediaHooks';
 
 // now in use: ProductDetail.js, Messages
 const ListDetail = ({
-  props,
-  image,
   IconComponent,
   renderRightActions,
   showMessages,
@@ -25,8 +33,10 @@ const ListDetail = ({
   setUpdateMessage,
   updateMessage,
 }) => {
-  // Can't use MainContext here ?
-  // const {updateMessage, setUpdateMessage} = useContext(MainContext);
+  const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
+  const [avatar, setAvatar] = useState(uploadDefaultUri);
+  const {updateAvatar} = useContext(MainContext);
+
   const handleDelete = () => {
     Alert.alert('Delete Message', 'Confirm delete action?', [
       {text: 'Cancel'},
@@ -49,12 +59,20 @@ const ListDetail = ({
     ]);
   };
 
+  const fetchAvatar = async () => {
+    await getAvatar(message.user_id, setAvatar);
+  };
+
+  useEffect(() => {
+    fetchAvatar();
+  }, [updateAvatar]);
+
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.text_light}>
         <Layout style={styles.container}>
           {IconComponent}
-          {image && <Avatar style={styles.image} source={image} />}
+          <Avatar style={styles.image} source={{uri: avatar}} />
           <Layout style={styles.detailsContainer}>
             <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
               {message.username}
@@ -103,19 +121,19 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     width: '100%',
-    padding: 10,
+    paddingVertical: 10,
     backgroundColor: colors.primary,
     justifyContent: 'space-between',
   },
   deleteBtn: {
     width: 70,
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignSelf: 'center',
     fontSize: 12,
     fontFamily: 'Karla_400Regular',
     top: 0,
     bottom: 5,
-    right: 40,
+    right: 44,
     lineHeight: 20,
   },
   description: {
@@ -124,30 +142,28 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla_400Regular',
   },
   detailsContainer: {
-    width: '50%',
-    marginLeft: 10,
+    width: '45%',
+    marginLeft: 15,
+    marginRight: 5,
     justifyContent: 'center',
+    alignSelf: 'center',
     backgroundColor: colors.primary,
   },
   image: {
     width: 70,
     height: 70,
-    backgroundColor: colors.text_light,
   },
   readMore: {
-    width: 150,
     marginTop: 5,
     backgroundColor: 'transparent',
   },
   timeIos: {
-    width: 70,
+    width: 80,
     justifyContent: 'flex-end',
     alignItems: 'center',
     fontSize: 12,
     fontFamily: 'Karla_400Regular',
     bottom: -5,
-    top: 15,
-    right: -10,
     lineHeight: 20,
   },
   timeAndroid: {
@@ -158,9 +174,17 @@ const styles = StyleSheet.create({
     top: 15,
     right: 10,
     lineHeight: 20,
-    marginLeft: 15,
+    marginLeft: 10,
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });
-
+ListDetail.propTypes = {
+  IconComponent: PropTypes.object,
+  renderRightActions: PropTypes.func,
+  showMessages: PropTypes.bool,
+  message: PropTypes.object,
+  updateMessage: PropTypes.number,
+  setUpdateMessage: PropTypes.func,
+  user: PropTypes.object,
+};
 export default ListDetail;

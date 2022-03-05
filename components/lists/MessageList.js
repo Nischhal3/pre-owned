@@ -1,6 +1,14 @@
 // import from React
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
@@ -35,10 +43,8 @@ import SVGIcon from '../../assets/icons/no-message.svg';
 import {getMessagesByFileId, postMessage} from '../../hooks/MessageHook';
 
 const MessageList = ({fileId, showMessages = false}) => {
-  // const {postMessage, getMessagesByFileId} = useMessage(fileId, showMessages);
 
   const {user, updateMessage, setUpdateMessage} = useContext(MainContext);
-  // const [senderName, setSenderName] = useState('');
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
   const [avatar, setAvatar] = useState(
@@ -47,7 +53,6 @@ const MessageList = ({fileId, showMessages = false}) => {
 
   // display messages from latest to oldest
   messages.sort((a, b) => a.time_added < b.time_added);
-
   const {
     control,
     handleSubmit,
@@ -99,7 +104,7 @@ const MessageList = ({fileId, showMessages = false}) => {
         ]);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -118,13 +123,14 @@ const MessageList = ({fileId, showMessages = false}) => {
   return (
     <Layout style={styles.container}>
       <Layout
-        style={{height: 150, backgroundColor: colors.primary, marginBottom: 20}}
+        style={{
+          height: 150,
+          backgroundColor: colors.primary,
+          marginBottom: 20,
+        }}
       >
         <Controller
           control={control}
-          rules={{
-            required: {value: true, message: 'This is required.'},
-          }}
           render={({field: {onChange, onBlur, value}}) => (
             <FormInput
               style={styles.commentBox}
@@ -136,6 +142,7 @@ const MessageList = ({fileId, showMessages = false}) => {
               textEntry={false}
               multiline={true}
               textStyle={{minHeight: 72}}
+              align="top"
             />
           )}
           name="message"
@@ -193,7 +200,6 @@ const MessageList = ({fileId, showMessages = false}) => {
                   renderItem={({item}) => (
                     <ListDetail
                       showMessages={true}
-                      image={{uri: avatar}}
                       renderRightActions={() => (
                         <DeleteAction
                           message={item}
@@ -233,19 +239,22 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: 'Karla',
     borderColor: colors.stroke,
+    borderRadius: 7,
+    backgroundColor: colors.container,
   },
   sendBtn: {
     width: 100,
     height: 50,
     alignSelf: 'flex-end',
     marginBottom: 15,
+    marginTop: 10,
     right: 10,
   },
   messageBtn: {
     alignSelf: 'flex-start',
-    marginTop: '-20%',
+    marginTop: '-22%',
     marginBottom: 20,
-    left: '-10%',
+    left: '-8%',
   },
   modal: {top: '10%', width: 380},
   messagesContainer: {
@@ -254,6 +263,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 700,
     backgroundColor: colors.primary,
+    width: '98%',
   },
   noMessageContainer: {
     backgroundColor: 'transparent',

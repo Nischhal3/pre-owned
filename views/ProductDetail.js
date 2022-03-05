@@ -1,53 +1,45 @@
 // Import from react
 import React, {useContext, useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import {
   Alert,
   Image,
   Platform,
-  Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
   Modal,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import ReadMore from 'react-native-read-more-text';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // Import from Library UI Kitten
 import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
-import {useFavourite} from '../hooks/MediaHooks';
+import {getAvatar, useMedia} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
 import {MessageList} from '../components/lists';
-import LottieView from 'lottie-react-native';
-import {GlobalStyles} from '../utils';
 import UserItem from '../components/elements/UserItem';
 import {AppButton} from '../components/elements/AppButton';
-// import {TouchableOpacity} from 'react-native-gesture-handler';
+import assetAvatar from '../assets/backgrounds/Avatar.png';
+import LikeComponent from '../components/LikeComponent';
 
 const ProductDetail = ({route, navigation}) => {
   const {file} = route.params;
-  const [avatar, setAvatar] = useState(
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-  );
-  const {postFavourite, getFavourtiesByFileId, deleteFavourite} =
-    useFavourite();
-  const [likes, setLikes] = useState([]);
-  const [userLike, setUserLike] = useState(false);
-  const {user, updateFavourite, setUpdateFavourite} = useContext(MainContext);
+  const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
+  const [avatar, setAvatar] = useState(uploadDefaultUri);
+  const {updateAvatar} = useContext(MainContext);
   const [name, setName] = useState('');
-  // favorite animation
-  const animation = React.useRef(null);
-  const isFirstRun = React.useRef(true);
+  const {mediaArray} = useMedia();
 
   // image zoom in view in modal
   const [visible, setVisible] = useState(false);
@@ -58,176 +50,111 @@ const ProductDetail = ({route, navigation}) => {
       height: undefined,
     },
   ];
-  // // fetch Avatar
-  // // const fetchAvatar = async () => {
-  // //   try {
-  // //     const avatarList = await getFilesByTag('avatar_' + file.user_id);
-  // //     if (avatarList.length === 0) {
-  // //       return;
-  // //     }
-  // //     const avatar = avatarList.pop();
-  // //     setAvatar(uploadsUrl + avatar.filename);
-  // //     console.log('single.js avatar', avatar);
-  // //   } catch (e) {
-  // //     console.error(e.message);
-  // //   }
-  // // };
-  // // useEffect(() => {
-  // //   fetchAvatar();
-  // // }, []);
 
-  // add to favourite
-  const fetchLikes = async () => {
+  const getUser = async () => {
     try {
-      const likesData = await getFavourtiesByFileId(file.file_id);
       const userData = await getUserById(file.user_id);
 
       setName(userData.username);
-      setLikes(likesData);
-      likesData.forEach((like) => {
-        like.user_id === user.user_id && setUserLike(true);
-      });
     } catch (e) {
       Alert.alert('Error showing likes', 'Close');
       console.error('fetch like error', e);
     }
   };
-  const addLike = async () => {
-    try {
-      const token = await AsyncStorage.getItem('userToken');
-      const response = await postFavourite(file.file_id, token);
-      if (response) {
-        setUpdateFavourite(updateFavourite + 1);
-        setUserLike(true);
-      }
-    } catch (e) {
-      console.error('Add Like error', e);
-    }
-  };
-  const unlike = async () => {
-    try {
-      const token = await AsyncStorage.getItem('userToken');
-      const response = await deleteFavourite(file.file_id, token);
-      if (response) {
-        setUpdateFavourite(updateFavourite + 1);
-        setUserLike(false);
-      }
-    } catch (e) {
-      console.error('Remove Like error', e);
-    }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const userMedia = mediaArray.filter((item) => item.user_id === file.user_id);
+
+  // Fetching avatar
+  const fetchAvatar = async () => {
+    await getAvatar(file.user_id, setAvatar);
   };
 
   useEffect(() => {
-    fetchLikes();
-    if (isFirstRun.current) {
-      if (userLike) {
-        animation.current.play(66, 66);
-      } else {
-        animation.current.play(19, 19);
-      }
-      isFirstRun.current = false;
-    } else if (userLike) {
-      animation.current.play(19, 50);
-    } else {
-      animation.current.play(0, 19);
-    }
-  }, [userLike]);
-
-  const onSubmit = async () => {
-    userLike ? await unlike() : addLike();
-  };
+    fetchAvatar();
+  }, [updateAvatar]);
 
   return (
-    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
-      <ScrollView>
-        <TouchableOpacity onPress={() => setVisible(true)}>
-          <Image
-            style={styles.image}
-            source={{uri: uploadsUrl + file.filename}}
-          />
-        </TouchableOpacity>
-        <Modal
-          visible={visible}
-          transparent={true}
-          onBackdropPress={() => setVisible(false)}
-        >
-          <AppButton
-            appBtnStyle={styles.closeBtn}
-            onPress={() => setVisible(false)}
-            accessoryLeft={<Icon name="close-outline" />}
-          />
-          <ImageViewer imageUrls={images} />
-        </Modal>
-        <View style={styles.boxShadow}>
-          <Shadow distance={7}>
-            <Card style={styles.card}>
-              <Layout style={styles.container}>
-                <Text style={styles.title}>{file.title}</Text>
+    <ScrollView>
+      <TouchableOpacity
+        style={styles.safeView}
+        activeOpacity={1}
+        onPress={() => Keyboard.dismiss()}
+      >
+        <KeyboardAwareScrollView style={{flex: 1}}>
+          <TouchableOpacity onPress={() => setVisible(true)}>
+            <Image
+              style={styles.image}
+              source={{uri: uploadsUrl + file.filename}}
+            />
+          </TouchableOpacity>
+          <Modal
+            visible={visible}
+            transparent={true}
+            onBackdropPress={() => setVisible(false)}
+          >
+            <AppButton
+              appBtnStyle={styles.closeBtn}
+              onPress={() => setVisible(false)}
+              accessoryLeft={<Icon name="close-outline" />}
+            />
+            <ImageViewer imageUrls={images} />
+          </Modal>
+          <View style={styles.boxShadow}>
+            <Shadow distance={7}>
+              <Card style={styles.card}>
+                <Layout style={styles.container}>
+                  <Text style={styles.title}>{file.title}</Text>
 
-                <Pressable
-                  onPress={onSubmit}
-                  style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
-                >
-                  <LottieView
-                    ref={animation}
-                    source={require('../assets/icons/like-animation.json')}
-                    autoPlay={false}
-                    loop={false}
-                    style={{width: 60, height: 60, right: -5}}
-                  />
-                  <Text
-                    category="s1"
-                    style={{
-                      right: Platform.OS === 'android' ? '25%' : '17%',
-                      bottom: 10,
-                      fontSize: 14,
-                    }}
-                  >
-                    {likes.length}
-                  </Text>
-                </Pressable>
-              </Layout>
+                  <LikeComponent file={file} heartAnimation={true} />
+                </Layout>
+                <Divider style={{backgroundColor: colors.lightGrey}} />
 
-              <Divider style={{backgroundColor: colors.lightGrey}} />
+                <UserItem
+                  onPress={() => {
+                    navigation.navigate('Profile', {
+                      profileParam: file.user_id,
+                    });
+                  }}
+                  image={{uri: avatar}}
+                  title={name}
+                  description={`${userMedia.length} Listings`}
+                />
+                <Divider style={{backgroundColor: colors.lightGrey}} />
 
-              <UserItem
-                onPress={() => {
-                  navigation.navigate('Profile', {profileParam: file.user_id});
-                }}
-                image={{uri: avatar}}
-                title={name}
-                description="5 Listings"
-              />
-              <Divider style={{backgroundColor: colors.lightGrey}} />
-
-              <Text category="s1" style={styles.detail}>
-                Price & Details
-              </Text>
-              <Layout style={styles.readMore}>
-                <ReadMore numberOfLines={1}>
-                  <Text
-                    style={styles.detailDescription}
-                    category="c1"
-                    numberOfLines={4}
-                  >
-                    {file.description}
-                  </Text>
-                </ReadMore>
-              </Layout>
-
-              <Divider style={{backgroundColor: colors.lightGrey}} />
-              <Text category="s1" style={styles.detail}>
-                Send the Seller a message
-              </Text>
-
-              <MessageList fileId={file.file_id} />
-            </Card>
-          </Shadow>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+                <Text category="s1" style={styles.detail}>
+                  Price & Details
+                </Text>
+                <Layout style={styles.readMore}>
+                  <ReadMore numberOfLines={1}>
+                    <Text
+                      style={styles.detailDescription}
+                      category="c1"
+                      numberOfLines={4}
+                    >
+                      {file.description}
+                    </Text>
+                  </ReadMore>
+                </Layout>
+                <Divider style={{backgroundColor: colors.lightGrey}} />
+                <Text category="s1" style={styles.detail}>
+                  Send the Seller a message
+                </Text>
+                <ScrollView>
+                  <MessageList fileId={file.file_id} />
+                </ScrollView>
+              </Card>
+            </Shadow>
+          </View>
+        </KeyboardAwareScrollView>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   boxShadow: {
     marginVertical: 15,
@@ -236,10 +163,9 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: colors.primary,
-    borderRadius: 45,
+    borderRadius: 30,
     alignSelf: 'center',
-    width: 360,
-    // width: Platform.OS === 'android' ? 350 : 370,
+    width: 350,
   },
   container: {
     flexDirection: 'row',
@@ -255,7 +181,6 @@ const styles = StyleSheet.create({
     height: 10,
     position: 'absolute',
     marginTop: 100,
-    // right: 5,
     alignSelf: 'flex-end',
     backgroundColor: 'transparent',
     borderColor: 'transparent',
@@ -279,6 +204,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 280,
     marginBottom: 10,
+    alignSelf: 'center',
   },
   price: {
     color: colors.text_dark,

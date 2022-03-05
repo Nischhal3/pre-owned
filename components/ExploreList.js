@@ -1,6 +1,11 @@
-import {List} from '@ui-kitten/components';
+// Import from react
 import React from 'react';
 import PropTypes from 'prop-types';
+
+// Import from UI Kitten library
+import {List} from '@ui-kitten/components';
+
+// Import from files
 import {useMedia} from '../hooks/MediaHooks';
 import {GalleryItemHorizontal, GalleryItemVertical} from './lists/GalleryItem';
 import {colors} from '../utils';
@@ -34,9 +39,9 @@ const GalleryListHorizontal = ({navigation}) => {
 // Return a vertical gallery list
 const GalleryListVertical = ({navigation}) => {
   const {mediaArray} = useMedia();
+  mediaArray.sort((a, b) => a.favCount < b.favCount);
   const showFirstFive = mediaArray.slice(0, 5);
 
-  // console.log('Explorer', mediaArray);
   return (
     <List
       style={{backgroundColor: colors.background}}

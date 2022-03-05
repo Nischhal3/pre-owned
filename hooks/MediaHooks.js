@@ -1,57 +1,28 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
-import {appId, baseUrl} from '../utils/url';
+import {appId, baseUrl, uploadsUrl} from '../utils/url';
 import {fetchData, fetchFromMedia} from './CommonFunction';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
-  const {update} = useContext(MainContext);
+  const {update, updateFavourite} = useContext(MainContext);
 
-  // Category items
-  const [home, setHome] = useState([]);
-  const [electronics, setElectornics] = useState([]);
-  const [clothing, setClothing] = useState([]);
-  const [sports, setSports] = useState([]);
-  const [gaming, setGaming] = useState([]);
-  const [others, setOthers] = useState([]);
-
-  // Category tags
-  const homeTag = `${appId}_Home & Living`;
-  const electronicsTag = `${appId}_Electronics`;
-  const clothingTag = `${appId}_Clothing`;
-  const sportsTag = `${appId}_Sports`;
-  const gamingTag = `${appId}_Gaming & Accessories`;
-  const othersTag = `${appId}_Others`;
-
+  // Fetching all media
   const fetchMedia = async () => {
     try {
-      // Fetching items by category
-      const allMedia = await getFilesByTag(appId);
-      const homeMedia = await getFilesByTag(homeTag);
-      const electronicsMedia = await getFilesByTag(electronicsTag);
-      const clothingMedia = await getFilesByTag(clothingTag);
-      const sportsMedia = await getFilesByTag(sportsTag);
-      const gamingMedia = await getFilesByTag(gamingTag);
-      const othersMedia = await getFilesByTag(othersTag);
+      const media = await getFilesByTag(appId);
+      const mediaCategory = await fetchFromMedia(media);
+      setMediaArray(mediaCategory);
+    } catch (error) {
+      console.log('Error', error);
+    }
+  };
 
-      // Storing items by category
-      const allMediaCategory = await fetchFromMedia(allMedia);
-      const homeCategory = await fetchFromMedia(homeMedia);
-      const electronicsCategory = await fetchFromMedia(electronicsMedia);
-      const clothingCategory = await fetchFromMedia(clothingMedia);
-      const sportsCategory = await fetchFromMedia(sportsMedia);
-      const gamingCategory = await fetchFromMedia(gamingMedia);
-      const othersCategory = await fetchFromMedia(othersMedia);
-
-      setMediaArray(allMediaCategory);
-      setHome(homeCategory);
-      setElectornics(electronicsCategory);
-      setClothing(clothingCategory);
-      setSports(sportsCategory);
-      setGaming(gamingCategory);
-      setOthers(othersCategory);
-
-      //console.log('Length', mediaArray.length);
+  // Fetching media by category
+  const getMediaByCategory = async (category) => {
+    try {
+      const media = await getFilesByTag(`${appId}_${category}`);
+      return await fetchFromMedia(media);
     } catch (error) {
       console.log('Error', error);
     }
@@ -62,16 +33,11 @@ const useMedia = () => {
   useEffect(() => {
     fetchMedia();
     // return () => {};
-  }, [update]);
+  }, [update, updateFavourite]);
 
   return {
     mediaArray,
-    home,
-    electronics,
-    clothing,
-    sports,
-    gaming,
-    others,
+    getMediaByCategory,
   };
 };
 
@@ -178,6 +144,19 @@ const useFavourite = () => {
   };
 };
 
+const getAvatar = async (userId, setAvatar) => {
+  try {
+    const avatarArray = await getFilesByTag('pre_owned_avatar_' + userId);
+    const fetchedAvatar = avatarArray.pop();
+
+    if (fetchedAvatar !== null) {
+      setAvatar(uploadsUrl + fetchedAvatar.filename);
+    }
+  } catch (error) {
+    console.log('Avatar message', error.message);
+  }
+};
+
 export {
   getFilesByTag,
   postMedia,
@@ -187,4 +166,5 @@ export {
   postTag,
   useMedia,
   useFavourite,
+  getAvatar,
 };

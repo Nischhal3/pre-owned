@@ -1,7 +1,12 @@
+// Import from React
 import React from 'react';
 import {TouchableHighlight, StyleSheet, Platform} from 'react-native';
 import PropTypes from 'prop-types';
+
+// Import from UI Kitten
 import {Avatar, Layout, ListItem, Text} from '@ui-kitten/components';
+
+// Import from files
 import {colors} from '../../utils';
 import {PointRightArrow} from './Icons';
 
@@ -22,7 +27,7 @@ const UserItem = ({title, description, onPress, image}) => {
 const styles = StyleSheet.create({
   arrowIcon: {
     backgroundColor: 'transparent',
-    right: Platform.OS === 'android' ? 56 : 30,
+    right: Platform.OS === 'android' ? 70 : 65,
     bottom: '17%',
     padding: 0,
   },
@@ -55,6 +60,7 @@ UserItem.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   image: PropTypes.object,
+  onPress: PropTypes.func,
 };
 
 export default UserItem;
