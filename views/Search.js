@@ -54,9 +54,9 @@ const Search = ({navigation}) => {
   ];
 
   const getData = async () => {
+    // Storing category values to data depending upon which check-box is clicked
     setCateogryTitle(categoryNames[itemPosition].category);
 
-    console.log('Clicked', itemPosition);
     itemPosition === 0
       ? setMediaByCategory(
           await getMediaByCategory(categoryNames[itemPosition].category)
@@ -82,7 +82,6 @@ const Search = ({navigation}) => {
           await getMediaByCategory(categoryNames[itemPosition].category)
         )
       : setMediaByCategory([]);
-    // Storing category values to data depending upon which check-box is clicked
   };
 
   // update filtered list
@@ -119,15 +118,12 @@ const Search = ({navigation}) => {
     setSearch('');
   }, [isChecked]);
 
-  // useEffect(() => {
-  //   getData();
-  // }, [itemPosition]);
-
   useFocusEffect(
     useCallback(() => {
       return () => reset();
     }, [])
   );
+
   return (
     <SafeAreaView
       style={{
@@ -230,6 +226,7 @@ const Search = ({navigation}) => {
               paddingVertical: '2%',
               paddingHorizontal: '5%',
             }}
+            onPress={reset}
           />
         ) : (
           <AppButton
