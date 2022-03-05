@@ -1,12 +1,10 @@
 // Import from react
 import React, {useContext, useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import {
   Alert,
   Image,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   View,
@@ -24,12 +22,11 @@ import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
-import {getAvatar, useFavourite, useMedia} from '../hooks/MediaHooks';
+import {getAvatar, useMedia} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
 import {getUserById} from '../hooks/ApiHooks';
 import {MessageList} from '../components/lists';
-import {GlobalStyles} from '../utils';
 import UserItem from '../components/elements/UserItem';
 import {AppButton} from '../components/elements/AppButton';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
@@ -113,28 +110,7 @@ const ProductDetail = ({route, navigation}) => {
               <Card style={styles.card}>
                 <Layout style={styles.container}>
                   <Text style={styles.title}>{file.title}</Text>
-                  {/*
-                <Pressable
-                  onPress={onSubmit}
-                  style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
-                >
-                  <LottieView
-                    ref={animation}
-                    source={require('../assets/icons/like-animation.json')}
-                    autoPlay={false}
-                    loop={false}
-                    style={{width: 60, height: 60, right: -5}}
-                  />
-                  <Text
-                    category="s1"
-                    style={{
-                      justifyContent: 'flex-end',
-                      alignItems: 'flex-end',
-                    }}
-                  >
-                    {likes.length}
-                  </Text>
-                </Pressable> */}
+
                   <LikeComponent file={file} heartAnimation={true} />
                 </Layout>
                 <Divider style={{backgroundColor: colors.lightGrey}} />
