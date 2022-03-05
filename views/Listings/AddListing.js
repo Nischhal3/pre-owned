@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
@@ -150,6 +151,10 @@ const AddListing = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.safeView}>
+      <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : ''}
+      style={{flex: 1}}
+      >
       <ScrollView>
         <View style={styles.boxShadow}>
           <Shadow distance={7}>
@@ -275,6 +280,7 @@ const AddListing = ({navigation}) => {
           </Shadow>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

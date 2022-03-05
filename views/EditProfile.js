@@ -10,6 +10,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {PropTypes} from 'prop-types';
 
@@ -145,6 +146,10 @@ const EditProfile = ({navigation}) => {
 
   return (
     <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+      <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : ''}
+      style={{flex: 1}}
+      >
       <ScrollView>
         <View style={styles.boxShadow}>
           <Shadow>
@@ -348,6 +353,7 @@ const EditProfile = ({navigation}) => {
           </Shadow>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
