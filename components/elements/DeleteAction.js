@@ -21,7 +21,7 @@ const DeleteAction = ({message, user, setUpdateMessage, updateMessage}) => {
           try {
             const token = await getToken();
             const response = await deleteMessage(message.comment_id, token);
-            // console.log(response);
+
             if (response) {
               setUpdateMessage(updateMessage + 1);
               Alert.alert('Message deleted');
