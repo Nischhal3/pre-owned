@@ -4,7 +4,7 @@ import {SafeAreaView, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten
-import {Divider, List} from '@ui-kitten/components';
+import {Layout, List, Text} from '@ui-kitten/components';
 
 // Api import
 import {getMediaById, useFavourite} from '../hooks/MediaHooks';
@@ -15,6 +15,8 @@ import {getToken} from '../hooks/CommonFunction';
 import {FavouriteList} from '../components/lists';
 import {ItemSeparator} from '../components/elements/ItemSeparator';
 import {MainContext} from '../contexts/MainContext';
+import SVGIcon from '../assets/icons/no-content.svg';
+import {AppButton} from '../components/elements/AppButton';
 
 const Favourite = ({navigation}) => {
   const {getFavourtiesList} = useFavourite();
@@ -53,16 +55,46 @@ const Favourite = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
-      <List
-        data={favouriteList}
-        contentContainerStyle={styles.container}
-        horizontal={false}
-        ItemSeparatorComponent={ItemSeparator}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({item}) => (
-          <FavouriteList navigation={navigation} singleItem={item} />
-        )}
-      />
+      {favouriteList.length == 0 ? (
+        <Layout
+          style={{
+            backgroundColor: 'transparent',
+            marginTop: '50%',
+            alignItems: 'center',
+          }}
+        >
+          <SVGIcon width="50" height="50" />
+          <Text
+            category="s1"
+            style={{
+              fontFamily: 'Karla',
+              fontSize: 18,
+              alignSelf: 'center',
+              paddingTop: 20,
+            }}
+          >
+            Your favorite list is empty
+          </Text>
+          <AppButton
+            title="Browse products"
+            appBtnStyle={{top: 20}}
+            onPress={() => {
+              navigation.navigate('All products');
+            }}
+          />
+        </Layout>
+      ) : (
+        <List
+          data={favouriteList}
+          contentContainerStyle={styles.container}
+          horizontal={false}
+          ItemSeparatorComponent={ItemSeparator}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({item}) => (
+            <FavouriteList navigation={navigation} singleItem={item} />
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 };
