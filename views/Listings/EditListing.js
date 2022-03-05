@@ -7,13 +7,13 @@ import {
   StyleSheet,
   Alert,
   Image,
-  KeyboardAvoidingView,
   TouchableOpacity,
   Keyboard,
   Platform,
   View,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // Import from UI KItten Library
 import {Card, Layout, Text} from '@ui-kitten/components';
@@ -66,10 +66,7 @@ const EditListing = ({navigation, route}) => {
     }
   };
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : ''}
-    >
+    <KeyboardAwareScrollView>
       <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
         <ScrollView>
           <View style={styles.boxShadow}>
@@ -148,7 +145,7 @@ const EditListing = ({navigation, route}) => {
           </View>
         </ScrollView>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 

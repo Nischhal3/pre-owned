@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Platform,
-  KeyboardAvoidingView,
 } from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
@@ -151,10 +151,7 @@ const AddListing = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.safeView}>
-      <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : ''}
-      style={{flex: 1}}
-      >
+      <KeyboardAwareScrollView>
       <ScrollView>
         <View style={styles.boxShadow}>
           <Shadow distance={7}>
@@ -280,7 +277,7 @@ const AddListing = ({navigation}) => {
           </Shadow>
         </View>
       </ScrollView>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
