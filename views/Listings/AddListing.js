@@ -7,7 +7,9 @@ import {
   View,
   TouchableOpacity,
   SafeAreaView,
+  Platform,
 } from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import React, {useCallback, useContext, useState} from 'react';
 import {Video} from 'expo-av';
 import {Controller, useForm} from 'react-hook-form';
@@ -148,7 +150,8 @@ const AddListing = ({navigation}) => {
   );
 
   return (
-    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+    <SafeAreaView style={styles.safeView}>
+      <KeyboardAwareScrollView>
       <ScrollView>
         <View style={styles.boxShadow}>
           <Shadow distance={7}>
@@ -232,7 +235,7 @@ const AddListing = ({navigation}) => {
                 render={({field: {onChange, onBlur, value}}) => (
                   <FormInput
                     style={styles.inputStyle}
-                    name="Descripe your product and give it a price"
+                    name="Describe your product and give it a price."
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
@@ -274,6 +277,7 @@ const AddListing = ({navigation}) => {
           </Shadow>
         </View>
       </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
@@ -283,7 +287,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   boxShadow: {
-    marginTop: '5%',
+    marginTop: Platform.OS === 'android' ? '5%' : '15%',
     marginVertical: 15,
     marginHorizontal: 20,
     alignSelf: 'center',

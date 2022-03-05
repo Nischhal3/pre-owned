@@ -7,13 +7,13 @@ import {
   StyleSheet,
   Alert,
   Image,
-  KeyboardAvoidingView,
   TouchableOpacity,
   Keyboard,
   Platform,
   View,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // Import from UI KItten Library
 import {Card, Layout, Text} from '@ui-kitten/components';
@@ -66,16 +66,13 @@ const EditListing = ({navigation, route}) => {
     }
   };
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : ''}
-    >
+    <KeyboardAwareScrollView>
       <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
         <ScrollView>
           <View style={styles.boxShadow}>
             <Shadow>
               <Card style={styles.card}>
-                <Text style={styles.cardTitle}>ProductDetail</Text>
+                <Text style={styles.cardTitle}>Product Detail</Text>
                 <Image
                   source={{uri: uploadsUrl + file.filename}}
                   style={styles.image}
@@ -148,7 +145,7 @@ const EditListing = ({navigation, route}) => {
           </View>
         </ScrollView>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -163,7 +160,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Karla_700Bold',
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: Platform.OS === 'android' ? 20 : 10,
   },
   button: {
     width: '55%',
@@ -171,7 +168,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   boxShadow: {
-    marginTop: '10%',
+    marginTop: Platform.OS === 'android' ? '5%' : '15%',
     marginVertical: 15,
     marginHorizontal: 20,
     alignSelf: 'center',
