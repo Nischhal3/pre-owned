@@ -49,7 +49,6 @@ const EditListing = ({navigation, route}) => {
     try {
       const token = await getToken();
       const response = await putMedia(data, token, file.file_id);
-      console.log('edit post response', response);
 
       response &&
         Alert.alert('Updated', 'Post updated succesfully', [
@@ -62,12 +61,16 @@ const EditListing = ({navigation, route}) => {
           },
         ]);
     } catch (e) {
-      console.log('onSubmit edit post problem', e);
+      console.error('onSubmit edit post problem', e);
     }
   };
   return (
     <KeyboardAwareScrollView>
-      <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
+      <TouchableOpacity
+        style={{backgroundColor: colors.background}}
+        onPress={() => Keyboard.dismiss()}
+        activeOpacity={1}
+      >
         <ScrollView>
           <View style={styles.boxShadow}>
             <Shadow>
@@ -150,17 +153,10 @@ const EditListing = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: colors.background,
-  },
   cardTitle: {
     textAlign: 'center',
     fontFamily: 'Karla_700Bold',
     fontSize: 20,
-    marginBottom: Platform.OS === 'android' ? 20 : 10,
   },
   button: {
     width: '55%',
@@ -171,11 +167,10 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'android' ? '5%' : '15%',
     marginVertical: 15,
     marginHorizontal: 20,
+    justifyContent: 'center',
     alignSelf: 'center',
-    padding: 0,
   },
   card: {
-    width: '100%',
     height: 650,
     justifyContent: 'center',
     backgroundColor: colors.primary,
@@ -190,10 +185,12 @@ const styles = StyleSheet.create({
   },
   form: {
     backgroundColor: colors.primary,
+    width: 300,
   },
   input: {
     marginTop: 10,
-    width: '100%',
+    width: Platform.OS === 'android' ? 270 : 300,
+    alignSelf: 'center',
   },
 });
 

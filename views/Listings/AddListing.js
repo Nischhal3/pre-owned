@@ -152,131 +152,131 @@ const AddListing = ({navigation}) => {
   return (
     <SafeAreaView style={styles.safeView}>
       <KeyboardAwareScrollView>
-      <ScrollView>
-        <View style={styles.boxShadow}>
-          <Shadow distance={7}>
-            <Card style={styles.card}>
-              <Layout style={styles.selectImgWrap}>
-                <Text style={styles.selectImgText}>Select an image</Text>
-                <Icon
-                  style={styles.icon}
-                  fill={colors.mediumGrey}
-                  name="arrowhead-down-outline"
-                />
-                {type === 'image' ? (
-                  <>
-                    <TouchableOpacity onPress={pickImage}>
-                      <Image source={{uri: image}} style={styles.image} />
-                    </TouchableOpacity>
-                  </>
-                ) : (
-                  <Video
-                    source={{uri: image}}
-                    style={styles.image}
-                    useNativeControls={true}
-                    resizeMode="cover"
-                    onError={(err) => {
-                      console.error('video', err);
-                    }}
+        <ScrollView>
+          <View style={styles.boxShadow}>
+            <Shadow distance={7}>
+              <Card style={styles.card}>
+                <Layout style={styles.selectImgWrap}>
+                  <Text style={styles.selectImgText}>Select an image</Text>
+                  <Icon
+                    style={styles.icon}
+                    fill={colors.mediumGrey}
+                    name="arrowhead-down-outline"
                   />
-                )}
-              </Layout>
-              <AppButton
-                appBtnStyle={styles.clearBtn}
-                onPress={reset}
-                accessoryLeft={<Icon name="refresh-outline" />}
-              />
-              <Controller
-                control={control}
-                rules={{
-                  required: {
-                    value: true,
-                    message: 'This field cannot be empty.',
-                  },
-                  minLength: {
-                    value: 3,
-                    message: 'Title has to be at least 3 characters.',
-                  },
-                  maxLength: {
-                    value: 20,
-                    message: 'Title has to be at most 20 characters.',
-                  },
-                }}
-                render={({field: {onChange, onBlur, value}}) => (
-                  <FormInput
-                    style={styles.inputStyle}
-                    name="What's your product?"
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    value={value}
-                    textEntry={false}
-                  />
-                )}
-                name="title"
-              />
-              {errors.title && (
-                <Text status="danger">
-                  {errors.title && errors.title.message}{' '}
-                </Text>
-              )}
-
-              <Controller
-                control={control}
-                rules={{
-                  required: {
-                    value: true,
-                    message: 'Please specify your product with a price.',
-                  },
-                  minLength: {
-                    value: 5,
-                    message: 'Description has to be at least 10 characters.',
-                  },
-                }}
-                render={({field: {onChange, onBlur, value}}) => (
-                  <FormInput
-                    style={styles.inputStyle}
-                    name="Describe your product and give it a price."
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    value={value}
-                    textEntry={false}
-                    multiline={true}
-                    textStyle={{minHeight: 96}}
-                    align="top"
-                  />
-                )}
-                name="description"
-              />
-
-              {errors.description && (
-                <Text status="danger">
-                  {errors.description && errors.description.message}{' '}
-                </Text>
-              )}
-
-              <CategoryPicker setCategory={setCategory} />
-
-              <FormButton
-                handleSubmit={handleSubmit}
-                onSubmit={onSubmit}
-                text={
-                  loading ? (
-                    <ActivityIndicator
-                      animating={loading}
-                      color={colors.text_light}
-                      size="large"
-                    />
+                  {type === 'image' ? (
+                    <>
+                      <TouchableOpacity onPress={pickImage}>
+                        <Image source={{uri: image}} style={styles.image} />
+                      </TouchableOpacity>
+                    </>
                   ) : (
-                    'Upload'
-                  )
-                }
-                disabled={!imageSelected}
-                style={styles.uploadBtn}
-              />
-            </Card>
-          </Shadow>
-        </View>
-      </ScrollView>
+                    <Video
+                      source={{uri: image}}
+                      style={styles.image}
+                      useNativeControls={true}
+                      resizeMode="cover"
+                      onError={(err) => {
+                        console.error('video', err);
+                      }}
+                    />
+                  )}
+                </Layout>
+                <AppButton
+                  appBtnStyle={styles.clearBtn}
+                  onPress={reset}
+                  accessoryLeft={<Icon name="refresh-outline" />}
+                />
+                <Controller
+                  control={control}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: 'This field cannot be empty.',
+                    },
+                    minLength: {
+                      value: 3,
+                      message: 'Title has to be at least 3 characters.',
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: 'Title has to be at most 20 characters.',
+                    },
+                  }}
+                  render={({field: {onChange, onBlur, value}}) => (
+                    <FormInput
+                      style={styles.inputStyle}
+                      name="What's your product?"
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      value={value}
+                      textEntry={false}
+                    />
+                  )}
+                  name="title"
+                />
+                {errors.title && (
+                  <Text status="danger">
+                    {errors.title && errors.title.message}{' '}
+                  </Text>
+                )}
+
+                <Controller
+                  control={control}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: 'Please specify your product with a price.',
+                    },
+                    minLength: {
+                      value: 5,
+                      message: 'Description has to be at least 10 characters.',
+                    },
+                  }}
+                  render={({field: {onChange, onBlur, value}}) => (
+                    <FormInput
+                      style={styles.inputStyle}
+                      name="Describe your product and give it a price."
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      value={value}
+                      textEntry={false}
+                      multiline={true}
+                      textStyle={{minHeight: 96}}
+                      align="top"
+                    />
+                  )}
+                  name="description"
+                />
+
+                {errors.description && (
+                  <Text status="danger">
+                    {errors.description && errors.description.message}{' '}
+                  </Text>
+                )}
+
+                <CategoryPicker setCategory={setCategory} />
+
+                <FormButton
+                  handleSubmit={handleSubmit}
+                  onSubmit={onSubmit}
+                  text={
+                    loading ? (
+                      <ActivityIndicator
+                        animating={loading}
+                        color={colors.text_light}
+                        size="large"
+                      />
+                    ) : (
+                      'Upload'
+                    )
+                  }
+                  disabled={!imageSelected}
+                  style={styles.uploadBtn}
+                />
+              </Card>
+            </Shadow>
+          </View>
+        </ScrollView>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
