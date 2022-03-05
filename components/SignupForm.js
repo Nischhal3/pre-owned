@@ -2,12 +2,11 @@ import React, {useState} from 'react';
 import {
   StyleSheet,
   Alert,
-  Platform,
   ScrollView,
-  KeyboardAvoidingView,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // Import from ui Kitten Library
 import {
@@ -68,10 +67,7 @@ const SignupForm = ({setFormToggle}) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : ''}
-      style={{flex: 1}}
-    >
+    <KeyboardAwareScrollView>
       <Layout style={styles.layout}>
         <Layout style={styles.textContainer}>
           <Text category="h5" style={styles.titleRegister}>
@@ -139,8 +135,6 @@ const SignupForm = ({setFormToggle}) => {
               onChange={onChange}
               value={value}
               textEntry={false}
-              // Error message not working ?
-              // errorMessage={errors.email && errors.email.message}
             />
           )}
           name="email"
@@ -281,7 +275,7 @@ const SignupForm = ({setFormToggle}) => {
           text="Sign Up"
         />
       </Layout>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 

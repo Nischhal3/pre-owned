@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {PropTypes} from 'prop-types';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // Import from UI Kitten Library
 import {Text, Layout, Avatar, Icon} from '@ui-kitten/components';
@@ -145,6 +146,7 @@ const EditProfile = ({navigation}) => {
 
   return (
     <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+      <KeyboardAwareScrollView>
       <ScrollView>
         <View style={styles.boxShadow}>
           <Shadow>
@@ -348,6 +350,7 @@ const EditProfile = ({navigation}) => {
           </Shadow>
         </View>
       </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
