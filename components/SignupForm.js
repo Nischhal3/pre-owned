@@ -120,7 +120,7 @@ const SignupForm = ({setFormToggle}) => {
           error={errors?.username}
           message={errors?.username?.message}
         />
-            
+
         <Controller
           control={control}
           rules={{
