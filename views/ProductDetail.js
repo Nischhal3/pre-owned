@@ -90,19 +90,30 @@ const ProductDetail = ({route, navigation}) => {
           behavior={Platform.OS === 'ios' ? 'padding' : ''}
           style={{flex: 1}}
         >
-          <AppButton
-            appBtnStyle={styles.closeBtn}
-            onPress={() => setVisible(false)}
-            accessoryLeft={<Icon name="close-outline" />}
-          />
-          <ImageViewer imageUrls={images} />
-        </Modal>
-        <View style={styles.boxShadow}>
-          <Shadow distance={7}>
-            <Card style={styles.card}>
-              <Layout style={styles.container}>
-                <Text style={styles.title}>{file.title}</Text>
-                {/*
+          <TouchableOpacity onPress={() => setVisible(true)}>
+            <Image
+              style={styles.image}
+              source={{uri: uploadsUrl + file.filename}}
+            />
+          </TouchableOpacity>
+          <Modal
+            visible={visible}
+            transparent={true}
+            onBackdropPress={() => setVisible(false)}
+          >
+            <AppButton
+              appBtnStyle={styles.closeBtn}
+              onPress={() => setVisible(false)}
+              accessoryLeft={<Icon name="close-outline" />}
+            />
+            <ImageViewer imageUrls={images} />
+          </Modal>
+          <View style={styles.boxShadow}>
+            <Shadow distance={7}>
+              <Card style={styles.card}>
+                <Layout style={styles.container}>
+                  <Text style={styles.title}>{file.title}</Text>
+                  {/*
                 <Pressable
                   onPress={onSubmit}
                   style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}
@@ -124,8 +135,8 @@ const ProductDetail = ({route, navigation}) => {
                     {likes.length}
                   </Text>
                 </Pressable> */}
-                <LikeComponent file={file} heartAnimation={true} />
-              </Layout>
+                  <LikeComponent file={file} heartAnimation={true} />
+                </Layout>
                 <Divider style={{backgroundColor: colors.lightGrey}} />
 
                 <UserItem
