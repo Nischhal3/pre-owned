@@ -147,209 +147,209 @@ const EditProfile = ({navigation}) => {
   return (
     <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
       <KeyboardAwareScrollView>
-      <ScrollView>
-        <View style={styles.boxShadow}>
-          <Shadow>
-            <Layout style={styles.layout}>
-              <TouchableOpacity onPress={pickImage}>
-                {!imageSelected ? (
-                  <AppButton
-                    appBtnStyle={styles.editBtn}
-                    onPress={pickImage}
-                    accessoryLeft={
-                      <Icon name="camera-outline" fill={colors.mediumGrey} />
-                    }
-                  />
-                ) : null}
+        <ScrollView>
+          <View style={styles.boxShadow}>
+            <Shadow>
+              <Layout style={styles.layout}>
+                <TouchableOpacity onPress={pickImage}>
+                  {!imageSelected ? (
+                    <AppButton
+                      appBtnStyle={styles.editBtn}
+                      onPress={pickImage}
+                      accessoryLeft={
+                        <Icon name="camera-outline" fill={colors.mediumGrey} />
+                      }
+                    />
+                  ) : null}
 
-                <Avatar
-                  style={styles.avatar}
-                  source={{uri: avatar}}
-                  shape="round"
-                />
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    marginTop: '2%',
-                    fontSize: 14,
-                    fontFamily: 'Karla',
-                    color: colors.text_dark,
-                  }}
-                >
-                  Change profile picture
-                </Text>
-              </TouchableOpacity>
-              <Layout style={styles.form}>
-                <Controller
-                  control={control}
-                  rules={{
-                    required: {value: true, message: 'This is required.'},
-                    minLength: {
-                      value: 3,
-                      message: 'Username has to be at least 3 characters.',
-                    },
-                    validate: async (value) => {
-                      try {
-                        const available = await checkUserName(value);
-                        if (available || user.username === value) {
+                  <Avatar
+                    style={styles.avatar}
+                    source={{uri: avatar}}
+                    shape="round"
+                  />
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      marginTop: '2%',
+                      fontSize: 14,
+                      fontFamily: 'Karla',
+                      color: colors.text_dark,
+                    }}
+                  >
+                    Change profile picture
+                  </Text>
+                </TouchableOpacity>
+                <Layout style={styles.form}>
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: {value: true, message: 'This is required.'},
+                      minLength: {
+                        value: 3,
+                        message: 'Username has to be at least 3 characters.',
+                      },
+                      validate: async (value) => {
+                        try {
+                          const available = await checkUserName(value);
+                          if (available || user.username === value) {
+                            return true;
+                          } else {
+                            return 'Username is already taken.';
+                          }
+                        } catch (error) {
+                          console.error(error);
+                        }
+                      },
+                    }}
+                    render={({field: {onChange, onBlur, value}}) => (
+                      <FormInput
+                        style={styles.input}
+                        iconName="person-outline"
+                        name="Username"
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        value={value}
+                        textEntry={false}
+                      />
+                    )}
+                    name="username"
+                  />
+
+                  {errors.username && (
+                    <Text status="danger">
+                      {errors.username && errors.username.message}{' '}
+                    </Text>
+                  )}
+
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: {value: true, message: 'This is required.'},
+                      pattern: {
+                        value: /\S+@\S+\.\S+$/,
+                        message: 'Has to be valid email.',
+                      },
+                    }}
+                    render={({field: {onChange, onBlur, value}}) => (
+                      <FormInput
+                        style={styles.input}
+                        iconName="email-outline"
+                        name="Email"
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        value={value}
+                        textEntry={false}
+                      />
+                    )}
+                    name="email"
+                  />
+
+                  {errors.email && (
+                    <Text status="danger">
+                      {errors.email && errors.email.message}{' '}
+                    </Text>
+                  )}
+
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: {value: false, message: 'This is required'},
+                      pattern: {
+                        value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+                        message: 'Min 8, Uppercase & Number',
+                      },
+                    }}
+                    render={({field: {onChange, onBlur, value}}) => (
+                      <FormInput
+                        style={styles.input}
+                        iconName="lock-outline"
+                        name="Password"
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        value={value}
+                        textEntry={true}
+                      />
+                    )}
+                    name="password"
+                  />
+
+                  {errors.password && (
+                    <Text status="danger">
+                      {errors.password && errors.password.message}{' '}
+                    </Text>
+                  )}
+
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: {value: false, message: 'This is required'},
+                      validate: (value) => {
+                        const {password} = getValues();
+                        if (value === password) {
                           return true;
                         } else {
-                          return 'Username is already taken.';
+                          return 'Passwords do not match.';
                         }
-                      } catch (error) {
-                        console.error(error);
-                      }
-                    },
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <FormInput
-                      style={styles.input}
-                      iconName="person-outline"
-                      name="Username"
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      value={value}
-                      textEntry={false}
-                    />
-                  )}
-                  name="username"
-                />
-
-                {errors.username && (
-                  <Text status="danger">
-                    {errors.username && errors.username.message}{' '}
-                  </Text>
-                )}
-
-                <Controller
-                  control={control}
-                  rules={{
-                    required: {value: true, message: 'This is required.'},
-                    pattern: {
-                      value: /\S+@\S+\.\S+$/,
-                      message: 'Has to be valid email.',
-                    },
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <FormInput
-                      style={styles.input}
-                      iconName="email-outline"
-                      name="Email"
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      value={value}
-                      textEntry={false}
-                    />
-                  )}
-                  name="email"
-                />
-
-                {errors.email && (
-                  <Text status="danger">
-                    {errors.email && errors.email.message}{' '}
-                  </Text>
-                )}
-
-                <Controller
-                  control={control}
-                  rules={{
-                    required: {value: false, message: 'This is required'},
-                    pattern: {
-                      value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
-                      message: 'Min 8, Uppercase & Number',
-                    },
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <FormInput
-                      style={styles.input}
-                      iconName="lock-outline"
-                      name="Password"
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      value={value}
-                      textEntry={true}
-                    />
-                  )}
-                  name="password"
-                />
-
-                {errors.password && (
-                  <Text status="danger">
-                    {errors.password && errors.password.message}{' '}
-                  </Text>
-                )}
-
-                <Controller
-                  control={control}
-                  rules={{
-                    required: {value: false, message: 'This is required'},
-                    validate: (value) => {
-                      const {password} = getValues();
-                      if (value === password) {
-                        return true;
-                      } else {
-                        return 'Passwords do not match.';
-                      }
-                    },
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <FormInput
-                      style={styles.input}
-                      iconName="lock-outline"
-                      name="Confirm password"
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      value={value}
-                      textEntry={true}
-                    />
-                  )}
-                  name="confirmPassword"
-                />
-
-                {errors.confirmPassword && (
-                  <Text status="danger">
-                    {errors.confirmPassword && errors.confirmPassword.message}{' '}
-                  </Text>
-                )}
-
-                <Controller
-                  control={control}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <FormInput
-                      style={styles.input}
-                      iconName="edit-2-outline"
-                      name="Description"
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      value={value}
-                      textEntry={false}
-                    />
-                  )}
-                  name="full_name"
-                />
-
-                <FormButton
-                  style={styles.button}
-                  handleSubmit={handleSubmit}
-                  onSubmit={onSubmit}
-                  text={
-                    loading ? (
-                      <ActivityIndicator
-                        animating={loading}
-                        color={colors.text_light}
-                        size="large"
+                      },
+                    }}
+                    render={({field: {onChange, onBlur, value}}) => (
+                      <FormInput
+                        style={styles.input}
+                        iconName="lock-outline"
+                        name="Confirm password"
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        value={value}
+                        textEntry={true}
                       />
-                    ) : (
-                      'Save'
-                    )
-                  }
-                  disabled={!imageSelected}
-                />
+                    )}
+                    name="confirmPassword"
+                  />
+
+                  {errors.confirmPassword && (
+                    <Text status="danger">
+                      {errors.confirmPassword && errors.confirmPassword.message}{' '}
+                    </Text>
+                  )}
+
+                  <Controller
+                    control={control}
+                    render={({field: {onChange, onBlur, value}}) => (
+                      <FormInput
+                        style={styles.input}
+                        iconName="edit-2-outline"
+                        name="Description"
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        value={value}
+                        textEntry={false}
+                      />
+                    )}
+                    name="full_name"
+                  />
+
+                  <FormButton
+                    style={styles.button}
+                    handleSubmit={handleSubmit}
+                    onSubmit={onSubmit}
+                    text={
+                      loading ? (
+                        <ActivityIndicator
+                          animating={loading}
+                          color={colors.text_light}
+                          size="large"
+                        />
+                      ) : (
+                        'Save'
+                      )
+                    }
+                    disabled={!imageSelected}
+                  />
+                </Layout>
               </Layout>
-            </Layout>
-          </Shadow>
-        </View>
-      </ScrollView>
+            </Shadow>
+          </View>
+        </ScrollView>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -363,10 +363,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   boxShadow: {
-    marginVertical: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    top: Platform.OS === 'ios' ? '5%' : 0,
+    marginVertical: Platform.OS === 'ios' ? '15%' : '10%',
   },
   button: {
     marginTop: 20,
