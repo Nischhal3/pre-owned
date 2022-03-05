@@ -1,5 +1,6 @@
 import {Layout, Text} from '@ui-kitten/components';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ErrorMessage = (props) => {
   return (
@@ -10,5 +11,8 @@ const ErrorMessage = (props) => {
     </Layout>
   );
 };
-
+ErrorMessage.propTypes = {
+  error: PropTypes.object,
+  message: PropTypes.object,
+};
 export default ErrorMessage;

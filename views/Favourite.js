@@ -6,9 +6,11 @@ import PropTypes from 'prop-types';
 // Import from UI Kitten
 import {Divider, List} from '@ui-kitten/components';
 
+// Api import
+import {getMediaById, useFavourite} from '../hooks/MediaHooks';
+
 // Import from files
 import {colors} from '../utils';
-import {getMediaById, useFavourite} from '../hooks/MediaHooks';
 import {getToken} from '../hooks/CommonFunction';
 import {FavouriteList} from '../components/lists';
 import {ItemSeparator} from '../components/elements/ItemSeparator';
@@ -67,7 +69,8 @@ const Favourite = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: '5%',
+    paddingBottom: '10%',
   },
 });
 

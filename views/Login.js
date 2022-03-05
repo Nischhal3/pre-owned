@@ -14,7 +14,7 @@ import {
 import {LinearGradient} from 'expo-linear-gradient';
 
 // Ui Kitten
-import {Card, Layout, ButtonGroup, Button, Icon} from '@ui-kitten/components';
+import {Card, ButtonGroup, Button} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
@@ -40,11 +40,6 @@ const Login = () => {
             source={require('../assets/backgrounds/loginbackground.png')}
           />
 
-          {/* <Layout style={styles.iconGroup}>
-            <Icon name="google" style={styles.singleIcon} />
-            <Icon name="facebook" style={styles.singleIcon} />
-            <Icon name="twitter" style={styles.singleIcon} />
-          </Layout> */}
           <LinearGradient
             colors={['transparent', colors.btnBackground]}
             start={{x: 0, y: 0}}
@@ -90,7 +85,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '41%',
     top: -35,
-    // borderBottomLeftRadius: 150,
   },
   card: {
     backgroundColor: colors.primary,
@@ -107,49 +101,39 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.background,
   },
-  iconGroup: {
-    position: 'absolute',
-    top: '112%',
-    width: 200,
-    flexDirection: 'row',
-    backgroundColor: 'transparent',
-    justifyContent: 'space-between',
-    alignSelf: 'center',
-  },
+
   header: {
     textAlign: 'center',
     marginBottom: 10,
     color: colors.text_dark,
   },
   linearGradient: {
-    height: '86%',
+    height: '85%',
     top: '25%',
-    width: '100%',
+    width: '98%',
     borderRadius: 75,
     alignSelf: 'center',
     overflow: 'scroll',
   },
 
-  singleIcon: {
-    width: 25,
-    height: 25,
-    tintColor: colors.btnBackground,
-  },
   toggleGroup: {
     justifyContent: 'center',
     alignSelf: 'center',
-    top: Platform.OS === 'android' ? '7%' : '5%',
+    top: '10%',
     zIndex: 1,
-    // marginVertical: 10,
+
+    borderRadius: 20,
   },
 
   toggle1: {
-    width: 100,
+    width: 120,
+    height: 50,
     backgroundColor: '#60715B',
     borderColor: '#60715B',
   },
   toggle2: {
-    width: 100,
+    width: 120,
+    height: 50,
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
   },

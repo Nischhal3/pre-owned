@@ -19,14 +19,11 @@ const WelcomeScreen = ({navigation}) => {
 
   const checkToken = async () => {
     const userToken = await getToken();
-    // console.log('token value in async storage', userToken);
     if (!userToken) {
       return;
     }
     try {
       const userData = await getUserByToken();
-      // console.log('chekToken', userData);
-      // console.log('token', userToken);
       setUser(userData);
       setIsLoggedIn(true);
     } catch (error) {

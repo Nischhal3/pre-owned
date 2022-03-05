@@ -7,12 +7,13 @@ import {
   Image,
   Platform,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
   Modal,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import ReadMore from 'react-native-read-more-text';
@@ -31,7 +32,6 @@ import {MessageList} from '../components/lists';
 import {GlobalStyles} from '../utils';
 import UserItem from '../components/elements/UserItem';
 import {AppButton} from '../components/elements/AppButton';
-// import {TouchableOpacity} from 'react-native-gesture-handler';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
 import LikeComponent from '../components/LikeComponent';
 
@@ -53,7 +53,6 @@ const ProductDetail = ({route, navigation}) => {
     },
   ];
 
-  // add to favourite
   const getUser = async () => {
     try {
       const userData = await getUserById(file.user_id);
@@ -81,18 +80,15 @@ const ProductDetail = ({route, navigation}) => {
   }, [updateAvatar]);
 
   return (
-    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
-      <ScrollView>
-        <TouchableOpacity onPress={() => setVisible(true)}>
-          <Image
-            style={styles.image}
-            source={{uri: uploadsUrl + file.filename}}
-          />
-        </TouchableOpacity>
-        <Modal
-          visible={visible}
-          transparent={true}
-          onBackdropPress={() => setVisible(false)}
+    <ScrollView>
+      <TouchableOpacity
+        style={styles.safeView}
+        activeOpacity={1}
+        onPress={() => Keyboard.dismiss()}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : ''}
+          style={{flex: 1}}
         >
           <AppButton
             appBtnStyle={styles.closeBtn}
@@ -121,9 +117,8 @@ const ProductDetail = ({route, navigation}) => {
                   <Text
                     category="s1"
                     style={{
-                      right: Platform.OS === 'android' ? '25%' : '17%',
-                      bottom: 10,
-                      fontSize: 14,
+                      justifyContent: 'flex-end',
+                      alignItems: 'flex-end',
                     }}
                   >
                     {likes.length}
@@ -131,48 +126,50 @@ const ProductDetail = ({route, navigation}) => {
                 </Pressable> */}
                 <LikeComponent file={file} heartAnimation={true} />
               </Layout>
+                <Divider style={{backgroundColor: colors.lightGrey}} />
 
-              <Divider style={{backgroundColor: colors.lightGrey}} />
+                <UserItem
+                  onPress={() => {
+                    navigation.navigate('Profile', {
+                      profileParam: file.user_id,
+                    });
+                  }}
+                  image={{uri: avatar}}
+                  title={name}
+                  description={`${userMedia.length} Listings`}
+                />
+                <Divider style={{backgroundColor: colors.lightGrey}} />
 
-              <UserItem
-                onPress={() => {
-                  navigation.navigate('Profile', {profileParam: file.user_id});
-                }}
-                image={{uri: avatar}}
-                title={name}
-                description={`${userMedia.length} Listings`}
-              />
-              <Divider style={{backgroundColor: colors.lightGrey}} />
-
-              <Text category="s1" style={styles.detail}>
-                Price & Details
-              </Text>
-              <Layout style={styles.readMore}>
-                <ReadMore numberOfLines={1}>
-                  <Text
-                    style={styles.detailDescription}
-                    category="c1"
-                    numberOfLines={4}
-                  >
-                    {file.description}
-                  </Text>
-                </ReadMore>
-              </Layout>
-
-              <Divider style={{backgroundColor: colors.lightGrey}} />
-              <Text category="s1" style={styles.detail}>
-                Send the Seller a message
-              </Text>
-              <ScrollView>
-                <MessageList fileId={file.file_id} />
-              </ScrollView>
-            </Card>
-          </Shadow>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+                <Text category="s1" style={styles.detail}>
+                  Price & Details
+                </Text>
+                <Layout style={styles.readMore}>
+                  <ReadMore numberOfLines={1}>
+                    <Text
+                      style={styles.detailDescription}
+                      category="c1"
+                      numberOfLines={4}
+                    >
+                      {file.description}
+                    </Text>
+                  </ReadMore>
+                </Layout>
+                <Divider style={{backgroundColor: colors.lightGrey}} />
+                <Text category="s1" style={styles.detail}>
+                  Send the Seller a message
+                </Text>
+                <ScrollView>
+                  <MessageList fileId={file.file_id} />
+                </ScrollView>
+              </Card>
+            </Shadow>
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   boxShadow: {
     marginVertical: 15,
@@ -181,7 +178,7 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: colors.primary,
-    borderRadius: 45,
+    borderRadius: 30,
     alignSelf: 'center',
     width: 350,
   },

@@ -1,5 +1,5 @@
 // Import from React
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   StyleSheet,
   Alert,
@@ -14,23 +14,21 @@ import {
 import {PropTypes} from 'prop-types';
 
 // Import from UI Kitten Library
-import {Text, Layout, Avatar} from '@ui-kitten/components';
+import {Text, Layout, Avatar, Icon} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 
 // Import from files
 import FormInput from '../components/formComponents/FormInput';
-import {FormButton} from '../components/elements/AppButton';
+import {AppButton, FormButton} from '../components/elements/AppButton';
 import colors from '../utils/colors';
 import {checkUserName, updateUser} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import {getToken} from '../hooks/CommonFunction';
-import {uploadsUrl} from '../utils/url';
-import {getFilesByTag, postMedia, postTag} from '../hooks/MediaHooks';
+import {postMedia, postTag} from '../hooks/MediaHooks';
 import {Shadow} from 'react-native-shadow-2';
 import {GlobalStyles} from '../utils';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
 import * as ImagePicker from 'expo-image-picker';
-import {Card} from 'react-native-elements';
 import {useFocusEffect} from '@react-navigation/native';
 
 const EditProfile = ({navigation}) => {
@@ -85,7 +83,7 @@ const EditProfile = ({navigation}) => {
 
       const filename = avatar.split('/').pop();
       let fileExtension = filename.split('.').pop();
-      fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
+      fileExtension === 'jpg' ? 'jpeg' : fileExtension;
 
       const formData = new FormData();
 
@@ -117,7 +115,7 @@ const EditProfile = ({navigation}) => {
             text: 'Ok',
             onPress: () => {
               navigation.navigate('Profile');
-              setAvatar(uploadDefaultUri);
+              setImageSelected(true);
             },
           },
         ]);
@@ -130,8 +128,7 @@ const EditProfile = ({navigation}) => {
   };
 
   const reset = () => {
-    setAvatar(uploadDefaultUri);
-    setImageSelected(false);
+    setImageSelected(true);
     setValue('username', user.username);
     setValue('email', user.email);
     setValue('password', '');
@@ -147,17 +144,38 @@ const EditProfile = ({navigation}) => {
   );
 
   return (
-    <ScrollView>
-      <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+    <SafeAreaView style={[GlobalStyles.AndroidSafeArea, styles.safeView]}>
+      <ScrollView>
         <View style={styles.boxShadow}>
           <Shadow>
             <Layout style={styles.layout}>
               <TouchableOpacity onPress={pickImage}>
+                {!imageSelected ? (
+                  <AppButton
+                    appBtnStyle={styles.editBtn}
+                    onPress={pickImage}
+                    accessoryLeft={
+                      <Icon name="camera-outline" fill={colors.mediumGrey} />
+                    }
+                  />
+                ) : null}
+
                 <Avatar
                   style={styles.avatar}
                   source={{uri: avatar}}
                   shape="round"
                 />
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    marginTop: '2%',
+                    fontSize: 14,
+                    fontFamily: 'Karla',
+                    color: colors.text_dark,
+                  }}
+                >
+                  Change profile picture
+                </Text>
               </TouchableOpacity>
               <Layout style={styles.form}>
                 <Controller
@@ -237,11 +255,6 @@ const EditProfile = ({navigation}) => {
                   rules={{
                     required: {value: false, message: 'This is required'},
                     pattern: {
-                      /**
-                       *  Password criteria
-                       *  Minimum length 8 , atlease 1 digit
-                       *  Atleast 1 upper case of lower case character
-                       */
                       value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
                       message: 'Min 8, Uppercase & Number',
                     },
@@ -301,13 +314,6 @@ const EditProfile = ({navigation}) => {
 
                 <Controller
                   control={control}
-                  // rules={{
-                  //   required: {value: true, message: 'This is required.'},
-                  //   pattern: {
-                  //     value: /\S+@\S+\.\S+$/,
-                  //     message: 'Description',
-                  //   },
-                  // }}
                   render={({field: {onChange, onBlur, value}}) => (
                     <FormInput
                       style={styles.input}
@@ -343,8 +349,8 @@ const EditProfile = ({navigation}) => {
             </Layout>
           </Shadow>
         </View>
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -359,10 +365,18 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    top: Platform.OS === 'ios' ? '10%' : 0,
+    top: Platform.OS === 'ios' ? '5%' : 0,
   },
   button: {
     marginTop: 20,
+  },
+  editBtn: {
+    zIndex: 1,
+    position: 'absolute',
+    marginTop: '20%',
+    marginLeft: '50%',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
   },
   form: {
     backgroundColor: colors.primary,
@@ -370,8 +384,8 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
-    borderRadius: 0,
-    borderColor: 'transparent',
+    borderRadius: 4,
+    // borderColor: 'transparent',
     backgroundColor: colors.container,
   },
   layout: {

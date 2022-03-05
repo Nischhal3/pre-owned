@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
 
 Profile.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.any,
 };
 
 export default Profile;

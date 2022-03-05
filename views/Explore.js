@@ -1,45 +1,40 @@
-import {Button, Layout} from '@ui-kitten/components';
+// Import from react & libraries
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
+
+// Import from UI Kitten library
+import {Layout} from '@ui-kitten/components';
+
+// Import from files
 import {
   GalleryListHorizontal,
   GalleryListVertical,
 } from '../components/ExploreList';
 import colors from '../utils/colors';
-import PropTypes from 'prop-types';
-import {PointRightArrow} from '../components/elements/Icons';
+import ExploreTitle from '../components/ExploreTitle';
 
 // Return explore screen
 const ExploreScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Layout style={styles.horizontalGallery}>
-        <Button
+        <ExploreTitle
           onPress={() => {
             navigation.navigate('All products');
           }}
-          size={'giant'}
-          style={{justifyContent: 'space-between'}}
-          appearance="ghost"
-          accessoryRight={PointRightArrow}
-        >
-          All products
-        </Button>
+          title="All products"
+        />
         <GalleryListHorizontal navigation={navigation} />
       </Layout>
 
       <Layout style={styles.verticalGallery}>
-        <Button
+        <ExploreTitle
           onPress={() => {
             navigation.navigate('Popular now');
           }}
-          size={'giant'}
-          style={{justifyContent: 'space-between'}}
-          appearance="ghost"
-          accessoryRight={PointRightArrow}
-        >
-          Popular now
-        </Button>
+          title="Popular now"
+        />
         <GalleryListVertical navigation={navigation} />
       </Layout>
     </SafeAreaView>
