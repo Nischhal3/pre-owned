@@ -1,6 +1,7 @@
 import {Layout, Text} from '@ui-kitten/components';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {colors} from 'react-native-elements';
 
 const ErrorMessage = (props) => {
   return (
@@ -13,6 +14,6 @@ const ErrorMessage = (props) => {
 };
 ErrorMessage.propTypes = {
   error: PropTypes.object,
-  message: PropTypes.object,
+  message: PropTypes.string,
 };
 export default ErrorMessage;
