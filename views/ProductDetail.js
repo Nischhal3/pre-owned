@@ -16,6 +16,7 @@ import {
 import {Shadow} from 'react-native-shadow-2';
 import ReadMore from 'react-native-read-more-text';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // Import from Library UI Kitten
 import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
@@ -83,10 +84,7 @@ const ProductDetail = ({route, navigation}) => {
         activeOpacity={1}
         onPress={() => Keyboard.dismiss()}
       >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : ''}
-          style={{flex: 1}}
-        >
+        <KeyboardAwareScrollView style={{flex: 1}}>
           <TouchableOpacity onPress={() => setVisible(true)}>
             <Image
               style={styles.image}
@@ -151,7 +149,7 @@ const ProductDetail = ({route, navigation}) => {
               </Card>
             </Shadow>
           </View>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
       </TouchableOpacity>
     </ScrollView>
   );
