@@ -34,15 +34,14 @@ import NoSearchResultsIcon from '../assets/icons/searching.svg';
 import StartSearchIcon from '../assets/icons/startSearch.svg';
 
 const Search = ({navigation}) => {
-  const {mediaArray, home, electronics, clothing, sports, gaming, others} =
-    useMedia();
   const [filteredData, setFilteredData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [itemPosition, setItemPosition] = useState();
   const [search, setSearch] = useState('');
   const [isChecked, setIsChecked] = useState(0);
-  const [data, setData] = useState([]);
   const [categoryTitle, setCateogryTitle] = useState('');
+  const {mediaArray, getMediaByCategory} = useMedia();
+  const [mediaByCategory, setMediaByCategory] = useState([]);
 
   // Filter categories
   const categoryNames = [
@@ -54,30 +53,43 @@ const Search = ({navigation}) => {
     {category: 'Others'},
   ];
 
-  const getData = () => {
+  const getData = async () => {
     setCateogryTitle(categoryNames[itemPosition].category);
 
-    // Storing category values to data depending upon which check-box is clicked
+    console.log('Clicked', itemPosition);
     itemPosition === 0
-      ? setData(home)
+      ? setMediaByCategory(
+          await getMediaByCategory(categoryNames[itemPosition].category)
+        )
       : itemPosition === 1
-      ? setData(electronics)
+      ? setMediaByCategory(
+          await getMediaByCategory(categoryNames[itemPosition].category)
+        )
       : itemPosition === 2
-      ? setData(clothing)
+      ? setMediaByCategory(
+          await getMediaByCategory(categoryNames[itemPosition].category)
+        )
       : itemPosition === 3
-      ? setData(sports)
+      ? setMediaByCategory(
+          await getMediaByCategory(categoryNames[itemPosition].category)
+        )
       : itemPosition === 4
-      ? setData(gaming)
+      ? setMediaByCategory(
+          await getMediaByCategory(categoryNames[itemPosition].category)
+        )
       : itemPosition === 5
-      ? setData(others)
-      : setData(null);
+      ? setMediaByCategory(
+          await getMediaByCategory(categoryNames[itemPosition].category)
+        )
+      : setMediaByCategory([]);
+    // Storing category values to data depending upon which check-box is clicked
   };
 
   // update filtered list
   const searchProduct = (textToSearch) => {
     setSearch(textToSearch);
     setCateogryTitle('');
-    setData(null);
+    setMediaByCategory([]);
 
     try {
       if (textToSearch === '') {
@@ -97,7 +109,7 @@ const Search = ({navigation}) => {
   const reset = () => {
     setVisible(false);
     setItemPosition(null);
-    setData(null);
+    setMediaByCategory([]);
     setSearch('');
     setCateogryTitle('');
   };
@@ -106,6 +118,10 @@ const Search = ({navigation}) => {
   useEffect(() => {
     setSearch('');
   }, [isChecked]);
+
+  // useEffect(() => {
+  //   getData();
+  // }, [itemPosition]);
 
   useFocusEffect(
     useCallback(() => {
@@ -244,8 +260,8 @@ const Search = ({navigation}) => {
                 displayText={true}
               />
             ))
-          ) : data !== null ? (
-            data.map((item) => (
+          ) : mediaByCategory !== null ? (
+            mediaByCategory.map((item) => (
               <GalleryItemVertical
                 navigation={navigation}
                 singleItem={item}
@@ -257,7 +273,7 @@ const Search = ({navigation}) => {
             <Text>{''}</Text>
           )}
           {(filteredData.length === 0 && search !== '') ||
-          (categoryTitle !== '' && data.length === 0) ? (
+          (categoryTitle !== '' && mediaByCategory.length === 0) ? (
             <Layout
               style={{
                 flex: 1,
