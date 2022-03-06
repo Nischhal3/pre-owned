@@ -19,7 +19,8 @@ import {Card, ButtonGroup, Button} from '@ui-kitten/components';
 // Import from files
 import colors from '../utils/colors';
 import {MainContext} from '../contexts/MainContext';
-import {LoginForm, SignupForm} from '../components';
+import LoginForm from '../components/formComponents/LoginForm';
+import SignupForm from '../components/formComponents/SignupForm';
 
 const Login = () => {
   const {formToggle, setFormToggle} = useContext(MainContext);
