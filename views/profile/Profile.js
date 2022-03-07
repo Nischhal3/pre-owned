@@ -34,6 +34,7 @@ const Profile = ({route}) => {
   const [myFavourite, setMyFavourtie] = useState([]);
   const [myMessages, setMyMessages] = useState([]);
 
+  // Trying to merge landing
   // Fetching avatar
   const fetchAvatar = async () => {
     try {
