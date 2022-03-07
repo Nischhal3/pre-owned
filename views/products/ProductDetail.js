@@ -2,15 +2,12 @@
 import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Alert,
   Image,
-  Platform,
   ScrollView,
   StyleSheet,
   View,
   Modal,
   TouchableOpacity,
-  KeyboardAvoidingView,
   Keyboard,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
@@ -22,20 +19,20 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
-import colors from '../utils/colors';
-import {MainContext} from '../contexts/MainContext';
-import {uploadsUrl} from '../utils/url';
+import colors from '../../utils/colors';
+import {MainContext} from '../../contexts/MainContext';
+import {uploadsUrl} from '../../utils/url';
 
 // hooks import
-import {getAvatar, useMedia} from '../hooks/MediaHooks';
-import {getUserById} from '../hooks/ApiHooks';
+import {getAvatar, useMedia} from '../../hooks/MediaHooks';
+import {getUserById} from '../../hooks/ApiHooks';
 
 // components import
-import {MessageList} from '../components/lists';
-import UserItem from '../components/elements/UserItem';
-import assetAvatar from '../assets/backgrounds/Avatar.png';
-import {AppButton} from '../components/elements/AppButton';
-import LikeComponent from '../components/LikeComponent';
+import {MessageList} from '../../components/lists';
+import UserItem from '../../components/elements/UserItem';
+import assetAvatar from '../../assets/backgrounds/Avatar.png';
+import {AppButton} from '../../components/elements/AppButton';
+import LikeComponent from '../../components/LikeComponent';
 
 const ProductDetail = ({route, navigation}) => {
   const {file} = route.params;

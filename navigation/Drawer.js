@@ -10,7 +10,7 @@ import {Icon, Drawer, DrawerItem} from '@ui-kitten/components';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 // views import
-import Favourite from '../views/Favourite';
+import Favourite from '../views/profile/Favourite';
 import Profile from '../views/profile/Profile';
 import EditProfile from '../views/profile/EditProfile';
 

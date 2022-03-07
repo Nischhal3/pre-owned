@@ -12,7 +12,7 @@ import GlobalStyles from '../utils/GlobalStyles';
 // Views import
 import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
-import ProductDetail from '../views/ProductDetail';
+import ProductDetail from '../views/products/ProductDetail';
 import PopularNow from '../views/products/PopularNow';
 import AllProducts from '../views/products/AllProducts';
 import {EditListing} from '../views/Listings';

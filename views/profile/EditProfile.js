@@ -9,7 +9,6 @@ import {
   Platform,
   Image,
   TouchableOpacity,
-  ActivityIndicator,
 } from 'react-native';
 import {PropTypes} from 'prop-types';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
