@@ -38,13 +38,14 @@ For buyers:
 - See seller profile and statistics on posts, likes and comments
 
 ## Libraries:
-- UI kitten libraries is used as PreOwned’s main UI components
-- A library for image zoom and pan
-- A library for shadow elements
-- A library for time conversion
+- React Native UI Library - [UI Kitten Library](https://akveo.github.io/react-native-ui-kitten/)
+- A library for [image zoom and pan](https://www.npmjs.com/package/react-native-image-zoom-viewer)
+- A library for [shadow](https://www.npmjs.com/package/react-native-shadow-2)
+- A library for [time conversion](https://www.npmjs.com/package/react-moment)
 - A library for linear-gradient
-- A library for managing forms (react-hook-form)
-- A library for animation (Lottie)
+- A library for managing forms [react-hook-form](https://react-hook-form.com/get-started/#ReactNative)
+- A library for [Lottie Animation](https://docs.expo.dev/versions/latest/sdk/lottie/)
+- A library for [Keyboard Aware Scrollview](https://www.npmjs.com/package/react-native-keyboard-aware-scroll-view)
 
 ## Backend and APIs service:
 The PreOwned application is built as part of a school project and the api services are provided by Metropolia UAS. [Link to documents](https://media.mw.metropolia.fi/wbma/docs/)
