@@ -68,4 +68,11 @@ Some of the PreOwned views
  <img src="/assets/brand/Screenshot1.png" width="250"> <img src="/assets/brand/Screenshot2.png" width="250"> <img src="/assets/brand/Screenshot3.png" width="250">
 ## License
 ## Contributors
+[Nischhal Shrestha](https://github.com/Nischhal3)
+
+[Jasmin Partanen](https://github.com/jasminsp)
+
+[Boris Hoi](https://github.com/Borissss420)
+
+[An Huynh](https://github.com/anniehuynh)
 
