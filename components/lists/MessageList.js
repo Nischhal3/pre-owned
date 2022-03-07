@@ -37,9 +37,6 @@ const MessageList = ({fileId, showMessages = false}) => {
   const {user, updateMessage, setUpdateMessage} = useContext(MainContext);
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [avatar, setAvatar] = useState(
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-  );
 
   // display messages from latest to oldest
   messages.sort((a, b) => a.time_added < b.time_added);
