@@ -29,9 +29,10 @@ const UserItem = ({title, description, onPress, image}) => {
 const styles = StyleSheet.create({
   arrowIcon: {
     backgroundColor: 'transparent',
-    right: Platform.OS === 'android' ? 55 : 50,
-    bottom: '17%',
+    left: 140,
+    bottom: '15%',
     padding: 0,
+    width: 20,
   },
   container: {
     flexDirection: 'row',
