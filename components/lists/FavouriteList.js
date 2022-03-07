@@ -106,11 +106,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    marginBottom: 5,
+
     fontFamily: 'Karla_700Bold',
     alignSelf: 'center',
     width: 150,
-    marginStart: 30,
+    marginStart: '10%',
   },
   row: {
     flexDirection: 'row',
