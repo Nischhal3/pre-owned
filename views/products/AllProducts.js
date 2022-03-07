@@ -8,10 +8,12 @@ import PropTypes from 'prop-types';
 import {List} from '@ui-kitten/components';
 
 // Import from files
-import colors from '../utils/colors';
-import {useMedia} from '../hooks/MediaHooks';
-import {PlainListItem} from '../components/lists';
-import {ItemSeparator} from '../components/elements/ItemSeparator';
+import colors from '../../utils/colors';
+import {useMedia} from '../../hooks/MediaHooks';
+
+// components import
+import {PlainListItem} from '../../components/lists';
+import {ItemSeparator} from '../../components/elements/ItemSeparator';
 
 const AllProducts = ({navigation}) => {
   const {mediaArray} = useMedia();

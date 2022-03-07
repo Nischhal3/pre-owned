@@ -18,12 +18,18 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 // Import from UI KItten Library
 import {Card, Layout, Text} from '@ui-kitten/components';
 
-// Import from files
+// hooks import
 import {getToken} from '../../hooks/CommonFunction';
 import {putMedia} from '../../hooks/MediaHooks';
+
+// maincontext import
 import {MainContext} from '../../contexts/MainContext';
+
+// utils import
 import {uploadsUrl} from '../../utils/url';
 import {colors} from '../../utils';
+
+// components import
 import {FormButton} from '../../components/elements/AppButton';
 import ErrorMessage from '../../components/elements/ErrorMessage';
 import FormInput from '../../components/formComponents/FormInput';
@@ -141,7 +147,6 @@ const EditListing = ({navigation, route}) => {
                     handleSubmit={handleSubmit}
                     onSubmit={onSubmit}
                     text="Save"
-                    loading={true}
                   />
                 </Layout>
               </Card>

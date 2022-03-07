@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import {List} from '@ui-kitten/components';
 
 // Import from files
-import {useMedia} from '../hooks/MediaHooks';
-import {GalleryItemHorizontal, GalleryItemVertical} from './lists/GalleryItem';
-import {colors} from '../utils';
+import {useMedia} from '../../hooks/MediaHooks';
+import {GalleryItemHorizontal, GalleryItemVertical} from './GalleryItem';
+import {colors} from '../../utils';
 
 // Return a horizontal gallery list
 const GalleryListHorizontal = ({navigation}) => {
@@ -65,6 +65,7 @@ const GalleryListVertical = ({navigation}) => {
 GalleryListHorizontal.propTypes = {
   navigation: PropTypes.object,
 };
+
 GalleryListVertical.propTypes = {
   navigation: PropTypes.object,
 };

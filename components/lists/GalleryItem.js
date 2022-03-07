@@ -43,7 +43,6 @@ const GalleryItemVertical = ({navigation, singleItem, displayText}) => {
     <TouchableOpacity
       onPress={() => {
         navigation.navigate('Product Detail', {file: singleItem});
-        console.log('file id', singleItem.file_id); // test comment with postman
       }}
       style={{padding: 8}}
     >

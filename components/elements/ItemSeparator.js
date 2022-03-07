@@ -39,4 +39,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.text_dark,
   },
 });
+
 export {ItemSeparator, MessageSeparator, ProfileSeparator};
