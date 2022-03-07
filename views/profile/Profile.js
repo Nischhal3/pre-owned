@@ -25,14 +25,11 @@ import {getMessagesList} from '../../hooks/MessageHook';
 
 const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
-  const {user, updateAvatar, update, updateMessage} = useContext(MainContext);
+  const {user, updateAvatar} = useContext(MainContext);
   const [avatar, setAvatar] = useState(uploadDefaultUri);
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
   const {mediaArray} = useMedia();
-  const {getFavouritesList} = useFavourite();
-  const [myFavourite, setMyFavourtie] = useState([]);
-  const [myMessages, setMyMessages] = useState([]);
 
   // Trying to merge landing
   // Fetching avatar
@@ -50,47 +47,27 @@ const Profile = ({route}) => {
   const myPosts = mediaArray.filter(
     (item) => item.user_id === userProfile.user_id
   );
-  // // Get count of messages sent by user
-  // const myMessages = mediaArray.filter((file) => {
-  //   const userComments = file.fileComments.filter(
-  //     (comment) => comment.user_id === userProfile.user_id
-  //   );
-  //   if (userComments.length > 0) return userComments;
-  // });
 
-  const myMessage = async () => {
-    const token = await getToken();
-    const message = await getMessagesList(token);
-    setMyMessages(message);
-  };
+  // Get count of messages sent by user
+  const myMessages = mediaArray.filter((file) => {
+    const userComments = file.fileComments.filter(
+      (comment) => comment.user_id === userProfile.user_id
+    );
+    if (userComments.length > 0) return userComments;
+  });
 
   // Get count for posts liked by user
-  // const myFavourites = async() => {
+  const myFavourites = mediaArray.filter((file) => {
+    const userFavourites = file.fileFavourites.filter(
+      (favourite) => favourite.user_id === userProfile.user_id
+    );
+    if (userFavourites.length > 0) return userFavourites;
+  });
 
-  //   // const userFavourites = file.fileFavourites.filter(
-  //   //   (favourite) => favourite.user_id === userProfile.user_id
-  //   // );
-  //   // if (userFavourites.length > 0) return userFavourites;
-  // });
-
-  const myFavourites = async () => {
-    const token = await getToken();
-    const list = await getFavouritesList(token);
-    setMyFavourtie(list);
-  };
-
-  // console.log('Post', myFavourites.length);
   useEffect(() => {
     fetchAvatar();
   }, [updateAvatar]);
 
-  useEffect(() => {
-    myFavourites();
-  }, [update]);
-
-  useEffect(() => {
-    myMessage();
-  }, [updateMessage]);
   return (
     <Layout style={styles.container}>
       <Image
@@ -120,7 +97,7 @@ const Profile = ({route}) => {
         </Layout>
         <Layout style={styles.statisticsView}>
           <Text style={styles.numbers}>{myPosts.length}</Text>
-          <Text style={styles.numbers}>{myFavourite.length}</Text>
+          <Text style={styles.numbers}>{myFavourites.length}</Text>
           <Text style={styles.numbers}>{myMessages.length}</Text>
         </Layout>
       </Layout>
