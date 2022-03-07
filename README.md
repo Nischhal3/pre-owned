@@ -70,7 +70,7 @@ Some of the PreOwned views
 
  <img src="/assets/brand/Screenshot1.png" width="250"> <img src="/assets/brand/Screenshot2.png" width="250"> <img src="/assets/brand/Screenshot3.png" width="250">
 ## License
-[License](https://github.com/Nischhal3/pre-owned/blob/main/LICENSE.txt)
+[GNU v3.0](https://github.com/Nischhal3/pre-owned/blob/main/LICENSE.txt) license.
 ## Contributors
 [Nischhal Shrestha](https://github.com/Nischhal3)
 
