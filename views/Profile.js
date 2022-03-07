@@ -25,6 +25,7 @@ const Profile = ({route}) => {
   const [userProfile, setUserProfile] = useState({});
   const {mediaArray} = useMedia();
 
+  // Trying to merge landing
   // Fetching avatar
   const fetchAvatar = async () => {
     try {
