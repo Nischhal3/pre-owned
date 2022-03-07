@@ -383,7 +383,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {
-    marginBottom: 10,
+    marginTop: 10,
   },
   layout: {
     backgroundColor: colors.primary,

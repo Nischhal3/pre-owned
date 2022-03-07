@@ -165,9 +165,11 @@ const AddListing = ({navigation}) => {
                   />
                   {type === 'image' ? (
                     <>
-                      <TouchableOpacity onPress={pickImage}>
-                        <Image source={{uri: image}} style={styles.image} />
-                      </TouchableOpacity>
+                      <Layout style={styles.imgWrap}>
+                        <TouchableOpacity onPress={pickImage}>
+                          <Image source={{uri: image}} style={styles.image}/>
+                        </TouchableOpacity>
+                      </Layout>
                     </>
                   ) : (
                     <Video
@@ -204,7 +206,7 @@ const AddListing = ({navigation}) => {
                   }}
                   render={({field: {onChange, onBlur, value}}) => (
                     <FormInput
-                      style={styles.inputStyle}
+                      style={styles.title}
                       name="What's your product?"
                       onBlur={onBlur}
                       onChange={onChange}
@@ -234,7 +236,7 @@ const AddListing = ({navigation}) => {
                   }}
                   render={({field: {onChange, onBlur, value}}) => (
                     <FormInput
-                      style={styles.inputStyle}
+                      style={styles.description}
                       name="Describe your product and give it a price."
                       onBlur={onBlur}
                       onChange={onChange}
@@ -285,19 +287,19 @@ const styles = StyleSheet.create({
   },
   card: {
     alignSelf: 'center',
-    width: '100%',
     borderRadius: 20,
     backgroundColor: colors.primary,
     margin: 0,
+    width: 350,
   },
   selectImgWrap: {
     height: 250,
     width: '100%',
-    marginBottom: 10,
+    marginBottom: 15,
     backgroundColor: colors.primary,
   },
   selectImgText: {
-    top: 20,
+    marginTop: 20,
     width: '100%',
     textAlign: 'center',
     alignSelf: 'center',
@@ -306,27 +308,33 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
-    top: 20,
     alignSelf: 'center',
-    marginBottom: 10,
+  },
+  imgWrap: {
+    marginTop: 10,
+    height: 200,
+    backgroundColor: colors.primary,
   },
   image: {
-    marginTop: 10,
     zIndex: 2,
-    width: '100%',
-    height: '90%',
+    width: null,
+    height: '100%',
     resizeMode: 'contain',
+    overflow: 'hidden',
   },
   clearBtn: {
     zIndex: 1,
     width: 40,
     height: 10,
     position: 'absolute',
-    top: '10%',
-    right: '-2%',
+    top: '1%',
+    right: '-1%',
     alignSelf: 'flex-end',
   },
-  inputStyle: {
+  title: {
+    marginTop: 15,
+  },
+  description: {
     marginTop: 10,
   },
   uploadBtn: {

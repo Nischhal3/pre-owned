@@ -68,7 +68,7 @@ const Login = () => {
               {formToggle ? (
                 <LoginForm setFormToggle={setFormToggle} />
               ) : (
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                   <SignupForm setFormToggle={setFormToggle} />
                 </ScrollView>
               )}
