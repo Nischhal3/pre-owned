@@ -1,5 +1,3 @@
-import {useContext, useEffect, useState} from 'react';
-import {MainContext} from '../contexts/MainContext';
 import {baseUrl} from '../utils/url';
 import {fetchData, getToken} from './CommonFunction';
 

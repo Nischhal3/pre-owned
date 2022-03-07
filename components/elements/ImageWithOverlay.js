@@ -1,3 +1,4 @@
+// Import from react
 import React from 'react';
 import {ImageBackground} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -13,8 +14,12 @@ const ImageWithOverlay = ({source, style}) => {
     >
       <LinearGradient
         colors={['transparent', 'rgba(0,0,0.5,0.5)']}
-        style={{flex: 1, justifyContent: 'center', borderRadius: 15}}
-      ></LinearGradient>
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          borderRadius: 15,
+        }}
+      />
     </ImageBackground>
   );
 };

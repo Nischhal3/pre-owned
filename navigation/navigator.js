@@ -1,18 +1,25 @@
 import React, {useContext} from 'react';
 import {SafeAreaView} from 'react-native';
+import {MainContext} from '../contexts/MainContext';
+
+// Navigation import
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+// Styling import
 import GlobalStyles from '../utils/GlobalStyles';
+
+// Views import
 import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
-import Profile from '../views/Profile';
-import {MainContext} from '../contexts/MainContext';
-import ProductDetail from '../views/ProductDetail';
-import PopularNow from '../views/PopularNow';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import AllProducts from '../views/AllProducts';
-import TabScreen from '../components/navComponents/Bottom';
-import EditListing from '../views/Listings/EditListing';
+import ProductDetail from '../views/products/ProductDetail';
+import PopularNow from '../views/products/PopularNow';
+import AllProducts from '../views/products/AllProducts';
+import {EditListing} from '../views/Listings';
+import Profile from '../views/profile/Profile';
+
+// Bottom navigator import
+import TabScreen from './Bottom';
 
 const Stack = createNativeStackNavigator();
 

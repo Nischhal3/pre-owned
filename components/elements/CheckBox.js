@@ -1,19 +1,21 @@
+// Import from React & libraries
 import React, {useState} from 'react';
-import {CheckBox, Layout} from '@ui-kitten/components';
 import {StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
+
+// Import from UI Kitten
+import {CheckBox, Layout} from '@ui-kitten/components';
+
+// Import from files
 import colors from '../../utils/colors';
 
-// Filter categories
-const categoryNames = [
-  {category: 'Clothing & Accessories'},
-  {category: 'Home & Living'},
-  {category: 'Electronics'},
-  {category: 'Sport & Leisure'},
-  {category: 'Music'},
-  {category: 'Gaming'},
-];
-
-const ModalCheckBox = () => {
+const ModalCheckBox = ({
+  categoryNames,
+  setItemPosition,
+  setIsChecked,
+  isChecked,
+}) => {
+  // new array to store values if checkbox is checked
   const [checkedState, setCheckedState] = useState(
     new Array(categoryNames.length).fill(false)
   );
@@ -22,9 +24,12 @@ const ModalCheckBox = () => {
 
   // Handle checkBox state on click
   const handleOnChange = (position) => {
+    setIsChecked(isChecked + 1);
+    setItemPosition(position);
+
     try {
       const updatedCheckedState = checkedState.map((item, index) =>
-        index === position ? !item : item
+        index === position ? true : false
       );
       setCheckedState(updatedCheckedState);
     } catch (e) {
@@ -49,6 +54,13 @@ const ModalCheckBox = () => {
       })}
     </Layout>
   );
+};
+
+ModalCheckBox.propTypes = {
+  categoryNames: PropTypes.array,
+  setItemPosition: PropTypes.func,
+  setIsChecked: PropTypes.func,
+  isChecked: PropTypes.number,
 };
 
 const styles = StyleSheet.create({
