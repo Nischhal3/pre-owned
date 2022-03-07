@@ -15,7 +15,7 @@ import HeartIcon from '../../assets/icons/heartIcon.svg';
 import BubbleIcon from '../../assets/icons/bubbleIcon.svg';
 
 // hooks import
-import {getAvatar, useFavourite, useMedia} from '../../hooks/MediaHooks';
+import {getAvatar, useMedia} from '../../hooks/MediaHooks';
 import {getUserById} from '../../hooks/ApiHooks';
 
 // components import
@@ -29,6 +29,7 @@ const Profile = ({route}) => {
   const [userProfile, setUserProfile] = useState({});
   const {mediaArray} = useMedia();
 
+  // Trying to merge landing
   // Fetching avatar
   const fetchAvatar = async () => {
     try {
