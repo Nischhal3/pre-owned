@@ -23,7 +23,7 @@ import {checkUserName, signUp} from '../../hooks/ApiHooks';
 
 // App component import
 import FormInput from './FormInput';
-import {FormButton} from '../elements/AppButton';
+import {FormButton, PasswordButton} from '../elements/AppButton';
 import ErrorMessage from '../elements/ErrorMessage';
 
 // Styling import
@@ -33,6 +33,11 @@ const SignupForm = ({setFormToggle}) => {
   // Terms checkbox
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
+  // Password visible
+  const [shown, setShown] = useState(true);
+  const togglePassword = () => {
+    setShown(!shown);
+  };
 
   const {
     control,
@@ -157,15 +162,18 @@ const SignupForm = ({setFormToggle}) => {
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <FormInput
-              style={styles.input}
-              iconName="lock-outline"
-              name="Password"
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
-              textEntry={true}
-            />
+            <Layout style={styles.passwordWrap}>
+              <FormInput
+                style={styles.passwordInput}
+                iconName="lock-outline"
+                name="Password"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={shown}
+              />
+              <PasswordButton onPress={togglePassword} iconName={shown? "eye-off-2-outline" : "eye-outline"} style={styles.passwordBtn}></PasswordButton>
+            </Layout>
           )}
           name="password"
         />
@@ -190,13 +198,13 @@ const SignupForm = ({setFormToggle}) => {
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <FormInput
-              style={styles.confirmInput}
+              style={styles.input}
               iconName="lock-outline"
               name="Confirm password"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
-              textEntry={true}
+              textEntry={shown}
             />
           )}
           name="confirmPassword"
@@ -287,8 +295,18 @@ const styles = StyleSheet.create({
     top: '-2%',
     bottom: 30,
   },
-  confirmInput: {
+  passwordWrap: {
+    marginTop: 10,
+    backgroundColor: colors.primary,
+    flexDirection: 'row',
+  },
+  passwordInput: {
+    width: 290,
     marginBottom: 0,
+  },
+  input: {
+    width: '100%',
+    marginTop: 10,
   },
   checkBox: {
     marginTop: 30,
@@ -299,13 +317,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 15,
   },
-  input: {
-    marginBottom: 10,
+  passwordBtn: {
+    width: 15,
+    height: 20,
   },
   modal: {
-    margin: 10,
+    marginTop: Platform.OS === 'android' ? '20%' : '25%',
     borderRadius: 15,
-    height: 700,
     marginVertical: '5%',
     backgroundColor: colors.primary,
   },

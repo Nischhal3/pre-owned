@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from '@ui-kitten/components';
+import {Button, Icon} from '@ui-kitten/components';
 import {GlobalStyles} from '../../utils';
 import PropTypes from 'prop-types';
 
@@ -29,6 +29,18 @@ const FormButton = (props) => {
   );
 };
 
+const PasswordButton = (props) => {
+  return (
+    <Button
+      style={props.style}
+      appearance="ghost"
+      onPress={props.onPress}
+      accessoryLeft={props.iconName ? <Icon name={props.iconName} /> : null}
+    >
+    </Button>
+  );
+};
+
 AppButton.propTypes = {
   appBtnStyle: PropTypes.object,
   size: PropTypes.object,
@@ -44,4 +56,9 @@ FormButton.propTypes = {
   disabled: PropTypes.bool,
   text: PropTypes.string,
 };
-export {AppButton, FormButton};
+PasswordButton.propTypes = {
+  appBtnStyle: PropTypes.object,
+  onPress: PropTypes.func,
+  accessoryLeft: PropTypes.object,
+};
+export {AppButton, FormButton, PasswordButton};
