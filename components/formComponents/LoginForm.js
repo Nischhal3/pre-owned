@@ -112,7 +112,7 @@ const LoginForm = () => {
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 15,
+    marginTop: 15,
     alignSelf: 'center',
     width: 300,
   },

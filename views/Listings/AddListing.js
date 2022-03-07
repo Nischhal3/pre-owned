@@ -165,7 +165,7 @@ const AddListing = ({navigation}) => {
                     <>
                       <Layout style={styles.imgWrap}>
                         <TouchableOpacity onPress={pickImage}>
-                          <Image source={{uri: image}} style={styles.image}/>
+                          <Image source={{uri: image}} style={styles.image} />
                         </TouchableOpacity>
                       </Layout>
                     </>
