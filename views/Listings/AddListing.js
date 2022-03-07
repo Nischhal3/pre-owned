@@ -290,6 +290,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: colors.primary,
     margin: 0,
+    width: 350,
   },
   selectImgWrap: {
     height: 250,

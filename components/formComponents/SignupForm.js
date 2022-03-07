@@ -168,7 +168,7 @@ const SignupForm = ({setFormToggle}) => {
                 value={value}
                 textEntry={shown}
               />
-              <PasswordButton onPress={togglePassword} iconName={shown? "eye-off-2-outline" : "eye-outline"} style={styles.passwordBtn}></PasswordButton>
+              <PasswordButton onPress={togglePassword} iconName={shown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
             </Layout>
           )}
           name="password"
@@ -294,14 +294,11 @@ const styles = StyleSheet.create({
   passwordWrap: {
     marginTop: 10,
     backgroundColor: colors.primary,
-    flexDirection: 'row',
   },
   passwordInput: {
-    width: 290,
     marginBottom: 0,
   },
   input: {
-    width: '100%',
     marginTop: 10,
   },
   checkBox: {
@@ -314,6 +311,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   passwordBtn: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
     width: 15,
     height: 20,
   },
