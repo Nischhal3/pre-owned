@@ -54,6 +54,8 @@ const Profile = ({route}) => {
     if (userComments.length > 0) return userComments;
   });
 
+  console.log(myMessages);
+
   // Get count for posts liked by user
   const myFavourites = mediaArray.filter((file) => {
     const userFavourites = file.fileFavourites.filter(
