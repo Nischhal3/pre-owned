@@ -51,7 +51,7 @@ const Search = ({navigation}) => {
     {category: 'Electronics'},
     {category: 'Clothing '},
     {category: 'Sports'},
-    {category: 'Gaming & Accessories'},
+    {category: 'Gaming'},
     {category: 'Others'},
   ];
 

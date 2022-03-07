@@ -18,7 +18,7 @@ const CategoryPicker = ({setCategory}) => {
     'Electronics',
     'Clothing',
     'Sports',
-    'Gaming & Accessories',
+    'Gaming',
     'Others',
   ];
   const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
@@ -51,23 +51,23 @@ const CategoryPicker = ({setCategory}) => {
           accessoryLeft={<CategoryIcon name="floor-lamp" />}
         />
         <SelectItem
-        style={styles.item}
+          style={styles.item}
           title="Electronics"
           accessoryLeft={<CategoryIcon name="camera" />}
         />
         <SelectItem
-        style={styles.item}
+          style={styles.item}
           title="Clothing"
           accessoryLeft={<CategoryIcon name="shoe-heel" />}
         />
         <SelectItem
-        style={styles.item}
+          style={styles.item}
           title="Sports"
           accessoryLeft={<CategoryIcon name="basketball" />}
         />
         <SelectItem
-        style={styles.item}
-          title="Gaming & Accessories"
+          style={styles.item}
+          title="Gaming"
           accessoryLeft={<CategoryIcon name="cards" />}
         />
         <SelectItem
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: colors.text_light,
-  }
+  },
 });
 
 CategoryPicker.propTypes = {

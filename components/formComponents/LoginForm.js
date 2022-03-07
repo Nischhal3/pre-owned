@@ -1,5 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {Platform, StyleSheet} from 'react-native';
+import React, {useContext} from 'react';
+import {StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
 
@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
   input: {
     marginTop: 15,
     alignSelf: 'center',
-    width: 300,
   },
   layout: {
     marginTop: '15%',
