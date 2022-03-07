@@ -126,7 +126,7 @@ const useFavourite = () => {
     return await fetchData(`${baseUrl}favourites/file/${fileId}`, options);
   };
 
-  const getFavourtiesList = async (token) => {
+  const getFavouritesList = async (token) => {
     const options = {
       headers: {
         'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const useFavourite = () => {
     postFavourite,
     deleteFavourite,
     getFavourtiesByFileId,
-    getFavourtiesList,
+    getFavouritesList,
   };
 };
 

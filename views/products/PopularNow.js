@@ -8,27 +8,18 @@ import {StyleSheet} from 'react-native';
 import {List} from '@ui-kitten/components';
 
 // Import from files
-import colors from '../utils/colors';
-import PlainListItem from '../components/lists/PlainListItem';
-import {useMedia} from '../hooks/MediaHooks';
-import {ItemSeparator} from '../components/elements/ItemSeparator';
-import {MainContext} from '../contexts/MainContext';
-import {useFocusEffect} from '@react-navigation/native';
+import colors from '../../utils/colors';
+import {useMedia} from '../../hooks/MediaHooks';
 
-// TODO fetch items from server, item fetch to be added in API hooks
+// components import
+import PlainListItem from '../../components/lists/PlainListItem';
+import {ItemSeparator} from '../../components/elements/ItemSeparator';
+
 const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
-  const {update, setUpdate} = useContext(MainContext);
 
+  // Sorting list by max favourite count
   mediaArray.sort((a, b) => a.favCount < b.favCount);
-
-  // useFocusEffect(() => {
-  //   useCallback(() => {
-  //     return () => {
-  //       setUpdate(update + 1);
-  //     };
-  //   }, []);
-  // });
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>

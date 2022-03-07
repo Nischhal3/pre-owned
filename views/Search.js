@@ -26,12 +26,14 @@ import {
 // Import from files
 import {useMedia} from '../hooks/MediaHooks';
 import colors from '../utils/colors';
+import NoSearchResultsIcon from '../assets/icons/searching.svg';
+import StartSearchIcon from '../assets/icons/startSearch.svg';
+
+// components import
 import {FilterIcon, SearchIcon} from '../components/elements/Icons';
 import {GalleryItemVertical} from '../components/lists/GalleryItem';
 import ModalCheckBox from '../components/elements/CheckBox';
 import {AppButton} from '../components/elements/AppButton';
-import NoSearchResultsIcon from '../assets/icons/searching.svg';
-import StartSearchIcon from '../assets/icons/startSearch.svg';
 
 const Search = ({navigation}) => {
   const [filteredData, setFilteredData] = useState([]);

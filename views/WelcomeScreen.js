@@ -8,10 +8,14 @@ import {Layout} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
-import {getToken} from '../hooks/CommonFunction';
-import {AppButton} from '../components/elements/AppButton';
 import {MainContext} from '../contexts/MainContext';
+
+// hooks import
+import {getToken} from '../hooks/CommonFunction';
 import {getUserByToken} from '../hooks/ApiHooks';
+
+// components import
+import {AppButton} from '../components/elements/AppButton';
 
 const WelcomeScreen = ({navigation}) => {
   const animation = React.createRef(); // animation

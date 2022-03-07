@@ -58,6 +58,7 @@ AppButton.propTypes = {
   accessoryLeft: PropTypes.object,
   accessoryRight: PropTypes.object,
 };
+
 FormButton.propTypes = {
   style: PropTypes.object,
   handleSubmit: PropTypes.func,

@@ -7,23 +7,32 @@ import PropTypes from 'prop-types';
 import {Layout, Text, Avatar} from '@ui-kitten/components';
 
 // Import from files
-import {MainContext} from '../contexts/MainContext';
-import colors from '../utils/colors';
-import {getAvatar, useMedia} from '../hooks/MediaHooks';
-import {getUserById} from '../hooks/ApiHooks';
-import {ProfileSeparator} from '../components/elements/ItemSeparator';
-import assetAvatar from '../assets/backgrounds/Avatar.png';
-import BoxIcon from '../assets/icons/boxIcon.svg';
-import HeartIcon from '../assets/icons/heartIcon.svg';
-import BubbleIcon from '../assets/icons/bubbleIcon.svg';
+import {MainContext} from '../../contexts/MainContext';
+import colors from '../../utils/colors';
+import assetAvatar from '../../assets/backgrounds/Avatar.png';
+import BoxIcon from '../../assets/icons/boxIcon.svg';
+import HeartIcon from '../../assets/icons/heartIcon.svg';
+import BubbleIcon from '../../assets/icons/bubbleIcon.svg';
+
+// hooks import
+import {getAvatar, useFavourite, useMedia} from '../../hooks/MediaHooks';
+import {getUserById} from '../../hooks/ApiHooks';
+
+// components import
+import {ProfileSeparator} from '../../components/elements/ItemSeparator';
+import {getToken} from '../../hooks/CommonFunction';
+import {getMessagesList} from '../../hooks/MessageHook';
 
 const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
-  const {user, updateAvatar} = useContext(MainContext);
+  const {user, updateAvatar, update, updateMessage} = useContext(MainContext);
   const [avatar, setAvatar] = useState(uploadDefaultUri);
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
   const {mediaArray} = useMedia();
+  const {getFavouritesList} = useFavourite();
+  const [myFavourite, setMyFavourtie] = useState([]);
+  const [myMessages, setMyMessages] = useState([]);
 
   // Fetching avatar
   const fetchAvatar = async () => {
@@ -40,32 +49,52 @@ const Profile = ({route}) => {
   const myPosts = mediaArray.filter(
     (item) => item.user_id === userProfile.user_id
   );
+  // // Get count of messages sent by user
+  // const myMessages = mediaArray.filter((file) => {
+  //   const userComments = file.fileComments.filter(
+  //     (comment) => comment.user_id === userProfile.user_id
+  //   );
+  //   if (userComments.length > 0) return userComments;
+  // });
 
-  // Get count of messages sent by user
-  const myMessages = mediaArray.filter((file) => {
-    const userComments = file.fileComments.filter(
-      (comment) => comment.user_id === userProfile.user_id
-    );
-    if (userComments.length > 0) return userComments;
-  });
+  const myMessage = async () => {
+    const token = await getToken();
+    const message = await getMessagesList(token);
+    setMyMessages(message);
+  };
 
   // Get count for posts liked by user
-  const myFavourites = mediaArray.filter((file) => {
-    const userFavourites = file.fileFavourites.filter(
-      (favourite) => favourite.user_id === userProfile.user_id
-    );
-    if (userFavourites.length > 0) return userFavourites;
-  });
+  // const myFavourites = async() => {
 
+  //   // const userFavourites = file.fileFavourites.filter(
+  //   //   (favourite) => favourite.user_id === userProfile.user_id
+  //   // );
+  //   // if (userFavourites.length > 0) return userFavourites;
+  // });
+
+  const myFavourites = async () => {
+    const token = await getToken();
+    const list = await getFavouritesList(token);
+    setMyFavourtie(list);
+  };
+
+  // console.log('Post', myFavourites.length);
   useEffect(() => {
     fetchAvatar();
   }, [updateAvatar]);
 
+  useEffect(() => {
+    myFavourites();
+  }, [update]);
+
+  useEffect(() => {
+    myMessage();
+  }, [updateMessage]);
   return (
     <Layout style={styles.container}>
       <Image
         style={styles.backgroundImg}
-        source={require('../assets/backgrounds/profile_background.png')}
+        source={require('../../assets/backgrounds/profile_background.png')}
         PlaceholderContent={<ActivityIndicator />}
       />
       <Layout style={styles.profileWrapper}>
@@ -90,7 +119,7 @@ const Profile = ({route}) => {
         </Layout>
         <Layout style={styles.statisticsView}>
           <Text style={styles.numbers}>{myPosts.length}</Text>
-          <Text style={styles.numbers}>{myFavourites.length}</Text>
+          <Text style={styles.numbers}>{myFavourite.length}</Text>
           <Text style={styles.numbers}>{myMessages.length}</Text>
         </Layout>
       </Layout>

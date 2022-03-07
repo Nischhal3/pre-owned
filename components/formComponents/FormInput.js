@@ -1,6 +1,7 @@
 import {Icon, Input} from '@ui-kitten/components';
 import React from 'react';
 import {GlobalStyles} from '../../utils';
+import PropTypes from 'prop-types';
 
 const FormInput = (props) => {
   return (
@@ -19,6 +20,19 @@ const FormInput = (props) => {
       label={props.label}
     />
   );
+};
+
+FormInput.propTypes = {
+  name: PropTypes.string,
+  onBlur: PropTypes.any,
+  iconName: PropTypes.string,
+  onchange: PropTypes.any,
+  value: PropTypes.string,
+  textEntry: PropTypes.bool,
+  multiline: PropTypes.any,
+  textStyle: PropTypes.any,
+  align: PropTypes.any,
+  label: PropTypes.string,
 };
 
 export default FormInput;
