@@ -1,45 +1,42 @@
-import {Button, Layout} from '@ui-kitten/components';
-import React from 'react';
+// Import from react & libraries
+import React, {useCallback, useContext} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
+
+// Import from UI Kitten library
+import {Layout} from '@ui-kitten/components';
+
+// Import from files
 import {
   GalleryListHorizontal,
   GalleryListVertical,
 } from '../components/ExploreList';
 import colors from '../utils/colors';
-import PropTypes from 'prop-types';
-import {PointRightArrow} from '../components/elements/Icons';
+import ExploreTitle from '../components/ExploreTitle';
+import {MainContext} from '../contexts/MainContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 // Return explore screen
 const ExploreScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Layout style={styles.horizontalGallery}>
-        <Button
+        <ExploreTitle
           onPress={() => {
-            navigation.navigate('Recently added');
+            navigation.navigate('All products');
           }}
-          size={'giant'}
-          style={{justifyContent: 'space-between'}}
-          appearance="ghost"
-          accessoryRight={PointRightArrow}
-        >
-          Recently added
-        </Button>
+          title="All products"
+        />
         <GalleryListHorizontal navigation={navigation} />
       </Layout>
 
       <Layout style={styles.verticalGallery}>
-        <Button
+        <ExploreTitle
           onPress={() => {
             navigation.navigate('Popular now');
           }}
-          size={'giant'}
-          style={{justifyContent: 'space-between'}}
-          appearance="ghost"
-          accessoryRight={PointRightArrow}
-        >
-          Popular now
-        </Button>
+          title="Popular now"
+        />
         <GalleryListVertical navigation={navigation} />
       </Layout>
     </SafeAreaView>
@@ -50,18 +47,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: colors.container,
+    backgroundColor: colors.background,
   },
 
   horizontalGallery: {
-    backgroundColor: colors.container,
+    backgroundColor: colors.background,
     marginTop: 10,
   },
 
   verticalGallery: {
     flex: 1,
     marginTop: -10,
-    backgroundColor: colors.container,
+    backgroundColor: colors.background,
   },
 });
 

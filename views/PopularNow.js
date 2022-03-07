@@ -1,37 +1,59 @@
-import React from 'react';
+// Import from react & libraries
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Divider, List} from '@ui-kitten/components';
-import {StyleSheet} from 'react-native';
-import colors from '../utils/colors';
 import PropTypes from 'prop-types';
+import {StyleSheet} from 'react-native';
+
+// Import from UI Kitten library
+import {List} from '@ui-kitten/components';
+
+// Import from files
+import colors from '../utils/colors';
 import PlainListItem from '../components/lists/PlainListItem';
 import {useMedia} from '../hooks/MediaHooks';
+import {ItemSeparator} from '../components/elements/ItemSeparator';
+import {MainContext} from '../contexts/MainContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 // TODO fetch items from server, item fetch to be added in API hooks
 const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
+  const {update, setUpdate} = useContext(MainContext);
+
+  mediaArray.sort((a, b) => a.favCount < b.favCount);
+
+  // useFocusEffect(() => {
+  //   useCallback(() => {
+  //     return () => {
+  //       setUpdate(update + 1);
+  //     };
+  //   }, []);
+  // });
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <List
         data={mediaArray}
         contentContainerStyle={styles.container}
         horizontal={false}
-        ItemSeparatorComponent={Divider}
+        ItemSeparatorComponent={ItemSeparator}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <PlainListItem navigation={navigation} singleItem={item} />
+          <PlainListItem
+            navigation={navigation}
+            singleItem={item}
+            displayText={true}
+          />
         )}
-      ></List>
+      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin: 0,
-    padding: 0,
-    backgroundColor: colors.primary,
+    marginTop: '5%',
+    paddingBottom: '10%',
   },
 });
 

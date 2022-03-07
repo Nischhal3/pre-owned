@@ -1,28 +1,28 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
-import {appId, baseUrl} from '../utils/url';
-import {fetchData} from './CommonFunction';
+import {appId, baseUrl, uploadsUrl} from '../utils/url';
+import {fetchData, fetchFromMedia} from './CommonFunction';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update} = useContext(MainContext);
 
-  const fetchMedia = async (myPostsOnly) => {
+  // Fetching all media
+  const fetchMedia = async () => {
     try {
-      const json = await getFilesByTag(appId);
-      // if (myFilesOnly) {
-      //   json = json.filter((item) => item.user_id === user.user_id);
-      // }
+      const media = await getFilesByTag(appId);
+      const mediaCategory = await fetchFromMedia(media);
+      setMediaArray(mediaCategory);
+    } catch (error) {
+      console.log('Error', error);
+    }
+  };
 
-      const media = await Promise.all(
-        json.map(async (item) => {
-          const response = await fetch(baseUrl + 'media/' + item.file_id);
-          const mediaData = await response.json();
-          // console.log(mediaData);
-          return mediaData;
-        })
-      );
-      setMediaArray(media);
+  // Fetching media by category
+  const getMediaByCategory = async (category) => {
+    try {
+      const media = await getFilesByTag(`${appId}_${category}`);
+      return await fetchFromMedia(media);
     } catch (error) {
       console.log('Error', error);
     }
@@ -32,8 +32,13 @@ const useMedia = () => {
   // Or when the update state is changed in MainContext
   useEffect(() => {
     fetchMedia();
+    // return () => {};
   }, [update]);
-  return {mediaArray};
+
+  return {
+    mediaArray,
+    getMediaByCategory,
+  };
 };
 
 const postMedia = async (formData, token) => {
@@ -50,6 +55,31 @@ const postMedia = async (formData, token) => {
   return response;
 };
 
+const putMedia = async (data, token, fileId) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify(data),
+  };
+  return await fetchData(baseUrl + `media/${fileId}`, options);
+};
+
+const deleteMedia = async (fileId, token) => {
+  const options = {
+    method: 'DELETE',
+    headers: {'x-access-token': token},
+  };
+  return await fetchData(`${baseUrl}media/${fileId}`, options);
+};
+
+const getMediaById = async (fileId) => {
+  return await fetchData(`${baseUrl}media/${fileId}`);
+};
+
+// Use tag for avatar
 const postTag = async (tagData, token) => {
   const options = {
     method: 'POST',
@@ -80,6 +110,7 @@ const useFavourite = () => {
     };
     return await fetchData(`${baseUrl}favourites`, options);
   };
+
   const getFavourtiesByFileId = async (fileId) => {
     return await fetchData(`${baseUrl}favourites/file/${fileId}`);
   };
@@ -94,7 +125,46 @@ const useFavourite = () => {
     };
     return await fetchData(`${baseUrl}favourites/file/${fileId}`, options);
   };
-  return {postFavourite, deleteFavourite, getFavourtiesByFileId};
+
+  const getFavourtiesList = async (token) => {
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+    };
+    return await fetchData(`${baseUrl}favourites`, options);
+  };
+
+  return {
+    postFavourite,
+    deleteFavourite,
+    getFavourtiesByFileId,
+    getFavourtiesList,
+  };
 };
 
-export {getFilesByTag, postMedia, postTag, useMedia, useFavourite};
+const getAvatar = async (userId, setAvatar) => {
+  try {
+    const avatarArray = await getFilesByTag('pre_owned_avatar_' + userId);
+    const fetchedAvatar = avatarArray.pop();
+
+    if (fetchedAvatar !== null) {
+      setAvatar(uploadsUrl + fetchedAvatar.filename);
+    }
+  } catch (error) {
+    console.log('Avatar message', error.message);
+  }
+};
+
+export {
+  getFilesByTag,
+  postMedia,
+  putMedia,
+  deleteMedia,
+  getMediaById,
+  postTag,
+  useMedia,
+  useFavourite,
+  getAvatar,
+};

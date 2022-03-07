@@ -1,15 +1,17 @@
 import React, {useContext, useEffect} from 'react';
-import {ImageBackground, Platform, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {MainContext} from '../contexts/MainContext';
-import {getUserByToken} from '../hooks/ApiHooks';
-import {AppButton} from '../components/elements/AppButton';
 
 // Lottie animation
 import LottieView from 'lottie-react-native';
-import {Layout, Text} from '@ui-kitten/components';
+import {Layout} from '@ui-kitten/components';
+
+// Import from files
 import colors from '../utils/colors';
 import {getToken} from '../hooks/CommonFunction';
+import {AppButton} from '../components/elements/AppButton';
+import {MainContext} from '../contexts/MainContext';
+import {getUserByToken} from '../hooks/ApiHooks';
 
 const WelcomeScreen = ({navigation}) => {
   const animation = React.createRef(); // animation
@@ -17,18 +19,15 @@ const WelcomeScreen = ({navigation}) => {
 
   const checkToken = async () => {
     const userToken = await getToken();
-    // console.log('token value in async storage', userToken);
     if (!userToken) {
       return;
     }
     try {
       const userData = await getUserByToken();
-      // console.log('chekToken', userData);
-      // console.log('token', userToken);
       setUser(userData);
       setIsLoggedIn(true);
     } catch (error) {
-      console.error(error);
+      return;
     }
   };
 
@@ -46,15 +45,7 @@ const WelcomeScreen = ({navigation}) => {
       />
       <Layout style={styles.btnContainter}>
         <AppButton
-          title="Login"
-          onPress={() => {
-            setFormToggle(true);
-            navigation.navigate('Login');
-          }}
-        />
-        <AppButton
-          style={{marginBottom: 50}}
-          title="Create an account"
+          title="Continue"
           onPress={() => {
             setFormToggle(false);
             navigation.navigate('Login');
@@ -74,6 +65,7 @@ const styles = StyleSheet.create({
   btnContainter: {
     backgroundColor: 'transparent',
     alignSelf: 'center',
+    marginBottom: '20%',
   },
   inner: {
     width: '100%',

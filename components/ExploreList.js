@@ -1,22 +1,31 @@
-import {List} from '@ui-kitten/components';
+// Import from react
 import React from 'react';
 import PropTypes from 'prop-types';
+
+// Import from UI Kitten library
+import {List} from '@ui-kitten/components';
+
+// Import from files
 import {useMedia} from '../hooks/MediaHooks';
 import {GalleryItemHorizontal, GalleryItemVertical} from './lists/GalleryItem';
+import {colors} from '../utils';
 
 // Return a horizontal gallery list
 const GalleryListHorizontal = ({navigation}) => {
   const {mediaArray} = useMedia();
 
-  // Sorting items by recently added date
+  // Sorting items by recently added date and displaying first 5
   mediaArray.sort((a, b) => a.time_added < b.time_added);
+  const showFirstFive = mediaArray.slice(0, 5);
 
   return (
     <List
-      data={mediaArray}
+      style={{backgroundColor: colors.background}}
+      data={showFirstFive}
       contentContainerStyle={{
-        marginStart: 20,
         alignItems: 'center',
+        paddingEnd: 30,
+        marginStart: 20,
       }}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
@@ -30,15 +39,24 @@ const GalleryListHorizontal = ({navigation}) => {
 // Return a vertical gallery list
 const GalleryListVertical = ({navigation}) => {
   const {mediaArray} = useMedia();
-  // console.log('Explorer', mediaArray);
+  mediaArray.sort((a, b) => a.favCount < b.favCount);
+  const showFirstFive = mediaArray.slice(0, 5);
+
   return (
     <List
-      data={mediaArray}
-      contentContainerStyle={{marginStart: 20}}
+      style={{backgroundColor: colors.background}}
+      data={showFirstFive}
+      contentContainerStyle={{
+        alignItems: 'center',
+      }}
       horizontal={false}
       showsHorizontalScrollIndicator={false}
       renderItem={({item}) => (
-        <GalleryItemVertical navigation={navigation} singleItem={item} />
+        <GalleryItemVertical
+          navigation={navigation}
+          singleItem={item}
+          displayText={false}
+        />
       )}
     ></List>
   );

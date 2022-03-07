@@ -1,43 +1,74 @@
 import React from 'react';
-import {Button, Spinner} from '@ui-kitten/components';
-import {SafeAreaView, TouchableOpacity} from 'react-native';
-import colors from '../../utils/colors';
-import GlobalStyles from '../../utils/GlobalStyles';
+import {Button, Icon} from '@ui-kitten/components';
+import {colors, GlobalStyles} from '../../utils';
+import PropTypes from 'prop-types';
+import {ActivityIndicator} from 'react-native';
 
-const AppButton = ({title, onPress, color = colors.btnBackground, style}) => {
-  return (
-    <TouchableOpacity>
-      <Button
-        size="small"
-        style={[GlobalStyles.btnStyle, style]}
-        onPress={onPress}
-      >
-        {title}
-      </Button>
-    </TouchableOpacity>
-  );
-};
-
-const FormButton = (props, style) => {
+const AppButton = (props) => {
   return (
     <Button
-      style={[GlobalStyles.formButtonStyle, style]}
-      onPress={props.handleSubmit(props.onSubmit)}
+      style={[GlobalStyles.btnStyle, props.appBtnStyle]}
+      size={props.size}
+      onPress={props.onPress}
+      accessoryLeft={props.accessoryLeft}
+      accessoryRight={props.accessoryRight}
     >
-      {props.text}
+      {props.title}
     </Button>
   );
 };
 
-const UploadButton = (props, style) => {
+const FormButton = (props) => {
   return (
     <Button
-      style={[GlobalStyles.formButtonStyle, style]}
+      style={[GlobalStyles.formButtonStyle, props.style]}
       onPress={props.handleSubmit(props.onSubmit)}
-      accessoryLeft={<Spinner size="small" color="#fff" />}
+      disabled={props.disabled}
     >
-      {props.text}
+      {props.loading ? (
+        <ActivityIndicator
+          animating={props.loading}
+          color={colors.text_light}
+          size="large"
+        />
+      ) : (
+        props.text
+      )}
     </Button>
   );
 };
-export {AppButton, FormButton, UploadButton};
+
+const PasswordButton = (props) => {
+  return (
+    <Button
+      style={props.style}
+      appearance="ghost"
+      onPress={props.onPress}
+      accessoryLeft={props.iconName ? <Icon name={props.iconName} /> : null}
+    >
+    </Button>
+  );
+};
+
+AppButton.propTypes = {
+  appBtnStyle: PropTypes.object,
+  size: PropTypes.object,
+  onPress: PropTypes.func,
+  title: PropTypes.string,
+  accessoryLeft: PropTypes.object,
+  accessoryRight: PropTypes.object,
+};
+FormButton.propTypes = {
+  style: PropTypes.object,
+  handleSubmit: PropTypes.func,
+  onSubmit: PropTypes.func,
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool,
+  text: PropTypes.string,
+};
+PasswordButton.propTypes = {
+  appBtnStyle: PropTypes.object,
+  onPress: PropTypes.func,
+  accessoryLeft: PropTypes.object,
+};
+export {AppButton, FormButton, PasswordButton};
