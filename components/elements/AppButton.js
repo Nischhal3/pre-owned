@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button} from '@ui-kitten/components';
-import {GlobalStyles} from '../../utils';
+import {Button, Icon} from '@ui-kitten/components';
+import {colors, GlobalStyles} from '../../utils';
 import PropTypes from 'prop-types';
+import {ActivityIndicator} from 'react-native';
 
 const AppButton = (props) => {
   return (
@@ -24,7 +25,27 @@ const FormButton = (props) => {
       onPress={props.handleSubmit(props.onSubmit)}
       disabled={props.disabled}
     >
-      {props.text}
+      {props.loading ? (
+        <ActivityIndicator
+          animating={props.loading}
+          color={colors.text_light}
+          size="large"
+        />
+      ) : (
+        props.text
+      )}
+    </Button>
+  );
+};
+
+const PasswordButton = (props) => {
+  return (
+    <Button
+      style={props.style}
+      appearance="ghost"
+      onPress={props.onPress}
+      accessoryLeft={props.iconName ? <Icon name={props.iconName} /> : null}
+    >
     </Button>
   );
 };
@@ -42,6 +63,12 @@ FormButton.propTypes = {
   handleSubmit: PropTypes.func,
   onSubmit: PropTypes.func,
   disabled: PropTypes.bool,
+  loading: PropTypes.bool,
   text: PropTypes.string,
 };
-export {AppButton, FormButton};
+PasswordButton.propTypes = {
+  appBtnStyle: PropTypes.object,
+  onPress: PropTypes.func,
+  accessoryLeft: PropTypes.object,
+};
+export {AppButton, FormButton, PasswordButton};

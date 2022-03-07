@@ -11,7 +11,6 @@ const MainProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
   const [updateMessage, setUpdateMessage] = useState(0);
   const [media, setMedia] = useState([]);
-  const [updateFavourite, setUpdateFavourite] = useState(0);
   const [updateAvatar, setUpdateAvatar] = useState(0);
 
   return (
@@ -31,8 +30,6 @@ const MainProvider = ({children}) => {
         setUpdateMessage,
         media,
         setMedia,
-        updateFavourite,
-        setUpdateFavourite,
         updateAvatar,
         setUpdateAvatar,
       }}

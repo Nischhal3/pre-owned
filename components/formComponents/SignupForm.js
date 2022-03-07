@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Alert,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Alert, ScrollView} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -19,20 +15,29 @@ import {
 } from '@ui-kitten/components';
 
 // Api import
-import {checkUserName, signUp} from '../hooks/ApiHooks';
+import {checkUserName, signUp} from '../../hooks/ApiHooks';
 
 // App component import
-import FormInput from './formComponents/FormInput';
-import {FormButton} from './elements/AppButton';
-import ErrorMessage from './elements/ErrorMessage';
+import FormInput from './FormInput';
+import {FormButton, PasswordButton} from '../elements/AppButton';
+import ErrorMessage from '../elements/ErrorMessage';
 
 // Styling import
-import {colors} from '../utils';
+import {colors} from '../../utils';
 
 const SignupForm = ({setFormToggle}) => {
   // Terms checkbox
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
+  // Password visible
+  const [shown, setShown] = useState(true);
+  const togglePassword = () => {
+    setShown(!shown);
+  };
+  const [confirmShown, setConfirmShown] = useState(true);
+  const toggleConfirm = () => {
+    setConfirmShown(!confirmShown);
+  };
 
   const {
     control,
@@ -58,7 +63,7 @@ const SignupForm = ({setFormToggle}) => {
       delete data.confirmPassword;
       const userData = await signUp(data);
       if (userData) {
-        Alert.alert('Success', 'User created successfully.');
+        Alert.alert('Success', 'Successfully signed up.');
         setFormToggle(true);
       }
     } catch (error) {
@@ -145,7 +150,7 @@ const SignupForm = ({setFormToggle}) => {
         <Controller
           control={control}
           rules={{
-            required: {value: true, message: 'This is required'},
+            required: {value: true, message: 'This field cannot be empty'},
             pattern: {
               /**
                *  Password criteria
@@ -153,19 +158,22 @@ const SignupForm = ({setFormToggle}) => {
                *  Atleast 1 upper case of lower case character
                */
               value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
-              message: 'Min 8, Uppercase & Number',
+              message: 'Min 8 characters, uppercase & number',
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <FormInput
-              style={styles.input}
-              iconName="lock-outline"
-              name="Password"
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
-              textEntry={true}
-            />
+            <Layout style={styles.passwordWrap}>
+              <FormInput
+                style={styles.passwordInput}
+                iconName="lock-outline"
+                name="Password"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={shown}
+              />
+              <PasswordButton onPress={togglePassword} iconName={shown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
+            </Layout>
           )}
           name="password"
         />
@@ -178,7 +186,7 @@ const SignupForm = ({setFormToggle}) => {
         <Controller
           control={control}
           rules={{
-            required: {value: true, message: 'This is required'},
+            required: {value: true, message: 'This field cannot be empty'},
             validate: (value) => {
               const {password} = getValues();
               if (value === password) {
@@ -189,15 +197,18 @@ const SignupForm = ({setFormToggle}) => {
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <FormInput
-              style={styles.confirmInput}
+            <Layout style={styles.passwordWrap}>
+              <FormInput
+              style={styles.passwordInput}
               iconName="lock-outline"
               name="Confirm password"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
-              textEntry={true}
-            />
+              textEntry={confirmShown}
+              />
+              <PasswordButton onPress={toggleConfirm} iconName={confirmShown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
+            </Layout>
           )}
           name="confirmPassword"
         />
@@ -271,7 +282,6 @@ const SignupForm = ({setFormToggle}) => {
           style={styles.button}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-          disabled={!checked}
           text="Sign Up"
         />
       </Layout>
@@ -287,8 +297,15 @@ const styles = StyleSheet.create({
     top: '-2%',
     bottom: 30,
   },
-  confirmInput: {
+  passwordWrap: {
+    marginTop: 10,
+    backgroundColor: colors.primary,
+  },
+  passwordInput: {
     marginBottom: 0,
+  },
+  input: {
+    marginTop: 10,
   },
   checkBox: {
     marginTop: 30,
@@ -299,13 +316,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 15,
   },
-  input: {
-    marginBottom: 10,
+  passwordBtn: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    width: 15,
+    height: 20,
   },
   modal: {
-    margin: 10,
+    marginTop: Platform.OS === 'android' ? '20%' : '25%',
     borderRadius: 15,
-    height: 700,
     marginVertical: '5%',
     backgroundColor: colors.primary,
   },

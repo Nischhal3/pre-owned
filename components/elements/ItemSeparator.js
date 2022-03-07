@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     height: 0.5,
     alignSelf: 'center',
     marginTop: '5%',
-    backgroundColor: colors.text_light,
+    backgroundColor: colors.text_dark,
   },
 });
 export {ItemSeparator, MessageSeparator, ProfileSeparator};

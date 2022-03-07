@@ -5,7 +5,7 @@ import {fetchData, fetchFromMedia} from './CommonFunction';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
-  const {update, updateFavourite} = useContext(MainContext);
+  const {update} = useContext(MainContext);
 
   // Fetching all media
   const fetchMedia = async () => {
@@ -33,7 +33,7 @@ const useMedia = () => {
   useEffect(() => {
     fetchMedia();
     // return () => {};
-  }, [update, updateFavourite]);
+  }, [update]);
 
   return {
     mediaArray,
