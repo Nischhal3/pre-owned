@@ -57,7 +57,7 @@ const LikeComponent = ({file, heartAnimation = true}) => {
         setIsDisabled(false);
         setUpdateFavourite(updateFavourite + 1);
         setUserLike(true);
-        setUpdate(update + 1);
+        // setUpdate(update + 1);
       }
     } catch (e) {
       console.error('Add Like error', e);
@@ -76,7 +76,7 @@ const LikeComponent = ({file, heartAnimation = true}) => {
           setUserLike(false);
         }
         setUpdateFavourite(updateFavourite + 1);
-        setUpdate(update + 1);
+        // setUpdate(update + 1);
       }
     } catch (e) {
       console.error('Remove Like error', e);

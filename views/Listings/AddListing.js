@@ -121,8 +121,8 @@ const AddListing = ({navigation}) => {
           {
             text: 'Ok',
             onPress: () => {
-              setUpdate(update + 1);
               navigation.navigate('Explore');
+              setUpdate(update + 1);
             },
           },
         ]);
@@ -259,17 +259,7 @@ const AddListing = ({navigation}) => {
                 <FormButton
                   handleSubmit={handleSubmit}
                   onSubmit={onSubmit}
-                  text={
-                    loading ? (
-                      <ActivityIndicator
-                        animating={loading}
-                        color={colors.text_light}
-                        size="large"
-                      />
-                    ) : (
-                      'Upload'
-                    )
-                  }
+                  loading={loading}
                   disabled={!imageSelected}
                   style={styles.uploadBtn}
                 />

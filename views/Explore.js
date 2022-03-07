@@ -1,5 +1,5 @@
 // Import from react & libraries
-import React from 'react';
+import React, {useCallback, useContext} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -13,6 +13,8 @@ import {
 } from '../components/ExploreList';
 import colors from '../utils/colors';
 import ExploreTitle from '../components/ExploreTitle';
+import {MainContext} from '../contexts/MainContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 // Return explore screen
 const ExploreScreen = ({navigation}) => {
