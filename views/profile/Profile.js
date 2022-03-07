@@ -20,8 +20,6 @@ import {getUserById} from '../../hooks/ApiHooks';
 
 // components import
 import {ProfileSeparator} from '../../components/elements/ItemSeparator';
-import {getToken} from '../../hooks/CommonFunction';
-import {getMessagesList} from '../../hooks/MessageHook';
 
 const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
@@ -31,7 +29,6 @@ const Profile = ({route}) => {
   const [userProfile, setUserProfile] = useState({});
   const {mediaArray} = useMedia();
 
-  // Trying to merge landing
   // Fetching avatar
   const fetchAvatar = async () => {
     try {
