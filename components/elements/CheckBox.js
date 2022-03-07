@@ -55,6 +55,7 @@ const ModalCheckBox = ({
 };
 
 ModalCheckBox.propTypes = {
+  categoryNames: PropTypes.array,
   setItemPosition: PropTypes.func,
   setIsChecked: PropTypes.func,
   isChecked: PropTypes.number,

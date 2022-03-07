@@ -11,11 +11,13 @@ import {getMediaById, useFavourite} from '../hooks/MediaHooks';
 
 // Import from files
 import {colors} from '../utils';
-import {getToken} from '../hooks/CommonFunction';
-import {FavouriteList} from '../components/lists';
-import {ItemSeparator} from '../components/elements/ItemSeparator';
 import {MainContext} from '../contexts/MainContext';
 import SVGIcon from '../assets/icons/no-content.svg';
+import {getToken} from '../hooks/CommonFunction';
+
+// components import
+import {FavouriteList} from '../components/lists';
+import {ItemSeparator} from '../components/elements/ItemSeparator';
 import {AppButton} from '../components/elements/AppButton';
 
 const Favourite = ({navigation}) => {

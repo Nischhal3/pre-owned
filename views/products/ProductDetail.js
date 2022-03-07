@@ -23,14 +23,18 @@ import {Card, Divider, Icon, Layout, Text} from '@ui-kitten/components';
 
 // Import from files
 import colors from '../utils/colors';
-import {getAvatar, useMedia} from '../hooks/MediaHooks';
 import {MainContext} from '../contexts/MainContext';
 import {uploadsUrl} from '../utils/url';
+
+// hooks import
+import {getAvatar, useMedia} from '../hooks/MediaHooks';
 import {getUserById} from '../hooks/ApiHooks';
+
+// components import
 import {MessageList} from '../components/lists';
 import UserItem from '../components/elements/UserItem';
-import {AppButton} from '../components/elements/AppButton';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
+import {AppButton} from '../components/elements/AppButton';
 import LikeComponent from '../components/LikeComponent';
 
 const ProductDetail = ({route, navigation}) => {
@@ -57,7 +61,6 @@ const ProductDetail = ({route, navigation}) => {
 
       setName(userData.username);
     } catch (e) {
-      Alert.alert('Error showing likes', 'Close');
       console.error('fetch like error', e);
     }
   };

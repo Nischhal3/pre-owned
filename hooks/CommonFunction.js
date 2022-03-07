@@ -24,14 +24,14 @@ const fetchFromMedia = async (jsonData) => {
     jsonData.map(async (item) => {
       const response = await fetch(baseUrl + 'media/' + item.file_id);
       const mediaData = await response.json();
-      const response2 = await fetch(
+
+      const favResponse = await fetch(
         baseUrl + 'favourites/file/' + item.file_id
       );
-      const mediaData2 = await response2.json();
-      const favCount = mediaData2.length;
-      // console.log('favourite data', favCount);
+
+      const favResData = await favResponse.json();
+      const favCount = favResData.length;
       mediaData.favCount = favCount;
-      // console.log('Media Data', mediaData);
       return mediaData;
     })
   );

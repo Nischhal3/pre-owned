@@ -7,13 +7,17 @@ import PropTypes from 'prop-types';
 import {Layout, Text, Avatar} from '@ui-kitten/components';
 
 // Import from files
-import {MainContext} from '../contexts/MainContext';
-import colors from '../utils/colors';
-import {getAvatar} from '../hooks/MediaHooks';
-import {getUserById} from '../hooks/ApiHooks';
-import {ProfileSeparator} from '../components/elements/ItemSeparator';
-import Statistics from '../components/elements/ProfileStatistics';
-import assetAvatar from '../assets/backgrounds/Avatar.png';
+import {MainContext} from '../../contexts/MainContext';
+import colors from '../../utils/colors';
+import assetAvatar from '../../assets/backgrounds/Avatar.png';
+
+// hooks import
+import {getAvatar} from '../../hooks/MediaHooks';
+import {getUserById} from '../../hooks/ApiHooks';
+
+// components import
+import {ProfileSeparator} from '../../components/elements/ItemSeparator';
+import Statistics from '../../components/elements/ProfileStatistics';
 
 const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
@@ -29,7 +33,7 @@ const Profile = ({route}) => {
       setUserProfile(info);
       await getAvatar(userIdParam, setAvatar);
     } catch (error) {
-      console.log('Profile avatar', error.message);
+      return;
     }
   };
 
@@ -41,7 +45,7 @@ const Profile = ({route}) => {
     <Layout style={styles.container}>
       <Image
         style={styles.backgroundImg}
-        source={require('../assets/backgrounds/profile_background.png')}
+        source={require('../../assets/backgrounds/profile_background.png')}
         PlaceholderContent={<ActivityIndicator />}
       />
       <Layout style={styles.profileWrapper}>
@@ -60,6 +64,7 @@ const Profile = ({route}) => {
     </Layout>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

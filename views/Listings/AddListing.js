@@ -32,7 +32,6 @@ import uploadDefault from '../../assets/brand/upload.png';
 // Styling imports
 import colors from '../../utils/colors';
 import {Shadow} from 'react-native-shadow-2';
-import {GlobalStyles} from '../../utils';
 
 // Api imports
 import {appId} from '../../utils/url';
@@ -67,6 +66,7 @@ const AddListing = ({navigation}) => {
       allowsEditing: true,
       quality: 0.5,
     });
+
     if (!result.cancelled) {
       setImage(result.uri);
       setImageSelected(true);
@@ -100,7 +100,6 @@ const AddListing = ({navigation}) => {
     try {
       const token = await getToken();
       const response = await postMedia(formData, token);
-      console.log('Media upload', response);
 
       // Sending data to different category
       const tagResponse = await postTag(
@@ -113,7 +112,6 @@ const AddListing = ({navigation}) => {
         {file_id: response.file_id, tag: `${appId}`},
         token
       );
-      console.log('upload response', tagResponse, allResponse);
 
       if (tagResponse && allResponse) {
         setLoading(false);
@@ -340,7 +338,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
 AddListing.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
+
 export default AddListing;

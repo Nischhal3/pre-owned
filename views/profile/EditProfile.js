@@ -19,18 +19,20 @@ import {Text, Layout, Avatar, Icon} from '@ui-kitten/components';
 import {useForm, Controller} from 'react-hook-form';
 
 // Import from files
-import FormInput from '../components/formComponents/FormInput';
-import {AppButton, FormButton} from '../components/elements/AppButton';
-import colors from '../utils/colors';
-import {checkUserName, updateUser} from '../hooks/ApiHooks';
-import {MainContext} from '../contexts/MainContext';
-import {getToken} from '../hooks/CommonFunction';
-import {postMedia, postTag} from '../hooks/MediaHooks';
+import colors from '../../utils/colors';
+import {checkUserName, updateUser} from '../../hooks/ApiHooks';
+import {MainContext} from '../../contexts/MainContext';
+import {getToken} from '../../hooks/CommonFunction';
+import {postMedia, postTag} from '../../hooks/MediaHooks';
 import {Shadow} from 'react-native-shadow-2';
-import {GlobalStyles} from '../utils';
-import assetAvatar from '../assets/backgrounds/Avatar.png';
+import {GlobalStyles} from '../../utils';
+import assetAvatar from '../../assets/backgrounds/Avatar.png';
 import * as ImagePicker from 'expo-image-picker';
 import {useFocusEffect} from '@react-navigation/native';
+
+import FormInput from '../../components/formComponents/FormInput';
+import {AppButton, FormButton} from '../../components/elements/AppButton';
+import ErrorMessage from '../../components/elements/ErrorMessage';
 
 const EditProfile = ({navigation}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
@@ -39,6 +41,7 @@ const EditProfile = ({navigation}) => {
   const [avatar, setAvatar] = useState(uploadDefaultUri);
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
+
   const {
     control,
     handleSubmit,
@@ -51,7 +54,7 @@ const EditProfile = ({navigation}) => {
       email: user.email,
       password: '',
       confirmPassword: '',
-      full_name: user.full_name,
+      full_name: '',
     },
     mode: 'onBlur',
   });
@@ -134,7 +137,7 @@ const EditProfile = ({navigation}) => {
     setValue('email', user.email);
     setValue('password', '');
     setValue('confirmPassword', '');
-    setValue('full_name', user.full_name);
+    setValue('full_name', '');
   };
 
   // Resets form user if off from this view
@@ -215,11 +218,10 @@ const EditProfile = ({navigation}) => {
                     name="username"
                   />
 
-                  {errors.username && (
-                    <Text status="danger">
-                      {errors.username && errors.username.message}{' '}
-                    </Text>
-                  )}
+                  <ErrorMessage
+                    error={errors?.username}
+                    message={errors?.username?.message}
+                  />
 
                   <Controller
                     control={control}
@@ -244,11 +246,10 @@ const EditProfile = ({navigation}) => {
                     name="email"
                   />
 
-                  {errors.email && (
-                    <Text status="danger">
-                      {errors.email && errors.email.message}{' '}
-                    </Text>
-                  )}
+                  <ErrorMessage
+                    error={errors?.email}
+                    message={errors?.email?.message}
+                  />
 
                   <Controller
                     control={control}
@@ -273,11 +274,10 @@ const EditProfile = ({navigation}) => {
                     name="password"
                   />
 
-                  {errors.password && (
-                    <Text status="danger">
-                      {errors.password && errors.password.message}{' '}
-                    </Text>
-                  )}
+                  <ErrorMessage
+                    error={errors?.password}
+                    message={errors?.password?.message}
+                  />
 
                   <Controller
                     control={control}
@@ -306,11 +306,10 @@ const EditProfile = ({navigation}) => {
                     name="confirmPassword"
                   />
 
-                  {errors.confirmPassword && (
-                    <Text status="danger">
-                      {errors.confirmPassword && errors.confirmPassword.message}{' '}
-                    </Text>
-                  )}
+                  <ErrorMessage
+                    error={errors?.confirmPassword}
+                    message={errors?.confirmPassword?.message}
+                  />
 
                   <Controller
                     control={control}
@@ -332,17 +331,8 @@ const EditProfile = ({navigation}) => {
                     style={styles.button}
                     handleSubmit={handleSubmit}
                     onSubmit={onSubmit}
-                    text={
-                      loading ? (
-                        <ActivityIndicator
-                          animating={loading}
-                          color={colors.text_light}
-                          size="large"
-                        />
-                      ) : (
-                        'Save'
-                      )
-                    }
+                    text="Save"
+                    loading={loading}
                     disabled={!imageSelected}
                   />
                 </Layout>

@@ -17,7 +17,7 @@ const Statistics = () => {
   const {mediaArray} = useMedia();
   const {getFavourtiesList} = useFavourite();
   const [favourites, setFavourites] = useState([]);
-  const {updateFavourite} = useContext(MainContext);
+  const {update} = useContext(MainContext);
   const [messages, setMessages] = useState([]);
   const {updateMessage} = useContext(MainContext);
 
@@ -35,7 +35,6 @@ const Statistics = () => {
   const myMessages = async () => {
     const token = await getToken();
     const response = await getMessagesList(token);
-    // console.log(response);
     setMessages(response);
   };
 
@@ -43,7 +42,7 @@ const Statistics = () => {
   useEffect(() => {
     myLikes();
     myMessages();
-  }, [updateFavourite, updateMessage]);
+  }, [update, updateMessage]);
 
   return (
     <Layout style={styles.statisticsWrapper}>
