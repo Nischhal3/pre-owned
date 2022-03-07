@@ -33,7 +33,7 @@ import {MessageSeparator} from '../elements/ItemSeparator';
 import SVGIcon from '../../assets/icons/no-message.svg';
 import {getMessagesByFileId, postMessage} from '../../hooks/MessageHook';
 
-const MessageList = ({fileId, showMessages = false}) => {
+const MessageList = ({fileId}) => {
   const {user, updateMessage, setUpdateMessage} = useContext(MainContext);
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
