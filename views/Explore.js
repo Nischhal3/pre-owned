@@ -1,5 +1,5 @@
 // Import from react & libraries
-import React, {useCallback, useContext} from 'react';
+import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
