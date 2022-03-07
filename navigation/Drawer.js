@@ -4,25 +4,24 @@ import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // UI kitten library import
-import {
-  Icon,
-  Drawer,
-  DrawerItem,
-} from '@ui-kitten/components';
+import {Icon, Drawer, DrawerItem} from '@ui-kitten/components';
 
 // Drawer navigation import
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 // views import
-import Favourite from '../views/Favourite';
-import Profile from '../views/Profile';
-import EditProfile from '../views/EditProfile';
+import Favourite from '../views/profile/Favourite';
+import Profile from '../views/profile/Profile';
+import EditProfile from '../views/profile/EditProfile';
+
+// views import
 import {MyListings} from '../views/Listings';
 
 const Menu = createDrawerNavigator();
 
 const MenuContent = ({navigation, page}) => {
   const {setIsLoggedIn} = useContext(MainContext);
+
   const logout = () => {
     Alert.alert('Log Out', 'Confirm Logout?', [
       {text: 'Cancel'},
@@ -35,6 +34,7 @@ const MenuContent = ({navigation, page}) => {
       },
     ]);
   };
+
   return (
     <Drawer>
       <DrawerItem
@@ -75,7 +75,11 @@ const MenuContent = ({navigation, page}) => {
 };
 
 const MenuNavigator = () => (
-  <Menu.Navigator drawerContent={(props) => <MenuContent {...props} />} initialRouteName="Profile" defaultStatus='closed'>
+  <Menu.Navigator
+    drawerContent={(props) => <MenuContent {...props} />}
+    initialRouteName="Profile"
+    defaultStatus="closed"
+  >
     <Menu.Screen
       name="Profile"
       component={Profile}

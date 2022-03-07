@@ -7,15 +7,19 @@ import PropTypes from 'prop-types';
 import {Layout, Text, Avatar} from '@ui-kitten/components';
 
 // Import from files
-import {MainContext} from '../contexts/MainContext';
-import colors from '../utils/colors';
-import {getAvatar, useMedia} from '../hooks/MediaHooks';
-import {getUserById} from '../hooks/ApiHooks';
-import {ProfileSeparator} from '../components/elements/ItemSeparator';
-import assetAvatar from '../assets/backgrounds/Avatar.png';
-import BoxIcon from '../assets/icons/boxIcon.svg';
-import HeartIcon from '../assets/icons/heartIcon.svg';
-import BubbleIcon from '../assets/icons/bubbleIcon.svg';
+import {MainContext} from '../../contexts/MainContext';
+import colors from '../../utils/colors';
+import assetAvatar from '../../assets/backgrounds/Avatar.png';
+import BoxIcon from '../../assets/icons/boxIcon.svg';
+import HeartIcon from '../../assets/icons/heartIcon.svg';
+import BubbleIcon from '../../assets/icons/bubbleIcon.svg';
+
+// hooks import
+import {getAvatar, useMedia} from '../../hooks/MediaHooks';
+import {getUserById} from '../../hooks/ApiHooks';
+
+// components import
+import {ProfileSeparator} from '../../components/elements/ItemSeparator';
 
 const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
@@ -25,7 +29,6 @@ const Profile = ({route}) => {
   const [userProfile, setUserProfile] = useState({});
   const {mediaArray} = useMedia();
 
-  // Trying to merge landing
   // Fetching avatar
   const fetchAvatar = async () => {
     try {
@@ -50,6 +53,8 @@ const Profile = ({route}) => {
     if (userComments.length > 0) return userComments;
   });
 
+  console.log(myMessages);
+
   // Get count for posts liked by user
   const myFavourites = mediaArray.filter((file) => {
     const userFavourites = file.fileFavourites.filter(
@@ -66,7 +71,7 @@ const Profile = ({route}) => {
     <Layout style={styles.container}>
       <Image
         style={styles.backgroundImg}
-        source={require('../assets/backgrounds/profile_background.png')}
+        source={require('../../assets/backgrounds/profile_background.png')}
         PlaceholderContent={<ActivityIndicator />}
       />
       <Layout style={styles.profileWrapper}>

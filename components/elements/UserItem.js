@@ -1,6 +1,6 @@
 // Import from React
 import React from 'react';
-import {TouchableHighlight, StyleSheet, Platform} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten
@@ -12,30 +12,32 @@ import {PointRightArrow} from './Icons';
 
 const UserItem = ({title, description, onPress, image}) => {
   return (
-    <TouchableHighlight underlayColor={colors.text_light} onPress={onPress}>
-      <Layout style={styles.container}>
-        <Avatar style={styles.image} source={image} />
-        <Layout style={styles.detailsContainer}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
-          <ListItem style={styles.arrowIcon} accessoryRight={PointRightArrow} />
-        </Layout>
+    <ListItem
+      style={styles.container}
+      underlayColor={colors.text_light}
+      onPress={onPress}
+    >
+      <Avatar style={styles.image} source={image} />
+      <Layout style={styles.detailsContainer}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        <ListItem style={styles.arrowIcon} accessoryRight={PointRightArrow} />
       </Layout>
-    </TouchableHighlight>
+    </ListItem>
   );
 };
 const styles = StyleSheet.create({
   arrowIcon: {
     backgroundColor: 'transparent',
-    right: Platform.OS === 'android' ? 70 : 65,
-    bottom: '17%',
+    left: 140,
+    bottom: '15%',
     padding: 0,
+    width: 20,
   },
   container: {
     flexDirection: 'row',
     width: '100%',
-    padding: 10,
-    marginBottom: -15,
+    padding: 5,
     backgroundColor: colors.primary,
     justifyContent: 'space-between',
   },
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     paddingLeft: 20,
-    top: 20,
+    top: 25,
     backgroundColor: colors.primary,
   },
   image: {

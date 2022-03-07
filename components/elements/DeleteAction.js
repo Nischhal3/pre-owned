@@ -52,6 +52,7 @@ const DeleteAction = ({message, user, setUpdateMessage, updateMessage}) => {
     </TouchableWithoutFeedback>
   );
 };
+
 const styles = StyleSheet.create({
   animation: {
     height: 50,
@@ -61,5 +62,12 @@ const styles = StyleSheet.create({
     left: 7,
   },
 });
+
+DeleteAction.propTypes = {
+  message: PropTypes.object,
+  user: PropTypes.object,
+  setUpdateMessage: PropTypes.func,
+  updateMessage: PropTypes.number,
+};
 
 export default DeleteAction;

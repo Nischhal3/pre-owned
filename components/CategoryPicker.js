@@ -51,22 +51,22 @@ const CategoryPicker = ({setCategory}) => {
           accessoryLeft={<CategoryIcon name="floor-lamp" />}
         />
         <SelectItem
-        style={styles.item}
+          style={styles.item}
           title="Electronics"
           accessoryLeft={<CategoryIcon name="camera" />}
         />
         <SelectItem
-        style={styles.item}
+          style={styles.item}
           title="Clothing"
           accessoryLeft={<CategoryIcon name="shoe-heel" />}
         />
         <SelectItem
-        style={styles.item}
+          style={styles.item}
           title="Sports"
           accessoryLeft={<CategoryIcon name="basketball" />}
         />
         <SelectItem
-        style={styles.item}
+          style={styles.item}
           title="Gaming & Accessories"
           accessoryLeft={<CategoryIcon name="cards" />}
         />
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: colors.text_light,
-  }
+  },
 });
 
 CategoryPicker.propTypes = {

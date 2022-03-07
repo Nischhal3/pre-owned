@@ -20,6 +20,8 @@ const ModalCheckBox = ({
     new Array(categoryNames.length).fill(false)
   );
 
+  console.log(checkedState);
+
   // Handle checkBox state on click
   const handleOnChange = (position) => {
     setIsChecked(isChecked + 1);
@@ -55,6 +57,7 @@ const ModalCheckBox = ({
 };
 
 ModalCheckBox.propTypes = {
+  categoryNames: PropTypes.array,
   setItemPosition: PropTypes.func,
   setIsChecked: PropTypes.func,
   isChecked: PropTypes.number,

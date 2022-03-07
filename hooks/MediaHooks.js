@@ -5,7 +5,7 @@ import {fetchData, fetchFromMedia} from './CommonFunction';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
-  const {update} = useContext(MainContext);
+  const {update, updateMessage} = useContext(MainContext);
 
   // Fetching all media
   const fetchMedia = async () => {
@@ -33,7 +33,7 @@ const useMedia = () => {
   useEffect(() => {
     fetchMedia();
     // return () => {};
-  }, [update]);
+  }, [update, updateMessage]);
 
   return {
     mediaArray,
@@ -126,7 +126,7 @@ const useFavourite = () => {
     return await fetchData(`${baseUrl}favourites/file/${fileId}`, options);
   };
 
-  const getFavourtiesList = async (token) => {
+  const getFavouritesList = async (token) => {
     const options = {
       headers: {
         'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const useFavourite = () => {
     postFavourite,
     deleteFavourite,
     getFavourtiesByFileId,
-    getFavourtiesList,
+    getFavouritesList,
   };
 };
 
