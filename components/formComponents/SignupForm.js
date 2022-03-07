@@ -34,6 +34,10 @@ const SignupForm = ({setFormToggle}) => {
   const togglePassword = () => {
     setShown(!shown);
   };
+  const [confirmShown, setConfirmShown] = useState(true);
+  const toggleConfirm = () => {
+    setConfirmShown(!confirmShown);
+  };
 
   const {
     control,
@@ -59,7 +63,7 @@ const SignupForm = ({setFormToggle}) => {
       delete data.confirmPassword;
       const userData = await signUp(data);
       if (userData) {
-        Alert.alert('Success', 'User created successfully.');
+        Alert.alert('Success', 'Successfully signed up.');
         setFormToggle(true);
       }
     } catch (error) {
@@ -146,7 +150,7 @@ const SignupForm = ({setFormToggle}) => {
         <Controller
           control={control}
           rules={{
-            required: {value: true, message: 'This is required'},
+            required: {value: true, message: 'This field cannot be empty'},
             pattern: {
               /**
                *  Password criteria
@@ -154,7 +158,7 @@ const SignupForm = ({setFormToggle}) => {
                *  Atleast 1 upper case of lower case character
                */
               value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
-              message: 'Min 8, Uppercase & Number',
+              message: 'Min 8 characters, uppercase & number',
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
@@ -182,7 +186,7 @@ const SignupForm = ({setFormToggle}) => {
         <Controller
           control={control}
           rules={{
-            required: {value: true, message: 'This is required'},
+            required: {value: true, message: 'This field cannot be empty'},
             validate: (value) => {
               const {password} = getValues();
               if (value === password) {
@@ -193,15 +197,18 @@ const SignupForm = ({setFormToggle}) => {
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <FormInput
-              style={styles.input}
+            <Layout style={styles.passwordWrap}>
+              <FormInput
+              style={styles.passwordInput}
               iconName="lock-outline"
               name="Confirm password"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
-              textEntry={shown}
-            />
+              textEntry={confirmShown}
+              />
+              <PasswordButton onPress={toggleConfirm} iconName={confirmShown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
+            </Layout>
           )}
           name="confirmPassword"
         />
@@ -275,7 +282,6 @@ const SignupForm = ({setFormToggle}) => {
           style={styles.button}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-          disabled={!checked}
           text="Sign Up"
         />
       </Layout>
