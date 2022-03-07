@@ -45,17 +45,21 @@ For buyers:
 - A library for linear-gradient
 - A library for managing forms (react-hook-form)
 - A library for animation (Lottie)
-- 
+
 ## Backend and APIs service:
-The PreOwned application is built as part of a school project and the api services are provided by Metropolia UAS (link to documents)
+The PreOwned application is built as part of a school project and the api services are provided by Metropolia UAS. [Link to documents](https://media.mw.metropolia.fi/wbma/docs/)
 - Apis service are tested with Postman
 - The app is run on expo client
+
 ## Set up
-To run this project, installing locally by cloning and use nom:
-$cd ../pre-owned
-$npm install
-$npm start
-$open expo client app on mobile device and start using
+To run this project, installing locally by cloning and use npm:
+```
+$ cd ../pre-owned
+$ npm install
+$ npm start
+```
+Open expo client app on mobile device and start using
+
 
 ## Screenshots
 ## License
