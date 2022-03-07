@@ -7,19 +7,21 @@ import PropTypes from 'prop-types';
 import {Layout, List, Text} from '@ui-kitten/components';
 
 // Api import
-import {getMediaById, useFavourite} from '../hooks/MediaHooks';
+import {getMediaById, useFavourite} from '../../hooks/MediaHooks';
 
 // Import from files
-import {colors} from '../utils';
-import {getToken} from '../hooks/CommonFunction';
-import {FavouriteList} from '../components/lists';
-import {ItemSeparator} from '../components/elements/ItemSeparator';
-import {MainContext} from '../contexts/MainContext';
-import SVGIcon from '../assets/icons/no-content.svg';
-import {AppButton} from '../components/elements/AppButton';
+import {colors} from '../../utils';
+import {MainContext} from '../../contexts/MainContext';
+import SVGIcon from '../../assets/icons/no-content.svg';
+import {getToken} from '../../hooks/CommonFunction';
+
+// components import
+import {FavouriteList} from '../../components/lists';
+import {ItemSeparator} from '../../components/elements/ItemSeparator';
+import {AppButton} from '../../components/elements/AppButton';
 
 const Favourite = ({navigation}) => {
-  const {getFavourtiesList} = useFavourite();
+  const {getFavouritesList} = useFavourite();
   const [favourites, setFavourites] = useState([]);
   const [favouriteList, setFavouriteList] = useState([]);
   const {update} = useContext(MainContext);
@@ -27,7 +29,7 @@ const Favourite = ({navigation}) => {
   // Fetching  user favourite list
   const list = async () => {
     const token = await getToken();
-    const response = await getFavourtiesList(token);
+    const response = await getFavouritesList(token);
     setFavourites(response);
   };
 

@@ -5,20 +5,34 @@ import PropTypes from 'prop-types';
 
 // Import from files
 import {useMedia} from '../../hooks/MediaHooks';
+
+// mainContext import
 import {MainContext} from '../../contexts/MainContext';
+
+// components import
 import {ItemSeparator} from '../../components/elements/ItemSeparator';
-import colors from '../../utils/colors';
 import {PlainListItem} from '../../components/lists';
-import {Layout, List, Text} from '@ui-kitten/components';
-import SVGIcon from '../../assets/icons/no-content.svg';
 import {AppButton} from '../../components/elements/AppButton';
+
+// utils import
+import colors from '../../utils/colors';
+
+// ui-kittens import
+import {Layout, List, Text} from '@ui-kitten/components';
+
+// assets import
+import SVGIcon from '../../assets/icons/no-content.svg';
 
 const MyListings = ({navigation, showMyMedia = false}) => {
   const {mediaArray} = useMedia(showMyMedia);
   const {user} = useContext(MainContext);
 
+  // Filtering media added by logged in user
   const myMedia = mediaArray.filter((item) => item.user_id === user.user_id);
+
+  // Sorting media by recently added first
   myMedia.sort((a, b) => a.time_added < b.time_added);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       {myMedia.length == 0 ? (
@@ -67,12 +81,14 @@ const MyListings = ({navigation, showMyMedia = false}) => {
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     marginTop: '5%',
     paddingBottom: '10%',
   },
 });
+
 MyListings.propTypes = {
   navigation: PropTypes.object,
   showMyMedia: PropTypes.bool,

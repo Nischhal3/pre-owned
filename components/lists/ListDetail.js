@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });
+
 ListDetail.propTypes = {
   IconComponent: PropTypes.object,
   renderRightActions: PropTypes.func,
@@ -187,4 +188,5 @@ ListDetail.propTypes = {
   setUpdateMessage: PropTypes.func,
   user: PropTypes.object,
 };
+
 export default ListDetail;

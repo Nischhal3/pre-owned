@@ -5,10 +5,16 @@ import {
   Icon,
 } from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
+// components
 import Explore from '../views/Explore';
 import Search from '../views/Search';
-import MenuNavigator from './Drawer';
+
+// views import
 import {AddListing} from '../views/Listings';
+
+// navigation import
+import MenuNavigator from './Drawer';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,10 +24,19 @@ const BottomTabBar = ({navigation, state}) => (
     selectedIndex={state.index}
     onSelect={(index) => navigation.navigate(state.routeNames[index])}
   >
-    <BottomNavigationTab title="Explore" icon={<Icon name="compass-outline" />} />
+    <BottomNavigationTab
+      title="Explore"
+      icon={<Icon name="compass-outline" />}
+    />
     <BottomNavigationTab title="Search" icon={<Icon name="search-outline" />} />
-    <BottomNavigationTab title="Add Listing" icon={<Icon name="plus-circle-outline" />} />
-    <BottomNavigationTab title="Profile" icon={<Icon name="person-outline" />} />
+    <BottomNavigationTab
+      title="Add Listing"
+      icon={<Icon name="plus-circle-outline" />}
+    />
+    <BottomNavigationTab
+      title="Profile"
+      icon={<Icon name="person-outline" />}
+    />
   </BottomNavigation>
 );
 

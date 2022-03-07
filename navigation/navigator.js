@@ -8,16 +8,15 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // Styling import
 import GlobalStyles from '../utils/GlobalStyles';
-import {colors} from '../utils';
 
 // Views import
 import Welcome from '../views/WelcomeScreen';
 import Login from '../views/Login';
-import ProductDetail from '../views/ProductDetail';
-import PopularNow from '../views/PopularNow';
-import AllProducts from '../views/AllProducts';
+import ProductDetail from '../views/products/ProductDetail';
+import PopularNow from '../views/products/PopularNow';
+import AllProducts from '../views/products/AllProducts';
 import {EditListing} from '../views/Listings';
-import Profile from '../views/Profile';
+import Profile from '../views/profile/Profile';
 
 // Bottom navigator import
 import TabScreen from './Bottom';

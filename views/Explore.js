@@ -10,14 +10,12 @@ import {Layout} from '@ui-kitten/components';
 import {
   GalleryListHorizontal,
   GalleryListVertical,
-} from '../components/ExploreList';
+} from '../components/lists/ExploreList';
 import colors from '../utils/colors';
 import ExploreTitle from '../components/ExploreTitle';
-import {MainContext} from '../contexts/MainContext';
-import {useFocusEffect} from '@react-navigation/native';
 
 // Return explore screen
-const ExploreScreen = ({navigation}) => {
+const Explore = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Layout style={styles.horizontalGallery}>
@@ -62,8 +60,8 @@ const styles = StyleSheet.create({
   },
 });
 
-ExploreScreen.propTypes = {
+Explore.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default ExploreScreen;
+export default Explore;

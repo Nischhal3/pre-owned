@@ -1,14 +1,6 @@
 // import from React
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {
-  Alert,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
@@ -17,7 +9,6 @@ import {useFocusEffect} from '@react-navigation/native';
 import {
   Button,
   Card,
-  Divider,
   Icon,
   Layout,
   List,
@@ -43,7 +34,6 @@ import SVGIcon from '../../assets/icons/no-message.svg';
 import {getMessagesByFileId, postMessage} from '../../hooks/MessageHook';
 
 const MessageList = ({fileId, showMessages = false}) => {
-
   const {user, updateMessage, setUpdateMessage} = useContext(MainContext);
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
