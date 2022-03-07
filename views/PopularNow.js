@@ -1,5 +1,5 @@
 // Import from react & libraries
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
@@ -12,12 +12,23 @@ import colors from '../utils/colors';
 import PlainListItem from '../components/lists/PlainListItem';
 import {useMedia} from '../hooks/MediaHooks';
 import {ItemSeparator} from '../components/elements/ItemSeparator';
+import {MainContext} from '../contexts/MainContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 // TODO fetch items from server, item fetch to be added in API hooks
 const PopularNow = ({navigation}) => {
   const {mediaArray} = useMedia();
+  const {update, setUpdate} = useContext(MainContext);
 
   mediaArray.sort((a, b) => a.favCount < b.favCount);
+
+  // useFocusEffect(() => {
+  //   useCallback(() => {
+  //     return () => {
+  //       setUpdate(update + 1);
+  //     };
+  //   }, []);
+  // });
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>

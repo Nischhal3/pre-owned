@@ -27,7 +27,7 @@ const WelcomeScreen = ({navigation}) => {
       setUser(userData);
       setIsLoggedIn(true);
     } catch (error) {
-      console.error(error);
+      return;
     }
   };
 
