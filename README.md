@@ -42,7 +42,7 @@ For buyers:
 - A library for [image zoom and pan](https://www.npmjs.com/package/react-native-image-zoom-viewer)
 - A library for [shadow](https://www.npmjs.com/package/react-native-shadow-2)
 - A library for [time conversion](https://www.npmjs.com/package/react-moment)
-- A library for linear-gradient
+- A library for [linear-gradient](https://docs.expo.dev/versions/latest/sdk/linear-gradient/)
 - A library for managing forms [react-hook-form](https://react-hook-form.com/get-started/#ReactNative)
 - A library for [Lottie Animation](https://docs.expo.dev/versions/latest/sdk/lottie/)
 - A library for [Keyboard Aware Scrollview](https://www.npmjs.com/package/react-native-keyboard-aware-scroll-view)
