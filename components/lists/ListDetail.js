@@ -8,6 +8,8 @@ import {
   Image,
 } from 'react-native';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+
 // Import from UI Kitten Library
 import {Avatar, Button, Icon, Layout, Text} from '@ui-kitten/components';
 import {Swipeable} from 'react-native-gesture-handler';
@@ -23,8 +25,6 @@ import {getAvatar} from '../../hooks/MediaHooks';
 
 // now in use: ProductDetail.js, Messages
 const ListDetail = ({
-  props,
-  image,
   IconComponent,
   renderRightActions,
   showMessages,
@@ -36,8 +36,7 @@ const ListDetail = ({
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
   const [avatar, setAvatar] = useState(uploadDefaultUri);
   const {updateAvatar} = useContext(MainContext);
-  // Can't use MainContext here ?
-  // const {updateMessage, setUpdateMessage} = useContext(MainContext);
+
   const handleDelete = () => {
     Alert.alert('Delete Message', 'Confirm delete action?', [
       {text: 'Cancel'},
@@ -179,5 +178,13 @@ const styles = StyleSheet.create({
   },
   title: {fontWeight: '500', fontFamily: 'Karla_700Bold'},
 });
-
+ListDetail.propTypes = {
+  IconComponent: PropTypes.object,
+  renderRightActions: PropTypes.func,
+  showMessages: PropTypes.bool,
+  message: PropTypes.object,
+  updateMessage: PropTypes.number,
+  setUpdateMessage: PropTypes.func,
+  user: PropTypes.object,
+};
 export default ListDetail;

@@ -7,17 +7,17 @@ import {PropTypes} from 'prop-types';
 import {Text, Layout} from '@ui-kitten/components';
 
 // Import app components
-import FormInput from './formComponents/FormInput';
-import {FormButton} from './elements/AppButton';
-import ErrorMessage from './elements/ErrorMessage';
+import FormInput from './FormInput';
+import {FormButton} from '../elements/AppButton';
+import ErrorMessage from '../elements/ErrorMessage';
 
 // Api import
-import {login} from '../hooks/ApiHooks';
+import {login} from '../../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {MainContext} from '../contexts/MainContext';
+import {MainContext} from '../../contexts/MainContext';
 
 // Styling import
-import {colors} from '../utils';
+import {colors} from '../../utils';
 
 const LoginForm = () => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -100,10 +100,8 @@ const LoginForm = () => {
         error={errors?.password}
         message={errors?.password?.message}
       />
-
-      <Text style={styles.password}>Forgot password?</Text>
       <FormButton
-        style={{top: '-15%'}}
+        style={{marginTop: 100}}
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         text="Login"
@@ -123,12 +121,6 @@ const styles = StyleSheet.create({
     height: '85%',
     backgroundColor: colors.primary,
     borderColor: colors.primary,
-  },
-  password: {
-    marginTop: 5,
-    marginBottom: 100,
-    alignSelf: 'flex-end',
-    fontFamily: 'Karla_700Bold',
   },
   textWelcome: {
     textAlign: 'center',

@@ -1,6 +1,11 @@
-import {Divider, Layout} from '@ui-kitten/components';
+// Import from React
 import React from 'react';
 import {StyleSheet} from 'react-native';
+
+// Import from UI Kitten
+import {Divider, Layout} from '@ui-kitten/components';
+
+// Import from file
 import {colors} from '../../utils';
 
 const ItemSeparator = () => {

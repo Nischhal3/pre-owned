@@ -7,13 +7,13 @@ import {
   StyleSheet,
   Alert,
   Image,
-  KeyboardAvoidingView,
   TouchableOpacity,
   Keyboard,
   Platform,
   View,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // Import from UI KItten Library
 import {Card, Layout, Text} from '@ui-kitten/components';
@@ -49,7 +49,6 @@ const EditListing = ({navigation, route}) => {
     try {
       const token = await getToken();
       const response = await putMedia(data, token, file.file_id);
-      console.log('edit post response', response);
 
       response &&
         Alert.alert('Updated', 'Post updated succesfully', [
@@ -62,108 +61,103 @@ const EditListing = ({navigation, route}) => {
           },
         ]);
     } catch (e) {
-      console.log('onSubmit edit post problem', e);
+      console.error('onSubmit edit post problem', e);
     }
   };
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : ''}
-    >
-      <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
-      <ScrollView>
-      <View style={styles.boxShadow}>
-          <Shadow>
-          <Card style={styles.card}>
-            <Text style={styles.cardTitle}>ProductDetail</Text>
-            <Image
-              source={{uri: uploadsUrl + file.filename}}
-              style={styles.image}
-            />
-            <Layout style={styles.form}>
-              <Controller
-                control={control}
-                rules={{
-                  required: {value: true, message: 'This is required.'},
-                  minLength: {
-                    value: 3,
-                    message: 'Title has to be at least 3 characters.',
-                  },
-                  maxLength: {
-                    value: 20,
-                    message: 'Title has to be at most 20 characters.',
-                  },
-                }}
-                render={({field: {onChange, onBlur, value}}) => (
-                  <FormInput
-                    label="Title"
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    value={value}
-                    autoCapitalize="none"
-                    placeholder="Title"
+    <KeyboardAwareScrollView>
+      <TouchableOpacity
+        style={{backgroundColor: colors.background}}
+        onPress={() => Keyboard.dismiss()}
+        activeOpacity={1}
+      >
+        <ScrollView>
+          <View style={styles.boxShadow}>
+            <Shadow>
+              <Card style={styles.card}>
+                <Text style={styles.cardTitle}>Product Detail</Text>
+                <Image
+                  source={{uri: uploadsUrl + file.filename}}
+                  style={styles.image}
+                />
+                <Layout style={styles.form}>
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: {value: true, message: 'This is required.'},
+                      minLength: {
+                        value: 3,
+                        message: 'Title has to be at least 3 characters.',
+                      },
+                      maxLength: {
+                        value: 20,
+                        message: 'Title has to be at most 20 characters.',
+                      },
+                    }}
+                    render={({field: {onChange, onBlur, value}}) => (
+                      <FormInput
+                        label="Title"
+                        style={styles.input}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        value={value}
+                        autoCapitalize="none"
+                        placeholder="Title"
+                      />
+                    )}
+                    name="title"
                   />
-                )}
-                name="title"
-              />
-              <ErrorMessage
-                error={errors?.title}
-                message={errors?.title?.message}
-              />
-              <Controller
-                control={control}
-                rules={{
-                  required: {value: true, message: 'This is required.'},
-                }}
-                render={({field: {onChange, onBlur, value}}) => (
-                  <FormInput
-                    label="Description"
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    value={value}
-                    autoCapitalize="none"
-                    placeholder="Description"
-                    multiline={true}
-                    textStyle={{minHeight: 96}}
-                    align="top"
+                  <ErrorMessage
+                    error={errors?.title}
+                    message={errors?.title?.message}
                   />
-                )}
-                name="description"
-              />
-              <ErrorMessage
-                error={errors?.description}
-                message={errors?.description?.message}
-              />
-              <FormButton
-                style={styles.button}
-                handleSubmit={handleSubmit}
-                onSubmit={onSubmit}
-                text="Save changes"
-              />
-            </Layout>
-        </Card>
-        </Shadow>
-        </View>
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: {value: true, message: 'This is required.'},
+                    }}
+                    render={({field: {onChange, onBlur, value}}) => (
+                      <FormInput
+                        label="Description"
+                        style={styles.input}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        value={value}
+                        autoCapitalize="none"
+                        placeholder="Description"
+                        multiline={true}
+                        textStyle={{minHeight: 96}}
+                        align="top"
+                      />
+                    )}
+                    name="description"
+                  />
+                  <ErrorMessage
+                    error={errors?.description}
+                    message={errors?.description?.message}
+                  />
+                  <FormButton
+                    style={styles.button}
+                    handleSubmit={handleSubmit}
+                    onSubmit={onSubmit}
+                    text="Save"
+                    loading={true}
+                  />
+                </Layout>
+              </Card>
+            </Shadow>
+          </View>
         </ScrollView>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: colors.background,
-  },
   cardTitle: {
     textAlign: 'center',
     fontFamily: 'Karla_700Bold',
     fontSize: 20,
-    marginBottom: 10,
   },
   button: {
     width: '55%',
@@ -171,14 +165,13 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   boxShadow: {
-    marginTop: '10%',
+    marginTop: Platform.OS === 'android' ? '5%' : '15%',
     marginVertical: 15,
     marginHorizontal: 20,
+    justifyContent: 'center',
     alignSelf: 'center',
-    padding: 0,
   },
   card: {
-    width: '100%',
     height: 650,
     justifyContent: 'center',
     backgroundColor: colors.primary,
@@ -193,10 +186,12 @@ const styles = StyleSheet.create({
   },
   form: {
     backgroundColor: colors.primary,
+    width: 300,
   },
   input: {
     marginTop: 10,
-    width: '100%',
+    width: Platform.OS === 'android' ? 270 : 300,
+    alignSelf: 'center',
   },
 });
 

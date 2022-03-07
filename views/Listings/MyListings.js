@@ -1,6 +1,6 @@
 // Import from React
 import React, {useContext} from 'react';
-import {SafeAreaView, FlatList, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from files
@@ -9,7 +9,7 @@ import {MainContext} from '../../contexts/MainContext';
 import {ItemSeparator} from '../../components/elements/ItemSeparator';
 import colors from '../../utils/colors';
 import {PlainListItem} from '../../components/lists';
-import {Layout, Text} from '@ui-kitten/components';
+import {Layout, List, Text} from '@ui-kitten/components';
 import SVGIcon from '../../assets/icons/no-content.svg';
 import {AppButton} from '../../components/elements/AppButton';
 
@@ -50,7 +50,7 @@ const MyListings = ({navigation, showMyMedia = false}) => {
           />
         </Layout>
       ) : (
-        <FlatList
+        <List
           contentContainerStyle={styles.container}
           data={myMedia}
           keyExtractor={(item) => item.file_id.toString()}

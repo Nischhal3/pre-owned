@@ -1,13 +1,8 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Alert,
-  Platform,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {StyleSheet, Alert, ScrollView} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // Import from ui Kitten Library
 import {
@@ -20,15 +15,15 @@ import {
 } from '@ui-kitten/components';
 
 // Api import
-import {checkUserName, signUp} from '../hooks/ApiHooks';
+import {checkUserName, signUp} from '../../hooks/ApiHooks';
 
 // App component import
-import FormInput from './formComponents/FormInput';
-import {FormButton} from './elements/AppButton';
-import ErrorMessage from './elements/ErrorMessage';
+import FormInput from './FormInput';
+import {FormButton} from '../elements/AppButton';
+import ErrorMessage from '../elements/ErrorMessage';
 
 // Styling import
-import {colors} from '../utils';
+import {colors} from '../../utils';
 
 const SignupForm = ({setFormToggle}) => {
   // Terms checkbox
@@ -68,10 +63,7 @@ const SignupForm = ({setFormToggle}) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : ''}
-      style={{flex: 1}}
-    >
+    <KeyboardAwareScrollView>
       <Layout style={styles.layout}>
         <Layout style={styles.textContainer}>
           <Text category="h5" style={styles.titleRegister}>
@@ -120,7 +112,7 @@ const SignupForm = ({setFormToggle}) => {
           error={errors?.username}
           message={errors?.username?.message}
         />
-            
+
         <Controller
           control={control}
           rules={{
@@ -139,8 +131,6 @@ const SignupForm = ({setFormToggle}) => {
               onChange={onChange}
               value={value}
               textEntry={false}
-              // Error message not working ?
-              // errorMessage={errors.email && errors.email.message}
             />
           )}
           name="email"
@@ -281,7 +271,7 @@ const SignupForm = ({setFormToggle}) => {
           text="Sign Up"
         />
       </Layout>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 
