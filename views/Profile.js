@@ -9,11 +9,13 @@ import {Layout, Text, Avatar} from '@ui-kitten/components';
 // Import from files
 import {MainContext} from '../contexts/MainContext';
 import colors from '../utils/colors';
-import {getAvatar} from '../hooks/MediaHooks';
+import {getAvatar, useMedia} from '../hooks/MediaHooks';
 import {getUserById} from '../hooks/ApiHooks';
 import {ProfileSeparator} from '../components/elements/ItemSeparator';
-import Statistics from '../components/elements/ProfileStatistics';
 import assetAvatar from '../assets/backgrounds/Avatar.png';
+import BoxIcon from '../assets/icons/boxIcon.svg';
+import HeartIcon from '../assets/icons/heartIcon.svg';
+import BubbleIcon from '../assets/icons/bubbleIcon.svg';
 
 const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
@@ -21,6 +23,7 @@ const Profile = ({route}) => {
   const [avatar, setAvatar] = useState(uploadDefaultUri);
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
+  const {mediaArray} = useMedia();
 
   // Fetching avatar
   const fetchAvatar = async () => {
@@ -32,6 +35,27 @@ const Profile = ({route}) => {
       console.log('Profile avatar', error.message);
     }
   };
+
+  // Get count for users posts
+  const myPosts = mediaArray.filter(
+    (item) => item.user_id === userProfile.user_id
+  );
+
+  // Get count of messages sent by user
+  const myMessages = mediaArray.filter((file) => {
+    const userComments = file.fileComments.filter(
+      (comment) => comment.user_id === userProfile.user_id
+    );
+    if (userComments.length > 0) return userComments;
+  });
+
+  // Get count for posts liked by user
+  const myFavourites = mediaArray.filter((file) => {
+    const userFavourites = file.fileFavourites.filter(
+      (favourite) => favourite.user_id === userProfile.user_id
+    );
+    if (userFavourites.length > 0) return userFavourites;
+  });
 
   useEffect(() => {
     fetchAvatar();
@@ -52,11 +76,24 @@ const Profile = ({route}) => {
         {userProfile.full_name ? (
           <Text style={styles.description}>{userProfile.full_name}</Text>
         ) : (
-          <Text style={styles.description}>User description not set.</Text>
+          <Text style={styles.description}>{'Nothing to say'}</Text>
         )}
         <ProfileSeparator />
       </Layout>
-      <Statistics />
+
+      <Layout style={styles.statisticsWrapper}>
+        <Text style={styles.activity}>Activity</Text>
+        <Layout style={styles.icons}>
+          <BoxIcon width="90" height="90" />
+          <HeartIcon width="90" height="90" />
+          <BubbleIcon width="90" height="90" />
+        </Layout>
+        <Layout style={styles.statisticsView}>
+          <Text style={styles.numbers}>{myPosts.length}</Text>
+          <Text style={styles.numbers}>{myFavourites.length}</Text>
+          <Text style={styles.numbers}>{myMessages.length}</Text>
+        </Layout>
+      </Layout>
     </Layout>
   );
 };
@@ -77,24 +114,58 @@ const styles = StyleSheet.create({
   avatar: {
     width: 150,
     height: 150,
+    borderColor: colors.background,
+    borderWidth: 4,
     position: 'absolute',
     top: '10%',
   },
   username: {
-    marginTop: '53%',
+    marginTop: '55%',
     fontSize: 26,
-    fontFamily: 'Karla_400Regular',
+    fontFamily: 'Karla_700Bold',
+    color: colors.text_dark,
   },
   bio: {
     marginTop: '5%',
     fontSize: 20,
     fontFamily: 'Karla_700Bold',
+    color: colors.text_dark,
   },
   description: {
     fontSize: 18,
     textAlign: 'center',
     maxWidth: '80%',
     fontFamily: 'Karla_400Regular',
+    color: colors.text_dark,
+  },
+  statisticsWrapper: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: colors.background,
+  },
+  activity: {
+    flex: 1,
+    fontSize: 18,
+    fontFamily: 'Karla_700Bold',
+    marginTop: '5%',
+    alignSelf: 'center',
+  },
+  icons: {
+    flex: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: colors.background,
+  },
+  statisticsView: {
+    flex: 1,
+    flexDirection: 'row',
+    bottom: '6%',
+    justifyContent: 'space-evenly',
+    backgroundColor: colors.background,
+  },
+  numbers: {
+    marginHorizontal: '10%',
+    fontFamily: 'Karla_700Bold',
   },
 });
 
