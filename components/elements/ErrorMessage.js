@@ -1,6 +1,7 @@
 import {Layout, Text} from '@ui-kitten/components';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {colors} from '../../utils';
 
 const ErrorMessage = (props) => {
   return (
