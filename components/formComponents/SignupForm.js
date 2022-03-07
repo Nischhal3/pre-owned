@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Alert,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Alert, ScrollView} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';

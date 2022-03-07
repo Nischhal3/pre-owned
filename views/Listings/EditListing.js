@@ -140,7 +140,8 @@ const EditListing = ({navigation, route}) => {
                     style={styles.button}
                     handleSubmit={handleSubmit}
                     onSubmit={onSubmit}
-                    text="Save changes"
+                    text="Save"
+                    loading={true}
                   />
                 </Layout>
               </Card>

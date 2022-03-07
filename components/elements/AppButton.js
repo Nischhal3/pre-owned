@@ -31,10 +31,8 @@ const FormButton = (props) => {
           color={colors.text_light}
           size="large"
         />
-      ) : props.text !== null ? (
-        'Sign Up'
       ) : (
-        'Upload'
+        props.text
       )}
     </Button>
   );
@@ -54,6 +52,6 @@ FormButton.propTypes = {
   onSubmit: PropTypes.func,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
-  test: PropTypes.string,
+  text: PropTypes.string,
 };
 export {AppButton, FormButton};

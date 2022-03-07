@@ -262,6 +262,7 @@ const AddListing = ({navigation}) => {
                   loading={loading}
                   disabled={!imageSelected}
                   style={styles.uploadBtn}
+                  text="Upload"
                 />
               </Card>
             </Shadow>
