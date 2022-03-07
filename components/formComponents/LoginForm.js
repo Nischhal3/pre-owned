@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
   input: {
     marginTop: 15,
     alignSelf: 'center',
-    width: 300,
   },
   layout: {
     marginTop: '15%',
