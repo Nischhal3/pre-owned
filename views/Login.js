@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   Platform,
   ScrollView,
   SafeAreaView,
+  Dimensions,
 } from 'react-native';
 
 // Linear gradient
@@ -24,62 +25,133 @@ import {MainContext} from '../contexts/MainContext';
 import LoginForm from '../components/formComponents/LoginForm';
 import SignupForm from '../components/formComponents/SignupForm';
 
+// Import screen orientation
+import screenOrientation from '../components/screenOrientation';
+
 const Login = () => {
+   // Screen orientation
+   const [orientation, setOrientation] = useState(
+    screenOrientation.isPortrait() ? 'portrait' : 'landscape'
+  );
   const {formToggle, setFormToggle} = useContext(MainContext);
 
-  return (
-    <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
-      <TouchableOpacity
-        style={{flex: 1}}
-        activeOpacity={1}
-        onPress={() => Keyboard.dismiss()}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : ''}
-          style={styles.container}
-        >
-          <Image
-            style={styles.backgroundImg}
-            source={require('../assets/backgrounds/loginbackground.png')}
-          />
+  useEffect(() => {
+    Dimensions.addEventListener('change', () => {
+      setOrientation(screenOrientation.isPortrait() ? 'portrait' : 'landscape');
+    });
+  }, []);
 
-          <LinearGradient
-            colors={['transparent', colors.btnBackground]}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 1}}
-            style={styles.linearGradient}
+  if (orientation === 'portrait') {
+    return (
+      <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
+        <TouchableOpacity
+          style={{flex: 1}}
+          activeOpacity={1}
+          onPress={() => Keyboard.dismiss()}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : ''}
+            style={styles.container}
           >
-            <Card style={styles.cardContainer}>
-              <ButtonGroup
-                style={styles.toggleGroup}
-                selectedIndex={formToggle ? 0 : 1}
-              >
-                <Button
-                  style={formToggle ? styles.toggle2 : styles.toggle1}
-                  onPress={() => setFormToggle(true)}
+            <Image
+              style={styles.backgroundImg}
+              source={require('../assets/backgrounds/loginbackground.png')}
+            />
+
+            <LinearGradient
+              colors={['transparent', colors.btnBackground]}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 1}}
+              style={styles.linearGradient}
+            >
+              <Card style={styles.cardContainer}>
+                <ButtonGroup
+                  style={styles.toggleGroup}
+                  selectedIndex={formToggle ? 0 : 1}
                 >
-                  Log In
-                </Button>
-                <Button
-                  style={formToggle ? styles.toggle1 : styles.toggle2}
-                  onPress={() => setFormToggle(false)}
+                  <Button
+                    style={formToggle ? styles.toggle2 : styles.toggle1}
+                    onPress={() => setFormToggle(true)}
+                  >
+                    Log In
+                  </Button>
+                  <Button
+                    style={formToggle ? styles.toggle1 : styles.toggle2}
+                    onPress={() => setFormToggle(false)}
+                  >
+                    Sign Up
+                  </Button>
+                </ButtonGroup>
+                {formToggle ? (
+                  <LoginForm setFormToggle={setFormToggle} />
+                ) : (
+                  <ScrollView showsVerticalScrollIndicator={false}>
+                    <SignupForm setFormToggle={setFormToggle} />
+                  </ScrollView>
+                )}
+              </Card>
+            </LinearGradient>
+          </KeyboardAvoidingView>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
+        <TouchableOpacity
+          style={{flex: 1}}
+          activeOpacity={1}
+          onPress={() => Keyboard.dismiss()}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : ''}
+            style={styles.container}
+          >
+            <Image
+              style={styles.backgroundImg}
+              source={require('../assets/backgrounds/loginbackground.png')}
+            />
+
+            <LinearGradient
+              colors={['transparent', colors.btnBackground]}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 1}}
+              style={styles.linearGradient}
+            >
+              <Card style={styles.cardContainer}>
+                <ButtonGroup
+                  style={styles.toggleGroupLandscape}
+                  selectedIndex={formToggle ? 0 : 1}
                 >
-                  Sign Up
-                </Button>
-              </ButtonGroup>
-              {formToggle ? (
-                <LoginForm setFormToggle={setFormToggle} />
-              ) : (
-                <ScrollView showsVerticalScrollIndicator={false}>
-                  <SignupForm setFormToggle={setFormToggle} />
-                </ScrollView>
-              )}
-            </Card>
-          </LinearGradient>
-        </KeyboardAvoidingView>
-      </TouchableOpacity>
-    </SafeAreaView>
-  );
+                  <Button
+                    style={formToggle ? styles.toggle2 : styles.toggle1}
+                    onPress={() => setFormToggle(true)}
+                  >
+                    Log In
+                  </Button>
+                  <Button
+                    style={formToggle ? styles.toggle1 : styles.toggle2}
+                    onPress={() => setFormToggle(false)}
+                  >
+                    Sign Up
+                  </Button>
+                </ButtonGroup>
+                {formToggle ? (
+                  <ScrollView showsVerticalScrollIndicator={false}>
+                    <LoginForm setFormToggle={setFormToggle} />
+                  </ScrollView>
+                ) : (
+                  <ScrollView showsVerticalScrollIndicator={false}>
+                    <SignupForm setFormToggle={setFormToggle} />
+                  </ScrollView>
+                )}
+              </Card>
+            </LinearGradient>
+          </KeyboardAvoidingView>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  };
 };
 
 const styles = StyleSheet.create({
@@ -92,7 +164,6 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.primary,
   },
-
   cardContainer: {
     borderRadius: 70,
     justifyContent: 'center',
@@ -104,7 +175,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.background,
   },
-
   header: {
     textAlign: 'center',
     marginBottom: 10,
@@ -118,16 +188,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     overflow: 'scroll',
   },
-
   toggleGroup: {
     justifyContent: 'center',
     alignSelf: 'center',
     top: '10%',
     zIndex: 1,
-
     borderRadius: 20,
   },
-
   toggle1: {
     width: 120,
     height: 50,
@@ -139,6 +206,12 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: colors.btnBackground,
     borderColor: colors.btnBackground,
+  },
+  toggleGroupLandscape: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    zIndex: 1,
+    borderRadius: 20,
   },
 });
 

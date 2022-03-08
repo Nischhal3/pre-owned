@@ -1,5 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {StyleSheet, Alert} from 'react-native';
+import React, {useContext, useState, useEffect} from 'react';
+import {StyleSheet, Alert, Dimensions} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
 
@@ -19,12 +19,21 @@ import {MainContext} from '../../contexts/MainContext';
 // Styling import
 import {colors} from '../../utils';
 
+// Import screen orientation
+import screenOrientation from '../../components/screenOrientation';
+
 const LoginForm = () => {
   // Password visible
   const [shown, setShown] = useState(true);
   const togglePassword = () => {
     setShown(!shown);
   };
+
+  // Screen orientation
+  const [orientation, setOrientation] = useState(
+    screenOrientation.isPortrait() ? 'portrait' : 'landscape'
+  );
+
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {
     control,
@@ -49,74 +58,151 @@ const LoginForm = () => {
     }
   };
 
-  return (
-    <Layout style={styles.layout}>
-      <Layout style={styles.textContainer}>
-        <Text category="h5" style={styles.titleWelcome}>
-          Welcome back
-        </Text>
-        <Text category="s1" style={styles.textWelcome}>
-          Use your credentials below and login to your account
-        </Text>
-      </Layout>
-      <Controller
-        control={control}
-        rules={{
-          required: {value: true, message: 'This is required.'},
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <FormInput
-            style={styles.input}
-            iconName="person-outline"
-            name="Username"
-            onBlur={onBlur}
-            onChange={onChange}
-            value={value}
-            textEntry={false}
-          />
-        )}
-        name="username"
-      />
+  useEffect(() => {
+    Dimensions.addEventListener('change', () => {
+      setOrientation(screenOrientation.isPortrait() ? 'portrait' : 'landscape');
+    });
+  }, []);
 
-      <ErrorMessage
-        error={errors?.username}
-        message={errors?.username?.message}
-      />
-
-      <Controller
-        control={control}
-        rules={{
-          required: {value: true, message: 'This is required.'},
-          maxLength: 100,
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <Layout style={styles.passwordWrap}>
+  if (orientation === 'portrait') {
+    return (
+      <Layout style={styles.layout}>
+        <Layout style={styles.textContainer}>
+          <Text category="h5" style={styles.titleWelcome}>
+            Welcome back
+          </Text>
+          <Text category="s1" style={styles.textWelcome}>
+            Use your credentials below and login to your account
+          </Text>
+        </Layout>
+        <Controller
+          control={control}
+          rules={{
+            required: {value: true, message: 'This is required.'},
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
             <FormInput
-              style={styles.passwordInput}
-              iconName="lock-outline"
-              name="Password"
+              style={styles.input}
+              iconName="person-outline"
+              name="Username"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
-              textEntry={shown}
+              textEntry={false}
             />
-            <PasswordButton onPress={togglePassword} iconName={shown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
-          </Layout>
-        )}
-        name="password"
-      />
-      <ErrorMessage
-        error={errors?.password}
-        message={errors?.password?.message}
-      />
-      <FormButton
-        style={{marginTop: 100}}
-        handleSubmit={handleSubmit}
-        onSubmit={onSubmit}
-        text="Login"
-      />
-    </Layout>
-  );
+          )}
+          name="username"
+        />
+
+        <ErrorMessage
+          error={errors?.username}
+          message={errors?.username?.message}
+        />
+
+        <Controller
+          control={control}
+          rules={{
+            required: {value: true, message: 'This is required.'},
+            maxLength: 100,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <Layout style={styles.passwordWrap}>
+              <FormInput
+                style={styles.passwordInput}
+                iconName="lock-outline"
+                name="Password"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={shown}
+              />
+              <PasswordButton onPress={togglePassword} iconName={shown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
+            </Layout>
+          )}
+          name="password"
+        />
+        <ErrorMessage
+          error={errors?.password}
+          message={errors?.password?.message}
+        />
+        <FormButton
+          style={{marginTop: 100}}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          text="Login"
+        />
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout style={styles.layoutLandscape}>
+        <Layout style={styles.textContainerLandscape}>
+          <Text category="h5" style={styles.titleWelcome}>
+            Welcome back
+          </Text>
+          <Text category="s1" style={styles.textWelcome}>
+            Use your credentials below and login to your account
+          </Text>
+        </Layout>
+        <Controller
+          control={control}
+          rules={{
+            required: {value: true, message: 'This is required.'},
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <FormInput
+              style={styles.input}
+              iconName="person-outline"
+              name="Username"
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              textEntry={false}
+            />
+          )}
+          name="username"
+        />
+
+        <ErrorMessage
+          error={errors?.username}
+          message={errors?.username?.message}
+        />
+
+        <Controller
+          control={control}
+          rules={{
+            required: {value: true, message: 'This is required.'},
+            maxLength: 100,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <Layout style={styles.passwordWrap}>
+              <FormInput
+                style={styles.passwordInput}
+                iconName="lock-outline"
+                name="Password"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={shown}
+              />
+              <PasswordButton onPress={togglePassword} iconName={shown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
+            </Layout>
+          )}
+          name="password"
+        />
+        <ErrorMessage
+          error={errors?.password}
+          message={errors?.password?.message}
+        />
+        <FormButton
+          style={{marginTop: 15}}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          text="Login"
+        />
+      </Layout>
+    );
+  };
 };
 
 const styles = StyleSheet.create({
@@ -155,6 +241,15 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     width: 15,
     height: 20,
+  },
+  layoutLandscape: {
+    height: '85%',
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  textContainerLandscape: {
+    backgroundColor: 'transparent',
+    // marginVertical: '5%',
   },
 });
 
