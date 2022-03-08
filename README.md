@@ -16,7 +16,7 @@ React Native group project - Spring 2022 - Metropolia University Of Applied Scie
 
 ## Overview
 
-PreOwned is a react-native marketplace application that is here is make selling and buying secondhand easy, saving time and effort while supporting sustainable living and reducing waste.
+PreOwned is a react-native marketplace application that is here is make selling and buying secondhand easy, saving time and effort while supporting sustainable living and reducing waste. [PreOwned video advertisement](https://www.youtube.com/watch?v=arczGTbUDvs)
 
 ## Why PreOwned?
 
