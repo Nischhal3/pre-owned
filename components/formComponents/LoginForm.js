@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import {StyleSheet} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {StyleSheet, Alert} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {PropTypes} from 'prop-types';
 
@@ -8,7 +8,7 @@ import {Text, Layout} from '@ui-kitten/components';
 
 // Import app components
 import FormInput from './FormInput';
-import {FormButton} from '../elements/AppButton';
+import {FormButton, PasswordButton} from '../elements/AppButton';
 import ErrorMessage from '../elements/ErrorMessage';
 
 // Api import
@@ -20,6 +20,11 @@ import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils';
 
 const LoginForm = () => {
+  // Password visible
+  const [shown, setShown] = useState(true);
+  const togglePassword = () => {
+    setShown(!shown);
+  };
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {
     control,
@@ -39,7 +44,8 @@ const LoginForm = () => {
       setUser(userData.user);
       setIsLoggedIn(true);
     } catch (error) {
-      console.error(error);
+      Alert.alert('Username or password is incorrect.');
+      return;
     }
   };
 
@@ -84,15 +90,18 @@ const LoginForm = () => {
           maxLength: 100,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <FormInput
-            style={styles.input}
-            iconName="lock-outline"
-            name="Password"
-            onBlur={onBlur}
-            onChange={onChange}
-            value={value}
-            textEntry={true}
-          />
+          <Layout style={styles.passwordWrap}>
+            <FormInput
+              style={styles.passwordInput}
+              iconName="lock-outline"
+              name="Password"
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              textEntry={shown}
+            />
+            <PasswordButton onPress={togglePassword} iconName={shown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
+          </Layout>
         )}
         name="password"
       />
@@ -111,10 +120,6 @@ const LoginForm = () => {
 };
 
 const styles = StyleSheet.create({
-  input: {
-    marginTop: 15,
-    alignSelf: 'center',
-  },
   layout: {
     marginTop: '15%',
     height: '85%',
@@ -133,6 +138,23 @@ const styles = StyleSheet.create({
   textContainer: {
     backgroundColor: 'transparent',
     marginVertical: '5%',
+  },
+  passwordWrap: {
+    marginTop: 10,
+    backgroundColor: colors.primary,
+  },
+  input: {
+    marginTop: 15,
+    alignSelf: 'center',
+  },
+  passwordInput: {
+    marginBottom: 0,
+  },
+  passwordBtn: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    width: 15,
+    height: 20,
   },
 });
 

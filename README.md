@@ -54,6 +54,7 @@ For buyers:
 - A library for [Lottie Animation](https://docs.expo.dev/versions/latest/sdk/lottie/)
 - A library for [Keyboard Aware Scrollview](https://www.npmjs.com/package/react-native-keyboard-aware-scroll-view)
 - A library for [Uploading images](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
+- A library for [form](https://www.npmjs.com/package/react-hook-form)
 
 ## Backend and APIs service:
 
