@@ -83,7 +83,7 @@ Some of the PreOwned views
 
 ## License
 
-[GPL-3.0](https://github.com/Nischhal3/pre-owned/blob/readme/LICENSE.txt)license.
+[GPL-3.0](https://github.com/Nischhal3/pre-owned/blob/readme/LICENSE.txt) license.
 
 ## Contributors
 
