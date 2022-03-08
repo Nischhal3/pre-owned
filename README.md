@@ -39,7 +39,7 @@ For buyers:
 - Search items by letters or filter by categories
 - Send the seller a message if you are interested in buying the product
 - Add a product for sale
-- Add avatar, edit details, change password n profile
+- Add avatar, edit details, change password in profile
 - See your listings, your favourites and edit or remove any of them
 - See seller profile and statistics on posts, likes and comments
 
