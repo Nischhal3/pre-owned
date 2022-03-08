@@ -239,13 +239,13 @@ const styles = StyleSheet.create({
   },
   usernameLandscape: {
     marginTop: '35%',
-    marginBottom: '2%',
+    marginBottom: -10,
     fontSize: 24,
     fontFamily: 'Karla_700Bold',
     color: colors.text_dark,
   },
   bioLandscape: {
-    marginTop: '5%',
+    marginTop: '2%',
     fontSize: 20,
     fontFamily: 'Karla_700Bold',
     color: colors.text_dark,
