@@ -29,9 +29,9 @@ import SignupForm from '../components/formComponents/SignupForm';
 import screenOrientation from '../components/screenOrientation';
 
 const Login = () => {
-   // Screen orientation
-   const [orientation, setOrientation] = useState(
-    screenOrientation.isPortrait() ? 'portrait' : 'landscape'
+  // Screen orientation
+  const [orientation, setOrientation] = useState(
+  screenOrientation.isPortrait() ? 'portrait' : 'landscape'
   );
   const {formToggle, setFormToggle} = useContext(MainContext);
 
