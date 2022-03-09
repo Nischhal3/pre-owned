@@ -172,7 +172,11 @@ const SignupForm = ({setFormToggle}) => {
                 value={value}
                 textEntry={shown}
               />
-              <PasswordButton onPress={togglePassword} iconName={shown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
+              <PasswordButton
+                onPress={togglePassword}
+                iconName={shown ? 'eye-outline' : 'eye-off-2-outline'}
+                style={styles.passwordBtn}
+              ></PasswordButton>
             </Layout>
           )}
           name="password"
@@ -199,15 +203,19 @@ const SignupForm = ({setFormToggle}) => {
           render={({field: {onChange, onBlur, value}}) => (
             <Layout style={styles.passwordWrap}>
               <FormInput
-              style={styles.passwordInput}
-              iconName="lock-outline"
-              name="Confirm password"
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
-              textEntry={confirmShown}
+                style={styles.passwordInput}
+                iconName="lock-outline"
+                name="Confirm password"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={confirmShown}
               />
-              <PasswordButton onPress={toggleConfirm} iconName={confirmShown? "eye-outline" : "eye-off-2-outline"} style={styles.passwordBtn}></PasswordButton>
+              <PasswordButton
+                onPress={toggleConfirm}
+                iconName={confirmShown ? 'eye-outline' : 'eye-off-2-outline'}
+                style={styles.passwordBtn}
+              ></PasswordButton>
             </Layout>
           )}
           name="confirmPassword"

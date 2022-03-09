@@ -24,13 +24,7 @@ import {getToken} from '../../hooks/CommonFunction';
 import {colors} from '../../utils';
 
 // SingleItem for vertical lists
-const PlainListItem = ({
-  navigation,
-  singleItem,
-  displayText,
-  showMyMedia,
-  onPress,
-}) => {
+const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
   const {update, setUpdate} = useContext(MainContext);
 
   // function delete a listing
