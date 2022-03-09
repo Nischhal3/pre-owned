@@ -150,7 +150,7 @@ const MessageList = ({fileId}) => {
           appearance="ghost"
           style={styles.messageBtn}
         >
-          Total messages {messages.length}
+          View messages
         </Button>
       </Layout>
       <Modal
