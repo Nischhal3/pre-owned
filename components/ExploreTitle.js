@@ -24,6 +24,7 @@ const ExploreTitle = ({onPress, title}) => {
     >
       <Text style={styles.title}>{title}</Text>
       <ListItem
+        onPress={onPress}
         style={{flex: 1, backgroundColor: 'transparent'}}
         accessoryRight={PointRightArrow}
       />
