@@ -15,7 +15,7 @@ import {useMedia} from '../../hooks/MediaHooks';
 import {PlainListItem} from '../../components/lists';
 import {ItemSeparator} from '../../components/elements/ItemSeparator';
 
-const AllProducts = ({navigation}) => {
+const AllProducts = ({navigation, onPress}) => {
   const {mediaArray} = useMedia();
 
   // Sorting items by recently added date

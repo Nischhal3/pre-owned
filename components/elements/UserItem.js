@@ -1,6 +1,6 @@
 // Import from React
 import React from 'react';
-import {StyleSheet, Platform} from 'react-native';
+import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten
@@ -21,7 +21,11 @@ const UserItem = ({title, description, onPress, image}) => {
       <Layout style={styles.detailsContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.description}>{description}</Text>
-        <ListItem style={styles.arrowIcon} accessoryRight={PointRightArrow} />
+        <ListItem
+          onPress={onPress}
+          style={styles.arrowIcon}
+          accessoryRight={PointRightArrow}
+        />
       </Layout>
     </ListItem>
   );

@@ -24,7 +24,13 @@ import {getToken} from '../../hooks/CommonFunction';
 import {colors} from '../../utils';
 
 // SingleItem for vertical lists
-const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
+const PlainListItem = ({
+  navigation,
+  singleItem,
+  displayText,
+  showMyMedia,
+  onPress,
+}) => {
   const {update, setUpdate} = useContext(MainContext);
 
   // function delete a listing
@@ -76,6 +82,9 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
       )}
       {!showMyMedia ? (
         <ListItem
+          onPress={() => {
+            navigation.navigate('Product Detail', {file: singleItem});
+          }}
           style={{flex: 1, backgroundColor: colors.box}}
           accessoryRight={PointRightArrow}
         />

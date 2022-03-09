@@ -118,17 +118,22 @@ const MessageList = ({fileId}) => {
       >
         <Controller
           control={control}
+          rules={{
+            maxLength: {
+              value: 100,
+              message: 'Exceed maximum characters allowed',
+            },
+          }}
           render={({field: {onChange, onBlur, value}}) => (
             <FormInput
               style={styles.commentBox}
-              // iconName="text-outline"
               name="Leave sender a message"
               onBlur={onBlur}
               onChange={onChange}
               value={value}
               textEntry={false}
               multiline={true}
-              textStyle={{minHeight: 72}}
+              textStyle={{minHeight: 42}}
               align="top"
             />
           )}
