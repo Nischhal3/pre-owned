@@ -76,6 +76,9 @@ const PlainListItem = ({navigation, singleItem, displayText, showMyMedia}) => {
       )}
       {!showMyMedia ? (
         <ListItem
+          onPress={() => {
+            navigation.navigate('Product Detail', {file: singleItem});
+          }}
           style={{flex: 1, backgroundColor: colors.box}}
           accessoryRight={PointRightArrow}
         />

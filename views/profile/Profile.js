@@ -99,6 +99,11 @@ const Profile = ({route}) => {
 
         <Layout style={styles.statisticsWrapper}>
           <Text style={styles.activity}>Activity</Text>
+          <Layout style={styles.hintContainer}>
+            <Text style={styles.hint}>Published</Text>
+            <Text style={styles.hint}>Liked</Text>
+            <Text style={styles.hint}>Commented</Text>
+          </Layout>
           <Layout style={styles.icons}>
             <BoxIcon width="90" height="90" />
             <HeartIcon width="90" height="90" />
@@ -134,6 +139,11 @@ const Profile = ({route}) => {
 
         <Layout style={styles.statisticsWrapperLandscape}>
           <Text style={styles.activity}>Activity</Text>
+          <Layout style={styles.hintContainer}>
+            <Text style={styles.hint}>Published</Text>
+            <Text style={styles.hint}>Liked</Text>
+            <Text style={styles.hint}>Commented</Text>
+          </Layout>
           <Layout style={styles.icons}>
             <BoxIcon width="90" height="90" />
             <HeartIcon width="90" height="90" />
@@ -218,6 +228,19 @@ const styles = StyleSheet.create({
   numbers: {
     marginHorizontal: '10%',
     fontFamily: 'Karla_700Bold',
+  },
+  hintContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: colors.background,
+    marginBottom: -16,
+    marginStart: '2%',
+  },
+  hint: {
+    marginHorizontal: '10%',
+    fontFamily: 'Karla_400Regular',
+    fontSize: 12,
   },
   containerLandscape: {
     flex: 1,
