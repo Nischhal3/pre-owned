@@ -84,7 +84,14 @@ Some of the PreOwned views
 ## Animations used in the app 
 
 <img src="/assets/brand/animations.gif" width="550" height="550">
+
 ## Links to app demo
+
+[Demo before the changes](https://youtu.be/qPoXxFSi5Bs)
+
+[Demo after the changes](https://youtu.be/WAEtMJG0uO4)
+
+[Demo in landscape mode](https://youtu.be/-IX5JF4wgiQ)
 
 ## License
 
