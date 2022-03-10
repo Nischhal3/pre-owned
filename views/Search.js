@@ -210,7 +210,10 @@ const Search = ({navigation}) => {
                     isChecked={isChecked}
                   />
                   <Layout
-                    style={{flexDirection: 'row', backgroundColor: 'transparent'}}
+                    style={{
+                      flexDirection: 'row',
+                      backgroundColor: 'transparent',
+                    }}
                   >
                     <AppButton
                       title="Apply Filter"
@@ -231,18 +234,7 @@ const Search = ({navigation}) => {
           </ListItem>
 
           {categoryTitle === '' ? (
-            <AppButton
-              title="No filter set"
-              appBtnStyle={{
-                marginTop: '-2%',
-                width: '40%',
-                height: '5%',
-                alignSelf: 'center',
-                paddingVertical: '2%',
-                paddingHorizontal: '5%',
-              }}
-              onPress={reset}
-            />
+            <Text>{}</Text>
           ) : (
             <AppButton
               title={`${categoryTitle}`}
@@ -330,7 +322,13 @@ const Search = ({navigation}) => {
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : ''}
           />
-          <Layout style={{flexDirection: 'row', width: '100%', backgroundColor: colors.background}}>
+          <Layout
+            style={{
+              flexDirection: 'row',
+              width: '100%',
+              backgroundColor: colors.background,
+            }}
+          >
             <Layout style={{backgroundColor: colors.background, width: '50%'}}>
               <ListItem
                 style={{
@@ -340,96 +338,99 @@ const Search = ({navigation}) => {
                   justifyContent: 'center',
                   backgroundColor: colors.background,
                 }}
-               >
-              <Input
-                value={search}
-                placeholder="Search..."
-                style={styles.searchFieldLandscape}
-                accessoryLeft={SearchIcon}
-                onChangeText={(text) => searchProduct(text)}
-              />
-              <ListItem
-                accessoryRight={FilterIcon}
-                onPress={() => setVisible(true)}
-                style={{width: 50, backgroundColor: colors.background}}
-              />
+              >
+                <Input
+                  value={search}
+                  placeholder="Search..."
+                  style={styles.searchFieldLandscape}
+                  accessoryLeft={SearchIcon}
+                  onChangeText={(text) => searchProduct(text)}
+                />
+                <ListItem
+                  accessoryRight={FilterIcon}
+                  onPress={() => setVisible(true)}
+                  style={{width: 50, backgroundColor: colors.background}}
+                />
 
-              <Layout style={styles.modalContainer}>
-                <Modal
-                  visible={visible}
-                  backdropStyle={styles.modalBackdrop}
-                  onBackdropPress={() => setVisible(false)}
-                >
-                  <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : ''}
-                  />
-                  <Card
-                    disabled={true}
-                    style={{
-                      height: 380,
-                      width: '100%',
-                      borderRadius: 15,
-                      backgroundColor: colors.primary,
-                    }}
+                <Layout style={styles.modalContainer}>
+                  <Modal
+                    visible={visible}
+                    backdropStyle={styles.modalBackdrop}
+                    onBackdropPress={() => setVisible(false)}
                   >
-                    <Text
+                    <KeyboardAvoidingView
+                      behavior={Platform.OS === 'ios' ? 'padding' : ''}
+                    />
+                    <Card
+                      disabled={true}
                       style={{
-                        fontFamily: 'Karla_700Bold',
-                        alignSelf: 'center',
-                        marginBottom: 15,
-                        fontSize: 22,
+                        height: 380,
+                        width: '100%',
+                        borderRadius: 15,
+                        backgroundColor: colors.primary,
                       }}
                     >
-                      Categories
-                    </Text>
-                    <ModalCheckBox
-                      categoryNames={categoryNames}
-                      setItemPosition={setItemPosition}
-                      setIsChecked={setIsChecked}
-                      isChecked={isChecked}
-                    />
-                    <Layout
-                      style={{flexDirection: 'row', backgroundColor: 'transparent'}}
-                    >
-                      <AppButton
-                        title="Apply Filter"
-                        appBtnStyle={{
-                          width: 150,
+                      <Text
+                        style={{
+                          fontFamily: 'Karla_700Bold',
                           alignSelf: 'center',
+                          marginBottom: 15,
+                          fontSize: 22,
                         }}
-                        onPress={() => {
-                          setVisible(false);
-                          getData();
-                        }}
+                      >
+                        Categories
+                      </Text>
+                      <ModalCheckBox
+                        categoryNames={categoryNames}
+                        setItemPosition={setItemPosition}
+                        setIsChecked={setIsChecked}
+                        isChecked={isChecked}
                       />
-                    </Layout>
-                  </Card>
-                </Modal>
-              </Layout>
-            </ListItem>
+                      <Layout
+                        style={{
+                          flexDirection: 'row',
+                          backgroundColor: 'transparent',
+                        }}
+                      >
+                        <AppButton
+                          title="Apply Filter"
+                          appBtnStyle={{
+                            width: 150,
+                            alignSelf: 'center',
+                          }}
+                          onPress={() => {
+                            setVisible(false);
+                            getData();
+                          }}
+                        />
+                      </Layout>
+                    </Card>
+                  </Modal>
+                </Layout>
+              </ListItem>
 
-            {categoryTitle === '' ? (
-              <AppButton
-                title="No filter set"
-                appBtnStyle={{
-                  width: '40%',
-                  height: 50,
-                  alignSelf: 'center',
-                }}
-                onPress={reset}
-              />
-            ) : (
-              <AppButton
-                title={`${categoryTitle}`}
-                accessoryRight={<Icon name="close" />}
-                appBtnStyle={{
-                  width: '40%',
-                  height: 50,
-                  alignSelf: 'center',
-                }}
-                onPress={reset}
-              />
-            )}
+              {categoryTitle === '' ? (
+                <AppButton
+                  title="No filter set"
+                  appBtnStyle={{
+                    width: '40%',
+                    height: 50,
+                    alignSelf: 'center',
+                  }}
+                  onPress={reset}
+                />
+              ) : (
+                <AppButton
+                  title={`${categoryTitle}`}
+                  accessoryRight={<Icon name="close" />}
+                  appBtnStyle={{
+                    width: '40%',
+                    height: 50,
+                    alignSelf: 'center',
+                  }}
+                  onPress={reset}
+                />
+              )}
             </Layout>
             <ScrollView
               style={styles.searchImageContainerLandscape}
@@ -466,7 +467,7 @@ const Search = ({navigation}) => {
                     marginTop: 75,
                   }}
                 >
-                  <NoSearchResultsIcon width="120" height="120"/>
+                  <NoSearchResultsIcon width="120" height="120" />
                   <Text
                     style={{
                       fontSize: 24,
@@ -479,8 +480,10 @@ const Search = ({navigation}) => {
                   </Text>
                 </Layout>
               ) : categoryTitle === '' && search.length === 0 ? (
-                <Layout style={{marginTop: 75, backgroundColor: colors.background}}>
-                  <StartSearchIcon width="150" height="150"/>
+                <Layout
+                  style={{marginTop: 75, backgroundColor: colors.background}}
+                >
+                  <StartSearchIcon width="150" height="150" />
                 </Layout>
               ) : (
                 <Text>{''}</Text>
@@ -490,7 +493,7 @@ const Search = ({navigation}) => {
         </TouchableOpacity>
       </SafeAreaView>
     );
-  };
+  }
 };
 
 const styles = StyleSheet.create({
