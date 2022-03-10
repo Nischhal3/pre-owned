@@ -81,6 +81,11 @@ Some of the PreOwned views
 
 <img src="/assets/brand/Screenshot1.png" width="250"> <img src="/assets/brand/Screenshot2.png" width="250"> <img src="/assets/brand/Screenshot3.png" width="250">
 
+## Animations used in the app 
+
+<img src="/assets/brand/animations.gif" width="550" height="550">
+## Links to app demo
+
 ## License
 
 [GPL-3.0](https://github.com/Nischhal3/pre-owned/blob/readme/LICENSE.txt) license.
