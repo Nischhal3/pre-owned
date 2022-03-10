@@ -1,5 +1,5 @@
 // Import from react & libraries
-import React, {useState, useEffect}from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -81,7 +81,7 @@ const Explore = ({navigation}) => {
         </ScrollView>
       </SafeAreaView>
     );
-  };
+  }
 };
 
 const styles = StyleSheet.create({
