@@ -162,7 +162,7 @@ const MessageList = ({fileId}) => {
             appearance="ghost"
             style={styles.messageBtn}
           >
-            Total messages {messages.length}
+            View messages
           </Button>
         </Layout>
         <Modal
@@ -326,7 +326,7 @@ const MessageList = ({fileId}) => {
         </Modal>
       </Layout>
     );
-  };
+  }
 };
 
 const styles = StyleSheet.create({
@@ -394,7 +394,7 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
     fontFamily: 'Karla_700Bold',
-    marginVertical: 15
+    marginVertical: 15,
   },
   messagesContainerLandscape: {
     top: 0,
