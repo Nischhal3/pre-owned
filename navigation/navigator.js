@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, useWindowDimensions} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
 
 // Navigation import

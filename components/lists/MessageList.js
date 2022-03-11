@@ -1,6 +1,6 @@
 // import from React
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View, Dimensions} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
@@ -33,10 +33,18 @@ import {MessageSeparator} from '../elements/ItemSeparator';
 import SVGIcon from '../../assets/icons/no-message.svg';
 import {getMessagesByFileId, postMessage} from '../../hooks/MessageHook';
 
+// Import screen orientation
+import screenOrientation from '../../components/screenOrientation';
+
 const MessageList = ({fileId}) => {
   const {user, updateMessage, setUpdateMessage} = useContext(MainContext);
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
+
+  // Screen orientation
+  const [orientation, setOrientation] = useState(
+    screenOrientation.isPortrait() ? 'portrait' : 'landscape'
+  );
 
   // display messages from latest to oldest
   messages.sort((a, b) => a.time_added < b.time_added);
@@ -69,6 +77,9 @@ const MessageList = ({fileId}) => {
   // Fetching message after deleting or adding new
   useEffect(() => {
     fetchMessage();
+    Dimensions.addEventListener('change', () => {
+      setOrientation(screenOrientation.isPortrait() ? 'portrait' : 'landscape');
+    });
   }, [updateMessage]);
 
   // Sending Messageto database
@@ -107,109 +118,215 @@ const MessageList = ({fileId}) => {
     }, [])
   );
 
-  return (
-    <Layout style={styles.container}>
-      <Layout
-        style={{
-          height: 150,
-          backgroundColor: colors.primary,
-          marginBottom: 20,
-        }}
-      >
-        <Controller
-          control={control}
-          render={({field: {onChange, onBlur, value}}) => (
-            <FormInput
-              style={styles.commentBox}
-              // iconName="text-outline"
-              name="Leave sender a message"
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
-              textEntry={false}
-              multiline={true}
-              textStyle={{minHeight: 72}}
-              align="top"
-            />
-          )}
-          name="message"
-        />
-        {errors.message && (
-          <Text status="danger">
-            {errors.message && errors.message.message}{' '}
-          </Text>
-        )}
-        <FormButton
-          style={styles.sendBtn}
-          text="Send"
-          handleSubmit={handleSubmit}
-          onSubmit={sendMessage}
-        />
-        <Button
-          onPress={() => setVisible(true)}
-          appearance="ghost"
-          style={styles.messageBtn}
+  if (orientation === 'portrait') {
+    return (
+      <Layout style={styles.container}>
+        <Layout
+          style={{
+            height: 150,
+            backgroundColor: colors.primary,
+            marginBottom: 20,
+          }}
         >
-          Total messages {messages.length}
-        </Button>
+          <Controller
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <FormInput
+                style={styles.commentBox}
+                // iconName="text-outline"
+                name="Leave sender a message"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={false}
+                multiline={true}
+                textStyle={{minHeight: 72}}
+                align="top"
+              />
+            )}
+            name="message"
+          />
+          {errors.message && (
+            <Text status="danger">
+              {errors.message && errors.message.message}{' '}
+            </Text>
+          )}
+          <FormButton
+            style={styles.sendBtn}
+            text="Send"
+            handleSubmit={handleSubmit}
+            onSubmit={sendMessage}
+          />
+          <Button
+            onPress={() => setVisible(true)}
+            appearance="ghost"
+            style={styles.messageBtn}
+          >
+            View messages
+          </Button>
+        </Layout>
+        <Modal
+          style={styles.modal}
+          visible={visible}
+          backdropStyle={styles.backdrop}
+          onBackdropPress={() => setVisible(false)}
+        >
+          <AppButton
+            appBtnStyle={styles.returnBtn}
+            onPress={() => setVisible(false)}
+            accessoryLeft={<Icon name="corner-up-left-outline" />}
+          />
+          <View style={styles.boxShadow}>
+            <Shadow>
+              <Card style={styles.messagesContainer}>
+                <Text category="h5" style={styles.title}>
+                  All Messages
+                </Text>
+                {messages.length == 0 ? (
+                  <Layout style={styles.noMessageContainer}>
+                    <SVGIcon width="30" height="30" />
+                    <Text category="s1" style={styles.noMessageText}>
+                      No message to show
+                    </Text>
+                  </Layout>
+                ) : (
+                  <List
+                    data={messages}
+                    style={styles.container}
+                    horizontal={false}
+                    ItemSeparatorComponent={MessageSeparator}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({item}) => (
+                      <ListDetail
+                        showMessages={true}
+                        renderRightActions={() => (
+                          <DeleteAction
+                            message={item}
+                            user={user}
+                            setUpdateMessage={setUpdateMessage}
+                            updateMessage={updateMessage}
+                          />
+                        )}
+                        ItemSeparatorComponent={MessageSeparator}
+                        message={item}
+                        user={user}
+                        setUpdateMessage={setUpdateMessage}
+                        updateMessage={updateMessage}
+                      />
+                    )}
+                  />
+                )}
+              </Card>
+            </Shadow>
+          </View>
+        </Modal>
       </Layout>
-      <Modal
-        style={styles.modal}
-        visible={visible}
-        backdropStyle={styles.backdrop}
-        onBackdropPress={() => setVisible(false)}
-      >
-        <AppButton
-          appBtnStyle={styles.returnBtn}
-          onPress={() => setVisible(false)}
-          accessoryLeft={<Icon name="corner-up-left-outline" />}
-        />
-        <View style={styles.boxShadow}>
-          <Shadow>
-            <Card style={styles.messagesContainer}>
-              <Text category="h5" style={styles.title}>
-                All Messages
-              </Text>
-              {messages.length == 0 ? (
-                <Layout style={styles.noMessageContainer}>
-                  <SVGIcon width="30" height="30" />
-                  <Text category="s1" style={styles.noMessageText}>
-                    No message to show
-                  </Text>
-                </Layout>
-              ) : (
-                <List
-                  data={messages}
-                  style={styles.container}
-                  horizontal={false}
-                  ItemSeparatorComponent={MessageSeparator}
-                  showsHorizontalScrollIndicator={false}
-                  renderItem={({item}) => (
-                    <ListDetail
-                      showMessages={true}
-                      renderRightActions={() => (
-                        <DeleteAction
-                          message={item}
-                          user={user}
-                          setUpdateMessage={setUpdateMessage}
-                          updateMessage={updateMessage}
-                        />
-                      )}
-                      ItemSeparatorComponent={MessageSeparator}
-                      message={item}
-                      user={user}
-                      setUpdateMessage={setUpdateMessage}
-                      updateMessage={updateMessage}
-                    />
-                  )}
-                />
-              )}
-            </Card>
-          </Shadow>
-        </View>
-      </Modal>
-    </Layout>
-  );
+    );
+  } else {
+    return (
+      <Layout style={styles.container}>
+        <Layout
+          style={{
+            height: 150,
+            backgroundColor: colors.primary,
+            marginBottom: 20,
+          }}
+        >
+          <Controller
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <FormInput
+                style={styles.commentBox}
+                // iconName="text-outline"
+                name="Leave sender a message"
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                textEntry={false}
+                multiline={true}
+                textStyle={{minHeight: 72}}
+                align="top"
+              />
+            )}
+            name="message"
+          />
+          {errors.message && (
+            <Text status="danger">
+              {errors.message && errors.message.message}{' '}
+            </Text>
+          )}
+          <FormButton
+            style={styles.sendBtn}
+            text="Send"
+            handleSubmit={handleSubmit}
+            onSubmit={sendMessage}
+          />
+          <Button
+            onPress={() => setVisible(true)}
+            appearance="ghost"
+            style={styles.messageBtn}
+          >
+            Total messages {messages.length}
+          </Button>
+        </Layout>
+        <Modal
+          style={styles.modal}
+          visible={visible}
+          backdropStyle={styles.backdrop}
+          onBackdropPress={() => setVisible(false)}
+        >
+          <AppButton
+            appBtnStyle={styles.returnBtn}
+            onPress={() => setVisible(false)}
+            accessoryLeft={<Icon name="corner-up-left-outline" />}
+          />
+          <View style={styles.boxShadow}>
+            <Shadow>
+              <Card style={styles.messagesContainerLandscape}>
+                <Text category="h5" style={styles.title}>
+                  All Messages
+                </Text>
+                {messages.length == 0 ? (
+                  <Layout style={styles.noMessageContainer}>
+                    <SVGIcon width="30" height="30" />
+                    <Text category="s1" style={styles.noMessageText}>
+                      No message to show
+                    </Text>
+                  </Layout>
+                ) : (
+                  <List
+                    data={messages}
+                    style={styles.container}
+                    horizontal={false}
+                    ItemSeparatorComponent={MessageSeparator}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({item}) => (
+                      <ListDetail
+                        showMessages={true}
+                        renderRightActions={() => (
+                          <DeleteAction
+                            message={item}
+                            user={user}
+                            setUpdateMessage={setUpdateMessage}
+                            updateMessage={updateMessage}
+                          />
+                        )}
+                        ItemSeparatorComponent={MessageSeparator}
+                        message={item}
+                        user={user}
+                        setUpdateMessage={setUpdateMessage}
+                        updateMessage={updateMessage}
+                      />
+                    )}
+                  />
+                )}
+              </Card>
+            </Shadow>
+          </View>
+        </Modal>
+      </Layout>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -274,8 +391,19 @@ const styles = StyleSheet.create({
     marginTop: -10,
     alignSelf: 'flex-start',
   },
-
-  title: {alignSelf: 'center', fontFamily: 'Karla_700Bold', marginVertical: 15},
+  title: {
+    alignSelf: 'center',
+    fontFamily: 'Karla_700Bold',
+    marginVertical: 15,
+  },
+  messagesContainerLandscape: {
+    top: 0,
+    borderRadius: 40,
+    alignSelf: 'center',
+    height: 350,
+    backgroundColor: colors.primary,
+    width: '98%',
+  },
 });
 
 MessageList.propTypes = {

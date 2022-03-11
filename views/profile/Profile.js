@@ -1,6 +1,6 @@
 // Import from React and library
 import React, {useContext, useEffect, useState} from 'react';
-import {Image, StyleSheet, ActivityIndicator} from 'react-native';
+import {Image, StyleSheet, ActivityIndicator, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Import from UI Kitten library
@@ -21,6 +21,9 @@ import {getUserById} from '../../hooks/ApiHooks';
 // components import
 import {ProfileSeparator} from '../../components/elements/ItemSeparator';
 
+// Import screen orientation
+import screenOrientation from '../../components/screenOrientation';
+
 const Profile = ({route}) => {
   const uploadDefaultUri = Image.resolveAssetSource(assetAvatar).uri;
   const {user, updateAvatar} = useContext(MainContext);
@@ -28,6 +31,11 @@ const Profile = ({route}) => {
   const userIdParam = route.params?.profileParam ?? user.user_id;
   const [userProfile, setUserProfile] = useState({});
   const {mediaArray} = useMedia();
+
+  // Screen orientation
+  const [orientation, setOrientation] = useState(
+  screenOrientation.isPortrait() ? 'portrait' : 'landscape'
+  );
 
   // Fetching avatar
   const fetchAvatar = async () => {
@@ -63,43 +71,93 @@ const Profile = ({route}) => {
 
   useEffect(() => {
     fetchAvatar();
+    Dimensions.addEventListener('change', () => {
+      setOrientation(screenOrientation.isPortrait() ? 'portrait' : 'landscape');
+    });
   }, [updateAvatar]);
 
-  return (
-    <Layout style={styles.container}>
-      <Image
-        style={styles.backgroundImg}
-        source={require('../../assets/backgrounds/profile_background.png')}
-        PlaceholderContent={<ActivityIndicator />}
-      />
-      <Layout style={styles.profileWrapper}>
-        <Avatar style={styles.avatar} source={{uri: avatar}} shape="round" />
-        <Text style={styles.username}>{userProfile.username}</Text>
-        <ProfileSeparator />
-        <Text style={styles.bio}>Bio</Text>
-        {userProfile.full_name ? (
-          <Text style={styles.description}>{userProfile.full_name}</Text>
-        ) : (
-          <Text style={styles.description}>{'Nothing to say'}</Text>
-        )}
-        <ProfileSeparator />
-      </Layout>
+  if (orientation === 'portrait') {
+    return (
+      <Layout style={styles.container}>
+        <Image
+          style={styles.backgroundImg}
+          source={require('../../assets/backgrounds/profile_background.png')}
+          PlaceholderContent={<ActivityIndicator />}
+        />
+        <Layout style={styles.profileWrapper}>
+          <Avatar style={styles.avatar} source={{uri: avatar}} shape="round" />
+          <Text style={styles.username}>{userProfile.username}</Text>
+          <ProfileSeparator />
+          <Text style={styles.bio}>Bio</Text>
+          {userProfile.full_name ? (
+            <Text style={styles.description}>{userProfile.full_name}</Text>
+          ) : (
+            <Text style={styles.description}>{'Nothing to say'}</Text>
+          )}
+          <ProfileSeparator />
+        </Layout>
 
-      <Layout style={styles.statisticsWrapper}>
-        <Text style={styles.activity}>Activity</Text>
-        <Layout style={styles.icons}>
-          <BoxIcon width="90" height="90" />
-          <HeartIcon width="90" height="90" />
-          <BubbleIcon width="90" height="90" />
-        </Layout>
-        <Layout style={styles.statisticsView}>
-          <Text style={styles.numbers}>{myPosts.length}</Text>
-          <Text style={styles.numbers}>{myFavourites.length}</Text>
-          <Text style={styles.numbers}>{myMessages.length}</Text>
+        <Layout style={styles.statisticsWrapper}>
+          <Text style={styles.activity}>Activity</Text>
+          <Layout style={styles.hintContainer}>
+            <Text style={styles.hint}>Published</Text>
+            <Text style={styles.hint}>Liked</Text>
+            <Text style={styles.hint}>Commented</Text>
+          </Layout>
+          <Layout style={styles.icons}>
+            <BoxIcon width="90" height="90" />
+            <HeartIcon width="90" height="90" />
+            <BubbleIcon width="90" height="90" />
+          </Layout>
+          <Layout style={styles.statisticsView}>
+            <Text style={styles.numbers}>{myPosts.length}</Text>
+            <Text style={styles.numbers}>{myFavourites.length}</Text>
+            <Text style={styles.numbers}>{myMessages.length}</Text>
+          </Layout>
         </Layout>
       </Layout>
-    </Layout>
-  );
+    );
+  } else {
+    return (
+      <Layout style={styles.containerLandscape}>
+        <Layout style={styles.profileWrapperLandscape}>
+          <Image
+            style={styles.backgroundImg}
+            source={require('../../assets/backgrounds/profile_background.png')}
+            PlaceholderContent={<ActivityIndicator />}
+          />
+          <Avatar style={styles.avatarLandscape} source={{uri: avatar}} shape="round" />
+          <Text style={styles.usernameLandscape}>{userProfile.username}</Text>
+          <ProfileSeparator />
+          <Text style={styles.bioLandscape}>Bio</Text>
+          {userProfile.full_name ? (
+            <Text style={styles.descriptionLandscape}>{userProfile.full_name}</Text>
+          ) : (
+            <Text style={styles.descriptionLandscape}>{'Nothing to say'}</Text>
+          )}
+        </Layout>
+
+        <Layout style={styles.statisticsWrapperLandscape}>
+          <Text style={styles.activity}>Activity</Text>
+          <Layout style={styles.hintContainer}>
+            <Text style={styles.hint}>Published</Text>
+            <Text style={styles.hint}>Liked</Text>
+            <Text style={styles.hint}>Commented</Text>
+          </Layout>
+          <Layout style={styles.icons}>
+            <BoxIcon width="90" height="90" />
+            <HeartIcon width="90" height="90" />
+            <BubbleIcon width="90" height="90" />
+          </Layout>
+          <Layout style={styles.statisticsView}>
+            <Text style={styles.numbers}>{myPosts.length}</Text>
+            <Text style={styles.numbers}>{myFavourites.length}</Text>
+            <Text style={styles.numbers}>{myMessages.length}</Text>
+          </Layout>
+        </Layout>
+      </Layout>
+    );
+  };
 };
 const styles = StyleSheet.create({
   container: {
@@ -170,6 +228,62 @@ const styles = StyleSheet.create({
   numbers: {
     marginHorizontal: '10%',
     fontFamily: 'Karla_700Bold',
+  },
+  hintContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: colors.background,
+    marginBottom: -16,
+    marginStart: '2%',
+  },
+  hint: {
+    marginHorizontal: '10%',
+    fontFamily: 'Karla_400Regular',
+    fontSize: 12,
+  },
+  containerLandscape: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: colors.background,
+  },
+  profileWrapperLandscape: {
+    width: '50%',
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+  },
+  avatarLandscape: {
+    width: 100,
+    height: 100,
+    borderColor: colors.background,
+    borderWidth: 4,
+    position: 'absolute',
+    top: '10%',
+  },
+  usernameLandscape: {
+    marginTop: '35%',
+    marginBottom: -10,
+    fontSize: 24,
+    fontFamily: 'Karla_700Bold',
+    color: colors.text_dark,
+  },
+  bioLandscape: {
+    marginTop: '2%',
+    fontSize: 20,
+    fontFamily: 'Karla_700Bold',
+    color: colors.text_dark,
+  },
+  descriptionLandscape: {
+    fontSize: 16,
+    textAlign: 'center',
+    maxWidth: '80%',
+    fontFamily: 'Karla_400Regular',
+    color: colors.text_dark,
+  },
+  statisticsWrapperLandscape: {
+    width: '50%',
+    flexDirection: 'column',
+    backgroundColor: colors.background,
   },
 });
 

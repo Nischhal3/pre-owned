@@ -1,5 +1,5 @@
-import React, {useContext, useEffect} from 'react';
-import {StyleSheet} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {StyleSheet, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 
 // Lottie animation
@@ -17,7 +17,14 @@ import {getUserByToken} from '../hooks/ApiHooks';
 // components import
 import {AppButton} from '../components/elements/AppButton';
 
+// Import screen orientation
+import screenOrientation from '../components/screenOrientation';
+
 const WelcomeScreen = ({navigation}) => {
+  // Screen orientation
+  const [orientation, setOrientation] = useState(
+    screenOrientation.isPortrait() ? 'portrait' : 'landscape'
+  );
   const animation = React.createRef(); // animation
   const {setIsLoggedIn, setUser, setFormToggle} = useContext(MainContext);
 
@@ -38,34 +45,54 @@ const WelcomeScreen = ({navigation}) => {
   useEffect(() => {
     checkToken();
     animation.current?.play();
+    Dimensions.addEventListener('change', () => {
+      setOrientation(screenOrientation.isPortrait() ? 'portrait' : 'landscape');
+    });
   }, []);
 
-  return (
-    <Layout style={styles.inner}>
-      <LottieView
-        ref={animation}
-        source={require('../assets/brand/animation.json')}
-        loop={false}
-      />
-      <Layout style={styles.btnContainter}>
-        <AppButton
-          title="Continue"
-          onPress={() => {
-            setFormToggle(false);
-            navigation.navigate('Login');
-          }}
+  if (orientation === 'portrait') {
+    return (
+      <Layout style={styles.inner}>
+        <LottieView
+          ref={animation}
+          source={require('../assets/brand/animation.json')}
+          loop={false}
         />
+        <Layout style={styles.btnContainter}>
+          <AppButton
+            title="Continue"
+            onPress={() => {
+              setFormToggle(false);
+              navigation.navigate('Login');
+            }}
+          />
+        </Layout>
       </Layout>
-    </Layout>
-  );
+    );
+  } else {
+    return (
+      <Layout style={styles.innerLandscape}>
+        <LottieView
+          ref={animation}
+          source={require('../assets/brand/animation.json')}
+          loop={false}
+        />
+        <Layout style={styles.btnContainterLandscape}>
+          <AppButton
+            appBtnStyle={styles.btnLandscape}
+            title="Continue"
+            onPress={() => {
+              setFormToggle(false);
+              navigation.navigate('Login');
+            }}
+          />
+        </Layout>
+      </Layout>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
   btnContainter: {
     backgroundColor: 'transparent',
     alignSelf: 'center',
@@ -77,6 +104,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  innerLandscape: {
+    height: '130%',
+    backgroundColor: colors.primary,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  btnContainterLandscape: {
+    backgroundColor: 'transparent',
+    marginBottom: 110,
+  },
+  btnLandscape: {
+    width: 130,
   },
 });
 

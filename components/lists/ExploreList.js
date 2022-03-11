@@ -62,6 +62,34 @@ const GalleryListVertical = ({navigation}) => {
   );
 };
 
+// Return a vertical gallery list
+const GalleryListVerticalLandscape = ({navigation}) => {
+  const {mediaArray} = useMedia();
+  mediaArray.sort((a, b) => a.favCount < b.favCount);
+  const showFirstFive = mediaArray.slice(0, 5);
+
+  return (
+    <List
+      style={{backgroundColor: colors.background}}
+      data={showFirstFive}
+      contentContainerStyle={{
+        alignItems: 'center',
+        paddingEnd: 30,
+        marginStart: 20,
+      }}
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      renderItem={({item}) => (
+        <GalleryItemVertical
+          navigation={navigation}
+          singleItem={item}
+          displayText={false}
+        />
+      )}
+    ></List>
+  );
+};
+
 GalleryListHorizontal.propTypes = {
   navigation: PropTypes.object,
 };
@@ -70,4 +98,8 @@ GalleryListVertical.propTypes = {
   navigation: PropTypes.object,
 };
 
-export {GalleryListHorizontal, GalleryListVertical};
+GalleryListVerticalLandscape.propTypes = {
+  navigation: PropTypes.object,
+};
+
+export {GalleryListHorizontal, GalleryListVertical, GalleryListVerticalLandscape};
