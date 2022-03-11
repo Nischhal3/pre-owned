@@ -133,7 +133,6 @@ const MessageList = ({fileId}) => {
             render={({field: {onChange, onBlur, value}}) => (
               <FormInput
                 style={styles.commentBox}
-                // iconName="text-outline"
                 name="Leave sender a message"
                 onBlur={onBlur}
                 onChange={onChange}
@@ -237,7 +236,6 @@ const MessageList = ({fileId}) => {
             render={({field: {onChange, onBlur, value}}) => (
               <FormInput
                 style={styles.commentBox}
-                // iconName="text-outline"
                 name="Leave sender a message"
                 onBlur={onBlur}
                 onChange={onChange}
