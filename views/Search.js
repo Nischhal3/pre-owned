@@ -410,23 +410,18 @@ const Search = ({navigation}) => {
               </ListItem>
 
               {categoryTitle === '' ? (
-                <AppButton
-                  title="No filter set"
-                  appBtnStyle={{
-                    width: '40%',
-                    height: 50,
-                    alignSelf: 'center',
-                  }}
-                  onPress={reset}
-                />
+                <Text>{}</Text>
               ) : (
                 <AppButton
                   title={`${categoryTitle}`}
                   accessoryRight={<Icon name="close" />}
                   appBtnStyle={{
+                    marginTop: '-2%',
                     width: '40%',
-                    height: 50,
+                    height: '5%',
                     alignSelf: 'center',
+                    paddingVertical: '2%',
+                    paddingHorizontal: '5%',
                   }}
                   onPress={reset}
                 />
